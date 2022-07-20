@@ -1,21 +1,30 @@
 import 'package:time/time.dart';
+import 'package:intl/intl.dart';
 
 import 'enums.dart';
 
-extension AddWorkDays on DateTime {
+extension AddDays on DateTime {
   bool get isWeekend => Weekday.fromDateTime(weekday).weekend;
 
   bool get isWorkDay => !isWeekend;
 
   DateTime addDays(int days, {required Iterable<Weekday> ignoring}) {
+    final ignoreSet = ignoring.toSet();
+    assert(
+      ignoreSet.length < Weekday.values.length,
+      'Too many ignore days, will skip forever',
+    );
     final day = Weekday.fromDateTime(weekday);
-    if (!ignoring.contains(day) && (days == 0)) return this;
+    if (!ignoreSet.contains(day) && (days == 0)) return this;
     final dayToAdd = (days.isNegative ? -1 : 1).days;
-    final set = days.isNegative ? ignoring.daysAfter : ignoring.daysBefore;
+    final set = days.isNegative ? ignoreSet.daysAfter : ignoreSet.daysBefore;
     if (!set.contains(day)) {
-      return add(dayToAdd).addWorkDays(days.isNegative ? days + 1 : days - 1);
+      return add(dayToAdd).addDays(
+        days.isNegative ? days + 1 : days - 1,
+        ignoring: ignoreSet,
+      );
     } else {
-      return add(dayToAdd).addWorkDays(days);
+      return add(dayToAdd).addDays(days, ignoring: ignoreSet);
     }
   }
 

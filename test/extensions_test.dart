@@ -1,85 +1,114 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
+import 'package:time/time.dart';
 
 void main() {
-  group('Weekday:', () {
-    group('Throw on factory outside of range:', () {
-      test('Value below 1', () {
-        expect(() => Weekday.fromDateTime(0), throwsRangeError);
+  group('AddDays on DateTime:', () {
+    group('Is weekend:', () {
+      test('Saturday', () {
+        expect(DateTime(2022, DateTime.july, 23).isWeekend, isTrue);
       });
-      test('Value above 7', () {
-        expect(() => Weekday.fromDateTime(8), throwsRangeError);
+      test('Sunday', () {
+        expect(DateTime(2022, DateTime.july, 24).isWeekend, isTrue);
       });
     });
-    group('Previous:', () {
-      for (final weekday in Weekday.values) {
-        test(weekday.name, () {
-          if (weekday != Weekday.monday) {
-            expect(weekday.previous, Weekday.fromDateTime(weekday.weekday - 1));
-          } else {
-            expect(weekday.previous, Weekday.sunday);
-          }
+    group('Is workday:', () {
+      final monday = DateTime.utc(2022, DateTime.july, 18);
+      final friday = DateTime.utc(2022, DateTime.july, 22);
+      for (final weekday in monday.to(friday, by: const Duration(days: 1))) {
+        test(Weekday.fromDateTime(weekday.weekday).name, () {
+          expect(weekday.isWorkDay, isTrue);
         });
       }
     });
-    group('Next:', () {
-      for (final weekday in Weekday.values) {
-        test(weekday.name, () {
-          if (weekday != Weekday.sunday) {
-            expect(weekday.next, Weekday.fromDateTime(weekday.weekday + 1));
-          } else {
-            expect(weekday.next, Weekday.monday);
-          }
+    group('Add/Subtract Days:', () {
+      final monday = DateTime.utc(2022, DateTime.july, 18);
+      group('Assert won\'t skip all days', () {
+        final allWeek = Weekday.values;
+        test('Add ignoring all weekdays', () {
+          expect(
+            () => monday.addDays(1, ignoring: allWeek),
+            throwsA(isA<AssertionError>()),
+          );
         });
-      }
-    });
-    group('WeekendDays:', () {
-      final set = {Weekday.saturday, Weekday.sunday};
-      test('Contains $set', () {
-        expect(
-          Weekday.weekendDays,
-          containsAllInOrder(set),
-        );
+        test('Subtract ignoring all weekdays', () {
+          expect(
+            () => monday.subtractDays(1, ignoring: allWeek),
+            throwsA(isA<AssertionError>()),
+          );
+        });
       });
-      test('Is ${set.runtimeType}', () {
-        expect(
-          Weekday.weekendDays,
-          isA<Set<Weekday>>(),
-        );
+      group('Add Days:', () {
+        final matcher = DateTime.utc(2022, DateTime.july, 25);
+        test('Ignoring Tuesdays', () {
+          final result = monday.addDays(6, ignoring: [Weekday.tuesday]);
+          expect(result, equals(matcher));
+        });
+        test('Ignoring weekend', () {
+          final result = monday.addWorkDays(5);
+          expect(result, equals(matcher));
+        });
+      });
+      group('Subtract Days:', () {
+        final matcher = DateTime.utc(2022, DateTime.july, 11);
+        test('Ignoring Tuesdays', () {
+          final result = monday.subtractDays(6, ignoring: [Weekday.tuesday]);
+          expect(result, equals(matcher));
+        });
+        test('Ignoring weekend', () {
+          final result = monday.subtractWorkDays(5);
+          expect(result, equals(matcher));
+        });
       });
     });
   });
-  group('Month:', () {
-    group('Throw on factory outside of range:', () {
-      test('Value below 1', () {
-        expect(() => Month.fromDateTime(0), throwsRangeError);
+  group('PreviousNext on Iterable of Weekday:', () {
+    final entireWeek = <Weekday>[...Weekday.values];
+    group('daysBefore:', () {
+      group('single:', () {
+        for (final weekday in Weekday.values) {
+          final macther = [weekday.previous];
+          final result = [weekday].daysBefore;
+          test(
+            weekday.name,
+            () => expect(result, containsAll(macther)),
+          );
+        }
       });
-      test('Value above 12', () {
-        expect(() => Month.fromDateTime(13), throwsRangeError);
+      group('multiple:', () {
+        for (final weekday in Weekday.values) {
+          final macther = {...entireWeek}..remove(weekday.previous);
+          final iterable = [...entireWeek];
+          iterable.remove(weekday);
+          test(
+            'all but ${weekday.name}',
+            () => expect(iterable.daysBefore, containsAll(macther)),
+          );
+        }
       });
     });
-    group('Previous:', () {
-      for (final month in Month.values) {
-        test(month.name, () {
-          if (month != Month.january) {
-            expect(month.previous, Month.fromDateTime(month.month - 1));
-          } else {
-            expect(month.previous, Month.december);
-          }
-        });
-      }
-    });
-    group('Next:', () {
-      for (final month in Month.values) {
-        test(month.name, () {
-          if (month != Month.december) {
-            expect(month.next, Month.fromDateTime(month.month + 1));
-          } else {
-            expect(month.next, Month.january);
-          }
-        });
-      }
+    group('daysAfter:', () {
+      group('single:', () {
+        for (final weekday in Weekday.values) {
+          final macther = {weekday.next};
+          test(
+            weekday.next,
+            () => expect([weekday].daysAfter, equals(macther)),
+          );
+        }
+      });
+      group('multiple:', () {
+        for (final weekday in Weekday.values) {
+          final macther = {...entireWeek}..remove(weekday.next);
+          final iterable = [...entireWeek];
+          iterable.remove(weekday);
+          test(
+            'all but ${weekday.name}',
+            () => expect(iterable.daysAfter, containsAll(macther)),
+          );
+        }
+      });
     });
   });
 }
