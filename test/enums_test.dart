@@ -81,5 +81,12 @@ void main() {
         });
       }
     });
+    test('July Of 2022', () {
+      const year = 2022;
+      const month = Month.july;
+
+      final matcher = DateTime(year, DateTime.july);
+      expect(month.of(year), matcher);
+    });
   });
 }

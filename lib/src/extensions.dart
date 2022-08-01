@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import 'enums.dart';
+import '../due_date.dart';
 
 extension AddDays on DateTime {
   bool get isWeekend => Weekday.fromDateTime(weekday).weekend;
@@ -37,6 +37,21 @@ extension AddDays on DateTime {
 
   DateTime subtractWorkDays(int days) {
     return subtractDays(days, ignoring: Weekday.weekendDays);
+  }
+}
+
+extension ClmapInMonth on DateTime {
+  DueDateTime get dueDateTime => DueDateTime.fromDate(this);
+  DueDateTime get nextMonth => dueDateTime.nextMonth;
+  DueDateTime get previousMonth => dueDateTime.previousMonth;
+  DueDateTime addMonths(int months) => dueDateTime.addMonths(months);
+  DueDateTime subtractMonths(int months) => dueDateTime.subtractMonths(months);
+
+
+  DateTime clampInMonth(DateTime month) {
+    final monthStart = month.firstDayOfMonth;
+    final monthEnd = monthStart.lastDayOfMonth;
+    return clamp(min: monthStart, max: monthEnd);
   }
 }
 

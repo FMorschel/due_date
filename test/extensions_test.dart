@@ -63,6 +63,29 @@ void main() {
       });
     });
   });
+  group('ClampInMonth on DateTime:', () {
+    final date = DateTime.utc(2022, DateTime.july, 11);
+    final july = DateTime.utc(2022, DateTime.july);
+    test('PreviousMonth', () {
+      expect(july.previousMonth, equals(DateTime.utc(2022, DateTime.june)));
+    });
+    test('NextMonth', () {
+      expect(july.nextMonth, equals(DateTime.utc(2022, DateTime.august)));
+    });
+    group('Clamp in month', () {
+      test('Previous month', () {
+        final june = july.previousMonth;
+        expect(date.clampInMonth(june), equals(june.lastDayOfMonth));
+      });
+      test('Current month', () {
+        expect(date.clampInMonth(july), equals(date));
+      });
+      test('Next month', () {
+        final august = july.nextMonth;
+        expect(date.clampInMonth(august), equals(august));
+      });
+    });
+  });
   group('PreviousNext on Iterable of Weekday:', () {
     final entireWeek = <Weekday>[...Weekday.values];
     group('daysBefore:', () {

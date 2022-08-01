@@ -104,6 +104,8 @@ enum Month {
 
   final int month;
 
+  DateTime of(int year) => DateTime(year, month);
+
   Month get previous {
     if (month != january.month) {
       return Month.fromDateTime(month - 1);
