@@ -9,60 +9,6 @@ analyzer:
   errors:
     missing_required_param: error
 
-dart_code_metrics:
-  rules:
-    - double-literal-format
-    - format-comment
-    - member-ordering-extended:
-        alphabetize: false
-        order:
-          - constructors
-          - named-constructors
-          - factory-constructors
-          - static-getters-setters
-          - static-const-public-fields
-          - static-const-private-fields
-          - static-final-public-fields
-          - static-final-private-fields
-          - static-late-final-public-fields
-          - static-late-final-private-fields
-          - static-late-public-fields
-          - static-late-private-fields
-          - static-public-fields
-          - static-private-fields
-          - const-public-fields
-          - const-private-fields
-          - final-public-fields
-          - final-private-fields
-          - late-final-public-fields
-          - late-final-private-fields
-          - late-public-fields
-          - late-private-fields
-          - public-fields
-          - private-fields
-          - overridden-public-fields
-          - overriden-public-methods
-          - static-public-methods
-          - static-private-methods
-          - public-methods
-          - private-methods
-          - getters-setters
-    - prefer-commenting-analyzer-ignores
-    - prefer-first
-    - prefer-immediate-return
-    - prefer-last
-
-    - always-remove-listener
-    - avoid-border-all
-    - avoid-returning-widgets:
-        ignored-names:
-          - testFunction
-        ignored-annotations:
-          - allowedAnnotation
-    - avoid-unnecessary-setstate
-    - avoid-wrapping-in-padding
-    - prefer-const-border-radius
-
 linter:
   rules:
     always_declare_return_types: true
@@ -135,3 +81,57 @@ linter:
     use_test_throws_matchers: true
     use_to_and_as_if_applicable: true
     void_checks: true
+
+dart_code_metrics:
+  rules:
+    - always-remove-listener
+    - avoid-border-all
+    - avoid-returning-widgets:
+        ignored-names:
+          - testFunction
+        ignored-annotations:
+          - allowedAnnotation
+    - avoid-unnecessary-setstate
+    - avoid-wrapping-in-padding
+    - prefer-const-border-radius
+
+    - double-literal-format
+    - format-comment
+    - prefer-commenting-analyzer-ignores
+    - prefer-first
+    - prefer-immediate-return
+    - prefer-last
+    - member-ordering-extended:
+        alphabetize: false
+        order:
+          - constructors
+          - named-constructors
+          - factory-constructors
+          - static-getters-setters
+          - static-const-public-fields
+          - static-const-private-fields
+          - static-final-public-fields
+          - static-final-private-fields
+          - static-late-final-public-fields
+          - static-late-final-private-fields
+          - static-late-public-fields
+          - static-late-private-fields
+          - static-public-fields
+          - static-private-fields
+          - const-public-fields
+          - const-private-fields
+          - final-public-fields
+          - final-private-fields
+          - late-final-public-fields
+          - late-final-private-fields
+          - late-public-fields
+          - late-private-fields
+          - public-fields
+          - private-fields
+          - overridden-public-fields
+          - overriden-public-methods
+          - static-public-methods
+          - static-private-methods
+          - public-methods
+          - private-methods
+          - getters-setters
