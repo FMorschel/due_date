@@ -331,7 +331,7 @@ class DueDateTime extends DateTime {
   DueDateTime get nextWeek => addWeeks(1);
   DueDateTime get nextMonth => addMonths(1);
   DueDateTime get nextYear => addMonths(12);
-  
+
   DueDateTime get previousWeek => subtractWeeks(1);
   DueDateTime get previousMonth => subtractMonths(1);
   DueDateTime get previousYear => subtractMonths(12);

@@ -1,3 +1,5 @@
+import 'package:time/time.dart';
+
 /// Weekday constants that are returned by [DateTime.weekday] method.
 enum Weekday {
   monday(DateTime.monday),
@@ -8,7 +10,7 @@ enum Weekday {
   saturday(DateTime.saturday, weekend: true),
   sunday(DateTime.sunday, weekend: true);
 
-  const Weekday(this.weekday, {this.weekend = false});
+  const Weekday(this.dateTimeValue, {this.weekend = false});
 
   factory Weekday.fromDateTime(int weekday) {
     if (weekday == DateTime.monday) {
@@ -30,21 +32,21 @@ enum Weekday {
     }
   }
 
-  final int weekday;
+  final int dateTimeValue;
   final bool weekend;
   bool get workDay => !weekend;
 
   Weekday get previous {
-    if (weekday != monday.weekday) {
-      return Weekday.fromDateTime(weekday - 1);
+    if (dateTimeValue != monday.dateTimeValue) {
+      return Weekday.fromDateTime(dateTimeValue - 1);
     } else {
       return sunday;
     }
   }
 
   Weekday get next {
-    if (weekday != sunday.weekday) {
-      return Weekday.fromDateTime(weekday + 1);
+    if (dateTimeValue != sunday.dateTimeValue) {
+      return Weekday.fromDateTime(dateTimeValue + 1);
     } else {
       return monday;
     }
@@ -70,7 +72,7 @@ enum Month {
   november(DateTime.november),
   december(DateTime.december);
 
-  const Month(this.month);
+  const Month(this.dateTimeValue);
 
   factory Month.fromDateTime(int month) {
     if (month == DateTime.january) {
@@ -102,23 +104,56 @@ enum Month {
     }
   }
 
-  final int month;
+  final int dateTimeValue;
 
-  DateTime of(int year) => DateTime(year, month);
+  DateTime of(int year) => DateTime.utc(year, dateTimeValue);
+  DateTime lastDayOfAt(int year) =>
+      DateTime.utc(year, dateTimeValue).lastDayOfMonth;
 
   Month get previous {
-    if (month != january.month) {
-      return Month.fromDateTime(month - 1);
+    if (dateTimeValue != january.dateTimeValue) {
+      return Month.fromDateTime(dateTimeValue - 1);
     } else {
       return december;
     }
   }
 
   Month get next {
-    if (month != december.month) {
-      return Month.fromDateTime(month + 1);
+    if (dateTimeValue != december.dateTimeValue) {
+      return Month.fromDateTime(dateTimeValue + 1);
     } else {
       return january;
+    }
+  }
+}
+
+enum Week {
+  first,
+  second,
+  third,
+  fourth,
+  last;
+
+  /// Returns the first day (just as [DateTime], is Monday) of the week of the
+  /// selected week for the given [year] and [month].
+  DateTime weekOf(int year, int month) {
+    final firstDayOfMonth = DateTime.utc(year, month);
+    switch (this) {
+      case first:
+        return firstDayOfMonth.firstDayOfWeek;
+      case second:
+        return DateTime.utc(year, month, 8).firstDayOfWeek;
+      case third:
+        return DateTime.utc(year, month, 15).firstDayOfWeek;
+      case fourth:
+        return DateTime.utc(year, month, 22).firstDayOfWeek;
+      case last:
+        final fourthWeek = fourth.weekOf(year, month);
+        if (fourthWeek.lastDayOfWeek.isBefore(firstDayOfMonth.lastDayOfMonth)) {
+          return DateTime.utc(year, month).lastDayOfMonth.firstDayOfWeek;
+        } else {
+          return fourthWeek;
+        }
     }
   }
 }

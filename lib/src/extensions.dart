@@ -40,13 +40,16 @@ extension AddDays on DateTime {
   }
 }
 
-extension ClmapInMonth on DateTime {
+extension ClampInMonth on DateTime {
   DueDateTime get dueDateTime => DueDateTime.fromDate(this);
   DueDateTime get nextMonth => dueDateTime.nextMonth;
   DueDateTime get previousMonth => dueDateTime.previousMonth;
   DueDateTime addMonths(int months) => dueDateTime.addMonths(months);
   DueDateTime subtractMonths(int months) => dueDateTime.subtractMonths(months);
 
+  DateTime startOfWeek(Week selected) {
+    return selected.weekOf(year, month);
+  }
 
   DateTime clampInMonth(DateTime month) {
     final monthStart = month.firstDayOfMonth;

@@ -64,6 +64,39 @@ void main() {
     });
   });
   group('ClampInMonth on DateTime:', () {
+    group('Start of week:', () {
+      final august = DateTime(2022, DateTime.august);
+      test('First week', () {
+        expect(
+          august.startOfWeek(Week.first),
+          equals(DateTime.utc(2022, DateTime.august)),
+        );
+      });
+      test('Second week', () {
+        expect(
+          august.startOfWeek(Week.second),
+          equals(DateTime.utc(2022, DateTime.august, 8)),
+        );
+      });
+      test('Third week', () {
+        expect(
+          august.startOfWeek(Week.third),
+          equals(DateTime.utc(2022, DateTime.august, 15)),
+        );
+      });
+      test('Fourth week', () {
+        expect(
+          august.startOfWeek(Week.fourth),
+          equals(DateTime.utc(2022, DateTime.august, 22)),
+        );
+      });
+      test('Last week', () {
+        expect(
+          august.startOfWeek(Week.last),
+          equals(DateTime.utc(2022, DateTime.august, 29)),
+        );
+      });
+    });
     final date = DateTime.utc(2022, DateTime.july, 11);
     final july = DateTime.utc(2022, DateTime.july);
     test('PreviousMonth', () {
