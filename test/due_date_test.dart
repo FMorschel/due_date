@@ -1,74 +1,113 @@
 import 'package:due_date/due_date.dart';
+import 'package:due_date/src/every.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Constructors: ', () {
+  const dueDay15 = EveryDueDayMonth(15);
+  group('Constructors:', () {
     const year = 2022;
-    const dueDay = 30;
+    const dueDay30 = EveryDueDayMonth(30);
     group('Unnamed:', () {
-      final matcher = DateTime(year, 2, 28);
-      test('Month start', () {
-        expect(
-          DueDateTime(dueDay: dueDay, year: year, month: 2),
-          equals(matcher),
-        );
+      group('EveryDueDay:', () {
+        final matcher = DateTime(year, 2, 28);
+        test('Month start', () {
+          expect(
+            DueDateTime(every: dueDay30, year: year, month: 2),
+            equals(matcher),
+          );
+        });
+        test('Fits in month', () {
+          final matcherFitted = DateTime(year, 2, 15);
+          expect(
+            DueDateTime(every: dueDay15, year: year, month: 2),
+            equals(matcherFitted),
+          );
+        });
+        test('Midlle of the month', () {
+          expect(
+            DueDateTime(every: dueDay30, year: year, month: 2, day: 15),
+            equals(matcher),
+          );
+        });
+        test('Previous month end', () {
+          expect(
+            DueDateTime(every: dueDay30, year: year, month: 1, day: 31),
+            equals(matcher),
+          );
+        });
+        test('Not UTC', () {
+          expect(
+            DueDateTime(every: dueDay30, year: year).isUtc,
+            isFalse,
+          );
+        });
       });
-      test('Fits in month', () {
-        final matcherFitted = DateTime(year, 2, 15);
-        expect(
-          DueDateTime(dueDay: 15, year: year, month: 2),
-          equals(matcherFitted),
-        );
-      });
-      test('Midlle of the month', () {
-        expect(
-          DueDateTime(dueDay: dueDay, year: year, month: 2, day: 15),
-          equals(matcher),
-        );
-      });
-      test('Previous month end', () {
-        expect(
-          DueDateTime(dueDay: dueDay, year: year, month: 1, day: 31),
-          equals(matcher),
-        );
-      });
-      test('Not UTC', () {
-        expect(
-          DueDateTime(dueDay: dueDay, year: year).isUtc,
-          isFalse,
-        );
+      group('EveryDayOfWeek:', () {
+        const lastMonday =
+            EveryDayOfWeekInMonth(day: Weekday.monday, week: Week.last);
+        final matcher = DateTime(year, 2, 28);
+        test('Month start', () {
+          expect(
+            DueDateTime(every: lastMonday, year: year, month: 2),
+            equals(matcher),
+          );
+        });
+        group('Midlle of the month:', () {
+          test('First Friday', () {
+            final firstFirday = EveryDayOfWeekInMonth(
+              week: Week.first,
+              day: Weekday.friday,
+            );
+            expect(
+              DueDateTime(every: firstFirday, year: year, month: 2, day: 15),
+              equals(DateTime(year, 3, 4)),
+            );
+          });
+          test('Last Monday', () {
+            expect(
+              DueDateTime(every: lastMonday, year: year, month: 2, day: 15),
+              equals(matcher),
+            );
+          });
+        });
+        test('Not UTC', () {
+          expect(
+            DueDateTime(every: dueDay30, year: year).isUtc,
+            isFalse,
+          );
+        });
       });
     });
     group('UTC:', () {
       final matcher = DateTime.utc(year, 2, 28);
       test('Month start', () {
         expect(
-          DueDateTime.utc(dueDay: dueDay, year: year, month: 2),
+          DueDateTime.utc(every: dueDay30, year: year, month: 2),
           equals(matcher),
         );
       });
       test('Fits in month', () {
         final matcherFitted = DateTime.utc(year, 2, 15);
         expect(
-          DueDateTime.utc(dueDay: 15, year: year, month: 2),
+          DueDateTime.utc(every: dueDay15, year: year, month: 2),
           equals(matcherFitted),
         );
       });
       test('Midlle of the month', () {
         expect(
-          DueDateTime.utc(dueDay: dueDay, year: year, month: 2, day: 15),
+          DueDateTime.utc(every: dueDay30, year: year, month: 2, day: 15),
           equals(matcher),
         );
       });
       test('Previous month end', () {
         expect(
-          DueDateTime.utc(dueDay: dueDay, year: year, month: 1, day: 31),
+          DueDateTime.utc(every: dueDay30, year: year, month: 1, day: 31),
           equals(matcher),
         );
       });
       test('Not UTC', () {
         expect(
-          DueDateTime.utc(dueDay: dueDay, year: year).isUtc,
+          DueDateTime.utc(every: dueDay30, year: year).isUtc,
           isTrue,
         );
       });
@@ -82,7 +121,7 @@ void main() {
         expect(DueDateTime.fromDate(matcher), equals(matcher));
       });
       test('With DueDay', () {
-        expect(DueDateTime.fromDate(matcher, dueDay), equals(matcher));
+        expect(DueDateTime.fromDate(matcher, dueDay30), equals(matcher));
       });
     });
   });
@@ -95,7 +134,7 @@ void main() {
     });
     test('With DueDay', () {
       expect(
-        DueDateTime.parse('2022-01-01', 15),
+        DueDateTime.parse('2022-01-01', dueDay15),
         equals(DateTime(2022, 1, 15)),
       );
     });
@@ -109,7 +148,7 @@ void main() {
     });
     test('With DueDay', () {
       expect(
-        DueDateTime.tryParse('2022-01-01', 15),
+        DueDateTime.tryParse('2022-01-01', dueDay15),
         equals(DateTime(2022, 1, 15)),
       );
     });
@@ -126,7 +165,7 @@ void main() {
       expect(
         DueDateTime.fromMillisecondsSinceEpoch(
           date.millisecondsSinceEpoch,
-          dueDay: 15,
+          every: dueDay15,
         ),
         equals(DateTime(2022, 1, 15)),
       );
@@ -135,7 +174,7 @@ void main() {
       expect(
         DueDateTime.fromMillisecondsSinceEpoch(
           date.millisecondsSinceEpoch,
-          dueDay: 15,
+          every: dueDay15,
           isUtc: true,
         ),
         equals(DateTime(2022, 1, 15).toUtc()),
@@ -154,7 +193,7 @@ void main() {
       expect(
         DueDateTime.fromMicrosecondsSinceEpoch(
           date.microsecondsSinceEpoch,
-          dueDay: 15,
+          every: dueDay15,
         ),
         equals(DateTime(2022, 1, 15)),
       );
@@ -163,7 +202,7 @@ void main() {
       expect(
         DueDateTime.fromMicrosecondsSinceEpoch(
           date.microsecondsSinceEpoch,
-          dueDay: 15,
+          every: dueDay15,
           isUtc: true,
         ),
         equals(DateTime(2022, 1, 15).toUtc()),
@@ -174,7 +213,7 @@ void main() {
     final dueDate = DueDateTime.fromDate(DateTime(2022));
     test('Different dueDay', () {
       expect(
-        dueDate.copyWith(dueDay: 15),
+        dueDate.copyWith(every: dueDay15),
         equals(DateTime(2022, 1, 15)),
       );
     });
@@ -228,7 +267,7 @@ void main() {
     });
   });
   group('AddMonths', () {
-    final dueDate = DueDateTime(dueDay: 30, year: 2022);
+    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
     test('Add 1 month', () {
       expect(
         dueDate.addMonths(1),
@@ -257,7 +296,7 @@ void main() {
     });
   });
   group('SubtractMonths', () {
-    final dueDate = DueDateTime(dueDay: 30, year: 2022);
+    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
     test('Subtract 1 month', () {
       expect(
         dueDate.subtractMonths(1),
@@ -286,21 +325,23 @@ void main() {
     });
   });
   test('toUtc', () {
-    final dueDate = DueDateTime(dueDay: 30, year: 2022).toUtc();
+    final dueDate =
+        DueDateTime(every: EveryDueDayMonth(30), year: 2022).toUtc();
     expect(
       dueDate.isUtc,
       isTrue,
     );
   });
   test('toLocal', () {
-    final dueDate = DueDateTime.utc(dueDay: 30, year: 2022).toLocal();
+    final dueDate =
+        DueDateTime.utc(every: EveryDueDayMonth(30), year: 2022).toLocal();
     expect(
       dueDate.isUtc,
       isFalse,
     );
   });
   group('Add:', () {
-    final dueDate = DueDateTime(dueDay: 30, year: 2022);
+    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
     test('2 days', () {
       expect(
         dueDate.add(const Duration(days: 2)),
@@ -309,13 +350,13 @@ void main() {
     });
     test('2 days, keep dueDay', () {
       expect(
-        dueDate.add(const Duration(days: 2), sameDay: true),
+        dueDate.add(const Duration(days: 2), sameEvery: true),
         equals(DateTime(2022, 2, 28)),
       );
     });
   });
   group('Subtract:', () {
-    final dueDate = DueDateTime(dueDay: 30, year: 2022);
+    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
     test('2 days', () {
       expect(
         dueDate.subtract(const Duration(days: 2)),
@@ -324,13 +365,13 @@ void main() {
     });
     test('2 days, keep dueDay', () {
       expect(
-        dueDate.subtract(const Duration(days: 2), sameDay: true),
+        dueDate.subtract(const Duration(days: 2), sameEvery: true),
         equals(dueDate),
       );
     });
   });
   group('AddWeeks:', () {
-    final dueDate = DueDateTime(dueDay: 30, year: 2022);
+    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
     test('1 week', () {
       final matcher = DateTime(2022, 2, 6);
       expect(
@@ -350,13 +391,13 @@ void main() {
     });
     test('2 weeks, keep dueDay', () {
       expect(
-        dueDate.addWeeks(2, sameDay: true),
+        dueDate.addWeeks(2, sameEvery: true),
         equals(DateTime(2022, 2, 28)),
       );
     });
   });
   group('SubtractWeeks:', () {
-    final dueDate = DueDateTime(dueDay: 30, year: 2022);
+    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
     test('1 week', () {
       final matcher = DateTime(2022, 1, 23);
       expect(
@@ -376,7 +417,7 @@ void main() {
     });
     test('2 weeks, keep dueDay', () {
       expect(
-        dueDate.subtractWeeks(2, sameDay: true),
+        dueDate.subtractWeeks(2, sameEvery: true),
         equals(dueDate),
       );
     });

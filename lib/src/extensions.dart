@@ -7,7 +7,7 @@ extension AddDays on DateTime {
 
   bool get isWorkDay => !isWeekend;
 
-  DateTime addDays(int days, {required Iterable<Weekday> ignoring}) {
+  DateTime addDays(int days, {Iterable<Weekday> ignoring = const []}) {
     final ignoreSet = ignoring.toSet();
     assert(
       ignoreSet.length < Weekday.values.length,
@@ -27,7 +27,7 @@ extension AddDays on DateTime {
     }
   }
 
-  DateTime subtractDays(int days, {required Iterable<Weekday> ignoring}) {
+  DateTime subtractDays(int days, {Iterable<Weekday> ignoring = const []}) {
     return addDays(-days, ignoring: ignoring);
   }
 
@@ -40,16 +40,34 @@ extension AddDays on DateTime {
   }
 }
 
+extension WeekCalc on DateTime {
+  DateTime startOfWeek(Week selected) {
+    return selected.weekOf(year, month);
+  }
+
+  DateTime nextWeekday(Weekday weekday) {
+    if (this.weekday == weekday.dateTimeValue) {
+      return this;
+    } else {
+      return addDays(1).nextWeekday(weekday);
+    }
+  }
+
+  DateTime previousWeekday(Weekday weekday) {
+    if (this.weekday == weekday.dateTimeValue) {
+      return this;
+    } else {
+      return subtractDays(1).previousWeekday(weekday);
+    }
+  }
+}
+
 extension ClampInMonth on DateTime {
   DueDateTime get dueDateTime => DueDateTime.fromDate(this);
   DueDateTime get nextMonth => dueDateTime.nextMonth;
   DueDateTime get previousMonth => dueDateTime.previousMonth;
   DueDateTime addMonths(int months) => dueDateTime.addMonths(months);
   DueDateTime subtractMonths(int months) => dueDateTime.subtractMonths(months);
-
-  DateTime startOfWeek(Week selected) {
-    return selected.weekOf(year, month);
-  }
 
   DateTime clampInMonth(DateTime month) {
     final monthStart = month.firstDayOfMonth;

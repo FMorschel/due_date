@@ -1,5 +1,7 @@
 import 'package:time/time.dart';
 
+import 'extensions.dart';
+
 /// Weekday constants that are returned by [DateTime.weekday] method.
 enum Weekday {
   monday(DateTime.monday),
@@ -35,6 +37,14 @@ enum Weekday {
   final int dateTimeValue;
   final bool weekend;
   bool get workDay => !weekend;
+
+  DateTime fromThisWeek(DateTime date) {
+    final monday = date.firstDayOfWeek;
+    final result = monday.add(Duration(days: index));
+    return date.isUtc
+        ? result.toUtc().date.add(date.timeOfDay)
+        : result.date.add(date.timeOfDay);
+  }
 
   Weekday get previous {
     if (dateTimeValue != monday.dateTimeValue) {
@@ -154,6 +164,35 @@ enum Week {
         } else {
           return fourthWeek;
         }
+    }
+  }
+
+  /// Returns the first day (just as [DateTime], is Monday) of the week of the
+  /// selected week for the given [year] and [month].
+  DateTime weekdayOf({
+    required int year,
+    required int month,
+    required Weekday day,
+    bool utc = true,
+  }) {
+    late final DateTime firstDayOfMonth;
+    if (utc) {
+      firstDayOfMonth = DateTime.utc(year, month);
+    } else {
+      firstDayOfMonth = DateTime(year, month);
+    }
+    DateTime weekDay = firstDayOfMonth.nextWeekday(day);
+    for (final week in [first, second, third, fourth]) {
+      if (week == this) {
+        return weekDay;
+      } else {
+        weekDay = weekDay.addDays(1).nextWeekday(day);
+      }
+    }
+    if (weekDay.compareTo(firstDayOfMonth.lastDayOfMonth) <= 0) {
+      return weekDay;
+    } else {
+      return weekDay.subtractDays(1).previousWeekday(day);
     }
   }
 }

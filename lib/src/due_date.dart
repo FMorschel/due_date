@@ -1,10 +1,11 @@
-import 'package:time/time.dart';
+import 'every.dart';
 
 class DueDateTime extends DateTime {
   factory DueDateTime({
-    /// The expected day of the month.
-    required int dueDay,
     required int year,
+
+    /// The expected day of the month.
+    Every? every,
     int month = 1,
     int day = 1,
     int hour = 0,
@@ -38,11 +39,11 @@ class DueDateTime extends DateTime {
         microsecond,
       );
     }
-    return DueDateTime.fromDate(date, dueDay);
+    return DueDateTime.fromDate(date, every);
   }
 
   DueDateTime._fromDate({
-    required this.dueDay,
+    required this.every,
     required DateTime date,
   }) : super(
           date.year,
@@ -56,7 +57,7 @@ class DueDateTime extends DateTime {
         );
 
   DueDateTime._utcFromDate({
-    required this.dueDay,
+    required this.every,
     required DateTime date,
   }) : super.utc(
           date.year,
@@ -70,9 +71,10 @@ class DueDateTime extends DateTime {
         );
 
   factory DueDateTime.utc({
-    /// The expected day of the month.
-    required int dueDay,
     required int year,
+
+    /// The expected day of the month.
+    Every? every,
     int month = 1,
     int day = 1,
     int hour = 0,
@@ -82,7 +84,7 @@ class DueDateTime extends DateTime {
     int microsecond = 0,
   }) =>
       DueDateTime(
-        dueDay: dueDay,
+        every: every,
         year: year,
         month: month,
         day: day,
@@ -100,115 +102,72 @@ class DueDateTime extends DateTime {
     DateTime reference, [
 
     /// The expected day of the month.
-    int? dueDay,
+    Every? every,
   ]) {
-    assert(
-      (dueDay == null) || ((dueDay >= 1) && (dueDay <= 31)),
-      'Due day must be between 1 and 31',
-    );
-    if ((dueDay == null) || (reference.day == dueDay)) {
+    if (every == null) {
       return DueDateTime._toConstructor(
-        dueDay: dueDay ?? reference.day,
+        every: EveryDueDayMonth(reference.day),
         date: reference,
       );
-    } else if (reference.day < dueDay) {
-      return DueDateTime._thisMonthsDay(date: reference, dueDay: dueDay);
     } else {
-      return DueDateTime._nextMonthsDay(date: reference, dueDay: dueDay);
+      return DueDateTime._toConstructor(
+        date: every.startDate(reference),
+        every: every,
+      );
     }
-  }
-
-  factory DueDateTime._nextMonthsDay({
-    required DateTime date,
-
-    /// The expected day of the month.
-    required int dueDay,
-  }) {
-    final dueNextMonth = _nextMonthDueDay(date, dueDay);
-    final endNextMonth = _endNextMonth(date, dueDay);
-    final dueDate = dueNextMonth.clamp(max: endNextMonth);
-    return DueDateTime._toConstructor(dueDay: dueDay, date: dueDate);
-  }
-
-  factory DueDateTime._thisMonthsDay({
-    required DateTime date,
-
-    /// The expected day of the month.
-    required int dueDay,
-  }) {
-    final dueDate = date.copyWith(day: dueDay).clamp(max: date.lastDayOfMonth);
-    return DueDateTime._toConstructor(dueDay: dueDay, date: dueDate);
   }
 
   factory DueDateTime._toConstructor({
     /// The expected day of the month.
-    required int dueDay,
+    required Every every,
     required DateTime date,
   }) {
     return date.isUtc
-        ? DueDateTime._utcFromDate(dueDay: dueDay, date: date)
-        : DueDateTime._fromDate(dueDay: dueDay, date: date);
+        ? DueDateTime._utcFromDate(every: every, date: date)
+        : DueDateTime._fromDate(every: every, date: date);
   }
 
   static const _week = Duration(days: DateTime.daysPerWeek);
 
-  /// The expected day of the month.
-  int dueDay;
+  /// The handler for processing the next dates.
+  Every every;
 
-  static DateTime _nextMonthDueDay(
-    DateTime date,
-
-    /// The expected day of the month.
-    int dueDay,
-  ) {
-    return date.copyWith(month: date.month + 1, day: dueDay);
+  static DueDateTime parse(String formattedString, [Every? every]) {
+    return DueDateTime.fromDate(DateTime.parse(formattedString), every);
   }
 
-  static DateTime _endNextMonth(
-    DateTime date,
-
-    /// The expected day of the month.
-    int dueDay,
-  ) {
-    return date.copyWith(month: date.month + 1, day: 1).lastDayOfMonth;
-  }
-
-  static DueDateTime parse(String formattedString, [int? dueDay]) {
-    return DueDateTime.fromDate(DateTime.parse(formattedString), dueDay);
-  }
-
-  static DueDateTime? tryParse(String formattedString, [int? dueDay]) {
+  static DueDateTime? tryParse(String formattedString, [Every? every]) {
     final nullableDate = DateTime.tryParse(formattedString);
     if (nullableDate == null) return null;
-    return DueDateTime.fromDate(nullableDate, dueDay);
+    return DueDateTime.fromDate(nullableDate, every);
   }
 
   static DueDateTime fromMillisecondsSinceEpoch(
     int millisecondsSinceEpoch, {
-    int? dueDay,
+    Every? every,
     bool isUtc = false,
   }) {
     final date = DateTime.fromMillisecondsSinceEpoch(
       millisecondsSinceEpoch,
       isUtc: isUtc,
     );
-    return DueDateTime.fromDate(date, dueDay);
+    return DueDateTime.fromDate(date, every);
   }
 
   static DueDateTime fromMicrosecondsSinceEpoch(
     int microsecondsSinceEpoch, {
-    int? dueDay,
+    Every? every,
     bool isUtc = false,
   }) {
     final date = DateTime.fromMicrosecondsSinceEpoch(
       microsecondsSinceEpoch,
       isUtc: isUtc,
     );
-    return DueDateTime.fromDate(date, dueDay);
+    return DueDateTime.fromDate(date, every);
   }
 
   DueDateTime copyWith({
-    int? dueDay,
+    Every? every,
     int? year,
     int? month,
     int? day,
@@ -219,7 +178,7 @@ class DueDateTime extends DateTime {
     int? microsecond,
   }) {
     return DueDateTime(
-      dueDay: dueDay ?? this.dueDay,
+      every: every ?? this.every,
       year: year ?? this.year,
       month: month ?? this.month,
       day: day ?? this.day,
@@ -231,37 +190,24 @@ class DueDateTime extends DateTime {
     );
   }
 
-  DueDateTime addMonths(int months) {
-    final firstDay = copyWith(month: month + months, day: 1);
-    return DueDateTime._toConstructor(
-      dueDay: dueDay,
-      date: firstDay.copyWith(day: dueDay).clamp(
-            min: firstDay,
-            max: firstDay.lastDayOfMonth,
-          ),
-    );
-  }
-
-  DueDateTime subtractMonths(int months) => addMonths(-months);
-
   @override
   DueDateTime toUtc() => DueDateTime._utcFromDate(
-        dueDay: dueDay,
+        every: every,
         date: super.toUtc(),
       );
 
   @override
   DueDateTime toLocal() => DueDateTime._fromDate(
-        dueDay: dueDay,
+        every: every,
         date: super.toLocal(),
       );
 
   /// Returns a new [DateTime] instance with [duration] added to [this].
   ///
-  /// If [sameDay] is true, keeps the current expected day of the month 
-  /// ([dueDay]). If is false, the [dueDay] will change to the [day] of the 
+  /// If [sameEvery] is true, keeps the current expected day of the month
+  /// ([every]). If is false, the [every] will change to the [day] of the
   /// generated date.
-  /// 
+  ///
   /// ```dart
   /// final today = DateTime.now();
   /// final fiftyDaysFromNow = today.add(const Duration(days: 50));
@@ -276,18 +222,18 @@ class DueDateTime extends DateTime {
   @override
   DueDateTime add(
     Duration duration, {
-    bool sameDay = false,
+    bool sameEvery = false,
   }) {
     final date = super.add(duration);
-    return DueDateTime.fromDate(date, sameDay ? dueDay : null);
+    return DueDateTime.fromDate(date, sameEvery ? every : null);
   }
-  
+
   /// Returns a new [DateTime] instance with [duration] subtracted from [this].
   ///
-  /// If [sameDay] is true, keeps the current expected day of the month 
-  /// ([dueDay]). If is false, the [dueDay] will change to the [day] of the 
+  /// If [sameEvery] is true, keeps the current expected day of the month
+  /// ([every]). If is false, the [every] will change to the [day] of the
   /// generated date.
-  /// 
+  ///
   /// ```dart
   /// final today = DateTime.now();
   /// final fiftyDaysAgo = today.subtract(const Duration(days: 50));
@@ -302,31 +248,54 @@ class DueDateTime extends DateTime {
   @override
   DueDateTime subtract(
     Duration duration, {
-    bool sameDay = false,
+    bool sameEvery = false,
   }) {
     final date = super.subtract(duration);
-    return DueDateTime.fromDate(date, sameDay ? dueDay : null);
+    return DueDateTime.fromDate(date, sameEvery ? every : null);
   }
 
   /// Returns a new [DateTime] instance with [weeks] weeks added to [this].
   ///
-  /// If [sameDay] is true, keeps the current expected day of the month 
-  /// ([dueDay]). If is false, the [dueDay] will change to the [day] of the 
+  /// If [sameEvery] is true, keeps the current expected day of the month
+  /// ([every]). If is false, the [every] will change to the [day] of the
   /// generated date.
-  /// 
+  ///
   /// Be careful when working with dates in local time.
-  DueDateTime addWeeks(int weeks, {bool sameDay = false}) =>
-      add(_week * weeks, sameDay: sameDay);
+  DueDateTime addWeeks(int weeks, {bool sameEvery = false}) =>
+      add(_week * weeks, sameEvery: sameEvery);
 
   /// Returns a new [DateTime] instance with [weeks] weeks subtracted from [this].
   ///
-  /// If [sameDay] is true, keeps the current expected day of the month 
-  /// ([dueDay]). If is false, the [dueDay] will change to the [day] of the 
+  /// If [sameEvery] is true, keeps the current expected day of the month
+  /// ([every]). If is false, the [every] will change to the [day] of the
   /// generated date.
   ///
   /// Be careful when working with dates in local time.
-  DueDateTime subtractWeeks(int weeks, {bool sameDay = false}) =>
-      subtract(_week * weeks, sameDay: sameDay);
+  DueDateTime subtractWeeks(int weeks, {bool sameEvery = false}) =>
+      subtract(_week * weeks, sameEvery: sameEvery);
+
+  DueDateTime addMonths(
+    int months, {
+    bool sameEvery = false,
+  }) {
+    if (every is EveryMonth) {
+      return DueDateTime.fromDate(
+        (every as EveryMonth).addMonths(this, months),
+        sameEvery ? every : null,
+      );
+    } else {
+      return DueDateTime.fromDate(
+        EveryDueDayMonth(day).addMonths(this, months),
+        sameEvery ? every : null,
+      );
+    }
+  }
+
+  DueDateTime subtractMonths(
+    int months, {
+    bool sameEvery = false,
+  }) =>
+      addMonths(-months, sameEvery: sameEvery);
 
   DueDateTime get nextWeek => addWeeks(1);
   DueDateTime get nextMonth => addMonths(1);

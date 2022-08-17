@@ -55,6 +55,17 @@ void main() {
         );
       });
     });
+    group('fromThisWeek:', () {
+      final date = DateTime.utc(2022, DateTime.august, 8);
+      for (final weekday in Weekday.values) {
+        test(weekday.name, () {
+          expect(
+            weekday.fromThisWeek(date),
+            equals(DateTime.utc(2022, DateTime.august, 8 + weekday.index)),
+          );
+        });
+      }
+    });
   });
   group('Month:', () {
     group('Throw on factory outside of range:', () {
@@ -368,6 +379,52 @@ void main() {
           last.weekOf(2022, Month.october.dateTimeValue),
           equals(DateTime.utc(2022, DateTime.october, 31)),
         );
+      });
+    });
+    group('Weekday Of', () {
+      group('Mondays of August 2022', () {
+        final mondays = [
+          DateTime.utc(2022, DateTime.august, 1),
+          DateTime.utc(2022, DateTime.august, 8),
+          DateTime.utc(2022, DateTime.august, 15),
+          DateTime.utc(2022, DateTime.august, 22),
+          DateTime.utc(2022, DateTime.august, 29),
+        ];
+        final weekValues = Week.values;
+        for (int i = 0; i < weekValues.length; i++) {
+          test('${mondays[i].year}/${mondays[i].month}/${mondays[i].day}', () {
+            expect(
+              weekValues[i].weekdayOf(
+                year: 2022,
+                month: DateTime.august,
+                day: Weekday.monday,
+              ),
+              equals(mondays[i]),
+            );
+          });
+        }
+      });
+      group('Fridays of August 2022', () {
+        final fridays = [
+          DateTime.utc(2022, DateTime.august, 5),
+          DateTime.utc(2022, DateTime.august, 12),
+          DateTime.utc(2022, DateTime.august, 19),
+          DateTime.utc(2022, DateTime.august, 26),
+          DateTime.utc(2022, DateTime.august, 26),
+        ];
+        final weekValues = Week.values;
+        for (int i = 0; i < weekValues.length; i++) {
+          test('${fridays[i].year}/${fridays[i].month}/${fridays[i].day}', () {
+            expect(
+              weekValues[i].weekdayOf(
+                year: 2022,
+                month: DateTime.august,
+                day: Weekday.friday,
+              ),
+              equals(fridays[i]),
+            );
+          });
+        }
       });
     });
   });
