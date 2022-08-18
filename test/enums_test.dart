@@ -67,6 +67,58 @@ void main() {
         });
       }
     });
+    group('occrurencesIn august 2022', () {
+      final month = DateTime.utc(2022, DateTime.august, 1);
+      test('monday', () {
+        const monday = Weekday.monday;
+        expect(
+          monday.occrurencesIn(month.year, month.month),
+          equals(5),
+        );
+      });
+      test('tuesday', () {
+        const tuesday = Weekday.tuesday;
+        expect(
+          tuesday.occrurencesIn(month.year, month.month),
+          equals(5),
+        );
+      });
+      test('wednesday', () {
+        const wednesday = Weekday.wednesday;
+        expect(
+          wednesday.occrurencesIn(month.year, month.month),
+          equals(5),
+        );
+      });
+      test('thursday', () {
+        const thursday = Weekday.thursday;
+        expect(
+          thursday.occrurencesIn(month.year, month.month),
+          equals(4),
+        );
+      });
+      test('friday', () {
+        const friday = Weekday.friday;
+        expect(
+          friday.occrurencesIn(month.year, month.month),
+          equals(4),
+        );
+      });
+      test('saturday', () {
+        const saturday = Weekday.saturday;
+        expect(
+          saturday.occrurencesIn(month.year, month.month),
+          equals(4),
+        );
+      });
+      test('sunday', () {
+        const sunday = Weekday.sunday;
+        expect(
+          sunday.occrurencesIn(month.year, month.month),
+          equals(4),
+        );
+      });
+    });
   });
   group('Month:', () {
     group('Throw on factory outside of range:', () {
@@ -430,16 +482,17 @@ void main() {
     });
   });
   // TODO: test equality.
-  group('WeekdayOccurence', () {
+  group('WeekdayOccurrence', () {
     group('Equals', () {
       test('FirstMonday', () {
-        const matcher = WeekdayOccurence.firstMonday;
+        const weekdayOccurence = WeekdayOccurrence.firstMonday;
+        const everyWeekdayCountInMonth = EveryWeekdayCountInMonth(
+          week: Week.first,
+          day: Weekday.monday,
+        );
         expect(
-          EveryWeekdayCountInMonth(
-            week: Week.first,
-            day: Weekday.monday,
-          ).props,
-          equals(matcher.props),
+          weekdayOccurence,
+          equals(everyWeekdayCountInMonth),
         );
       });
     });

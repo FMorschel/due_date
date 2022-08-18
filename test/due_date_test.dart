@@ -8,74 +8,37 @@ void main() {
     const year = 2022;
     const dueDay30 = EveryDueDayMonth(30);
     group('Unnamed:', () {
-      group('EveryDueDay:', () {
-        final matcher = DateTime(year, 2, 28);
-        test('Month start', () {
-          expect(
-            DueDateTime(every: dueDay30, year: year, month: 2),
-            equals(matcher),
-          );
-        });
-        test('Fits in month', () {
-          final matcherFitted = DateTime(year, 2, 15);
-          expect(
-            DueDateTime(every: dueDay15, year: year, month: 2),
-            equals(matcherFitted),
-          );
-        });
-        test('Midlle of the month', () {
-          expect(
-            DueDateTime(every: dueDay30, year: year, month: 2, day: 15),
-            equals(matcher),
-          );
-        });
-        test('Previous month end', () {
-          expect(
-            DueDateTime(every: dueDay30, year: year, month: 1, day: 31),
-            equals(matcher),
-          );
-        });
-        test('Not UTC', () {
-          expect(
-            DueDateTime(every: dueDay30, year: year).isUtc,
-            isFalse,
-          );
-        });
+      final matcher = DateTime(year, 2, 28);
+      test('Month start', () {
+        expect(
+          DueDateTime(every: dueDay30, year: year, month: 2),
+          equals(matcher),
+        );
       });
-      group('EveryDayOfWeek:', () {
-        const lastMonday =
-            EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.last);
-        final matcher = DateTime(year, 2, 28);
-        test('Month start', () {
-          expect(
-            DueDateTime(every: lastMonday, year: year, month: 2),
-            equals(matcher),
-          );
-        });
-        group('Midlle of the month:', () {
-          test('First Friday', () {
-            final firstFirday = EveryWeekdayCountInMonth(
-              week: Week.first,
-              day: Weekday.friday,
-            );
-            expect(
-              DueDateTime(every: firstFirday, year: year, month: 2, day: 15),
-              equals(DateTime(year, 3, 4)),
-            );
-          });
-          test('Last Monday', () {
-            expect(
-              DueDateTime(every: lastMonday, year: year, month: 2, day: 15),
-              equals(matcher),
-            );
-          });
-        });
-        test('Not UTC', () {
-          expect(
-            DueDateTime(every: dueDay30, year: year).isUtc,
-            isFalse,
-          );
-        });
+      test('Fits in month', () {
+        final matcherFitted = DateTime(year, 2, 15);
+        expect(
+          DueDateTime(every: dueDay15, year: year, month: 2),
+          equals(matcherFitted),
+        );
+      });
+      test('Midlle of the month', () {
+        expect(
+          DueDateTime(every: dueDay30, year: year, month: 2, day: 15),
+          equals(matcher),
+        );
+      });
+      test('Previous month end', () {
+        expect(
+          DueDateTime(every: dueDay30, year: year, month: 1, day: 31),
+          equals(matcher),
+        );
+      });
+      test('Not UTC', () {
+        expect(
+          DueDateTime(every: dueDay30, year: year).isUtc,
+          isFalse,
+        );
       });
     });
     group('UTC:', () {
@@ -105,7 +68,7 @@ void main() {
           equals(matcher),
         );
       });
-      test('Not UTC', () {
+      test('Is UTC', () {
         expect(
           DueDateTime.utc(every: dueDay30, year: year).isUtc,
           isTrue,

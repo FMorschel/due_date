@@ -40,6 +40,18 @@ enum Weekday implements Comparable<Weekday> {
   final bool weekend;
   bool get workDay => !weekend;
 
+  int occrurencesIn(int year, int month) {
+    DateTime date = DateTime.utc(year, month, 1);
+    int count = 0;
+    do {
+      if (date.weekday == dateTimeValue) {
+        count++;
+      }
+      date = date.add(Duration(days: 1));
+    } while (date.month == month);
+    return count;
+  }
+
   DateTime fromThisWeek(DateTime date) {
     final monday = date.firstDayOfWeek;
     final result = monday.add(Duration(days: index));
@@ -130,7 +142,6 @@ enum Month implements Comparable<Month> {
   @override
   int compareTo(Month other) => dateTimeValue.compareTo(other.dateTimeValue);
 
-
   Month get previous {
     if (dateTimeValue != january.dateTimeValue) {
       return Month.fromDateTime(dateTimeValue - 1);
@@ -211,12 +222,11 @@ enum Week implements Comparable<Week> {
   int compareTo(Week other) => index.compareTo(other.index);
 }
 
-
 /// An enum wrapper in EveryWeekdayCountInMonth class.
-/// 
-/// Shows all possible values for the [EveryWeekdayCountInMonth] with better 
+///
+/// Shows all possible values for the [EveryWeekdayCountInMonth] with better
 /// naming.
-enum WeekdayOccurence implements EveryWeekdayCountInMonth {
+enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
   firstMonday(
     EveryWeekdayCountInMonth(
       day: Weekday.monday,
@@ -428,7 +438,7 @@ enum WeekdayOccurence implements EveryWeekdayCountInMonth {
     ),
   );
 
-  const WeekdayOccurence(this._handler);
+  const WeekdayOccurrence(this._handler);
 
   final EveryWeekdayCountInMonth _handler;
 
@@ -439,14 +449,15 @@ enum WeekdayOccurence implements EveryWeekdayCountInMonth {
   Week get week => _handler.week;
 
   @override
-  DateTime startDate(DateTime date) {
-    return _handler.startDate(date);
-  }
+  DateTime startDate(DateTime date) => _handler.startDate(date);
 
   @override
   DateTime addMonths(DateTime date, int months) {
     return _handler.addMonths(date, months);
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) => _handler.addYears(date, years); 
 
   @override
   int compareTo(EveryWeekdayCountInMonth other) => _handler.compareTo(other);

@@ -1,6 +1,24 @@
+import 'package:equatable/equatable.dart';
+
 import 'every.dart';
 
-class DueDateTime extends DateTime {
+class DueDateTime extends DateTime with EquatableMixin {
+  /// Constructs a [DueDateTime] instance specified in the local time zone.
+  ///
+  /// For example,
+  /// to create a `DueDateTime` object representing the 7th of September 2017,
+  /// 5:30pm
+  ///
+  /// ```dart
+  /// final dentistAppointment = DueDateTime(2017, 9, 7, 17, 30);
+  /// ```
+  /// The [every] parameter is optional. If it is provided, the [DueDateTime]
+  /// will be adjusted to the next due date. If it is not provided, the
+  /// values will be used as-is. And the [DueDateTime.every] property will
+  /// be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   factory DueDateTime({
     required int year,
 
@@ -70,6 +88,23 @@ class DueDateTime extends DateTime {
           date.microsecond,
         );
 
+  /// Constructs a [DueDateTime] instance specified in the UTC time zone.
+  ///
+  /// ```dart
+  /// final moonLanding = DueDateTime.utc(1969, 7, 20, 20, 18, 04);
+  /// ```
+  ///
+  /// When dealing with dates or historic events, preferably use UTC DateTimes,
+  /// since they are unaffected by daylight-saving changes and are unaffected
+  /// by the local timezone.
+  ///
+  /// The [every] parameter is optional. If it is provided, the [DueDateTime]
+  /// will be adjusted to the next due date. If it is not provided, the
+  /// values will be used as-is. And the [DueDateTime.every] property will
+  /// be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   factory DueDateTime.utc({
     required int year,
 
@@ -96,8 +131,22 @@ class DueDateTime extends DateTime {
         utc: true,
       );
 
+  /// Constructs a [DueDateTime] instance with current date and time in the
+  /// local time zone. The [DueDateTime.every] property will be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   factory DueDateTime.now() => DueDateTime.fromDate(DateTime.now());
 
+  /// Creates a [DueDateTime] from the [reference].
+  ///
+  /// The [every] parameter is optional. If it is provided, the [DueDateTime]
+  /// will be adjusted to the next due date. If it is not provided, the
+  /// [reference] will be used as-is. And the [DueDateTime.every] property will
+  /// be:
+  /// ```dart
+  /// EveryDueDayMonth(reference.day).
+  /// ```
   factory DueDateTime.fromDate(
     DateTime reference, [
 
@@ -132,16 +181,118 @@ class DueDateTime extends DateTime {
   /// The handler for processing the next dates.
   Every every;
 
+  /// Constructs a new [DueDateTime] instance based on [formattedString].
+  ///
+  /// Throws a [FormatException] if the input string cannot be parsed.
+  ///
+  /// The function parses a subset of ISO 8601,
+  /// which includes the subset accepted by RFC 3339.
+  ///
+  /// The accepted inputs are currently:
+  ///
+  /// * A date: A signed four-to-six digit year, two digit month and
+  ///   two digit day, optionally separated by `-` characters.
+  ///   Examples: "19700101", "-0004-12-24", "81030-04-01".
+  /// * An optional time part, separated from the date by either `T` or a space.
+  ///   The time part is a two digit hour,
+  ///   then optionally a two digit minutes value,
+  ///   then optionally a two digit seconds value, and
+  ///   then optionally a '.' or ',' followed by at least a one digit
+  ///   second fraction.
+  ///   The minutes and seconds may be separated from the previous parts by a
+  ///   ':'.
+  ///   Examples: "12", "12:30:24.124", "12:30:24,124", "123010.50".
+  /// * An optional time-zone offset part,
+  ///   possibly separated from the previous by a space.
+  ///   The time zone is either 'z' or 'Z', or it is a signed two digit hour
+  ///   part and an optional two digit minute part. The sign must be either
+  ///   "+" or "-", and cannot be omitted.
+  ///   The minutes may be separated from the hours by a ':'.
+  ///   Examples: "Z", "-10", "+01:30", "+1130".
+  ///
+  /// This includes the output of both [toString] and [toIso8601String], which
+  /// will be parsed back into a `DueDateTime` object with the same time as the
+  /// original.
+  ///
+  /// The result is always in either local time or UTC.
+  /// If a time zone offset other than UTC is specified,
+  /// the time is converted to the equivalent UTC time.
+  ///
+  /// Examples of accepted strings:
+  ///
+  /// * `"2012-02-27"`
+  /// * `"2012-02-27 13:27:00"`
+  /// * `"2012-02-27 13:27:00.123456789z"`
+  /// * `"2012-02-27 13:27:00,123456789z"`
+  /// * `"20120227 13:27:00"`
+  /// * `"20120227T132700"`
+  /// * `"20120227"`
+  /// * `"+20120227"`
+  /// * `"2012-02-27T14Z"`
+  /// * `"2012-02-27T14+00:00"`
+  /// * `"-123450101 00:00:00 Z"`: in the year -12345.
+  /// * `"2002-02-27T14:00:00-0500"`: Same as `"2002-02-27T19:00:00Z"`
+  ///
+  /// This method accepts out-of-range component values and interprets
+  /// them as overflows into the next larger component.
+  /// For example, "2020-01-42" will be parsed as 2020-02-11, because
+  /// the last valid date in that month is 2020-01-31, so 42 days is
+  /// interpreted as 31 days of that month plus 11 days into the next month.
+  ///
+  /// To detect and reject invalid component values, use
+  /// [DateFormat.parseStrict](https://pub.dev/documentation/intl/latest/intl/DateFormat/parseStrict.html)
+  /// from the [intl](https://pub.dev/packages/intl) package.
+  ///
+  /// The [every] parameter is optional. If [every] is provided, the
+  /// [DueDateTime] will be adjusted to the next due date. If it is not
+  /// provided, the [formattedString] will be used as-is. And the
+  /// [DueDateTime.every] property will be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   static DueDateTime parse(String formattedString, [Every? every]) {
     return DueDateTime.fromDate(DateTime.parse(formattedString), every);
   }
 
+  /// Constructs a new [DueDateTime] instance based on [formattedString].
+  ///
+  /// Works like [parse] except that this function returns `null`
+  /// where [parse] would throw a [FormatException].
+  ///
+  /// The [every] parameter is optional. If it is provided, the [DueDateTime]
+  /// will be adjusted to the next due date. If it is not provided, the
+  /// [formattedString] will be used as-is. And the
+  /// [DueDateTime.every] property will be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   static DueDateTime? tryParse(String formattedString, [Every? every]) {
     final nullableDate = DateTime.tryParse(formattedString);
     if (nullableDate == null) return null;
     return DueDateTime.fromDate(nullableDate, every);
   }
 
+  /// Constructs a new [DueDateTime] instance
+  /// with the given [millisecondsSinceEpoch].
+  ///
+  /// If [isUtc] is false then the date is in the local time zone.
+  ///
+  /// The constructed [DueDateTime] represents
+  /// 1970-01-01T00:00:00Z + [millisecondsSinceEpoch] ms in the given
+  /// time zone (local or UTC).
+  /// ```dart
+  /// final newYearsDay =
+  ///     DueDateTime.fromMillisecondsSinceEpoch(1640979000000, isUtc:true);
+  /// print(newYearsDay); // 2022-01-01 10:00:00.000Z
+  /// ```
+  ///
+  /// The [every] parameter is optional. If it is provided, the [DueDateTime]
+  /// will be adjusted to the next due date. If it is not provided, the
+  /// [millisecondsSinceEpoch] will be used as-is. And the [DueDateTime.every]
+  /// property will be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   static DueDateTime fromMillisecondsSinceEpoch(
     int millisecondsSinceEpoch, {
     Every? every,
@@ -154,18 +305,41 @@ class DueDateTime extends DateTime {
     return DueDateTime.fromDate(date, every);
   }
 
+  /// Constructs a new [DueDateTime] instance
+  /// with the given [microsecondsSinceEpoch].
+  ///
+  /// If [isUtc] is false, then the date is in the local time zone.
+  ///
+  /// The constructed [DueDateTime] represents
+  /// 1970-01-01T00:00:00Z + [microsecondsSinceEpoch] us in the given
+  /// time zone (local or UTC).
+  /// ```dart
+  /// final newYearsEve =
+  ///     DueDateTime.fromMicrosecondsSinceEpoch(1640901600000000, isUtc:true);
+  /// print(newYearsEve); // 2021-12-31 19:30:00.000Z
+  /// ```
+  ///
+  /// The [every] parameter is optional. If it is provided, the [DueDateTime]
+  /// will be adjusted to the next due date. If it is not provided, the
+  /// [microsecondsSinceEpoch] will be used as-is. And the [DueDateTime.every]
+  /// property will be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   static DueDateTime fromMicrosecondsSinceEpoch(
     int microsecondsSinceEpoch, {
     Every? every,
     bool isUtc = false,
   }) {
-    final date = DateTime.fromMicrosecondsSinceEpoch(
+    final date = DueDateTime.fromMicrosecondsSinceEpoch(
       microsecondsSinceEpoch,
       isUtc: isUtc,
     );
     return DueDateTime.fromDate(date, every);
   }
 
+  /// Creates a copy of this [DueDateTime] but with the given fields replaced
+  /// with the new values.
   DueDateTime copyWith({
     Every? every,
     int? year,
@@ -190,31 +364,51 @@ class DueDateTime extends DateTime {
     );
   }
 
+  /// Returns this DueDateTime value in the UTC time zone.
+  ///
+  /// Returns [this] if it is already in UTC.
+  /// Otherwise this method is equivalent to:
+  ///
+  /// ```dart template:expression
+  /// DueDateTime.fromMicrosecondsSinceEpoch(microsecondsSinceEpoch,
+  ///                                     isUtc: true)
+  /// ```
   @override
   DueDateTime toUtc() => DueDateTime._utcFromDate(
         every: every,
         date: super.toUtc(),
       );
 
+  /// Returns this DueDateTime value in the local time zone.
+  ///
+  /// Returns [this] if it is already in the local time zone.
+  /// Otherwise this method is equivalent to:
+  ///
+  /// ```dart template:expression
+  /// DueDateTime.fromMicrosecondsSinceEpoch(microsecondsSinceEpoch,
+  ///                                     isUtc: false)
+  /// ```
   @override
   DueDateTime toLocal() => DueDateTime._fromDate(
         every: every,
         date: super.toLocal(),
       );
 
-  /// Returns a new [DateTime] instance with [duration] added to [this].
+  /// Returns a new [DueDateTime] instance with [duration] added to [this].
   ///
-  /// If [sameEvery] is true, keeps the current expected day of the month
-  /// ([every]). If is false, the [every] will change to the [day] of the
-  /// generated date.
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   ///
   /// ```dart
-  /// final today = DateTime.now();
+  /// final today = DueDateTime.now();
   /// final fiftyDaysFromNow = today.add(const Duration(days: 50));
   /// ```
   ///
   /// Notice that the duration being added is actually 50 * 24 * 60 * 60
-  /// seconds. If the resulting `DateTime` has a different daylight saving offset
+  /// seconds. If the resulting `DueDateTime` has a different daylight saving offset
   /// than `this`, then the result won't have the same time-of-day as `this`, and
   /// may not even hit the calendar date 50 days later.
   ///
@@ -228,19 +422,21 @@ class DueDateTime extends DateTime {
     return DueDateTime.fromDate(date, sameEvery ? every : null);
   }
 
-  /// Returns a new [DateTime] instance with [duration] subtracted from [this].
+  /// Returns a new [DueDateTime] instance with [duration] subtracted from [this].
   ///
-  /// If [sameEvery] is true, keeps the current expected day of the month
-  /// ([every]). If is false, the [every] will change to the [day] of the
-  /// generated date.
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   ///
   /// ```dart
-  /// final today = DateTime.now();
+  /// final today = DueDateTime.now();
   /// final fiftyDaysAgo = today.subtract(const Duration(days: 50));
   /// ```
   ///
   /// Notice that the duration being subtracted is actually 50 * 24 * 60 * 60
-  /// seconds. If the resulting `DateTime` has a different daylight saving offset
+  /// seconds. If the resulting `DueDateTime` has a different daylight saving offset
   /// than `this`, then the result won't have the same time-of-day as `this`, and
   /// may not even hit the calendar date 50 days earlier.
   ///
@@ -254,26 +450,48 @@ class DueDateTime extends DateTime {
     return DueDateTime.fromDate(date, sameEvery ? every : null);
   }
 
-  /// Returns a new [DateTime] instance with [weeks] weeks added to [this].
+  /// Returns a new [DueDateTime] instance with [weeks] weeks added to this.
   ///
-  /// If [sameEvery] is true, keeps the current expected day of the month
-  /// ([every]). If is false, the [every] will change to the [day] of the
-  /// generated date.
-  ///
-  /// Be careful when working with dates in local time.
-  DueDateTime addWeeks(int weeks, {bool sameEvery = false}) =>
-      add(_week * weeks, sameEvery: sameEvery);
-
-  /// Returns a new [DateTime] instance with [weeks] weeks subtracted from [this].
-  ///
-  /// If [sameEvery] is true, keeps the current expected day of the month
-  /// ([every]). If is false, the [every] will change to the [day] of the
-  /// generated date.
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
   ///
   /// Be careful when working with dates in local time.
-  DueDateTime subtractWeeks(int weeks, {bool sameEvery = false}) =>
-      subtract(_week * weeks, sameEvery: sameEvery);
+  DueDateTime addWeeks(int weeks, {bool sameEvery = false}) {
+    if (every is EveryWeek) {
+      final date = (every as EveryWeek).addWeeks(this, weeks);
+      return DueDateTime.fromDate(date, sameEvery ? every : null);
+    } else {
+      return add(_week * weeks, sameEvery: sameEvery);
+    }
+  }
 
+  /// Returns a new [DueDateTime] instance with [weeks] weeks subtracted from
+  /// this.
+  ///
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
+  ///
+  /// Be careful when working with dates in local time.
+  DueDateTime subtractWeeks(int weeks, {bool sameEvery = false}) => addWeeks(
+        -weeks,
+        sameEvery: sameEvery,
+      );
+
+  /// Returns a new [DueDateTime] instance with [months] months added to this.
+  ///
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
+  ///
+  /// Be careful when working with dates in local time.
   DueDateTime addMonths(
     int months, {
     bool sameEvery = false,
@@ -291,17 +509,107 @@ class DueDateTime extends DateTime {
     }
   }
 
+  /// Returns a new [DueDateTime] instance with [months] months subtracted from
+  /// this.
+  ///
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
+  ///
+  /// Be careful when working with dates in local time.
   DueDateTime subtractMonths(
     int months, {
     bool sameEvery = false,
   }) =>
       addMonths(-months, sameEvery: sameEvery);
 
-  DueDateTime get nextWeek => addWeeks(1);
-  DueDateTime get nextMonth => addMonths(1);
-  DueDateTime get nextYear => addMonths(12);
+  /// Returns a new [DueDateTime] instance with [years] years added to this.
+  ///
+  /// If the current [every] is! [EveryYear], the [every] used to create the
+  /// new [DueDateTime] will be:
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
+  ///
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// And if the generated date is a leap year, and the [month] is February,
+  /// the [day] will be set to 29 only if the current date is 29, else it will
+  /// stay with the same day only changing the year.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
+  ///
+  /// Be careful when working with dates in local time.
+  DueDateTime addYears(
+    int years, {
+    bool sameEvery = false,
+  }) {
+    if (every is EveryYear) {
+      return DueDateTime.fromDate(
+        (every as EveryYear).addYears(this, years),
+        sameEvery ? every : null,
+      );
+    } else {
+      return DueDateTime.fromDate(
+        EveryDueDayMonth(day).addYears(this, years),
+        sameEvery ? every : null,
+      );
+    }
+  }
 
-  DueDateTime get previousWeek => subtractWeeks(1);
-  DueDateTime get previousMonth => subtractMonths(1);
-  DueDateTime get previousYear => subtractMonths(12);
+  /// Returns a new [DueDateTime] instance with [years] years subtracted from
+  /// this.
+  ///
+  /// If [sameEvery] is true, keeps the current one.
+  /// If is false, the [every] will change to the [day] of the generated date.
+  /// ```dart
+  /// EveryDueDayMonth(day);
+  /// ```
+  ///
+  /// Be careful when working with dates in local time.
+  DueDateTime subtractYears(
+    int years, {
+    bool sameEvery = false,
+  }) =>
+      addYears(-years, sameEvery: sameEvery);
+
+  /// Returns a new [DueDateTime] instance with 1 weeks added to this.
+  /// Be careful when working with dates in local time.
+  DueDateTime get nextWeek => addWeeks(1, sameEvery: true);
+
+  /// Returns a new [DueDateTime] instance with 1 month added to this.
+  /// Be careful when working with dates in local time.
+  DueDateTime get nextMonth => addMonths(1, sameEvery: true);
+
+  /// Returns a new [DueDateTime] instance with 1 year added to this.
+  /// Be careful when working with dates in local time.
+  DueDateTime get nextYear => addMonths(12, sameEvery: true);
+
+  /// Returns a new [DueDateTime] instance with 1 weeks subtracted from this.
+  /// Be careful when working with dates in local time.
+  DueDateTime get previousWeek => subtractWeeks(1, sameEvery: true);
+
+  /// Returns a new [DueDateTime] instance with 1 month subtracted from this.
+  /// Be careful when working with dates in local time.
+  DueDateTime get previousMonth => subtractMonths(1, sameEvery: true);
+
+  /// Returns a new [DueDateTime] instance with 1 year subtracted from this.
+  /// Be careful when working with dates in local time.
+  DueDateTime get previousYear => subtractMonths(12, sameEvery: true);
+
+  @override
+  List<Object?> get props => [
+        every,
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second,
+        millisecond,
+        microsecond,
+      ];
 }
