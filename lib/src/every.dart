@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
 import 'enums.dart';
@@ -29,7 +30,7 @@ abstract class EveryYear extends Every {
 
 /// Class that processes [DateTime] so that the [addWeeks] always returns the
 /// next week's with the [DateTime.weekday] equals to the [weekday].
-class EveryWeekday extends EveryWeek {
+class EveryWeekday extends EveryWeek with EquatableMixin implements Comparable<EveryWeekday> {
   const EveryWeekday(this.weekday);
 
   /// The expected weekday.
@@ -62,6 +63,14 @@ class EveryWeekday extends EveryWeek {
       return weekday.fromThisWeek(day.toLocal());
     }
   }
+  
+  @override
+  int compareTo(EveryWeekday other) {
+    return weekday.compareTo(other.weekday);
+  }
+
+  @override
+  List<Object?> get props => [weekday];
 }
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
@@ -75,7 +84,7 @@ class EveryWeekday extends EveryWeek {
 /// return the next month with the [DateTime.day] as 31.
 /// - If the [dueDay] is 15, the [addMonths] will return the next month with the
 /// [DateTime.day] as 15.
-class EveryDueDayMonth extends EveryMonth {
+class EveryDueDayMonth extends EveryMonth with EquatableMixin implements Comparable<EveryDueDayMonth> {
   const EveryDueDayMonth(this.dueDay)
       : assert(
           (dueDay >= 1) && (dueDay <= 31),
@@ -113,6 +122,11 @@ class EveryDueDayMonth extends EveryMonth {
           max: firstDay.lastDayOfMonth,
         );
   }
+  
+  @override
+  int compareTo(EveryDueDayMonth other) {
+    return dueDay.compareTo(other.dueDay);
+  }
 
   DateTime _nextMonthsDay(DateTime date) {
     final dueNextMonth = _nextMonthDueDay(date);
@@ -131,6 +145,9 @@ class EveryDueDayMonth extends EveryMonth {
   DateTime _thisMonthsDay(DateTime date) {
     return date.copyWith(day: dueDay).clamp(max: date.lastDayOfMonth);
   }
+
+  @override
+  List<Object?> get props => [dueDay];
 }
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
@@ -144,8 +161,8 @@ class EveryDueDayMonth extends EveryMonth {
 /// const lastFriday = EveryDayOfWeek(day: Weekday.friday, week: Week.last);
 /// lastFriday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 28).
 /// ```
-class EveryDayOfWeekInMonth extends EveryMonth {
-  const EveryDayOfWeekInMonth({
+class EveryWeekdayCountInMonth extends EveryMonth with EquatableMixin implements Comparable<EveryWeekdayCountInMonth> {
+  const EveryWeekdayCountInMonth({
     required this.week,
     required this.day,
   });
@@ -183,12 +200,25 @@ class EveryDayOfWeekInMonth extends EveryMonth {
         )
         .add(date.timeOfDay);
   }
+
+  @override
+  int compareTo(EveryWeekdayCountInMonth other) {
+    final result = week.compareTo(other.week);
+    if (result == 0) {
+      return day.compareTo(other.day);
+    } else {
+      return result;
+    }
+  }
+
+  @override
+  List<Object?> get props => [week, day];
 }
 
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
-class EveryDayOfYear extends EveryYear {
+class EveryDayOfYear extends EveryYear with EquatableMixin implements Comparable<EveryDayOfYear> {
   const EveryDayOfYear(this.dayInYear)
       : assert(
           dayInYear >= 1 && dayInYear <= 366,
@@ -233,4 +263,12 @@ class EveryDayOfYear extends EveryYear {
         ? dayNextYear.add(date.timeOfDay)
         : dayNextYear.toLocal().add(date.timeOfDay);
   }
+
+  @override
+  int compareTo(EveryDayOfYear other) {
+    return dayInYear.compareTo(other.dayInYear);
+  }
+
+  @override
+  List<Object?> get props => [dayInYear];
 }

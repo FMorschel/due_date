@@ -1,4 +1,5 @@
 import 'package:due_date/due_date.dart';
+import 'package:due_date/src/every.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
@@ -425,6 +426,21 @@ void main() {
             );
           });
         }
+      });
+    });
+  });
+  // TODO: test equality.
+  group('WeekdayOccurence', () {
+    group('Equals', () {
+      test('FirstMonday', () {
+        const matcher = WeekdayOccurence.firstMonday;
+        expect(
+          EveryWeekdayCountInMonth(
+            week: Week.first,
+            day: Weekday.monday,
+          ).props,
+          equals(matcher.props),
+        );
       });
     });
   });

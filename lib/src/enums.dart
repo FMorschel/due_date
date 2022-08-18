@@ -1,9 +1,11 @@
 import 'package:time/time.dart';
 
+import '../due_date.dart';
+import 'every.dart';
 import 'extensions.dart';
 
 /// Weekday constants that are returned by [DateTime.weekday] method.
-enum Weekday {
+enum Weekday implements Comparable<Weekday> {
   monday(DateTime.monday),
   tuesday(DateTime.tuesday),
   wednesday(DateTime.wednesday),
@@ -46,6 +48,11 @@ enum Weekday {
         : result.date.add(date.timeOfDay);
   }
 
+  @override
+  int compareTo(Weekday other) => dateTimeValue.compareTo(other.dateTimeValue);
+
+  EveryWeekday get every => EveryWeekday(this);
+
   Weekday get previous {
     if (dateTimeValue != monday.dateTimeValue) {
       return Weekday.fromDateTime(dateTimeValue - 1);
@@ -68,7 +75,7 @@ enum Weekday {
 }
 
 /// Month constants that are returned by [DateTime.month] method.
-enum Month {
+enum Month implements Comparable<Month> {
   january(DateTime.january),
   february(DateTime.february),
   march(DateTime.march),
@@ -120,6 +127,10 @@ enum Month {
   DateTime lastDayOfAt(int year) =>
       DateTime.utc(year, dateTimeValue).lastDayOfMonth;
 
+  @override
+  int compareTo(Month other) => dateTimeValue.compareTo(other.dateTimeValue);
+
+
   Month get previous {
     if (dateTimeValue != january.dateTimeValue) {
       return Month.fromDateTime(dateTimeValue - 1);
@@ -137,7 +148,7 @@ enum Month {
   }
 }
 
-enum Week {
+enum Week implements Comparable<Week> {
   first,
   second,
   third,
@@ -195,4 +206,254 @@ enum Week {
       return weekDay.subtractDays(1).previousWeekday(day);
     }
   }
+
+  @override
+  int compareTo(Week other) => index.compareTo(other.index);
+}
+
+
+/// An enum wrapper in EveryWeekdayCountInMonth class.
+/// 
+/// Shows all possible values for the [EveryWeekdayCountInMonth] with better 
+/// naming.
+enum WeekdayOccurence implements EveryWeekdayCountInMonth {
+  firstMonday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.monday,
+      week: Week.first,
+    ),
+  ),
+  firstTuesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.tuesday,
+      week: Week.first,
+    ),
+  ),
+  firstWednesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.wednesday,
+      week: Week.first,
+    ),
+  ),
+  firstThursday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.thursday,
+      week: Week.first,
+    ),
+  ),
+  firstFriday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.friday,
+      week: Week.first,
+    ),
+  ),
+  firstSaturday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.saturday,
+      week: Week.first,
+    ),
+  ),
+  firstSunday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.sunday,
+      week: Week.first,
+    ),
+  ),
+  secondMonday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.monday,
+      week: Week.second,
+    ),
+  ),
+  secondTuesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.tuesday,
+      week: Week.second,
+    ),
+  ),
+  secondWednesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.wednesday,
+      week: Week.second,
+    ),
+  ),
+  secondThursday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.thursday,
+      week: Week.second,
+    ),
+  ),
+  secondFriday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.friday,
+      week: Week.second,
+    ),
+  ),
+  secondSaturday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.saturday,
+      week: Week.second,
+    ),
+  ),
+  secondSunday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.sunday,
+      week: Week.second,
+    ),
+  ),
+  thirdMonday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.monday,
+      week: Week.third,
+    ),
+  ),
+  thirdTuesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.tuesday,
+      week: Week.third,
+    ),
+  ),
+  thirdWednesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.wednesday,
+      week: Week.third,
+    ),
+  ),
+  thirdThursday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.thursday,
+      week: Week.third,
+    ),
+  ),
+  thirdFriday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.friday,
+      week: Week.third,
+    ),
+  ),
+  thirdSaturday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.saturday,
+      week: Week.third,
+    ),
+  ),
+  thirdSunday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.sunday,
+      week: Week.third,
+    ),
+  ),
+  fourthMonday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.monday,
+      week: Week.fourth,
+    ),
+  ),
+  fourthTuesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.tuesday,
+      week: Week.fourth,
+    ),
+  ),
+  fourthWednesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.wednesday,
+      week: Week.fourth,
+    ),
+  ),
+  fourthThursday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.thursday,
+      week: Week.fourth,
+    ),
+  ),
+  fourthFriday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.friday,
+      week: Week.fourth,
+    ),
+  ),
+  fourthSaturday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.saturday,
+      week: Week.fourth,
+    ),
+  ),
+  fourthSunday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.sunday,
+      week: Week.fourth,
+    ),
+  ),
+  lastMonday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.monday,
+      week: Week.last,
+    ),
+  ),
+  lastTuesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.tuesday,
+      week: Week.last,
+    ),
+  ),
+  lastWednesday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.wednesday,
+      week: Week.last,
+    ),
+  ),
+  lastThursday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.thursday,
+      week: Week.last,
+    ),
+  ),
+  lastFriday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.friday,
+      week: Week.last,
+    ),
+  ),
+  lastSaturday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.saturday,
+      week: Week.last,
+    ),
+  ),
+  lastSunday(
+    EveryWeekdayCountInMonth(
+      day: Weekday.sunday,
+      week: Week.last,
+    ),
+  );
+
+  const WeekdayOccurence(this._handler);
+
+  final EveryWeekdayCountInMonth _handler;
+
+  @override
+  Weekday get day => _handler.day;
+
+  @override
+  Week get week => _handler.week;
+
+  @override
+  DateTime startDate(DateTime date) {
+    return _handler.startDate(date);
+  }
+
+  @override
+  DateTime addMonths(DateTime date, int months) {
+    return _handler.addMonths(date, months);
+  }
+
+  @override
+  int compareTo(EveryWeekdayCountInMonth other) => _handler.compareTo(other);
+
+  @override
+  bool? get stringify => _handler.stringify;
+
+  @override
+  List<Object?> get props => [week, day];
 }

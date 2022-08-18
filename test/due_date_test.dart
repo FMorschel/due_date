@@ -44,7 +44,7 @@ void main() {
       });
       group('EveryDayOfWeek:', () {
         const lastMonday =
-            EveryDayOfWeekInMonth(day: Weekday.monday, week: Week.last);
+            EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.last);
         final matcher = DateTime(year, 2, 28);
         test('Month start', () {
           expect(
@@ -54,7 +54,7 @@ void main() {
         });
         group('Midlle of the month:', () {
           test('First Friday', () {
-            final firstFirday = EveryDayOfWeekInMonth(
+            final firstFirday = EveryWeekdayCountInMonth(
               week: Week.first,
               day: Weekday.friday,
             );

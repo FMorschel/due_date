@@ -4,14 +4,14 @@ import 'package:test/test.dart';
 
 void main() {
   group('EveryWeekday:', () {
-    final today = DateTime(2022, DateTime.august, 12);
-    final todayUtc = DateTime.utc(2022, DateTime.august, 12);
+    final august12th2022 = DateTime(2022, DateTime.august, 12);
+    final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
     group('Every Saturday', () {
       const everySaturday = EveryWeekday(Weekday.saturday);
       group('Local', () {
         final thisSaturday = DateTime(2022, DateTime.august, 13);
         test('This saturday', () {
-          expect(everySaturday.startDate(today), equals(thisSaturday));
+          expect(everySaturday.startDate(august12th2022), equals(thisSaturday));
         });
         test('Previous Saturday', () {
           final previousSaturday = DateTime(2022, DateTime.august, 6);
@@ -26,13 +26,19 @@ void main() {
             everySaturday.addWeeks(thisSaturday, 1),
             equals(nextSaturday),
           );
-          expect(everySaturday.addWeeks(today, 1), equals(nextSaturday));
+          expect(
+            everySaturday.addWeeks(august12th2022, 1),
+            equals(nextSaturday),
+          );
         });
       });
       group('UTC', () {
         final thisSaturdayUtc = DateTime.utc(2022, DateTime.august, 13);
         test('This saturday', () {
-          expect(everySaturday.startDate(todayUtc), equals(thisSaturdayUtc));
+          expect(
+            everySaturday.startDate(august12th2022Utc),
+            equals(thisSaturdayUtc),
+          );
         });
         test('Previous Saturday', () {
           final previousSaturdayUtc = DateTime.utc(2022, DateTime.august, 6);
@@ -47,7 +53,10 @@ void main() {
             everySaturday.addWeeks(thisSaturdayUtc, 1),
             equals(nextSaturdayUtc),
           );
-          expect(everySaturday.addWeeks(todayUtc, 1), equals(nextSaturdayUtc));
+          expect(
+            everySaturday.addWeeks(august12th2022Utc, 1),
+            equals(nextSaturdayUtc),
+          );
         });
       });
     });
@@ -55,29 +64,342 @@ void main() {
       const everyWednesday = EveryWeekday(Weekday.wednesday);
       test('Local', () {
         final wednesday = DateTime(2022, DateTime.august, 17);
-        expect(everyWednesday.startDate(today), equals(wednesday));
+        expect(everyWednesday.startDate(august12th2022), equals(wednesday));
       });
       test('UTC', () {
         final wednesdayUtc = DateTime.utc(2022, DateTime.august, 17);
-        expect(everyWednesday.startDate(todayUtc), equals(wednesdayUtc));
+        expect(
+          everyWednesday.startDate(august12th2022Utc),
+          equals(wednesdayUtc),
+        );
       });
     });
   });
-  // TODO: test EveryDayOfWeekInMonth && EveryDueDayMonth.
+  group('EveryWeekdayCountInMonth:', () {
+    final august12th2022 = DateTime(2022, DateTime.august, 12);
+    final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+    group('First Monday', () {
+      const firstMondayOfMonth = EveryWeekdayCountInMonth(
+        week: Week.first,
+        day: Weekday.monday,
+      );
+      group('Local', () {
+        test('Day 1', () {
+          final middleOfPreviousMonth = DateTime(2022, DateTime.july, 15);
+          final matcher = DateTime(2022, DateTime.august);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonth),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 2', () {
+          final middleOfPreviousMonth = DateTime(2022, DateTime.december, 15);
+          final matcher = DateTime(2023, DateTime.january, 2);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonth),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 3', () {
+          final middleOfPreviousMonth = DateTime(2022, DateTime.september, 15);
+          final matcher = DateTime(2022, DateTime.october, 3);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonth),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 4', () {
+          final middleOfPreviousMonth = DateTime(2022, DateTime.june, 15);
+          final matcher = DateTime(2022, DateTime.july, 4);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonth),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 5', () {
+          final matcher = DateTime(2022, DateTime.september, 5);
+          expect(firstMondayOfMonth.startDate(august12th2022), equals(matcher));
+          expect(
+            firstMondayOfMonth.addMonths(august12th2022, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 6', () {
+          final middleOfPreviousMonth = DateTime(2023, DateTime.january, 15);
+          final matcher = DateTime(2023, DateTime.february, 6);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonth),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 7', () {
+          final middleOfPreviousMonth = DateTime(2022, DateTime.october, 15);
+          final matcher = DateTime(2022, DateTime.november, 7);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonth),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            equals(matcher),
+          );
+        });
+      });
+      group('UTC', () {
+        test('Day 1', () {
+          final middleOfPreviousMonthUtc = DateTime.utc(
+            2022,
+            DateTime.july,
+            15,
+          );
+          final matcher = DateTime.utc(2022, DateTime.august);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 2', () {
+          final middleOfPreviousMonthUtc = DateTime.utc(
+            2022,
+            DateTime.december,
+            15,
+          );
+          final matcher = DateTime.utc(2023, DateTime.january, 2);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 3', () {
+          final middleOfPreviousMonthUtc = DateTime.utc(
+            2022,
+            DateTime.september,
+            15,
+          );
+          final matcher = DateTime.utc(2022, DateTime.october, 3);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 4', () {
+          final middleOfPreviousMonthUtc = DateTime.utc(
+            2022,
+            DateTime.june,
+            15,
+          );
+          final matcher = DateTime.utc(2022, DateTime.july, 4);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 5', () {
+          final matcher = DateTime.utc(2022, DateTime.september, 5);
+          expect(
+            firstMondayOfMonth.startDate(august12th2022Utc),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(august12th2022Utc, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 6', () {
+          final middleOfPreviousMonthUtc = DateTime.utc(
+            2023,
+            DateTime.january,
+            15,
+          );
+          final matcher = DateTime.utc(2023, DateTime.february, 6);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            equals(matcher),
+          );
+        });
+        test('Day 7', () {
+          final middleOfPreviousMonthUtc = DateTime.utc(
+            2022,
+            DateTime.october,
+            15,
+          );
+          final matcher = DateTime.utc(2022, DateTime.november, 7);
+          expect(
+            firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
+            equals(matcher),
+          );
+          expect(
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            equals(matcher),
+          );
+        });
+      });
+    });
+    group('Last wednesday', () {
+      const lastWednesdayOfMonth = EveryWeekdayCountInMonth(
+        week: Week.last,
+        day: Weekday.wednesday,
+      );
+      group('Local', () {
+        final middleOfMonth = DateTime(2024, DateTime.february, 15);
+        test('Subtract months so is March', () {
+          final matcher = DateTime(2023, DateTime.march, 29);
+          expect(
+            lastWednesdayOfMonth.addMonths(middleOfMonth, -11),
+            equals(matcher),
+          );
+        });
+        test('Add months so is March in leap year', () {
+          final matcher = DateTime(2024, DateTime.march, 27);
+          expect(
+            lastWednesdayOfMonth.addMonths(middleOfMonth, 1),
+            equals(matcher),
+          );
+        });
+      });
+      group('UTC', () {
+        final middleOfMonthUtc = DateTime.utc(2024, DateTime.february, 15);
+        test('Subtract months so is March', () {
+          final matcher = DateTime.utc(2023, DateTime.march, 29);
+          expect(
+            lastWednesdayOfMonth.addMonths(middleOfMonthUtc, -11),
+            equals(matcher),
+          );
+        });
+        test('Add months so is March in leap year', () {
+          final matcher = DateTime.utc(2024, DateTime.march, 27);
+          expect(
+            lastWednesdayOfMonth.addMonths(middleOfMonthUtc, 1),
+            equals(matcher),
+          );
+        });
+      });
+    });
+  });
+  group('EveryDueDayMonth:', () {
+    group('Every day 31', () {
+      const everyDay31 = EveryDueDayMonth(31);
+      group('Local', () {
+        test('Month ending in 31', () {
+          final august12th2022 = DateTime(2022, DateTime.august, 12);
+          final matcher = DateTime(2022, DateTime.august, 31);
+          expect(everyDay31.startDate(august12th2022), equals(matcher));
+        });
+        test('Month ending in 30', () {
+          final august12th2022 = DateTime(2022, DateTime.august, 12);
+          final endOfAugust = DateTime(2022, DateTime.august, 31);
+          final matcher = DateTime(2022, DateTime.september, 30);
+          expect(everyDay31.addMonths(august12th2022, 1), equals(matcher));
+          expect(everyDay31.addMonths(endOfAugust, 1), equals(matcher));
+        });
+        test('Month ending in 29', () {
+          final previousMonth = DateTime(2024, DateTime.january, 31);
+          final matcher = DateTime(2024, DateTime.february, 29);
+          expect(everyDay31.addMonths(previousMonth, 1), equals(matcher));
+        });
+        test('Month ending in 28', () {
+          final previousMonth = DateTime(2022, DateTime.january, 31);
+          final nextMonth = DateTime(2022, DateTime.march, 31);
+          final matcher = DateTime(2022, DateTime.february, 28);
+          expect(everyDay31.addMonths(previousMonth, 1), equals(matcher));
+          expect(everyDay31.addMonths(nextMonth, -1), equals(matcher));
+        });
+      });
+      group('UTC', () {
+        test('Month ending in 31', () {
+          final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+          final matcher = DateTime.utc(2022, DateTime.august, 31);
+          expect(everyDay31.startDate(august12th2022Utc), equals(matcher));
+        });
+        test('Month ending in 30', () {
+          final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+          final endOfAugustUtc = DateTime.utc(2022, DateTime.august, 31);
+          final matcher = DateTime.utc(2022, DateTime.september, 30);
+          expect(everyDay31.addMonths(august12th2022Utc, 1), equals(matcher));
+          expect(everyDay31.addMonths(endOfAugustUtc, 1), equals(matcher));
+        });
+        test('Month ending in 29', () {
+          final previousMonthUtc = DateTime.utc(2024, DateTime.january, 31);
+          final matcher = DateTime.utc(2024, DateTime.february, 29);
+          expect(everyDay31.addMonths(previousMonthUtc, 1), equals(matcher));
+        });
+        test('Month ending in 28', () {
+          final previousMonthUtc = DateTime.utc(2022, DateTime.january, 31);
+          final nextMonthUtc = DateTime.utc(2022, DateTime.march, 31);
+          final matcher = DateTime.utc(2022, DateTime.february, 28);
+          expect(everyDay31.addMonths(previousMonthUtc, 1), equals(matcher));
+          expect(everyDay31.addMonths(nextMonthUtc, -1), equals(matcher));
+        });
+      });
+    });
+    group('Every day 15', () {
+      const everyDay15 = EveryDueDayMonth(15);
+      test('Local', () {
+        final august12th2022 = DateTime(2022, DateTime.august, 12);
+        final matcher = DateTime(2022, DateTime.august, 15);
+        expect(everyDay15.startDate(august12th2022), equals(matcher));
+      });
+      test('UTC', () {
+        final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+        final matcher = DateTime.utc(2022, DateTime.august, 15);
+        expect(everyDay15.startDate(august12th2022Utc), equals(matcher));
+      });
+    });
+  });
   group('EveryDayOfYear:', () {
-    final today = DateTime(2022, DateTime.august, 12);
-    final todayUtc = DateTime.utc(2022, DateTime.august, 12);
+    final august12th2022 = DateTime(2022, DateTime.august, 12);
+    final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
     group('Every Day 1', () {
       const everyDay1 = EveryDayOfYear(1);
       group('Local', () {
         final nextYearsDayOne = DateTime(2023);
         test('Next Year', () {
-          expect(everyDay1.startDate(today), equals(nextYearsDayOne));
+          expect(everyDay1.startDate(august12th2022), equals(nextYearsDayOne));
         });
         test('Previous Year', () {
           final previousYearsDay1 = DateTime(2021);
           expect(
-            everyDay1.addYears(today, -1),
+            everyDay1.addYears(august12th2022, -1),
             equals(previousYearsDay1),
           );
         });
@@ -92,12 +414,15 @@ void main() {
       group('UTC', () {
         final nextYearsDayOneUtc = DateTime.utc(2023);
         test('Next Year', () {
-          expect(everyDay1.startDate(todayUtc), equals(nextYearsDayOneUtc));
+          expect(
+            everyDay1.startDate(august12th2022Utc),
+            equals(nextYearsDayOneUtc),
+          );
         });
         test('Previous Year', () {
           final previousYearsDay1Utc = DateTime.utc(2021);
           expect(
-            everyDay1.addYears(todayUtc, -1),
+            everyDay1.addYears(august12th2022Utc, -1),
             equals(previousYearsDay1Utc),
           );
         });
@@ -116,7 +441,7 @@ void main() {
         test('This year', () {
           final programmersDay2022 = DateTime(2022, DateTime.september, 13);
           expect(
-            programmersDay.startDate(today),
+            programmersDay.startDate(august12th2022),
             equals(programmersDay2022),
           );
         });
@@ -124,7 +449,7 @@ void main() {
           final programmersDay2022 = DateTime(2022, DateTime.september, 13);
           final programmersDay2023 = DateTime(2023, DateTime.september, 13);
           expect(
-            programmersDay.addYears(today, 1),
+            programmersDay.addYears(august12th2022, 1),
             equals(programmersDay2023),
           );
           expect(
@@ -135,14 +460,14 @@ void main() {
         test('Previous year', () {
           final programmersDay2021 = DateTime(2021, DateTime.september, 13);
           expect(
-            programmersDay.addYears(today, -1),
+            programmersDay.addYears(august12th2022, -1),
             equals(programmersDay2021),
           );
         });
         test('Leap year', () {
           final programmersDay2024 = DateTime(2024, DateTime.september, 12);
           expect(
-            programmersDay.addYears(today, 2),
+            programmersDay.addYears(august12th2022, 2),
             equals(programmersDay2024),
           );
         });
@@ -155,7 +480,7 @@ void main() {
             13,
           );
           expect(
-            programmersDay.startDate(todayUtc),
+            programmersDay.startDate(august12th2022Utc),
             equals(programmersDay2022Utc),
           );
         });
@@ -171,7 +496,7 @@ void main() {
             13,
           );
           expect(
-            programmersDay.addYears(todayUtc, 1),
+            programmersDay.addYears(august12th2022Utc, 1),
             equals(programmersDay2023Utc),
           );
           expect(
@@ -186,7 +511,7 @@ void main() {
             13,
           );
           expect(
-            programmersDay.addYears(todayUtc, -1),
+            programmersDay.addYears(august12th2022Utc, -1),
             equals(programmersDay2021Utc),
           );
         });
@@ -197,7 +522,7 @@ void main() {
             12,
           );
           expect(
-            programmersDay.addYears(todayUtc, 2),
+            programmersDay.addYears(august12th2022Utc, 2),
             equals(programmersDay2024Utc),
           );
         });
@@ -209,14 +534,14 @@ void main() {
         test('This year', () {
           final endOf2022 = DateTime(2022, DateTime.december, 31);
           expect(
-            endOfYear.startDate(today),
+            endOfYear.startDate(august12th2022),
             equals(endOf2022),
           );
         });
         test('Leap year', () {
           final endOf2024 = DateTime(2024, DateTime.december, 31);
           expect(
-            endOfYear.addYears(today, 2),
+            endOfYear.addYears(august12th2022, 2),
             equals(endOf2024),
           );
         });
@@ -225,14 +550,14 @@ void main() {
         test('This year', () {
           final endOf2022Utc = DateTime.utc(2022, DateTime.december, 31);
           expect(
-            endOfYear.startDate(todayUtc),
+            endOfYear.startDate(august12th2022Utc),
             equals(endOf2022Utc),
           );
         });
         test('Leap year', () {
           final endOf2024Utc = DateTime.utc(2024, DateTime.december, 31);
           expect(
-            endOfYear.addYears(todayUtc, 2),
+            endOfYear.addYears(august12th2022Utc, 2),
             equals(endOf2024Utc),
           );
         });
