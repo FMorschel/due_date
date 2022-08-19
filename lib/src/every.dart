@@ -5,34 +5,109 @@ import 'enums.dart';
 import 'extensions.dart';
 
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
+/// 
+/// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also 
+/// [WeekdayOccurrence]) and [EveryDayOfYear] for complete base implementations.
+/// 
+/// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
 abstract class Every {
+
+  /// Abstract class that, when extended, processes [DateTime] with custom logic.
+  /// 
+  /// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also 
+  /// [WeekdayOccurrence]) and [EveryDayOfYear] for complete base 
+  /// implementations.
+  /// 
+  /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
   const Every();
+
+  /// Returns the next [DateTime] that matches the [Every] pattern.
   DateTime startDate(DateTime date);
+
+  /// Returns the next instance of the given [date] considering this [Every]
+  /// base process.
+  DateTime next(DateTime date);
+
+  /// Returns the previous instance of the given [date] considering this [Every]
+  /// base process.
+  DateTime previous(DateTime date);
 }
 
-/// Abstract class that, when extended, processes [DateTime] with custom logic.
-abstract class EveryWeek extends Every {
-  const EveryWeek();
+/// Processes [DateTime] with custom logic.
+mixin EveryWeek implements Every {
+  /// This mixin's implementation of [Every.next] and [Every.previous].
   DateTime addWeeks(DateTime date, int weeks);
+
+  /// Returns the next week of the given [date] considering this [EveryWeek]
+  /// implementation.
+  ///
+  /// Returns the next instance of the given [date] considering this [Every]
+  /// base process.
+  @override
+  DateTime next(DateTime date) => addWeeks(date, 1);
+
+  /// Returns the previous week of the given [date] considering this [EveryWeek]
+  /// implementation.
+  ///
+  /// Returns the previous instance of the given [date] considering this [Every]
+  /// base process.
+  @override
+  DateTime previous(DateTime date) => addWeeks(date, -1);
 }
 
-/// Abstract class that, when extended, processes [DateTime] with custom logic.
-abstract class EveryMonth extends Every {
-  const EveryMonth();
+/// Processes [DateTime] with custom logic.
+mixin EveryMonth implements Every {
+  /// This mixin's implementation of [Every.next] and [Every.previous].
   DateTime addMonths(DateTime date, int months);
+
+  /// Returns the next month of the given [date] considering this [EveryMonth]
+  /// implementation.
+  ///
+  /// Returns the next instance of the given [date] considering this [Every]
+  /// base process.
+  @override
+  DateTime next(DateTime date) => addMonths(date, 1);
+
+  /// Returns the previous month of the given [date] considering this
+  /// [EveryMonth] implementation.
+  ///
+  /// Returns the previous instance of the given [date] considering this [Every]
+  /// base process.
+  @override
+  DateTime previous(DateTime date) => addMonths(date, -1);
 }
 
-/// Abstract class that, when extended, processes [DateTime] with custom logic.
-abstract class EveryYear extends Every {
-  const EveryYear();
+/// Processes [DateTime] with custom logic.
+mixin EveryYear implements Every {
+  /// This mixin's implementation of [Every.next] and [Every.previous].
   DateTime addYears(DateTime date, int years);
+
+  /// Returns the next year of the given [date] considering this [EveryYear]
+  /// implementation.
+  ///
+  /// Returns the next instance of the given [date] considering this [Every]
+  /// base process.
+  @override
+  DateTime next(DateTime date) => addYears(date, 1);
+
+  /// Returns the previous year of the given [date] considering this [EveryYear]
+  /// implementation.
+  ///
+  /// Returns the previous instance of the given [date] considering this [Every]
+  /// base process.
+  @override
+  DateTime previous(DateTime date) => addYears(date, -1);
 }
 
 /// Class that processes [DateTime] so that the [addWeeks] always returns the
 /// next week's with the [DateTime.weekday] equals to the [weekday].
-class EveryWeekday extends EveryWeek
-    with EquatableMixin
-    implements Comparable<EveryWeekday> {
+class EveryWeekday extends Every
+    with EveryWeek, EquatableMixin
+    implements EveryMonth, EveryYear, Comparable<EveryWeekday> {
+  
+  /// Returns a [EveryWeekday] with the given [weekday].
+  /// When you call [next] or [previous] on this [EveryWeekday], it will return
+  /// the [weekday] of the next or previous week.
   const EveryWeekday(this.weekday);
 
   /// The expected weekday.
@@ -60,11 +135,26 @@ class EveryWeekday extends EveryWeek
   DateTime addWeeks(DateTime date, int weeks) {
     final day = date.toUtc().add(Duration(days: weeks * 7));
     if (date.isUtc) {
-      return weekday.fromThisWeek(day);
+      return weekday.fromThisWeek(day.date).add(date.timeOfDay);
     } else {
-      return weekday.fromThisWeek(day.toLocal());
+      return weekday.fromThisWeek(day.toLocal().date).add(date.timeOfDay);
     }
   }
+
+  /// Returns a new [DateTime] where the week is the same([Week]) inside the
+  /// month and is [months] months from this week and the [DateTime.weekday] is
+  /// equal to [weekday].
+  @override
+  DateTime addMonths(DateTime date, int months) {
+    final every = EveryWeekdayCountInMonth.from(date);
+    return every.addMonths(date, months);
+  }
+
+  /// Returns a new [DateTime] where the week is the same inside the month and
+  /// is [years] years from this week and the [DateTime.weekday] is equal to
+  /// [weekday].
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
   @override
   int compareTo(EveryWeekday other) {
@@ -86,9 +176,13 @@ class EveryWeekday extends EveryWeek
 /// return the next month with the [DateTime.day] as 31.
 /// - If the [dueDay] is 15, the [addMonths] will return the next month with the
 /// [DateTime.day] as 15.
-class EveryDueDayMonth extends EveryMonth
-    with EquatableMixin
+class EveryDueDayMonth extends Every
+    with EveryMonth, EquatableMixin
     implements EveryYear, Comparable<EveryDueDayMonth> {
+
+  /// Returns a [EveryDueDayMonth] with the given [dueDay].
+  /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
+  /// return the [dueDay] of the next or previous month.
   const EveryDueDayMonth(this.dueDay)
       : assert(
           (dueDay >= 1) && (dueDay <= 31),
@@ -127,6 +221,11 @@ class EveryDueDayMonth extends EveryMonth
         );
   }
 
+  /// Returns the [date] - [DateTime.year] + [years] with the [DateTime.day] as
+  /// the [dueDay], clamped to the months length.
+  /// 
+  /// Basically, it's the same as [addMonths] but with the months parameter
+  /// multiplied by 12.
   @override
   DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
@@ -168,15 +267,28 @@ class EveryDueDayMonth extends EveryMonth
 /// const lastFriday = EveryDayOfWeek(day: Weekday.friday, week: Week.last);
 /// lastFriday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 28).
 /// ```
-class EveryWeekdayCountInMonth extends EveryMonth
-    with EquatableMixin
+class EveryWeekdayCountInMonth extends Every
+    with EveryMonth, EquatableMixin
     implements EveryYear, Comparable<EveryWeekdayCountInMonth> {
+
+  /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week].
   const EveryWeekdayCountInMonth({
     required this.week,
     required this.day,
   });
 
+  /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week] from 
+  /// the given [date].
+  factory EveryWeekdayCountInMonth.from(DateTime date) =>
+      EveryWeekdayCountInMonth(
+        day: Weekday.fromDateTimeValue(date.weekday),
+        week: Week.from(date),
+      );
+
+  /// The expected week of the month.
   final Week week;
+
+  /// The expected day of the week.
   final Weekday day;
 
   /// Returns the next date that fits the [day] and the [week].
@@ -210,6 +322,11 @@ class EveryWeekdayCountInMonth extends EveryMonth
         .add(date.timeOfDay);
   }
 
+  /// Returns the [date] - [DateTime.year] + [years] with the [week] occurence 
+  /// of the [day].
+  /// 
+  /// Basically, it's the same as [addMonths] but with the months parameter
+  /// multiplied by 12.
   @override
   DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
@@ -239,16 +356,18 @@ class EveryWeekdayCountInMonth extends EveryMonth
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
-class EveryDayOfYear extends EveryYear
-    with EquatableMixin
+class EveryDayOfYear extends Every
+    with EveryYear, EquatableMixin
     implements Comparable<EveryDayOfYear> {
+
+  /// Returns a [EveryDayOfYear] with the given [dayInYear].
   const EveryDayOfYear(this.dayInYear)
       : assert(
           dayInYear >= 1 && dayInYear <= 366,
           'dayInYear must be between 1 and 366',
         );
 
-  /// The day in the year.
+  /// The expected day in the year.
   ///
   /// - The first day of the year is 1.
   /// - The last day of the year is 365/366.

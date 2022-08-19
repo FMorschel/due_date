@@ -78,6 +78,11 @@ void main() {
   group('EveryWeekdayCountInMonth:', () {
     final august12th2022 = DateTime(2022, DateTime.august, 12);
     final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+    test('Right day', () {
+      final date = DateTime(2022, DateTime.august, 12);
+      final every = EveryWeekdayCountInMonth.from(date);
+      expect(every.startDate(august12th2022), equals(date));
+    });
     group('First Monday', () {
       const firstMondayOfMonth = EveryWeekdayCountInMonth(
         week: Week.first,

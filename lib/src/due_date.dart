@@ -22,7 +22,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   factory DueDateTime({
     required int year,
 
-    /// The expected day of the month.
+    /// The handler for the operations.
     Every? every,
     int month = 1,
     int day = 1,
@@ -108,7 +108,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   factory DueDateTime.utc({
     required int year,
 
-    /// The expected day of the month.
+    /// The handler for the operations.
     Every? every,
     int month = 1,
     int day = 1,
@@ -150,7 +150,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   factory DueDateTime.fromDate(
     DateTime reference, [
 
-    /// The expected day of the month.
+    /// The handler for the operations.
     Every? every,
   ]) {
     if (every == null) {
@@ -167,7 +167,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   }
 
   factory DueDateTime._toConstructor({
-    /// The expected day of the month.
+    /// The handler for the operations.
     required Every every,
     required DateTime date,
   }) {
@@ -575,6 +575,14 @@ class DueDateTime extends DateTime with EquatableMixin {
     bool sameEvery = false,
   }) =>
       addYears(-years, sameEvery: sameEvery);
+
+  /// Returns a new [DueDateTime] instance with the next date that matches the
+  /// [every] main pattern.
+  DueDateTime get next => DueDateTime.fromDate(every.next(this), every);
+
+  /// Returns a new [DueDateTime] instance with the previous date that matches 
+  /// the [every] main pattern.
+  DueDateTime get previous => DueDateTime.fromDate(every.previous(this), every);
 
   /// Returns a new [DueDateTime] instance with 1 weeks added to this.
   /// Be careful when working with dates in local time.

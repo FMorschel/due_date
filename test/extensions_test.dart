@@ -17,7 +17,7 @@ void main() {
       final monday = DateTime.utc(2022, DateTime.july, 18);
       final friday = DateTime.utc(2022, DateTime.july, 22);
       for (final weekday in monday.to(friday, by: const Duration(days: 1))) {
-        test(Weekday.fromDateTime(weekday.weekday).name, () {
+        test(Weekday.fromDateTimeValue(weekday.weekday).name, () {
           expect(weekday.isWorkDay, isTrue);
         });
       }
@@ -191,24 +191,8 @@ void main() {
   group('ClampInMonth on DateTime:', () {
     final date = DateTime.utc(2022, DateTime.july, 11);
     final july = DateTime.utc(2022, DateTime.july);
-    test('PreviousMonth', () {
-      expect(july.previousMonth, equals(DateTime.utc(2022, DateTime.june)));
-    });
-    test('NextMonth', () {
-      expect(july.nextMonth, equals(DateTime.utc(2022, DateTime.august)));
-    });
-    group('Clamp in month', () {
-      test('Previous month', () {
-        final june = july.previousMonth;
-        expect(date.clampInMonth(june), equals(june.lastDayOfMonth));
-      });
-      test('Current month', () {
-        expect(date.clampInMonth(july), equals(date));
-      });
-      test('Next month', () {
-        final august = july.nextMonth;
-        expect(date.clampInMonth(august), equals(august));
-      });
+    test('Current month', () {
+      expect(date.clampInMonth(july), equals(date));
     });
   });
   group('PreviousNext on Iterable of Weekday:', () {
@@ -217,7 +201,7 @@ void main() {
       group('single:', () {
         for (final weekday in Weekday.values) {
           final macther = [weekday.previous];
-          final result = [weekday].daysBefore;
+          final result = [weekday].previousWeekdays;
           test(
             weekday.name,
             () => expect(result, containsAll(macther)),
@@ -231,7 +215,7 @@ void main() {
           iterable.remove(weekday);
           test(
             'all but ${weekday.name}',
-            () => expect(iterable.daysBefore, containsAll(macther)),
+            () => expect(iterable.previousWeekdays, containsAll(macther)),
           );
         }
       });
@@ -242,7 +226,7 @@ void main() {
           final macther = {weekday.next};
           test(
             weekday.next,
-            () => expect([weekday].daysAfter, equals(macther)),
+            () => expect([weekday].nextWeekdays, equals(macther)),
           );
         }
       });
@@ -253,7 +237,7 @@ void main() {
           iterable.remove(weekday);
           test(
             'all but ${weekday.name}',
-            () => expect(iterable.daysAfter, containsAll(macther)),
+            () => expect(iterable.nextWeekdays, containsAll(macther)),
           );
         }
       });

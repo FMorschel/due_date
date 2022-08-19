@@ -2,15 +2,16 @@ import 'package:due_date/due_date.dart';
 import 'package:due_date/src/every.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
+import 'package:time/time.dart';
 
 void main() {
   group('Weekday:', () {
     group('Throw on factory outside of range:', () {
       test('Value below 1', () {
-        expect(() => Weekday.fromDateTime(0), throwsRangeError);
+        expect(() => Weekday.fromDateTimeValue(0), throwsRangeError);
       });
       test('Value above 7', () {
-        expect(() => Weekday.fromDateTime(8), throwsRangeError);
+        expect(() => Weekday.fromDateTimeValue(8), throwsRangeError);
       });
     });
     group('Previous:', () {
@@ -19,7 +20,7 @@ void main() {
           if (weekday != Weekday.monday) {
             expect(
               weekday.previous,
-              equals(Weekday.fromDateTime(weekday.dateTimeValue - 1)),
+              equals(Weekday.fromDateTimeValue(weekday.dateTimeValue - 1)),
             );
           } else {
             expect(weekday.previous, equals(Weekday.sunday));
@@ -33,7 +34,7 @@ void main() {
           if (weekday != Weekday.sunday) {
             expect(
               weekday.next,
-              equals(Weekday.fromDateTime(weekday.dateTimeValue + 1)),
+              equals(Weekday.fromDateTimeValue(weekday.dateTimeValue + 1)),
             );
           } else {
             expect(weekday.next, equals(Weekday.monday));
@@ -45,13 +46,13 @@ void main() {
       final set = {Weekday.saturday, Weekday.sunday};
       test('Contains $set', () {
         expect(
-          Weekday.weekendDays,
+          Weekday.weekend,
           containsAllInOrder(set),
         );
       });
       test('Is ${set.runtimeType}', () {
         expect(
-          Weekday.weekendDays,
+          Weekday.weekend,
           isA<Set<Weekday>>(),
         );
       });
@@ -123,10 +124,10 @@ void main() {
   group('Month:', () {
     group('Throw on factory outside of range:', () {
       test('Value below 1', () {
-        expect(() => Month.fromDateTime(0), throwsRangeError);
+        expect(() => Month.fromDateTimeValue(0), throwsRangeError);
       });
       test('Value above 12', () {
-        expect(() => Month.fromDateTime(13), throwsRangeError);
+        expect(() => Month.fromDateTimeValue(13), throwsRangeError);
       });
     });
     group('Previous:', () {
@@ -135,7 +136,7 @@ void main() {
           if (month != Month.january) {
             expect(
               month.previous,
-              equals(Month.fromDateTime(month.dateTimeValue - 1)),
+              equals(Month.fromDateTimeValue(month.dateTimeValue - 1)),
             );
           } else {
             expect(month.previous, equals(Month.december));
@@ -149,7 +150,7 @@ void main() {
           if (month != Month.december) {
             expect(
               month.next,
-              equals(Month.fromDateTime(month.dateTimeValue + 1)),
+              equals(Month.fromDateTimeValue(month.dateTimeValue + 1)),
             );
           } else {
             expect(month.next, equals(Month.january));
@@ -173,6 +174,75 @@ void main() {
     });
   });
   group('Week', () {
+    group('Week.from', () {
+      const year = 2022;
+      const month = Month.august;
+      group('First', () {
+        const matcher = Week.first;
+        final firstDayOfWeek = DateTime(year, month.dateTimeValue, 1);
+        final lastDayOfWeek = DateTime(year, month.dateTimeValue, 7);
+        test(Weekday.fromDateTimeValue(firstDayOfWeek.weekday).name, () {
+          expect(Week.from(firstDayOfWeek), equals(matcher));
+        });
+        for (final day in firstDayOfWeek.to(lastDayOfWeek)) {
+          test(Weekday.fromDateTimeValue(day.weekday).name, () {
+            expect(Week.from(day), equals(matcher));
+          });
+        }
+      });
+      group('Second', () {
+        const matcher = Week.second;
+        final firstDayOfWeek = DateTime(year, month.dateTimeValue, 8);
+        final lastDayOfWeek = DateTime(year, month.dateTimeValue, 14);
+        test(Weekday.fromDateTimeValue(firstDayOfWeek.weekday).name, () {
+          expect(Week.from(firstDayOfWeek), equals(matcher));
+        });
+        for (final day in firstDayOfWeek.to(lastDayOfWeek)) {
+          test(Weekday.fromDateTimeValue(day.weekday).name, () {
+            expect(Week.from(day), equals(matcher));
+          });
+        }
+      });
+      group('Third', () {
+        const matcher = Week.third;
+        final firstDayOfWeek = DateTime(year, month.dateTimeValue, 15);
+        final lastDayOfWeek = DateTime(year, month.dateTimeValue, 21);
+        test(Weekday.fromDateTimeValue(firstDayOfWeek.weekday).name, () {
+          expect(Week.from(firstDayOfWeek), equals(matcher));
+        });
+        for (final day in firstDayOfWeek.to(lastDayOfWeek)) {
+          test(Weekday.fromDateTimeValue(day.weekday).name, () {
+            expect(Week.from(day), equals(matcher));
+          });
+        }
+      });
+      group('Fourth', () {
+        const matcher = Week.fourth;
+        final firstDayOfWeek = DateTime(year, month.dateTimeValue, 22);
+        final lastDayOfWeek = DateTime(year, month.dateTimeValue, 28);
+        test(Weekday.fromDateTimeValue(firstDayOfWeek.weekday).name, () {
+          expect(Week.from(firstDayOfWeek), equals(matcher));
+        });
+        for (final day in firstDayOfWeek.to(lastDayOfWeek)) {
+          test(Weekday.fromDateTimeValue(day.weekday).name, () {
+            expect(Week.from(day), equals(matcher));
+          });
+        }
+      });
+      group('Last', () {
+        const matcher = Week.last;
+        final firstDayOfWeek = DateTime(year, month.dateTimeValue, 29);
+        final lastDayOfWeek = DateTime(year, month.dateTimeValue, 31);
+        test(Weekday.fromDateTimeValue(firstDayOfWeek.weekday).name, () {
+          expect(Week.from(firstDayOfWeek), equals(matcher));
+        });
+        for (final day in firstDayOfWeek.to(lastDayOfWeek)) {
+          test(Weekday.fromDateTimeValue(day.weekday).name, () {
+            expect(Week.from(day), equals(matcher));
+          });
+        }
+      });
+    });
     group('First', () {
       const first = Week.first;
       test('Starts six days before the first day of the month', () {

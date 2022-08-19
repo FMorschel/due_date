@@ -11,12 +11,18 @@ enum Weekday implements Comparable<Weekday> {
   wednesday(DateTime.wednesday),
   thursday(DateTime.thursday),
   friday(DateTime.friday),
-  saturday(DateTime.saturday, weekend: true),
-  sunday(DateTime.sunday, weekend: true);
+  saturday(DateTime.saturday, isWeekend: true),
+  sunday(DateTime.sunday, isWeekend: true);
 
-  const Weekday(this.dateTimeValue, {this.weekend = false});
+  const Weekday(this.dateTimeValue, {this.isWeekend = false});
 
-  factory Weekday.fromDateTime(int weekday) {
+  /// Returns the Weekday constant that corresponds to the given [date].
+  factory Weekday.from(DateTime date) =>
+      Weekday.fromDateTimeValue(date.weekday);
+
+  /// Returns the Weekday constant that corresponds to the given
+  /// [dateTimeValue].
+  factory Weekday.fromDateTimeValue(int weekday) {
     if (weekday == DateTime.monday) {
       return monday;
     } else if (weekday == DateTime.tuesday) {
@@ -31,15 +37,21 @@ enum Weekday implements Comparable<Weekday> {
       return saturday;
     } else if (weekday == DateTime.sunday) {
       return sunday;
-    } else {
-      throw RangeError.range(weekday, DateTime.monday, DateTime.sunday);
     }
+    throw RangeError.range(weekday, DateTime.monday, DateTime.sunday);
   }
 
+  /// The value of the weekday on the [DateTime] class.
   final int dateTimeValue;
-  final bool weekend;
-  bool get workDay => !weekend;
 
+  /// Whether this weekday is a weekend.
+  final bool isWeekend;
+
+  /// Whether this weekday is a workday.
+  bool get isWorkDay => !isWeekend;
+
+  /// Returns the ammount of weekdays correspondent to this on the given [month]
+  /// of [year].
   int occrurencesIn(int year, int month) {
     DateTime date = DateTime.utc(year, month, 1);
     int count = 0;
@@ -52,6 +64,7 @@ enum Weekday implements Comparable<Weekday> {
     return count;
   }
 
+  /// Returns the same weekday of the given week that [date] is in.
   DateTime fromThisWeek(DateTime date) {
     final monday = date.firstDayOfWeek;
     final result = monday.add(Duration(days: index));
@@ -63,26 +76,30 @@ enum Weekday implements Comparable<Weekday> {
   @override
   int compareTo(Weekday other) => dateTimeValue.compareTo(other.dateTimeValue);
 
+  /// Returns the [EveryWeekday] that corresponds to this weekday.
   EveryWeekday get every => EveryWeekday(this);
 
+  /// Returns the [Weekday] previous to this.
   Weekday get previous {
     if (dateTimeValue != monday.dateTimeValue) {
-      return Weekday.fromDateTime(dateTimeValue - 1);
+      return Weekday.fromDateTimeValue(dateTimeValue - 1);
     } else {
       return sunday;
     }
   }
 
+  /// Returns the [Weekday] next to this.
   Weekday get next {
     if (dateTimeValue != sunday.dateTimeValue) {
-      return Weekday.fromDateTime(dateTimeValue + 1);
+      return Weekday.fromDateTimeValue(dateTimeValue + 1);
     } else {
       return monday;
     }
   }
 
-  static Set<Weekday> get weekendDays {
-    return values.where((weekday) => weekday.weekend).toSet();
+  /// Returns the [Weekday]s that [isWeekend] is true for.
+  static Set<Weekday> get weekend {
+    return values.where((weekday) => weekday.isWeekend).toSet();
   }
 }
 
@@ -103,7 +120,12 @@ enum Month implements Comparable<Month> {
 
   const Month(this.dateTimeValue);
 
-  factory Month.fromDateTime(int month) {
+  /// Returns the [Month] constant that corresponds to the given [date].
+  factory Month.from(DateTime date) => Month.fromDateTimeValue(date.month);
+
+  /// Returns the [Month] constant that corresponds to the given [month] on
+  /// [dateTimeValue].
+  factory Month.fromDateTimeValue(int month) {
     if (month == DateTime.january) {
       return january;
     } else if (month == DateTime.february) {
@@ -128,31 +150,36 @@ enum Month implements Comparable<Month> {
       return november;
     } else if (month == DateTime.december) {
       return december;
-    } else {
-      throw RangeError.range(month, DateTime.monday, DateTime.december);
     }
+    throw RangeError.range(month, DateTime.monday, DateTime.december);
   }
 
+  /// The value of the month in [DateTime] class.
   final int dateTimeValue;
 
+  /// Returns the first day of the month on the given [year] (utc).
   DateTime of(int year) => DateTime.utc(year, dateTimeValue);
+
+  /// Returns the last day of the month on the given [year] (utc).
   DateTime lastDayOfAt(int year) =>
       DateTime.utc(year, dateTimeValue).lastDayOfMonth;
 
   @override
   int compareTo(Month other) => dateTimeValue.compareTo(other.dateTimeValue);
 
+  /// Returns the [Month] previous to this.
   Month get previous {
     if (dateTimeValue != january.dateTimeValue) {
-      return Month.fromDateTime(dateTimeValue - 1);
+      return Month.fromDateTimeValue(dateTimeValue - 1);
     } else {
       return december;
     }
   }
 
+  /// Returns the [Month] next to this.
   Month get next {
     if (dateTimeValue != december.dateTimeValue) {
-      return Month.fromDateTime(dateTimeValue + 1);
+      return Month.fromDateTimeValue(dateTimeValue + 1);
     } else {
       return january;
     }
@@ -165,6 +192,27 @@ enum Week implements Comparable<Week> {
   third,
   fourth,
   last;
+
+  /// Returns the [Week] constant that corresponds to the given [date].
+  factory Week.from(DateTime date) {
+    const week = Duration(days: 7);
+    final seventhDayOfMonth = date.toUtc().firstDayOfMonth.add(
+          const Duration(days: 6),
+        );
+    final monday = date.toUtc().firstDayOfWeek;
+    if (monday.compareTo(seventhDayOfMonth) <= 0) {
+      return first;
+    } else if (monday.compareTo(seventhDayOfMonth.add(week)) <= 0) {
+      return second;
+    } else if (monday.compareTo(seventhDayOfMonth.add(week * 2)) <= 0) {
+      return third;
+    } else if (monday.compareTo(seventhDayOfMonth.add(week * 3)) <= 0) {
+      return fourth;
+    } else if (monday.compareTo(seventhDayOfMonth.add(week * 4)) <= 0) {
+      return last;
+    }
+    throw Exception('Unsupported week');
+  }
 
   /// Returns the first day (just as [DateTime], is Monday) of the week of the
   /// selected week for the given [year] and [month].
@@ -189,8 +237,8 @@ enum Week implements Comparable<Week> {
     }
   }
 
-  /// Returns the first day (just as [DateTime], is Monday) of the week of the
-  /// selected week for the given [year] and [month].
+  /// Returns the [DateTime] for [day] of the week of the selected week for the
+  /// given [year] and [month].
   DateTime weekdayOf({
     required int year,
     required int month,
@@ -220,6 +268,24 @@ enum Week implements Comparable<Week> {
 
   @override
   int compareTo(Week other) => index.compareTo(other.index);
+
+  /// Returns the [Week] previous to this.
+  Week get previous {
+    if (index != first.index) {
+      return Week.values[index - 1];
+    } else {
+      return last;
+    }
+  }
+
+  /// Returns the [Week] next to this.
+  Week get next {
+    if (index != last.index) {
+      return Week.values[index + 1];
+    } else {
+      return first;
+    }
+  }
 }
 
 /// An enum wrapper in EveryWeekdayCountInMonth class.
@@ -440,6 +506,19 @@ enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
 
   const WeekdayOccurrence(this._handler);
 
+  /// Returns the [WeekdayOccurrence] for the given [date].
+  factory WeekdayOccurrence.from(DateTime date) {
+    final every = EveryWeekdayCountInMonth.from(date);
+    return WeekdayOccurrence.fromEvery(every);
+  }
+
+  /// Returns the [WeekdayOccurrence] for the given [every].
+  factory WeekdayOccurrence.fromEvery(EveryWeekdayCountInMonth every) {
+    return WeekdayOccurrence.values.singleWhere((element) {
+      return (element.day == every.day) && (element.week == every.week);
+    });
+  }
+
   final EveryWeekdayCountInMonth _handler;
 
   @override
@@ -457,7 +536,13 @@ enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
   }
 
   @override
-  DateTime addYears(DateTime date, int years) => _handler.addYears(date, years); 
+  DateTime next(DateTime date) => _handler.next(date);
+
+  @override
+  DateTime previous(DateTime date) => _handler.previous(date);
+
+  @override
+  DateTime addYears(DateTime date, int years) => _handler.addYears(date, years);
 
   @override
   int compareTo(EveryWeekdayCountInMonth other) => _handler.compareTo(other);
@@ -466,5 +551,5 @@ enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
   bool? get stringify => _handler.stringify;
 
   @override
-  List<Object?> get props => [week, day];
+  List<Object?> get props => _handler.props;
 }
