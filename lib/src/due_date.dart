@@ -584,30 +584,6 @@ class DueDateTime extends DateTime with EquatableMixin {
   /// the [every] main pattern.
   DueDateTime get previous => DueDateTime.fromDate(every.previous(this), every);
 
-  /// Returns a new [DueDateTime] instance with 1 weeks added to this.
-  /// Be careful when working with dates in local time.
-  DueDateTime get nextWeek => addWeeks(1, sameEvery: true);
-
-  /// Returns a new [DueDateTime] instance with 1 month added to this.
-  /// Be careful when working with dates in local time.
-  DueDateTime get nextMonth => addMonths(1, sameEvery: true);
-
-  /// Returns a new [DueDateTime] instance with 1 year added to this.
-  /// Be careful when working with dates in local time.
-  DueDateTime get nextYear => addMonths(12, sameEvery: true);
-
-  /// Returns a new [DueDateTime] instance with 1 weeks subtracted from this.
-  /// Be careful when working with dates in local time.
-  DueDateTime get previousWeek => subtractWeeks(1, sameEvery: true);
-
-  /// Returns a new [DueDateTime] instance with 1 month subtracted from this.
-  /// Be careful when working with dates in local time.
-  DueDateTime get previousMonth => subtractMonths(1, sameEvery: true);
-
-  /// Returns a new [DueDateTime] instance with 1 year subtracted from this.
-  /// Be careful when working with dates in local time.
-  DueDateTime get previousYear => subtractMonths(12, sameEvery: true);
-
   @override
   List<Object?> get props => [
         every,

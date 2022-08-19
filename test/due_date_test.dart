@@ -236,10 +236,6 @@ void main() {
         dueDate.addMonths(1),
         equals(DateTime(2022, 2, 28)),
       );
-      expect(
-        dueDate.nextMonth,
-        equals(DateTime(2022, 2, 28)),
-      );
     });
     test('Add 3 month', () {
       expect(
@@ -252,10 +248,6 @@ void main() {
         dueDate.addMonths(12),
         equals(DateTime(2023, 1, 30)),
       );
-      expect(
-        dueDate.nextYear,
-        equals(DateTime(2023, 1, 30)),
-      );
     });
   });
   group('SubtractMonths', () {
@@ -263,10 +255,6 @@ void main() {
     test('Subtract 1 month', () {
       expect(
         dueDate.subtractMonths(1),
-        equals(DateTime(2021, 12, 30)),
-      );
-      expect(
-        dueDate.previousMonth,
         equals(DateTime(2021, 12, 30)),
       );
     });
@@ -279,10 +267,6 @@ void main() {
     test('Subtract 1 year (12 months)', () {
       expect(
         dueDate.subtractMonths(12),
-        equals(DateTime(2021, 1, 30)),
-      );
-      expect(
-        dueDate.previousYear,
         equals(DateTime(2021, 1, 30)),
       );
     });
@@ -341,10 +325,6 @@ void main() {
         dueDate.addWeeks(1),
         equals(matcher),
       );
-      expect(
-        dueDate.nextWeek,
-        equals(matcher),
-      );
     });
     test('2 weeks', () {
       expect(
@@ -365,10 +345,6 @@ void main() {
       final matcher = DateTime(2022, 1, 23);
       expect(
         dueDate.subtractWeeks(1),
-        equals(matcher),
-      );
-      expect(
-        dueDate.previousWeek,
         equals(matcher),
       );
     });
