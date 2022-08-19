@@ -1,8 +1,6 @@
 import 'package:time/time.dart';
 
 import '../due_date.dart';
-import 'every.dart';
-import 'extensions.dart';
 
 /// Weekday constants that are returned by [DateTime.weekday] method.
 enum Weekday implements Comparable<Weekday> {
@@ -186,6 +184,11 @@ enum Month implements Comparable<Month> {
   }
 }
 
+/// Week occurences inside a month. 
+/// 
+/// The first week of the month is the one that contains the first day of the 
+/// month.
+/// Sometimes the last week can be the same as the fourth.
 enum Week implements Comparable<Week> {
   first,
   second,

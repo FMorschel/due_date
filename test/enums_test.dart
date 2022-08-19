@@ -1,7 +1,5 @@
 import 'package:due_date/due_date.dart';
-import 'package:due_date/src/every.dart';
-import 'package:test/expect.dart';
-import 'package:test/scaffolding.dart';
+import 'package:test/test.dart';
 import 'package:time/time.dart';
 
 void main() {

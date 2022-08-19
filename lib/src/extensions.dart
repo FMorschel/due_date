@@ -1,8 +1,8 @@
 import 'package:time/time.dart';
 
 import '../due_date.dart';
-import 'every.dart';
 
+/// Extension methods related to adding or subtracting days from a [DateTime].
 extension AddDays on DateTime {
   /// Returns true if and only if this [weekday] is weekend.
   bool get isWeekend => Weekday.fromDateTimeValue(weekday).isWeekend;
@@ -51,6 +51,7 @@ extension AddDays on DateTime {
   }
 }
 
+/// Extension methods related to weeks on a [DateTime].
 extension WeekCalc on DateTime {
   /// Returns the [Weekday.monday] for the given [week] for the current [month].
   DateTime startOfWeek(Week week) {
@@ -80,6 +81,7 @@ extension WeekCalc on DateTime {
   }
 }
 
+/// Extension methods related to clamping months on [DateTime].
 extension ClampInMonth on DateTime {
   /// Returns a new [DueDateTime] with a [EveryDueDayMonth] based on [day].
   DueDateTime get dueDateTime => DueDateTime.fromDate(this);
@@ -92,6 +94,8 @@ extension ClampInMonth on DateTime {
   }
 }
 
+/// Extension methods related to adding or subtracting one from an [Iterable] of
+/// [Weekday].
 extension PreviousNext on Iterable<Weekday> {
   /// Returns the previous [Weekday]s in the [Iterable].
   Set<Weekday> get previousWeekdays {

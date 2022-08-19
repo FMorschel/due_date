@@ -2,8 +2,9 @@ import 'package:equatable/equatable.dart';
 
 import 'every.dart';
 
+/// Wrapper for [Every] and [DateTime] to represent a due date.
 class DueDateTime extends DateTime with EquatableMixin {
-  /// Constructs a [DueDateTime] instance specified in the local time zone.
+  /// Constructs a [DueDateTime] instance.
   ///
   /// For example,
   /// to create a `DueDateTime` object representing the 7th of September 2017,

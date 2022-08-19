@@ -11,6 +11,7 @@ dependencies:
   equatable: ^2.0.3
 
 dev_dependencies:
+  dartdoc: ^6.0.1
   lints: ^2.0.0
   test: ^1.16.0
   dart_code_metrics: ^4.16.0
