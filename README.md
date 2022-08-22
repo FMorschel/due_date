@@ -10,7 +10,7 @@ Examples of what this package can do:
 
 ```dart
 final date = DateTime(2022, DateTime.january, 31);
-final dueDate = DueDateTime.fromDate(date);
+DueDateTime dueDate = DueDateTime.fromDate(date);
 dueDate = dueDate.addMonths(1); // February 28th, 2022
 dueDate = dueDate.addMonths(1); // March 31th, 2022
 ```
