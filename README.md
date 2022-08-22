@@ -43,6 +43,8 @@ dueDate = dueDate.next; // 2022-03-31
 
 ## Additional information
 
+See the API docs [here](https://fmorschel.github.io/due_date/).
+
 Find more information at <https://github.com/FMorschel/due_date>.
 
 Contibute to the package by creating a PR at <https://github.com/FMorschel/due_date/pulls>.
