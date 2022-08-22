@@ -413,7 +413,7 @@ class EveryDayInYear extends Every
           'dayInYear must be between 1 and 366',
         );
 
-  /// Returns a [EveryDayInYear] with the [dayInYear] calculated by the given 
+  /// Returns a [EveryDayInYear] with the [dayInYear] calculated by the given
   /// [date].
   factory EveryDayInYear.from(DateTime date) {
     final first = date.firstDayOfYear;

@@ -74,6 +74,11 @@ enum Weekday implements Comparable<Weekday> {
   @override
   int compareTo(Weekday other) => dateTimeValue.compareTo(other.dateTimeValue);
 
+  bool operator >(Weekday other) => index > other.index;
+  bool operator >=(Weekday other) => index >= other.index;
+  bool operator <(Weekday other) => index < other.index;
+  bool operator <=(Weekday other) => index <= other.index;
+
   /// Returns the [EveryWeekday] that corresponds to this weekday.
   EveryWeekday get every => EveryWeekday(this);
 
@@ -164,6 +169,11 @@ enum Month implements Comparable<Month> {
 
   @override
   int compareTo(Month other) => dateTimeValue.compareTo(other.dateTimeValue);
+
+  bool operator >(Month other) => index > other.index;
+  bool operator >=(Month other) => index >= other.index;
+  bool operator <(Month other) => index < other.index;
+  bool operator <=(Month other) => index <= other.index;
 
   /// Returns the [Month] previous to this.
   Month get previous {
@@ -271,6 +281,11 @@ enum Week implements Comparable<Week> {
 
   @override
   int compareTo(Week other) => index.compareTo(other.index);
+
+  bool operator >(Week other) => index > other.index;
+  bool operator >=(Week other) => index >= other.index;
+  bool operator <(Week other) => index < other.index;
+  bool operator <=(Week other) => index <= other.index;
 
   /// Returns the [Week] previous to this.
   Week get previous {
@@ -549,6 +564,11 @@ enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
 
   @override
   int compareTo(EveryWeekdayCountInMonth other) => _handler.compareTo(other);
+
+  bool operator >(WeekdayOccurrence other) => index > other.index;
+  bool operator >=(WeekdayOccurrence other) => index >= other.index;
+  bool operator <(WeekdayOccurrence other) => index < other.index;
+  bool operator <=(WeekdayOccurrence other) => index <= other.index;
 
   @override
   bool? get stringify => _handler.stringify;
