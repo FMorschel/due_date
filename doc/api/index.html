@@ -30,7 +30,7 @@
 <header id="title">
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
-    <li class="self-crumb">due_date package</li>
+    <li><a href="https://github.com/FMorschel/due_date">due_date package</a></li>
   </ol>
   <div class="self-name">due_date</div>
   <form class="search navbar-right" role="search">
@@ -44,34 +44,35 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-<p>TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.</p>
+  <h1 id="duedate">DueDate</h1>
+<p>A package for working with repeating DateTime patterns.</p>
+<p>Ever wanted to create a new DateTime with, let's say, the same day in month? But the day is 31 and next month only has 30, so you go to 30 and the next day is lost because then you have no variable to save the original's month day? With DueDateTime this managing is done for you without any headaches.</p>
 <h2 id="features">Features</h2>
-<p>TODO: List what your package can do. Maybe include images, gifs, or videos.</p>
+<p>Examples of what this package can do:</p>
+<pre class="language-dart"><code class="language-dart">final date = DateTime(2022, DateTime.january, 31);
+DueDateTime dueDate = DueDateTime.fromDate(date);
+dueDate = dueDate.addMonths(1); // February 28th, 2022
+dueDate = dueDate.addMonths(1); // March 31th, 2022
+</code></pre>
 <h2 id="getting-started">Getting started</h2>
-<p>TODO: List prerequisites and provide or point to information on how to
-start using the package.</p>
+<p>On your <code>pubspec.yaml</code> file, add this package to your dependencies:</p>
+<pre class="language-yaml"><code class="language-yaml">  dependencies:
+    due_date: ^1.0.0
+</code></pre>
+<p>Import the package library on your code:</p>
+<pre class="language-dart"><code class="language-dart">import 'package:due_date/due_date.dart';
+</code></pre>
 <h2 id="usage">Usage</h2>
-<p>TODO: Include short and useful examples for package users. Add longer examples
-to <code>/example</code> folder.</p>
-<pre class="language-dart"><code class="language-dart">const like = 'sample';
+<p>Longer examples at <code>/example</code> folder.</p>
+<pre class="language-dart"><code class="language-dart">final date = DateTime(2022, DateTime.january, 31);
+DueDateTime dueDate = date.dueDateTime; // 2022-01-31
+dueDate = dueDate.next; // 2022-02-28
+dueDate = dueDate.next; // 2022-03-31
 </code></pre>
 <h2 id="additional-information">Additional information</h2>
-<p>TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.</p>
+<p>Find more information at <a href="https://github.com/FMorschel/due_date">github.com/FMorschel/due_date</a>.</p>
+<p>Contibute to the package by creating a PR at <a href="https://github.com/FMorschel/due_date/pulls">github.com/FMorschel/due_date/pulls</a>.</p>
+<p>File issues at <a href="https://github.com/FMorschel/due_date/issues">github.com/FMorschel/due_date/issues</a>.</p>
 <p>TODO: add release date to changelog</p>
 </section>
 
@@ -99,7 +100,7 @@ from the package authors, and more.</p>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li class="self-crumb">due_date package</li>
+  <li><a href="https://github.com/FMorschel/due_date">due_date package</a></li>
 </ol>
 
 
