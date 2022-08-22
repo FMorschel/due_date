@@ -31,7 +31,7 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">due_date</a></li>
     <li><a href="../../due_date/due_date-library.html">due_date</a></li>
-    <li><a href="../../due_date/DueDateTime-class.html">DueDateTime</a></li>
+    <li><a href="../../due_date/DueDateTime-class.html">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span></a></li>
     <li class="self-crumb">subtractMonths method</li>
   </ol>
   <div class="self-name">subtractMonths</div>
@@ -52,9 +52,9 @@
     <section class="multi-line-signature">
       
 
-<span class="returntype"><a href="../../due_date/DueDateTime-class.html">DueDateTime</a></span>
+<span class="returntype"><a href="../../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../due_date/Every-class.html">Every</a></span>&gt;</span></span>
 <span class="name ">subtractMonths</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="subtractMonths-param-months"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, </span></li>
-<li><span class="parameter" id="subtractMonths-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">false</span>}</span></li>
+<li><span class="parameter" id="subtractMonths-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span></li>
 </ol>)
 
       
@@ -77,7 +77,7 @@ If is false, the <a href="../../due_date/DueDateTime/every.html">every</a> will 
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">DueDateTime subtractMonths(
   int months, {
-  bool sameEvery = false,
+  bool sameEvery = true,
 }) =&gt;
     addMonths(-months, sameEvery: sameEvery);</code></pre>
 </section>
@@ -95,7 +95,7 @@ If is false, the <a href="../../due_date/DueDateTime/every.html">every</a> will 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../../index.html">due_date</a></li>
   <li><a href="../../due_date/due_date-library.html">due_date</a></li>
-  <li><a href="../../due_date/DueDateTime-class.html">DueDateTime</a></li>
+  <li><a href="../../due_date/DueDateTime-class.html">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span></a></li>
   <li class="self-crumb">subtractMonths method</li>
 </ol>
 
@@ -153,11 +153,11 @@ If is false, the <a href="../../due_date/DueDateTime/every.html">every</a> will 
     <li><a href="../../due_date/DueDateTime/subtractYears.html">subtractYears</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/toIso8601String.html">toIso8601String</a></li>
     <li><a href="../../due_date/DueDateTime/toLocal.html">toLocal</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/toString.html">toString</a></li>
+    <li><a href="../../due_date/DueDateTime/toString.html">toString</a></li>
     <li><a href="../../due_date/DueDateTime/toUtc.html">toUtc</a></li>
 
-    <li class="section-title inherited"><a href="../../due_date/DueDateTime-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/operator_equals.html">operator ==</a></li>
+    <li class="section-title"><a href="../../due_date/DueDateTime-class.html#operators">Operators</a></li>
+    <li><a href="../../due_date/DueDateTime/operator_equals.html">operator ==</a></li>
 
 
 

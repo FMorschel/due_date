@@ -115,6 +115,16 @@ When you call <a href="../due_date/EveryMonth/next.html">next</a> or <a href="..
 return the <a href="../due_date/EveryDueDayMonth/dueDay.html">dueDay</a> of the next or previous month.
             <div class="constructor-modifier features">const</div>
         </dd>
+        <dt id="EveryDueDayMonth.from" class="callable">
+          <span class="name"><a href="../due_date/EveryDueDayMonth/EveryDueDayMonth.from.html">EveryDueDayMonth.from</a></span><span class="signature">(<span class="parameter" id="from-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)</span>
+        </dt>
+        <dd>
+          Returns a <a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a> with the <a href="../due_date/EveryDueDayMonth/dueDay.html">dueDay</a> being the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">DateTime.day</a> of
+the given <code>date</code>.
+When you call <a href="../due_date/EveryMonth/next.html">next</a> or <a href="../due_date/EveryMonth/previous.html">previous</a> on this <a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a>, it will
+return the <a href="../due_date/EveryDueDayMonth/dueDay.html">dueDay</a> of the next or previous month.
+            <div class="constructor-modifier features">factory</div>
+        </dd>
     </dl>
   </section>
 
@@ -173,7 +183,7 @@ two instances are equal.
 
 </dt>
 <dd class="inherited">
-  If set to <code>true</code>, the <a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/toString.html">toString</a> method will be overridden to output
+  If set to <code>true</code>, the <a href="../due_date/EveryDueDayMonth/toString.html">toString</a> method will be overridden to output
 this instance's <a href="../due_date/EveryDueDayMonth/props.html">props</a>.
   <div class="features">read-only, inherited</div>
 
@@ -283,16 +293,16 @@ implementation.
 
 </dd>
 
-        <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/toString.html">toString</a></span><span class="signature">(<wbr>)
+        <dt id="toString" class="callable">
+  <span class="name"><a href="../due_date/EveryDueDayMonth/toString.html">toString</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
-<dd class="inherited">
+<dd>
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features">override</div>
 
 </dd>
 
@@ -345,7 +355,7 @@ implementation.
   <li class="section-title"><a href="../due_date/due_date-library.html#classes">Classes</a></li>
   <li><a href="../due_date/DueDateTime-class.html">DueDateTime</a></li>
   <li><a href="../due_date/Every-class.html">Every</a></li>
-  <li><a href="../due_date/EveryDayOfYear-class.html">EveryDayOfYear</a></li>
+  <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
   <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
   <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
   <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
@@ -380,6 +390,7 @@ implementation.
 
         <li class="section-title"><a href="../due_date/EveryDueDayMonth-class.html#constructors">Constructors</a></li>
           <li><a href="../due_date/EveryDueDayMonth/EveryDueDayMonth.html">EveryDueDayMonth</a></li>
+          <li><a href="../due_date/EveryDueDayMonth/EveryDueDayMonth.from.html">from</a></li>
 
 
     <li class="section-title">
@@ -399,7 +410,7 @@ implementation.
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="../due_date/EveryMonth/previous.html">previous</a></li>
     <li><a href="../due_date/EveryDueDayMonth/startDate.html">startDate</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/toString.html">toString</a></li>
+    <li><a href="../due_date/EveryDueDayMonth/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../due_date/EveryDueDayMonth-class.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/operator_equals.html">operator ==</a></li>
