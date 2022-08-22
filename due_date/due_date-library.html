@@ -52,10 +52,10 @@
 <section class="desc markdown">
   <p>Support for creating your own custom due dates.</p>
 <p>This package is used to create custom due dates.</p>
-<p>Implementing your own DueDateTime is easy. You implement an <a href="../due_date/Every-class.html">Every</a> 
+<p>Implementing your own DueDateTime is easy. You implement an <a href="../due_date/Every-class.html">Every</a>
 class and pass it to the <a href="../due_date/DueDateTime-class.html">DueDateTime</a> constructor.</p>
 <p>There are already some <a href="../due_date/Every-class.html">Every</a> classes implemented in this package. Look for
-<a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, <a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a>, <a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a> (or 
+<a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, <a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a>, <a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a> (or
 <a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a>s constants) and <a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a>.</p>
 <p>The <a href="../due_date/Every-class.html">Every</a> class is a base class that processes all the base operations for
 <a href="../due_date/DueDateTime-class.html">DueDateTime</a>. You can mix in one of the folowing mixins:</p>
@@ -65,9 +65,9 @@ class and pass it to the <a href="../due_date/DueDateTime-class.html">DueDateTim
 <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a>;</li>
 </ul>
 <p>And if you want to be more specific, implement the others.</p>
-<p>WARNING: If you mix in two of the above mixins, the order in which you mix 
-them in is important. The last mixin you mix in will be the one that is 
-used for <a href="../due_date/DueDateTime/next.html">DueDateTime.next</a> and <a href="../due_date/DueDateTime/previous.html">DueDateTime.previous</a> on the <a href="../due_date/DueDateTime-class.html">DueDateTime</a> 
+<p>WARNING: If you mix in two of the above mixins, the order in which you mix
+them in is important. The last mixin you mix in will be the one that is
+used for <a href="../due_date/DueDateTime/next.html">DueDateTime.next</a> and <a href="../due_date/DueDateTime/previous.html">DueDateTime.previous</a> on the <a href="../due_date/DueDateTime-class.html">DueDateTime</a>
 class.</p>
 </section>
 
