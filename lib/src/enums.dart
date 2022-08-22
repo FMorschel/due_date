@@ -194,9 +194,9 @@ enum Month implements Comparable<Month> {
   }
 }
 
-/// Week occurences inside a month. 
-/// 
-/// The first week of the month is the one that contains the first day of the 
+/// Week occurences inside a month.
+///
+/// The first week of the month is the one that contains the first day of the
 /// month.
 /// Sometimes the last week can be the same as the fourth.
 enum Week implements Comparable<Week> {
