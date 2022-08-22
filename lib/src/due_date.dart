@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:time/time.dart';
 
 import 'every.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
-class DueDateTime extends DateTime with EquatableMixin {
+class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// Constructs a [DueDateTime] instance.
   ///
   /// For example,
@@ -24,7 +25,7 @@ class DueDateTime extends DateTime with EquatableMixin {
     required int year,
 
     /// The handler for the operations.
-    Every? every,
+    T? every,
     int month = 1,
     int day = 1,
     int hour = 0,
@@ -110,7 +111,7 @@ class DueDateTime extends DateTime with EquatableMixin {
     required int year,
 
     /// The handler for the operations.
-    Every? every,
+    T? every,
     int month = 1,
     int day = 1,
     int hour = 0,
@@ -152,15 +153,15 @@ class DueDateTime extends DateTime with EquatableMixin {
     DateTime reference, [
 
     /// The handler for the operations.
-    Every? every,
+    T? every,
   ]) {
     if (every == null) {
       return DueDateTime._toConstructor(
-        every: EveryDueDayMonth(reference.day),
+        every: EveryDueDayMonth(reference.day) as T,
         date: reference,
       );
     } else {
-      return DueDateTime._toConstructor(
+      return DueDateTime<T>._toConstructor(
         date: every.startDate(reference),
         every: every,
       );
@@ -169,18 +170,18 @@ class DueDateTime extends DateTime with EquatableMixin {
 
   factory DueDateTime._toConstructor({
     /// The handler for the operations.
-    required Every every,
+    required T every,
     required DateTime date,
   }) {
     return date.isUtc
-        ? DueDateTime._utcFromDate(every: every, date: date)
-        : DueDateTime._fromDate(every: every, date: date);
+        ? DueDateTime<T>._utcFromDate(every: every, date: date)
+        : DueDateTime<T>._fromDate(every: every, date: date);
   }
 
   static const _week = Duration(days: DateTime.daysPerWeek);
 
   /// The handler for processing the next dates.
-  Every every;
+  T every;
 
   /// Constructs a new [DueDateTime] instance based on [formattedString].
   ///
@@ -332,7 +333,7 @@ class DueDateTime extends DateTime with EquatableMixin {
     Every? every,
     bool isUtc = false,
   }) {
-    final date = DueDateTime.fromMicrosecondsSinceEpoch(
+    final date = DateTime.fromMicrosecondsSinceEpoch(
       microsecondsSinceEpoch,
       isUtc: isUtc,
     );
@@ -417,7 +418,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   @override
   DueDateTime add(
     Duration duration, {
-    bool sameEvery = false,
+    bool sameEvery = true,
   }) {
     final date = super.add(duration);
     return DueDateTime.fromDate(date, sameEvery ? every : null);
@@ -445,7 +446,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   @override
   DueDateTime subtract(
     Duration duration, {
-    bool sameEvery = false,
+    bool sameEvery = true,
   }) {
     final date = super.subtract(duration);
     return DueDateTime.fromDate(date, sameEvery ? every : null);
@@ -460,7 +461,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   /// ```
   ///
   /// Be careful when working with dates in local time.
-  DueDateTime addWeeks(int weeks, {bool sameEvery = false}) {
+  DueDateTime addWeeks(int weeks, {bool sameEvery = true}) {
     if (every is EveryWeek) {
       final date = (every as EveryWeek).addWeeks(this, weeks);
       return DueDateTime.fromDate(date, sameEvery ? every : null);
@@ -479,7 +480,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   /// ```
   ///
   /// Be careful when working with dates in local time.
-  DueDateTime subtractWeeks(int weeks, {bool sameEvery = false}) => addWeeks(
+  DueDateTime subtractWeeks(int weeks, {bool sameEvery = true}) => addWeeks(
         -weeks,
         sameEvery: sameEvery,
       );
@@ -495,7 +496,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   /// Be careful when working with dates in local time.
   DueDateTime addMonths(
     int months, {
-    bool sameEvery = false,
+    bool sameEvery = true,
   }) {
     if (every is EveryMonth) {
       return DueDateTime.fromDate(
@@ -522,7 +523,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   /// Be careful when working with dates in local time.
   DueDateTime subtractMonths(
     int months, {
-    bool sameEvery = false,
+    bool sameEvery = true,
   }) =>
       addMonths(-months, sameEvery: sameEvery);
 
@@ -546,7 +547,7 @@ class DueDateTime extends DateTime with EquatableMixin {
   /// Be careful when working with dates in local time.
   DueDateTime addYears(
     int years, {
-    bool sameEvery = false,
+    bool sameEvery = true,
   }) {
     if (every is EveryYear) {
       return DueDateTime.fromDate(
@@ -573,15 +574,27 @@ class DueDateTime extends DateTime with EquatableMixin {
   /// Be careful when working with dates in local time.
   DueDateTime subtractYears(
     int years, {
-    bool sameEvery = false,
+    bool sameEvery = true,
   }) =>
       addYears(-years, sameEvery: sameEvery);
+
+  @override
+  String toString() {
+    final DateTime date = this.date.add(timeOfDay);
+    return '$date - $every';
+  }
+
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return super == other || ((other is DueDateTime) && (every == other.every));
+  }
 
   /// Returns a new [DueDateTime] instance with the next date that matches the
   /// [every] main pattern.
   DueDateTime get next => DueDateTime.fromDate(every.next(this), every);
 
-  /// Returns a new [DueDateTime] instance with the previous date that matches 
+  /// Returns a new [DueDateTime] instance with the previous date that matches
   /// the [every] main pattern.
   DueDateTime get previous => DueDateTime.fromDate(every.previous(this), every);
 

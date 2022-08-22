@@ -394,7 +394,7 @@ void main() {
     final august12th2022 = DateTime(2022, DateTime.august, 12);
     final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
     group('Every Day 1', () {
-      const everyDay1 = EveryDayOfYear(1);
+      const everyDay1 = EveryDayInYear(1);
       group('Local', () {
         final nextYearsDayOne = DateTime(2023);
         test('Next Year', () {
@@ -440,7 +440,7 @@ void main() {
       });
     });
     group('Every Programmer\'s Day', () {
-      const programmersDay = EveryDayOfYear(256);
+      const programmersDay = EveryDayInYear(256);
       group('Local', () {
         test('This year', () {
           final programmersDay2022 = DateTime(2022, DateTime.september, 13);
@@ -533,7 +533,7 @@ void main() {
       });
     });
     group('End of year', () {
-      const endOfYear = EveryDayOfYear(366);
+      const endOfYear = EveryDayInYear(366);
       group('Local', () {
         test('This year', () {
           final endOf2022 = DateTime(2022, DateTime.december, 31);

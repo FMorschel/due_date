@@ -5,19 +5,18 @@ import 'enums.dart';
 import 'extensions.dart';
 
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
-/// 
-/// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also 
-/// [WeekdayOccurrence]) and [EveryDayOfYear] for complete base implementations.
-/// 
+///
+/// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also
+/// [WeekdayOccurrence]) and [EveryDayInYear] for complete base implementations.
+///
 /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
 abstract class Every {
-
   /// Abstract class that, when extended, processes [DateTime] with custom logic.
-  /// 
-  /// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also 
-  /// [WeekdayOccurrence]) and [EveryDayOfYear] for complete base 
+  ///
+  /// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also
+  /// [WeekdayOccurrence]) and [EveryDayInYear] for complete base
   /// implementations.
-  /// 
+  ///
   /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
   const Every();
 
@@ -34,15 +33,15 @@ abstract class Every {
 }
 
 /// Processes [DateTime] with custom logic.
-/// 
-/// ### WARNING: 
-/// Only mix in your class this if your are not mixing [EveryMonth] or 
+///
+/// ### WARNING:
+/// Only mix in your class this if your are not mixing [EveryMonth] or
 /// [EveryYear] in your class.
-/// 
-/// Mixin all three will result in strange behavior. The last one mixed will 
+///
+/// Mixin all three will result in strange behavior. The last one mixed will
 /// override the [next] and [previous] methods.
-/// 
-/// Try to only implement the two that are not the main focus of your [Every] 
+///
+/// Try to only implement the two that are not the main focus of your [Every]
 /// class.
 mixin EveryWeek implements Every {
   /// This mixin's implementation of [Every.next] and [Every.previous].
@@ -66,15 +65,15 @@ mixin EveryWeek implements Every {
 }
 
 /// Processes [DateTime] with custom logic.
-/// 
-/// ### WARNING: 
-/// Only mix in your class this if your are not mixing [EveryWeek] or 
+///
+/// ### WARNING:
+/// Only mix in your class this if your are not mixing [EveryWeek] or
 /// [EveryYear] in your class.
-/// 
-/// Mixin all three will result in strange behavior. The last one mixed will 
+///
+/// Mixin all three will result in strange behavior. The last one mixed will
 /// override the [next] and [previous] methods.
-/// 
-/// Try to only implement the two that are not the main focus of your [Every] 
+///
+/// Try to only implement the two that are not the main focus of your [Every]
 /// class.
 mixin EveryMonth implements Every {
   /// This mixin's implementation of [Every.next] and [Every.previous].
@@ -98,15 +97,15 @@ mixin EveryMonth implements Every {
 }
 
 /// Processes [DateTime] with custom logic.
-/// 
-/// ### WARNING: 
-/// Only mix in your class this if your are not mixing [EveryWeek] or 
+///
+/// ### WARNING:
+/// Only mix in your class this if your are not mixing [EveryWeek] or
 /// [EveryMonth] in your class.
-/// 
-/// Mixin all three will result in strange behavior. The last one mixed will 
+///
+/// Mixin all three will result in strange behavior. The last one mixed will
 /// override the [next] and [previous] methods.
-/// 
-/// Try to only implement the two that are not the main focus of your [Every] 
+///
+/// Try to only implement the two that are not the main focus of your [Every]
 /// class.
 mixin EveryYear implements Every {
   /// This mixin's implementation of [Every.next] and [Every.previous].
@@ -134,7 +133,6 @@ mixin EveryYear implements Every {
 class EveryWeekday extends Every
     with EveryWeek, EquatableMixin
     implements EveryMonth, EveryYear, Comparable<EveryWeekday> {
-  
   /// Returns a [EveryWeekday] with the given [weekday].
   /// When you call [next] or [previous] on this [EveryWeekday], it will return
   /// the [weekday] of the next or previous week.
@@ -192,6 +190,11 @@ class EveryWeekday extends Every
   }
 
   @override
+  String toString() {
+    return 'EveryWeekday<$weekday>';
+  }
+
+  @override
   List<Object?> get props => [weekday];
 }
 
@@ -209,7 +212,6 @@ class EveryWeekday extends Every
 class EveryDueDayMonth extends Every
     with EveryMonth, EquatableMixin
     implements EveryYear, Comparable<EveryDueDayMonth> {
-
   /// Returns a [EveryDueDayMonth] with the given [dueDay].
   /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
   /// return the [dueDay] of the next or previous month.
@@ -218,6 +220,12 @@ class EveryDueDayMonth extends Every
           (dueDay >= 1) && (dueDay <= 31),
           'Due day must be between 1 and 31',
         );
+
+  /// Returns a [EveryDueDayMonth] with the [dueDay] being the [DateTime.day] of
+  /// the given [date].
+  /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
+  /// return the [dueDay] of the next or previous month.
+  factory EveryDueDayMonth.from(DateTime date) => EveryDueDayMonth(date.day);
 
   /// The expected day of the month.
   final int dueDay;
@@ -253,7 +261,7 @@ class EveryDueDayMonth extends Every
 
   /// Returns the [date] - [DateTime.year] + [years] with the [DateTime.day] as
   /// the [dueDay], clamped to the months length.
-  /// 
+  ///
   /// Basically, it's the same as [addMonths] but with the months parameter
   /// multiplied by 12.
   @override
@@ -262,6 +270,11 @@ class EveryDueDayMonth extends Every
   @override
   int compareTo(EveryDueDayMonth other) {
     return dueDay.compareTo(other.dueDay);
+  }
+
+  @override
+  String toString() {
+    return 'EveryDueDayMonth<$dueDay>';
   }
 
   DateTime _nextMonthsDay(DateTime date) {
@@ -300,14 +313,13 @@ class EveryDueDayMonth extends Every
 class EveryWeekdayCountInMonth extends Every
     with EveryMonth, EquatableMixin
     implements EveryYear, Comparable<EveryWeekdayCountInMonth> {
-
   /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week].
   const EveryWeekdayCountInMonth({
     required this.week,
     required this.day,
   });
 
-  /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week] from 
+  /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week] from
   /// the given [date].
   factory EveryWeekdayCountInMonth.from(DateTime date) =>
       EveryWeekdayCountInMonth(
@@ -352,9 +364,9 @@ class EveryWeekdayCountInMonth extends Every
         .add(date.timeOfDay);
   }
 
-  /// Returns the [date] - [DateTime.year] + [years] with the [week] occurence 
+  /// Returns the [date] - [DateTime.year] + [years] with the [week] occurence
   /// of the [day].
-  /// 
+  ///
   /// Basically, it's the same as [addMonths] but with the months parameter
   /// multiplied by 12.
   @override
@@ -368,6 +380,11 @@ class EveryWeekdayCountInMonth extends Every
     } else {
       return result;
     }
+  }
+
+  @override
+  String toString() {
+    return 'EveryWeekdayCountInMonth<$week, $day>';
   }
 
   @override
@@ -386,16 +403,23 @@ class EveryWeekdayCountInMonth extends Every
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
-class EveryDayOfYear extends Every
+class EveryDayInYear extends Every
     with EveryYear, EquatableMixin
-    implements Comparable<EveryDayOfYear> {
-
-  /// Returns a [EveryDayOfYear] with the given [dayInYear].
-  const EveryDayOfYear(this.dayInYear)
+    implements Comparable<EveryDayInYear> {
+  /// Returns a [EveryDayInYear] with the given [dayInYear].
+  const EveryDayInYear(this.dayInYear)
       : assert(
           dayInYear >= 1 && dayInYear <= 366,
           'dayInYear must be between 1 and 366',
         );
+
+  /// Returns a [EveryDayInYear] with the [dayInYear] calculated by the given 
+  /// [date].
+  factory EveryDayInYear.from(DateTime date) {
+    final first = date.firstDayOfYear;
+    final difference = date.difference(first).inDays + 1;
+    return EveryDayInYear(difference);
+  }
 
   /// The expected day in the year.
   ///
@@ -411,7 +435,7 @@ class EveryDayOfYear extends Every
         firstDayOfYear.toUtc().add(Duration(days: dayInYear - 1)).clamp(
               max: firstDayOfYear.lastDayOfYear,
             );
-    if (date.toUtc().date.isBefore(dayOfYear)) {
+    if (date.toUtc().date.compareTo(dayOfYear) <= 0) {
       return date.isUtc
           ? dayOfYear.add(date.timeOfDay)
           : dayOfYear.toLocal().add(date.timeOfDay);
@@ -437,8 +461,13 @@ class EveryDayOfYear extends Every
   }
 
   @override
-  int compareTo(EveryDayOfYear other) {
+  int compareTo(EveryDayInYear other) {
     return dayInYear.compareTo(other.dayInYear);
+  }
+
+  @override
+  String toString() {
+    return 'EveryDayInYear<$dayInYear>';
   }
 
   @override

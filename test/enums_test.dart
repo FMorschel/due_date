@@ -449,8 +449,8 @@ void main() {
       const last = Week.last;
       test('Starts at the 23th day of the month', () {
         expect(
-          last.weekOf(2025, Month.february.dateTimeValue),
-          equals(DateTime.utc(2025, DateTime.february, 23)),
+          last.weekOf(2026, Month.february.dateTimeValue),
+          equals(DateTime.utc(2026, DateTime.february, 23)),
         );
       });
       test('Starts at the 24th day of the month', () {
@@ -549,7 +549,6 @@ void main() {
       });
     });
   });
-  // TODO: test equality.
   group('WeekdayOccurrence', () {
     group('Equals', () {
       test('FirstMonday', () {
