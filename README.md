@@ -50,5 +50,3 @@ Find more information at <https://github.com/FMorschel/due_date>.
 Contibute to the package by creating a PR at <https://github.com/FMorschel/due_date/pulls>.
 
 File issues at <https://github.com/FMorschel/due_date/issues>.
-
-TODO: add release date to changelog
