@@ -16,9 +16,12 @@ void main() {
     group('Is workday:', () {
       final monday = DateTime.utc(2022, DateTime.july, 18);
       final friday = DateTime.utc(2022, DateTime.july, 22);
+      test(Weekday.fromDateTimeValue(monday.weekday).name, () {
+        expect(monday.isWorkday, isTrue);
+      });
       for (final weekday in monday.to(friday, by: const Duration(days: 1))) {
         test(Weekday.fromDateTimeValue(weekday.weekday).name, () {
-          expect(weekday.isWorkDay, isTrue);
+          expect(weekday.isWorkday, isTrue);
         });
       }
     });

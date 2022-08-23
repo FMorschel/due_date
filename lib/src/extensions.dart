@@ -8,7 +8,7 @@ extension AddDays on DateTime {
   bool get isWeekend => Weekday.fromDateTimeValue(weekday).isWeekend;
 
   /// Returns true if and only if this [weekday] is workday.
-  bool get isWorkDay => !isWeekend;
+  bool get isWorkday => !isWeekend;
 
   /// Returns a new [DateTime] with the given [days] added to this [DateTime].
   /// Ignoring the [Weekday]s on [ignoring].

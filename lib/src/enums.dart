@@ -46,7 +46,7 @@ enum Weekday implements Comparable<Weekday> {
   final bool isWeekend;
 
   /// Whether this weekday is a workday.
-  bool get isWorkDay => !isWeekend;
+  bool get isWorkday => !isWeekend;
 
   /// Returns the ammount of weekdays correspondent to this on the given [month]
   /// of [year].
