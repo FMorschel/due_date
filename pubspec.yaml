@@ -1,6 +1,6 @@
 name: due_date
-description: A package for working with repeating DateTime patterns.
-version: 1.0.0
+description: A package for working with repeating DateTime patterns like the same day every month clamped to the month length.
+version: 1.0.1
 homepage: https://github.com/FMorschel/due_date
 repository: https://github.com/FMorschel/floating_overlay
 issue_tracker: https://github.com/FMorschel/floating_overlay/issues
