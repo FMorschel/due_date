@@ -1,3 +1,8 @@
+# 1.0.3 - 2022.08.23
+
+- Fixed repository and issues pointing to wrong package.
+- Fixed example README
+
 # 1.0.2 - 2022.08.23
 
 - Renamed `isWorkDay` -> `isWorkday`. Since is tha same day of release, I won't consider this a breaking change.
