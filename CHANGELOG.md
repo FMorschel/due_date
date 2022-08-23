@@ -1,7 +1,12 @@
+# 1.0.4 - 2022.08.23
+
+- Fixed typo on changelog.
+- Updated dependency `time` to fix issues.
+
 # 1.0.3 - 2022.08.23
 
 - Fixed repository and issues pointing to wrong package.
-- Fixed example README
+- Fixed example README.
 
 # 1.0.2 - 2022.08.23
 

@@ -21,7 +21,7 @@ On your `pubspec.yaml` file, add this package to your dependencies:
 
 ```yaml
   dependencies:
-    due_date: ^1.0.3
+    due_date: ^1.0.4
 ```
 
 Import the package library on your code:
