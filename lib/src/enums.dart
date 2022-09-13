@@ -104,6 +104,11 @@ enum Weekday implements Comparable<Weekday> {
   static Set<Weekday> get weekend {
     return values.where((weekday) => weekday.isWeekend).toSet();
   }
+
+  /// Returns the [Weekday]s that [isWorkday] is true for.
+  static Set<Weekday> get workdays {
+    return values.where((weekday) => weekday.isWorkday).toSet();
+  }
 }
 
 /// Month constants that are returned by [DateTime.month] method.

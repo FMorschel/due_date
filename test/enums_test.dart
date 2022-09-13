@@ -55,6 +55,21 @@ void main() {
         );
       });
     });
+    group('Workdays:', () {
+      final set = {Weekday.monday, Weekday.tuesday, Weekday.wednesday, Weekday.thursday, Weekday.friday,};
+      test('Contains $set', () {
+        expect(
+          Weekday.workdays,
+          containsAllInOrder(set),
+        );
+      });
+      test('Is ${set.runtimeType}', () {
+        expect(
+          Weekday.workdays,
+          isA<Set<Weekday>>(),
+        );
+      });
+    });
     group('fromThisWeek:', () {
       final date = DateTime.utc(2022, DateTime.august, 8);
       for (final weekday in Weekday.values) {

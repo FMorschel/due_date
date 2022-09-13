@@ -1,7 +1,6 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
-import 'package:time/time.dart';
 
 void main() {
   group('AddDays on DateTime:', () {
@@ -16,10 +15,11 @@ void main() {
     group('Is workday:', () {
       final monday = DateTime.utc(2022, DateTime.july, 18);
       final friday = DateTime.utc(2022, DateTime.july, 22);
-      test(Weekday.fromDateTimeValue(monday.weekday).name, () {
-        expect(monday.isWorkday, isTrue);
-      });
-      for (final weekday in monday.to(friday, by: const Duration(days: 1))) {
+      final list = <DateTime>[monday];
+      do {
+        list.add(list.last.add(const Duration(days: 1)));
+      } while (list.last != friday);
+      for (final weekday in list) {
         test(Weekday.fromDateTimeValue(weekday.weekday).name, () {
           expect(weekday.isWorkday, isTrue);
         });

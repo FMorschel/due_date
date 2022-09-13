@@ -128,6 +128,118 @@ mixin EveryYear implements Every {
   DateTime previous(DateTime date) => addYears(date, -1);
 }
 
+/// Uses all of the given [everies] for the [startDate], [next] and [previous]
+/// methods. Returns the closest answer to the given DateTime.
+class IntersectionOfEvery extends Every {
+  /// Uses all of the given [everies] for the [startDate], [next] and [previous]
+  /// methods. Returns the closest answer to the given DateTime.
+  const IntersectionOfEvery({
+    /// List of all the everies iterated.
+    required List<Every> everies,
+  }) : _everies = everies;
+
+  final List<Every> _everies;
+
+  /// List of all the everies iterated.
+  List<Every> get everies => [..._everies];
+
+  @override
+  DateTime startDate(DateTime date) {
+    if (everies.isEmpty) return date;
+    DateTime result = everies.first.startDate(date);
+    for (final every in everies.sublist(1)) {
+      final next = every.startDate(date);
+      if (next.isBefore(result)) result = next;
+    }
+    return result;
+  }
+
+  @override
+  DateTime next(DateTime date) {
+    if (everies.isEmpty) return date;
+    DateTime result = everies.first.next(date);
+    for (final every in everies.sublist(1)) {
+      final next = every.next(date);
+      if (next.isBefore(result)) result = next;
+    }
+    return result;
+  }
+
+  @override
+  DateTime previous(DateTime date) {
+    if (everies.isEmpty) return date;
+    DateTime result = everies.first.previous(date);
+    for (final every in everies.sublist(1)) {
+      final next = every.previous(date);
+      if (next.isAfter(result)) result = next;
+    }
+    return result;
+  }
+}
+
+/// Uses all of the given [everies] for the [startDate], [next] and [previous]
+/// methods. Returns the first answer to the given DateTime where they all
+/// match.
+///
+/// ## Warning
+///
+/// This is an expensive class, only use it when you know what you're doing
+/// or this could keep processing for ever.
+class UnionOfEvery extends Every {
+  /// Uses all of the given [everies] for the [startDate], [next] and [previous]
+  /// methods. Returns the first answer to the given [DateTime] where they all
+  /// match.
+  ///
+  /// ## Warning
+  ///
+  /// This is an expensive class, only use it when you know what you're doing
+  /// or this could keep processing untill it hits the [limit] difference from
+  /// the [DateTime] given.
+  const UnionOfEvery({
+    /// List of all the everies mixed.
+    required List<Every> everies,
+    this.limit = decade,
+  }) : _everies = everies;
+
+  static const decade = Duration(days: 3652);
+
+  final List<Every> _everies;
+  final Duration limit;
+
+  /// List of all the everies mixed.
+  List<Every> get everies => [..._everies];
+
+  @override
+  DateTime startDate(DateTime date) {
+    if (everies.isEmpty) return date;
+    final dates = <Every, DateTime>{};
+    for (final every in everies) {
+      dates.addAll({every: every.startDate(date)});
+    }
+    final list = <MapEntry<Every, DateTime>>[...dates.entries]..sort(_sort);
+    do {
+      if (dates.entries.every((entry) => entry.value == dates.values.first)) {
+        return dates.values.first;
+      }
+      // TODO: process this.
+    } while (list.last.value.difference(date) < limit);
+  }
+
+  @override
+  DateTime next(DateTime date) {
+      // TODO: process this.
+  }
+
+  @override
+  DateTime previous(DateTime date) {
+      // TODO: process this.
+  }
+
+  int _sort(MapEntry<Every, DateTime> a, MapEntry<Every, DateTime> b) {
+    return a.value.compareTo(b.value);
+  }
+}
+
 /// Class that processes [DateTime] so that the [addWeeks] always returns the
 /// next week's with the [DateTime.weekday] equals to the [weekday].
 class EveryWeekday extends Every
