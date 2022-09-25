@@ -8,25 +8,21 @@ void main() {
     group('Every Saturday', () {
       const everySaturday = EveryWeekday(Weekday.saturday);
       group('Local', () {
-        final thisSaturday = DateTime(2022, DateTime.august, 13);
+        final august13th = DateTime(2022, DateTime.august, 13);
         test('This saturday', () {
-          expect(everySaturday.startDate(august12th2022), equals(thisSaturday));
+          expect(everySaturday.startDate(august12th2022), equals(august13th));
         });
         test('Previous Saturday', () {
           final previousSaturday = DateTime(2022, DateTime.august, 6);
           expect(
-            everySaturday.addWeeks(thisSaturday, -1),
+            everySaturday.addWeeks(august13th, -1),
             equals(previousSaturday),
           );
         });
         test('Next Saturday', () {
           final nextSaturday = DateTime(2022, DateTime.august, 20);
           expect(
-            everySaturday.addWeeks(thisSaturday, 1),
-            equals(nextSaturday),
-          );
-          expect(
-            everySaturday.addWeeks(august12th2022, 1),
+            everySaturday.addWeeks(august13th, 1),
             equals(nextSaturday),
           );
         });
@@ -50,10 +46,6 @@ void main() {
           final nextSaturdayUtc = DateTime.utc(2022, DateTime.august, 20);
           expect(
             everySaturday.addWeeks(thisSaturdayUtc, 1),
-            equals(nextSaturdayUtc),
-          );
-          expect(
-            everySaturday.addWeeks(august12th2022Utc, 1),
             equals(nextSaturdayUtc),
           );
         });
@@ -330,10 +322,8 @@ void main() {
           expect(everyDay31.startDate(august12th2022), equals(matcher));
         });
         test('Month ending in 30', () {
-          final august12th2022 = DateTime(2022, DateTime.august, 12);
           final endOfAugust = DateTime(2022, DateTime.august, 31);
           final matcher = DateTime(2022, DateTime.september, 30);
-          expect(everyDay31.addMonths(august12th2022, 1), equals(matcher));
           expect(everyDay31.addMonths(endOfAugust, 1), equals(matcher));
         });
         test('Month ending in 29', () {
@@ -356,10 +346,8 @@ void main() {
           expect(everyDay31.startDate(august12th2022Utc), equals(matcher));
         });
         test('Month ending in 30', () {
-          final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
           final endOfAugustUtc = DateTime.utc(2022, DateTime.august, 31);
           final matcher = DateTime.utc(2022, DateTime.september, 30);
-          expect(everyDay31.addMonths(august12th2022Utc, 1), equals(matcher));
           expect(everyDay31.addMonths(endOfAugustUtc, 1), equals(matcher));
         });
         test('Month ending in 29', () {
@@ -390,7 +378,7 @@ void main() {
       });
     });
   });
-  group('EveryDayOfYear:', () {
+  group('EveryDayInYear:', () {
     final august12th2022 = DateTime(2022, DateTime.august, 12);
     final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
     group('Every Day 1', () {
@@ -565,6 +553,162 @@ void main() {
             equals(endOf2024Utc),
           );
         });
+      });
+    });
+  });
+  group('EveryDateValidatorIntersection', () {
+    final everies = EveryDateValidatorIntersection([
+      EveryDueDayMonth(24),
+      EveryWeekday(Weekday.saturday),
+    ]);
+    group('Start Date', () {
+      test('September 24th 2022', () {
+        final date = DateTime(2021, DateTime.july, 25);
+        final expected = DateTime(2022, DateTime.september, 24);
+        expect(everies.startDate(date), equals(expected));
+      });
+      test('July 24th 2021', () {
+        final date = DateTime(2021, DateTime.july, 23);
+        final expected = DateTime(2021, DateTime.july, 24);
+        expect(everies.startDate(date), equals(expected));
+      });
+    });
+    group('Next', () {
+      test('September 24th 2022', () {
+        final date = DateTime(2021, DateTime.july, 25);
+        final expected = DateTime(2022, DateTime.september, 24);
+        expect(everies.next(date), equals(expected));
+      });
+      test('July 24th 2021', () {
+        final date = DateTime(2021, DateTime.july, 23);
+        final expected = DateTime(2021, DateTime.july, 24);
+        expect(everies.next(date), equals(expected));
+      });
+    });
+    group('Previous', () {
+      test('July 24th 2021', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final expected = DateTime(2021, DateTime.july, 24);
+        expect(everies.previous(date), equals(expected));
+      });
+      test('September 24th 2022', () {
+        final date = DateTime(2022, DateTime.september, 25);
+        final expected = DateTime(2022, DateTime.september, 24);
+        expect(everies.previous(date), equals(expected));
+      });
+    });
+  });
+  group('DateValidatorUnion', () {
+    final everies = EveryDateValidatorUnion([
+      EveryDueDayMonth(24),
+      EveryWeekday(Weekday.saturday),
+    ]);
+    group('Start Date', () {
+      test('All valid', () {
+        final date = DateTime(2022, DateTime.september, 23);
+        final expected = DateTime(2022, DateTime.september, 24);
+        expect(everies.startDate(date), equals(expected));
+      });
+      test('Wrong day', () {
+        final date = DateTime(2022, DateTime.september, 16);
+        final expected = DateTime(2022, DateTime.september, 17);
+        expect(everies.startDate(date), equals(expected));
+      });
+      test('Wrong weekday', () {
+        final date = DateTime(2022, DateTime.august, 23);
+        final expected = DateTime(2022, DateTime.august, 24);
+        expect(everies.startDate(date), equals(expected));
+      });
+    });
+    group('Next', () {
+      test('All valid', () {
+        final date = DateTime(2022, DateTime.september, 17);
+        final expected = DateTime(2022, DateTime.september, 24);
+        expect(everies.next(date), equals(expected));
+      });
+      test('Wrong day', () {
+        final date = DateTime(2022, DateTime.september, 16);
+        final expected = DateTime(2022, DateTime.september, 17);
+        expect(everies.next(date), equals(expected));
+      });
+      test('Wrong weekday', () {
+        final date = DateTime(2022, DateTime.august, 23);
+        final expected = DateTime(2022, DateTime.august, 24);
+        expect(everies.next(date), equals(expected));
+      });
+    });
+    group('Previous', () {
+      test('All valid', () {
+        final date = DateTime(2022, DateTime.september, 25);
+        final expected = DateTime(2022, DateTime.september, 24);
+        expect(everies.previous(date), equals(expected));
+      });
+      test('Wrong day', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final expected = DateTime(2022, DateTime.september, 17);
+        expect(everies.previous(date), equals(expected));
+      });
+      test('Wrong weekday', () {
+        final date = DateTime(2022, DateTime.august, 25);
+        final expected = DateTime(2022, DateTime.august, 24);
+        expect(everies.previous(date), equals(expected));
+      });
+    });
+  });
+  group('DateValidatorDifference', () {
+    final everies = EveryDateValidatorDifference([
+      EveryDueDayMonth(24),
+      EveryWeekday(Weekday.saturday),
+    ]);
+    group('Start Date', () {
+      test('All valid', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final expected = DateTime(2022, DateTime.october, 1);
+        expect(everies.startDate(date), equals(expected));
+      });
+      test('Wrong day', () {
+        final date = DateTime(2022, DateTime.september, 16);
+        final expected = DateTime(2022, DateTime.september, 17);
+        expect(everies.startDate(date), equals(expected));
+      });
+      test('Wrong weekday', () {
+        final date = DateTime(2022, DateTime.august, 23);
+        final expected = DateTime(2022, DateTime.august, 24);
+        expect(everies.startDate(date), equals(expected));
+      });
+    });
+    group('Next', () {
+      test('All valid', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final expected = DateTime(2022, DateTime.october, 1);
+        expect(everies.next(date), equals(expected));
+      });
+      test('Wrong day', () {
+        final date = DateTime(2022, DateTime.september, 16);
+        final expected = DateTime(2022, DateTime.september, 17);
+        expect(everies.next(date), equals(expected));
+      });
+      test('Wrong weekday', () {
+        final date = DateTime(2022, DateTime.august, 23);
+        final expected = DateTime(2022, DateTime.august, 24);
+        expect(everies.next(date), equals(expected));
+      });
+    });
+    group('Previous', () {
+      test('All valid', () {
+        final date = DateTime(2022, DateTime.september, 25);
+        final expected = DateTime(2022, DateTime.september, 17);
+        expect(everies.previous(date), equals(expected));
+      });
+      test('Wrong day', () {
+        final date = DateTime(2022, DateTime.september, 18);
+        final expected = DateTime(2022, DateTime.september, 17);
+        expect(everies.previous(date), equals(expected));
+      });
+      test('Wrong weekday', () {
+        final date = DateTime(2022, DateTime.august, 25);
+        final expected = DateTime(2022, DateTime.august, 24);
+        expect(everies.previous(date), equals(expected));
       });
     });
   });

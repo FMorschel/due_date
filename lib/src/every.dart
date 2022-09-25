@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
+import 'date_validator.dart';
 import 'enums.dart';
 import 'extensions.dart';
 
@@ -128,18 +130,25 @@ mixin EveryYear implements Every {
   DateTime previous(DateTime date) => addYears(date, -1);
 }
 
+abstract class EveryDateValidator implements Every, DateValidator {}
+
 /// Class that processes [DateTime] so that the [addWeeks] always returns the
 /// next week's with the [DateTime.weekday] equals to the [weekday].
-class EveryWeekday extends Every
-    with EveryWeek, EquatableMixin
-    implements EveryMonth, EveryYear, Comparable<EveryWeekday> {
+class EveryWeekday extends DateValidatorWeekday
+    with EveryWeek
+    implements EveryMonth, EveryYear, EveryDateValidator {
   /// Returns a [EveryWeekday] with the given [weekday].
   /// When you call [next] or [previous] on this [EveryWeekday], it will return
   /// the [weekday] of the next or previous week.
-  const EveryWeekday(this.weekday);
+  const EveryWeekday(super.weekday);
 
-  /// The expected weekday.
-  final Weekday weekday;
+  /// Returns a [EveryWeekday] with the [weekday] being the weekday of
+  /// the given [date].
+  /// When you call [next] or [previous] on this [EveryWeekday], it will return
+  /// the [weekday] of the next or previous week.
+  factory EveryWeekday.from(DateTime date) {
+    return EveryWeekday(Weekday.fromDateTimeValue(date.weekday));
+  }
 
   /// Returns the next date that fits the [weekday].
   @override
@@ -161,12 +170,24 @@ class EveryWeekday extends Every
   /// [DateTime.weekday] is equal to [weekday].
   @override
   DateTime addWeeks(DateTime date, int weeks) {
-    final day = date.toUtc().add(Duration(days: weeks * 7));
-    if (date.isUtc) {
-      return weekday.fromThisWeek(day.date).add(date.timeOfDay);
-    } else {
-      return weekday.fromThisWeek(day.toLocal().date).add(date.timeOfDay);
+    if (weeks == 0) return date;
+    if (!valid(date)) {
+      if (weeks.isNegative) {
+        if (date.weekday < weekday.dateTimeValue) {
+          date = date.firstDayOfWeek.subtract(const Duration(days: 1));
+        }
+        date = weekday.fromThisWeek(date);
+        weeks++;
+      } else {
+        if (date.weekday > weekday.dateTimeValue) {
+          date = date.lastDayOfWeek.add(const Duration(days: 1));
+        }
+        date = weekday.fromThisWeek(date);
+        weeks--;
+      }
     }
+    final day = date.toUtc().add(Duration(days: weeks * 7));
+    return _solveFor(date, day);
   }
 
   /// Returns a new [DateTime] where the week is the same([Week]) inside the
@@ -185,17 +206,13 @@ class EveryWeekday extends Every
   DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
   @override
-  int compareTo(EveryWeekday other) {
-    return weekday.compareTo(other.weekday);
-  }
+  String toString() => 'EveryWeekday<$weekday>';
 
-  @override
-  String toString() {
-    return 'EveryWeekday<$weekday>';
+  /// Solves the date for the given [date] and [day].
+  DateTime _solveFor(DateTime date, DateTime day) {
+    if (date.isUtc) return weekday.fromThisWeek(day.date).add(date.timeOfDay);
+    return weekday.fromThisWeek(day.toLocal().date).add(date.timeOfDay);
   }
-
-  @override
-  List<Object?> get props => [weekday];
 }
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
@@ -209,26 +226,24 @@ class EveryWeekday extends Every
 /// return the next month with the [DateTime.day] as 31.
 /// - If the [dueDay] is 15, the [addMonths] will return the next month with the
 /// [DateTime.day] as 15.
-class EveryDueDayMonth extends Every
-    with EveryMonth, EquatableMixin
-    implements EveryYear, Comparable<EveryDueDayMonth> {
+class EveryDueDayMonth extends DateValidatorDueDayMonth
+    with EveryMonth
+    implements EveryYear, EveryDateValidator {
   /// Returns a [EveryDueDayMonth] with the given [dueDay].
   /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
   /// return the [dueDay] of the next or previous month.
-  const EveryDueDayMonth(this.dueDay)
+  const EveryDueDayMonth(super.dueDay)
       : assert(
           (dueDay >= 1) && (dueDay <= 31),
           'Due day must be between 1 and 31',
-        );
+        ),
+        super(exact: false);
 
   /// Returns a [EveryDueDayMonth] with the [dueDay] being the [DateTime.day] of
   /// the given [date].
   /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
   /// return the [dueDay] of the next or previous month.
   factory EveryDueDayMonth.from(DateTime date) => EveryDueDayMonth(date.day);
-
-  /// The expected day of the month.
-  final int dueDay;
 
   /// Returns the next date that fits the [dueDay].
   /// - If the [date] - [DateTime.day] is less than the [dueDay], it's returned
@@ -252,11 +267,24 @@ class EveryDueDayMonth extends Every
   /// as the [dueDay], clamped to the months length.
   @override
   DateTime addMonths(DateTime date, int months) {
-    final firstDay = date.copyWith(month: date.month + months, day: 1);
-    return firstDay.copyWith(day: dueDay).clamp(
-          min: firstDay,
-          max: firstDay.lastDayOfMonth,
-        );
+    if (months == 0) return date;
+    if (!valid(date)) {
+      if (months.isNegative) {
+        if (date.day < dueDay) {
+          date = date.firstDayOfMonth.subtract(const Duration(days: 1));
+        }
+        date = _thisMonthsDay(date);
+        months++;
+      } else {
+        if (date.day > dueDay) {
+          date = date.lastDayOfMonth.add(const Duration(days: 1));
+        }
+        date = _thisMonthsDay(date);
+        months--;
+      }
+    }
+    final day = date.copyWith(month: date.month + months, day: 1);
+    return day.copyWith(day: dueDay).clamp(max: day.lastDayOfMonth);
   }
 
   /// Returns the [date] - [DateTime.year] + [years] with the [DateTime.day] as
@@ -266,11 +294,6 @@ class EveryDueDayMonth extends Every
   /// multiplied by 12.
   @override
   DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
-
-  @override
-  int compareTo(EveryDueDayMonth other) {
-    return dueDay.compareTo(other.dueDay);
-  }
 
   @override
   String toString() {
@@ -294,9 +317,6 @@ class EveryDueDayMonth extends Every
   DateTime _thisMonthsDay(DateTime date) {
     return date.copyWith(day: dueDay).clamp(max: date.lastDayOfMonth);
   }
-
-  @override
-  List<Object?> get props => [dueDay];
 }
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
@@ -310,28 +330,23 @@ class EveryDueDayMonth extends Every
 /// const lastFriday = EveryDayOfWeek(day: Weekday.friday, week: Week.last);
 /// lastFriday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 28).
 /// ```
-class EveryWeekdayCountInMonth extends Every
-    with EveryMonth, EquatableMixin
-    implements EveryYear, Comparable<EveryWeekdayCountInMonth> {
+class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
+    with EveryMonth
+    implements EveryYear, EveryDateValidator {
   /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week].
   const EveryWeekdayCountInMonth({
-    required this.week,
-    required this.day,
+    required super.week,
+    required super.day,
   });
 
   /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week] from
   /// the given [date].
-  factory EveryWeekdayCountInMonth.from(DateTime date) =>
-      EveryWeekdayCountInMonth(
-        day: Weekday.fromDateTimeValue(date.weekday),
-        week: Week.from(date),
-      );
-
-  /// The expected week of the month.
-  final Week week;
-
-  /// The expected day of the week.
-  final Weekday day;
+  factory EveryWeekdayCountInMonth.from(DateTime date) {
+    return EveryWeekdayCountInMonth(
+      day: Weekday.fromDateTimeValue(date.weekday),
+      week: Week.from(date),
+    );
+  }
 
   /// Returns the next date that fits the [day] and the [week].
   /// - If the current [date] - [DateTime.day] is less than the [DateTime.month]
@@ -342,18 +357,46 @@ class EveryWeekdayCountInMonth extends Every
   /// [day] of the [week].
   @override
   DateTime startDate(DateTime date) {
-    final thisMonth = addMonths(date, 0);
-    if (thisMonth.compareTo(date) >= 0) {
-      return thisMonth;
-    } else {
-      return addMonths(date, 1);
-    }
+    if (valid(date)) return date;
+    final thisMonthDay = week.weekdayOf(
+      year: date.year,
+      month: date.day,
+      day: day,
+      utc: date.isUtc,
+    );
+    if (date.day < thisMonthDay.day) return thisMonthDay;
+    return week.weekdayOf(
+      year: date.year,
+      month: date.month + 1,
+      day: day,
+      utc: date.isUtc,
+    );
   }
 
   /// Returns the [date] - [DateTime.month] + [months] with the [week] occurence
   /// of the [day].
   @override
   DateTime addMonths(DateTime date, int months) {
+    if (months == 0) return date;
+    if (!valid(date)) {
+      final thisMonthsDay = week.weekdayOf(
+        year: date.year,
+        month: date.month,
+        day: day,
+        utc: date.isUtc,
+      );
+      if (months.isNegative) {
+        if (date.day < thisMonthsDay.day) {
+          date = date.firstDayOfMonth.subtract(const Duration(days: 1));
+          months++;
+        }
+      } else {
+        if (date.day > thisMonthsDay.day) {
+          date = date.lastDayOfMonth.add(const Duration(days: 1));
+          months--;
+        }
+      }
+    }
     return week
         .weekdayOf(
           year: date.year,
@@ -373,16 +416,6 @@ class EveryWeekdayCountInMonth extends Every
   DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
   @override
-  int compareTo(EveryWeekdayCountInMonth other) {
-    final result = week.compareTo(other.week);
-    if (result == 0) {
-      return day.compareTo(other.day);
-    } else {
-      return result;
-    }
-  }
-
-  @override
   String toString() {
     return 'EveryWeekdayCountInMonth<$week, $day>';
   }
@@ -395,81 +428,207 @@ class EveryWeekdayCountInMonth extends Every
             (week == other.week) &&
             (day == other.day));
   }
-
-  @override
-  List<Object?> get props => [week, day];
 }
 
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
-class EveryDayInYear extends Every
-    with EveryYear, EquatableMixin
-    implements Comparable<EveryDayInYear> {
+class EveryDayInYear extends DateValidatorDayInYear
+    with EveryYear
+    implements EveryDateValidator {
   /// Returns a [EveryDayInYear] with the given [dayInYear].
-  const EveryDayInYear(this.dayInYear)
+  const EveryDayInYear(super.dayInYear)
       : assert(
           dayInYear >= 1 && dayInYear <= 366,
-          'dayInYear must be between 1 and 366',
-        );
+          'Day In Year must be between 1 and 366',
+        ),
+        super(exact: false);
 
   /// Returns a [EveryDayInYear] with the [dayInYear] calculated by the given
   /// [date].
   factory EveryDayInYear.from(DateTime date) {
-    final first = date.firstDayOfYear;
-    final difference = date.difference(first).inDays + 1;
-    return EveryDayInYear(difference);
+    return EveryDayInYear(date.dayInYear);
   }
-
-  /// The expected day in the year.
-  ///
-  /// - The first day of the year is 1.
-  /// - The last day of the year is 365/366.
-  final int dayInYear;
 
   /// Returns the next date that fits the [dayInYear].
   @override
   DateTime startDate(DateTime date) {
-    final firstDayOfYear = date.firstDayOfYear;
-    final dayOfYear =
-        firstDayOfYear.toUtc().add(Duration(days: dayInYear - 1)).clamp(
-              max: firstDayOfYear.lastDayOfYear,
-            );
-    if (date.toUtc().date.compareTo(dayOfYear) <= 0) {
-      return date.isUtc
-          ? dayOfYear.add(date.timeOfDay)
-          : dayOfYear.toLocal().add(date.timeOfDay);
-    } else {
-      return addYears(date, 1);
-    }
+    if (valid(date)) return date;
+    final thisYearDay = date.firstDayOfYear
+        .add(Duration(days: dayInYear - 1))
+        .clamp(max: date.lastDayOfYear);
+    if (date.dayInYear <= dayInYear) return thisYearDay;
+    return date.lastDayOfYear
+        .add(Duration(days: dayInYear))
+        .clamp(max: date.copyWith(year: date.year + 1).lastDayOfYear);
   }
 
   /// Returns a new [DateTime] where the year is [years] from this year and the
   /// [DateTime.day] is equal to [dayInYear]-1 added to January 1st.
   @override
   DateTime addYears(DateTime date, int years) {
-    final firstDaySelectedYear = date.firstDayOfYear.copyWith(
-      year: date.year + years,
-    );
-    final dayNextYear = firstDaySelectedYear
-        .toUtc()
+    if (years == 0) return date;
+    if (!valid(date)) {
+      final thisYearsDay = date.firstDayOfYear
+          .add(Duration(days: dayInYear - 1))
+          .clamp(max: date.lastDayOfYear);
+      if (years.isNegative) {
+        if (date.day < thisYearsDay.day) {
+          date = date.firstDayOfYear.subtract(const Duration(days: 1));
+          years++;
+        }
+      } else {
+        if (date.day > thisYearsDay.day) {
+          date = date.lastDayOfYear.add(const Duration(days: 1));
+          years--;
+        }
+      }
+    }
+    return date.firstDayOfYear
+        .copyWith(year: date.year + years)
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: firstDaySelectedYear.lastDayOfYear);
-    return date.isUtc
-        ? dayNextYear.add(date.timeOfDay)
-        : dayNextYear.toLocal().add(date.timeOfDay);
-  }
-
-  @override
-  int compareTo(EveryDayInYear other) {
-    return dayInYear.compareTo(other.dayInYear);
+        .clamp(max: date.copyWith(year: date.year + years).lastDayOfYear);
   }
 
   @override
   String toString() {
     return 'EveryDayInYear<$dayInYear>';
   }
+}
+
+/// Class that processes [DateTime] so that the [next] always returns the next
+/// day where all of the [EveryDateValidator]s conditions are met.
+class EveryDateValidatorIntersection extends DelegatingList<EveryDateValidator>
+    with EquatableMixin, DateValidatorMixin
+    implements EveryDateValidator {
+  /// Class that processes [DateTime] so that the [next] always returns the next
+  /// day where all of the [EveryDateValidator]s conditions are met.
+  const EveryDateValidatorIntersection(super.everyDateValidators);
 
   @override
-  List<Object?> get props => [dayInYear];
+  DateTime startDate(DateTime date) {
+    if (isEmpty) return date;
+    final startingDates = map((every) => every.startDate(date));
+    final validDates = startingDates.where(valid);
+    if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
+    return next(date);
+  }
+
+  @override
+  DateTime next(DateTime date) {
+    if (isEmpty) return date;
+    final nextDates = map((every) => every.next(date));
+    final validDates = nextDates.where(valid);
+    if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
+    return next(nextDates.reduce(_reduceFuture));
+  }
+
+  @override
+  DateTime previous(DateTime date) {
+    if (isEmpty) return date;
+    final previousDates = map((every) => every.previous(date));
+    final validDates = previousDates.where(valid);
+    if (validDates.isNotEmpty) return validDates.reduce(_reducePast);
+    return previous(previousDates.reduce(_reducePast));
+  }
+
+  @override
+  bool valid(DateTime date) {
+    return DateValidatorIntersection(this).valid(date);
+  }
+
+  @override
+  List<Object?> get props => [...this];
+}
+
+/// Class that processes [DateTime] so that the [next] always returns the next
+/// day where any of the [EveryDateValidator]s conditions are met.
+class EveryDateValidatorUnion extends DelegatingList<EveryDateValidator>
+    with EquatableMixin, DateValidatorMixin
+    implements EveryDateValidator {
+  /// Class that processes [DateTime] so that the [next] always returns the next
+  /// day where any of the [EveryDateValidator]s conditions are met.
+  const EveryDateValidatorUnion(super.everyDateValidators);
+
+  @override
+  DateTime startDate(DateTime date) {
+    if (isEmpty) return date;
+    final startingDates = map((every) => every.startDate(date));
+    return startingDates.reduce(_reduceFuture);
+  }
+
+  @override
+  DateTime next(DateTime date) {
+    if (isEmpty) return date;
+    final nextDates = map((every) => every.next(date));
+    return nextDates.reduce(_reduceFuture);
+  }
+
+  @override
+  DateTime previous(DateTime date) {
+    if (isEmpty) return date;
+    final previousDates = map((every) => every.previous(date));
+    return previousDates.reduce(_reducePast);
+  }
+
+  @override
+  bool valid(DateTime date) {
+    return DateValidatorUnion(this).valid(date);
+  }
+
+  @override
+  List<Object?> get props => [...this];
+}
+
+/// Class that processes [DateTime] so that the [next] always returns the next
+/// day where only one of the [EveryDateValidator]s conditions is met.
+class EveryDateValidatorDifference extends DelegatingList<EveryDateValidator>
+    with EquatableMixin, DateValidatorMixin
+    implements EveryDateValidator {
+  /// Class that processes [DateTime] so that the [next] always returns the next
+  /// day where only one of the [EveryDateValidator]s conditions is met.
+  const EveryDateValidatorDifference(super.everyDateValidators);
+
+  @override
+  DateTime startDate(DateTime date) {
+    if (isEmpty) return date;
+    final startingDates = map((every) => every.startDate(date));
+    final validDates = startingDates.where(valid);
+    if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
+    return next(date);
+  }
+
+  @override
+  DateTime next(DateTime date) {
+    if (isEmpty) return date;
+    final nextDates = map((every) => every.next(date));
+    final validDates = nextDates.where(valid);
+    if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
+    return next(nextDates.reduce(_reduceFuture));
+  }
+
+  @override
+  DateTime previous(DateTime date) {
+    if (isEmpty) return date;
+    final previousDates = map((every) => every.previous(date));
+    final validDates = previousDates.where(valid);
+    if (validDates.isNotEmpty) return validDates.reduce(_reducePast);
+    return previous(previousDates.reduce(_reducePast));
+  }
+
+  @override
+  bool valid(DateTime date) {
+    return DateValidatorDifference(this).valid(date);
+  }
+
+  @override
+  List<Object?> get props => [...this];
+}
+
+DateTime _reduceFuture(DateTime value, DateTime element) {
+  return value.isBefore(element) ? value : element;
+}
+
+DateTime _reducePast(DateTime value, DateTime element) {
+  return value.isAfter(element) ? value : element;
 }
