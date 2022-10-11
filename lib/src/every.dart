@@ -34,6 +34,30 @@ abstract class Every {
   DateTime previous(DateTime date);
 }
 
+/// Abstract class that forces the implementation of [Every] to have a
+/// limit parameter for the [startDate], [next] and [previous] methods.
+abstract class LimitedEvery {
+  /// Abstract class that, when extended, processes [DateTime] with custom logic.
+  ///
+  /// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also
+  /// [WeekdayOccurrence]) and [EveryDayInYear] for complete base
+  /// implementations.
+  ///
+  /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
+  const LimitedEvery();
+
+  /// Returns the next [DateTime] that matches the [Every] pattern.
+  DateTime startDate(DateTime date, {DateTime? limit});
+
+  /// Returns the next instance of the given [date] considering this [Every]
+  /// base process.
+  DateTime next(DateTime date, {DateTime? limit});
+
+  /// Returns the previous instance of the given [date] considering this [Every]
+  /// base process.
+  DateTime previous(DateTime date, {DateTime? limit});
+}
+
 /// Processes [DateTime] with custom logic.
 ///
 /// ### WARNING:
@@ -500,42 +524,52 @@ class EveryDayInYear extends DateValidatorDayInYear
 /// day where all of the [EveryDateValidator]s conditions are met.
 class EveryDateValidatorIntersection extends DelegatingList<EveryDateValidator>
     with EquatableMixin, DateValidatorMixin
-    implements EveryDateValidator {
+    implements EveryDateValidator, LimitedEvery {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where all of the [EveryDateValidator]s conditions are met.
   const EveryDateValidatorIntersection(super.everyDateValidators);
 
   @override
-  DateTime startDate(DateTime date) {
+  DateTime startDate(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
     final startingDates = map((every) => every.startDate(date));
     final validDates = startingDates.where(valid);
     if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
-    return next(date);
+    return next(date, limit: limit);
   }
 
   @override
-  DateTime next(DateTime date) {
+  DateTime next(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
+    if ((limit != null) && date.isAfter(limit)) {
+      throw DateTimeLimitException(date: date, limit: limit);
+    }
     final nextDates = map((every) => every.next(date));
     final validDates = nextDates.where(valid);
     if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
-    return next(nextDates.reduce(_reduceFuture));
+    return next(nextDates.reduce(_reduceFuture), limit: limit);
   }
 
   @override
-  DateTime previous(DateTime date) {
+  DateTime previous(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
+    if ((limit != null) && date.isBefore(limit)) {
+      throw DateTimeLimitException(date: date, limit: limit);
+    }
     final previousDates = map((every) => every.previous(date));
     final validDates = previousDates.where(valid);
     if (validDates.isNotEmpty) return validDates.reduce(_reducePast);
-    return previous(previousDates.reduce(_reducePast));
+    return previous(previousDates.reduce(_reducePast), limit: limit);
   }
 
   @override
   bool valid(DateTime date) {
     return DateValidatorIntersection(this).valid(date);
   }
+
+  List<DateValidator> get validators => [...this];
+
+  List<EveryDateValidator> get everies => [...this];
 
   @override
   List<Object?> get props => [...this];
@@ -576,6 +610,10 @@ class EveryDateValidatorUnion extends DelegatingList<EveryDateValidator>
     return DateValidatorUnion(this).valid(date);
   }
 
+  List<DateValidator> get validators => [...this];
+
+  List<EveryDateValidator> get everies => [...this];
+
   @override
   List<Object?> get props => [...this];
 }
@@ -584,36 +622,42 @@ class EveryDateValidatorUnion extends DelegatingList<EveryDateValidator>
 /// day where only one of the [EveryDateValidator]s conditions is met.
 class EveryDateValidatorDifference extends DelegatingList<EveryDateValidator>
     with EquatableMixin, DateValidatorMixin
-    implements EveryDateValidator {
+    implements EveryDateValidator, LimitedEvery {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where only one of the [EveryDateValidator]s conditions is met.
   const EveryDateValidatorDifference(super.everyDateValidators);
 
   @override
-  DateTime startDate(DateTime date) {
+  DateTime startDate(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
     final startingDates = map((every) => every.startDate(date));
     final validDates = startingDates.where(valid);
     if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
-    return next(date);
+    return next(date, limit: limit);
   }
 
   @override
-  DateTime next(DateTime date) {
+  DateTime next(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
+    if ((limit != null) && date.isAfter(limit)) {
+      throw DateTimeLimitException(date: date, limit: limit);
+    }
     final nextDates = map((every) => every.next(date));
     final validDates = nextDates.where(valid);
     if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
-    return next(nextDates.reduce(_reduceFuture));
+    return next(nextDates.reduce(_reduceFuture), limit: limit);
   }
 
   @override
-  DateTime previous(DateTime date) {
+  DateTime previous(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
+    if ((limit != null) && date.isBefore(limit)) {
+      throw DateTimeLimitException(date: date, limit: limit);
+    }
     final previousDates = map((every) => every.previous(date));
     final validDates = previousDates.where(valid);
     if (validDates.isNotEmpty) return validDates.reduce(_reducePast);
-    return previous(previousDates.reduce(_reducePast));
+    return previous(previousDates.reduce(_reducePast), limit: limit);
   }
 
   @override
@@ -621,8 +665,12 @@ class EveryDateValidatorDifference extends DelegatingList<EveryDateValidator>
     return DateValidatorDifference(this).valid(date);
   }
 
+  List<DateValidator> get validators => [...this];
+
+  List<EveryDateValidator> get everies => [...this];
+
   @override
-  List<Object?> get props => [...this];
+  List<Object> get props => [...this];
 }
 
 DateTime _reduceFuture(DateTime value, DateTime element) {
@@ -631,4 +679,19 @@ DateTime _reduceFuture(DateTime value, DateTime element) {
 
 DateTime _reducePast(DateTime value, DateTime element) {
   return value.isAfter(element) ? value : element;
+}
+
+class DateTimeLimitException implements Exception {
+  const DateTimeLimitException({
+    required this.date,
+    required this.limit,
+  });
+
+  final DateTime date;
+  final DateTime limit;
+
+  @override
+  String toString() {
+    return 'DateTimeLimitException: $date has passed $limit';
+  }
 }
