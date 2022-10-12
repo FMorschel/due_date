@@ -27,10 +27,9 @@ mixin DateValidatorMixin implements DateValidator {
 
 /// A [DateValidator] that validates a [DateTime] if it is on the given
 /// [weekday].
-class DateValidatorWeekday extends DateValidator
+class DateValidatorWeekday
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorWeekday> {
-
   /// A [DateValidator] that validates a [DateTime] if it is on the given
   /// [weekday].
   const DateValidatorWeekday(this.weekday);
@@ -61,18 +60,17 @@ class DateValidatorWeekday extends DateValidator
   List<Object> get props => [weekday];
 }
 
-/// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the 
+/// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
 /// same value as [dueDay].
-/// If [exact] is false, and the [dueDay] is greater than the days in month, 
+/// If [exact] is false, and the [dueDay] is greater than the days in month,
 /// the [DateTime] will be valid if the [DateTime.day] is the last day of the
 /// month.
 class DateValidatorDueDayMonth extends DateValidator
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorDueDayMonth> {
-
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the 
+  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
   /// same value as [dueDay].
-  /// If [exact] is false, and the [dueDay] is greater than the days in month, 
+  /// If [exact] is false, and the [dueDay] is greater than the days in month,
   /// the [DateTime] will be valid if the [DateTime.day] is the last day of the
   /// month.
   const DateValidatorDueDayMonth(
@@ -83,9 +81,9 @@ class DateValidatorDueDayMonth extends DateValidator
           'Due day must be between 1 and 31',
         );
 
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the 
+  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
   /// same value as [dueDay].
-  /// If [exact] is false, and the [dueDay] is greater than the days in month, 
+  /// If [exact] is false, and the [dueDay] is greater than the days in month,
   /// the [DateTime] will be valid if the [DateTime.day] is the last day of the
   /// month.
   factory DateValidatorDueDayMonth.from(
@@ -99,7 +97,7 @@ class DateValidatorDueDayMonth extends DateValidator
   final int dueDay;
 
   /// If true, the day of the month must be exactly this [dueDay].
-  /// If false, and the [dueDay] is greater than the days in month, the 
+  /// If false, and the [dueDay] is greater than the days in month, the
   /// [DateTime] will be valid if the [DateTime.day] is the last day of the
   /// month.
   final bool exact;
@@ -136,7 +134,6 @@ class DateValidatorDueDayMonth extends DateValidator
 class DateValidatorWeekdayCountInMonth extends DateValidator
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorWeekdayCountInMonth> {
-
   /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
   /// [day] of the week and is the [week] of the month.
   const DateValidatorWeekdayCountInMonth({
@@ -195,7 +192,6 @@ class DateValidatorWeekdayCountInMonth extends DateValidator
 class DateValidatorDayInYear extends DateValidator
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorDayInYear> {
-
   /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
   /// [dayInYear] of the year.
   const DateValidatorDayInYear(
@@ -254,13 +250,18 @@ class DateValidatorDayInYear extends DateValidator
   List<Object> get props => [dayInYear];
 }
 
-/// A [DateValidator] that validates a [DateTime] if the date is valid for all 
-/// of the [validators].
-class DateValidatorIntersection extends DelegatingList<DateValidator>
-    with EquatableMixin, DateValidatorMixin
+mixin DateValidatorListMixin<T extends DateValidator> on List<T>
     implements DateValidator {
+  /// List for all of the [validators] that will be used to validate the date.
+  List<DateValidator> get validators => [...this];
+}
 
-  /// A [DateValidator] that validates a [DateTime] if the date is valid for all 
+/// A [DateValidator] that validates a [DateTime] if the date is valid for all
+/// of the [validators].
+class DateValidatorIntersection<T extends DateValidator>
+    extends DelegatingList<T>
+    with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
+  /// A [DateValidator] that validates a [DateTime] if the date is valid for all
   /// of the [validators].
   const DateValidatorIntersection(super.validators);
 
@@ -269,8 +270,13 @@ class DateValidatorIntersection extends DelegatingList<DateValidator>
     return validators.every((validator) => validator.valid(date));
   }
 
-  /// List for all of the [validators] that will be used to validate the date.
-  List<DateValidator> get validators => [...this];
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is DateValidatorIntersection) &&
+            (other.validators == validators));
+  }
 
   @override
   List<Object> get props => [...this];
@@ -278,9 +284,8 @@ class DateValidatorIntersection extends DelegatingList<DateValidator>
 
 /// A [DateValidator] that validates a [DateTime] if the date is valid for any
 /// of the [validators].
-class DateValidatorUnion extends DelegatingList<DateValidator>
-    with EquatableMixin, DateValidatorMixin
-    implements DateValidator {
+class DateValidatorUnion<T extends DateValidator> extends DelegatingList<T>
+    with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   const DateValidatorUnion(super.validators);
 
   @override
@@ -288,8 +293,12 @@ class DateValidatorUnion extends DelegatingList<DateValidator>
     return validators.any((validator) => validator.valid(date));
   }
 
-  /// List for all of the [validators] that will be used to validate the date.
-  List<DateValidator> get validators => [...this];
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is DateValidatorUnion) && (other.validators == validators));
+  }
 
   @override
   List<Object> get props => [...this];
@@ -297,9 +306,8 @@ class DateValidatorUnion extends DelegatingList<DateValidator>
 
 /// A [DateValidator] that validates a [DateTime] if the date is valid for only
 /// one of the [validators].
-class DateValidatorDifference extends DelegatingList<DateValidator>
-    with EquatableMixin, DateValidatorMixin
-    implements DateValidator {
+class DateValidatorDifference<T extends DateValidator> extends DelegatingList<T>
+    with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   const DateValidatorDifference(super.validators);
 
   @override
@@ -308,8 +316,13 @@ class DateValidatorDifference extends DelegatingList<DateValidator>
     return valids.length == 1;
   }
 
-  /// List for all of the [validators] that will be used to validate the date.
-  List<DateValidator> get validators => [...this];
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is DateValidatorDifference) &&
+            (other.validators == validators));
+  }
 
   @override
   List<Object> get props => [...this];
