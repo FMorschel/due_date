@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
 import 'date_validator.dart';
@@ -36,7 +34,7 @@ abstract class Every {
 
 /// Abstract class that forces the implementation of [Every] to have a
 /// limit parameter for the [startDate], [next] and [previous] methods.
-abstract class LimitedEvery {
+abstract class LimitedEvery extends Every {
   /// Abstract class that, when extended, processes [DateTime] with custom logic.
   ///
   /// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also
@@ -47,14 +45,17 @@ abstract class LimitedEvery {
   const LimitedEvery();
 
   /// Returns the next [DateTime] that matches the [Every] pattern.
+  @override
   DateTime startDate(DateTime date, {DateTime? limit});
 
   /// Returns the next instance of the given [date] considering this [Every]
   /// base process.
+  @override
   DateTime next(DateTime date, {DateTime? limit});
 
   /// Returns the previous instance of the given [date] considering this [Every]
   /// base process.
+  @override
   DateTime previous(DateTime date, {DateTime? limit});
 }
 
@@ -154,7 +155,7 @@ mixin EveryYear implements Every {
   DateTime previous(DateTime date) => addYears(date, -1);
 }
 
-abstract class EveryDateValidator implements Every, DateValidator {}
+abstract class EveryDateValidator extends Every with DateValidatorMixin {}
 
 /// Class that processes [DateTime] so that the [addWeeks] always returns the
 /// next week's with the [DateTime.weekday] equals to the [weekday].
@@ -520,10 +521,17 @@ class EveryDayInYear extends DateValidatorDayInYear
   }
 }
 
+mixin EveryDateValidatorListMixin<T extends EveryDateValidator>
+    on DateValidatorListMixin<T> {
+  /// List for all of the [everies] that will be used to generate the date.
+  List<EveryDateValidator> get everies => [...this];
+}
+
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where all of the [EveryDateValidator]s conditions are met.
-class EveryDateValidatorIntersection extends DelegatingList<EveryDateValidator>
-    with EquatableMixin, DateValidatorMixin
+class EveryDateValidatorIntersection<T extends EveryDateValidator>
+    extends DateValidatorIntersection<T>
+    with EveryDateValidatorListMixin<T>
     implements EveryDateValidator, LimitedEvery {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where all of the [EveryDateValidator]s conditions are met.
@@ -534,7 +542,13 @@ class EveryDateValidatorIntersection extends DelegatingList<EveryDateValidator>
     if (isEmpty) return date;
     final startingDates = map((every) => every.startDate(date));
     final validDates = startingDates.where(valid);
-    if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
+    if (validDates.isNotEmpty) {
+      final result = validDates.reduce(_reduceFuture);
+      if ((limit != null) && result.isAfter(limit)) {
+        throw DateTimeLimitException(date: date, limit: limit);
+      }
+      return result;
+    }
     return next(date, limit: limit);
   }
 
@@ -563,22 +577,19 @@ class EveryDateValidatorIntersection extends DelegatingList<EveryDateValidator>
   }
 
   @override
-  bool valid(DateTime date) {
-    return DateValidatorIntersection(this).valid(date);
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is EveryDateValidatorIntersection) &&
+            (other.validators == validators));
   }
-
-  List<DateValidator> get validators => [...this];
-
-  List<EveryDateValidator> get everies => [...this];
-
-  @override
-  List<Object?> get props => [...this];
 }
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where any of the [EveryDateValidator]s conditions are met.
-class EveryDateValidatorUnion extends DelegatingList<EveryDateValidator>
-    with EquatableMixin, DateValidatorMixin
+class EveryDateValidatorUnion<T extends EveryDateValidator>
+    extends DateValidatorUnion<T>
+    with EveryDateValidatorListMixin<T>
     implements EveryDateValidator {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where any of the [EveryDateValidator]s conditions are met.
@@ -606,22 +617,19 @@ class EveryDateValidatorUnion extends DelegatingList<EveryDateValidator>
   }
 
   @override
-  bool valid(DateTime date) {
-    return DateValidatorUnion(this).valid(date);
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is EveryDateValidatorUnion) &&
+            (other.validators == validators));
   }
-
-  List<DateValidator> get validators => [...this];
-
-  List<EveryDateValidator> get everies => [...this];
-
-  @override
-  List<Object?> get props => [...this];
 }
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where only one of the [EveryDateValidator]s conditions is met.
-class EveryDateValidatorDifference extends DelegatingList<EveryDateValidator>
-    with EquatableMixin, DateValidatorMixin
+class EveryDateValidatorDifference<T extends EveryDateValidator>
+    extends DateValidatorDifference<T>
+    with EveryDateValidatorListMixin<T>
     implements EveryDateValidator, LimitedEvery {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where only one of the [EveryDateValidator]s conditions is met.
@@ -632,7 +640,13 @@ class EveryDateValidatorDifference extends DelegatingList<EveryDateValidator>
     if (isEmpty) return date;
     final startingDates = map((every) => every.startDate(date));
     final validDates = startingDates.where(valid);
-    if (validDates.isNotEmpty) return validDates.reduce(_reduceFuture);
+    if (validDates.isNotEmpty) {
+      final result = validDates.reduce(_reduceFuture);
+      if ((limit != null) && result.isAfter(limit)) {
+        throw DateTimeLimitException(date: date, limit: limit);
+      }
+      return result;
+    }
     return next(date, limit: limit);
   }
 
@@ -661,16 +675,12 @@ class EveryDateValidatorDifference extends DelegatingList<EveryDateValidator>
   }
 
   @override
-  bool valid(DateTime date) {
-    return DateValidatorDifference(this).valid(date);
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is EveryDateValidatorDifference) &&
+            (other.validators == validators));
   }
-
-  List<DateValidator> get validators => [...this];
-
-  List<EveryDateValidator> get everies => [...this];
-
-  @override
-  List<Object> get props => [...this];
 }
 
 DateTime _reduceFuture(DateTime value, DateTime element) {

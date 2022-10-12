@@ -599,7 +599,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   DueDateTime get previous => DueDateTime.fromDate(every.previous(this), every);
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         every,
         year,
         month,
