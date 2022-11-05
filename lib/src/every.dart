@@ -545,7 +545,7 @@ class EveryDateValidatorIntersection<T extends EveryDateValidator>
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reduceFuture);
       if ((limit != null) && result.isAfter(limit)) {
-        throw DateTimeLimitException(date: date, limit: limit);
+        throw DateTimeLimitReachedException(date: date, limit: limit);
       }
       return result;
     }
@@ -556,7 +556,7 @@ class EveryDateValidatorIntersection<T extends EveryDateValidator>
   DateTime next(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
     if ((limit != null) && date.isAfter(limit)) {
-      throw DateTimeLimitException(date: date, limit: limit);
+      throw DateTimeLimitReachedException(date: date, limit: limit);
     }
     final nextDates = map((every) => every.next(date));
     final validDates = nextDates.where(valid);
@@ -568,7 +568,7 @@ class EveryDateValidatorIntersection<T extends EveryDateValidator>
   DateTime previous(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
     if ((limit != null) && date.isBefore(limit)) {
-      throw DateTimeLimitException(date: date, limit: limit);
+      throw DateTimeLimitReachedException(date: date, limit: limit);
     }
     final previousDates = map((every) => every.previous(date));
     final validDates = previousDates.where(valid);
@@ -643,7 +643,7 @@ class EveryDateValidatorDifference<T extends EveryDateValidator>
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reduceFuture);
       if ((limit != null) && result.isAfter(limit)) {
-        throw DateTimeLimitException(date: date, limit: limit);
+        throw DateTimeLimitReachedException(date: date, limit: limit);
       }
       return result;
     }
@@ -654,7 +654,7 @@ class EveryDateValidatorDifference<T extends EveryDateValidator>
   DateTime next(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
     if ((limit != null) && date.isAfter(limit)) {
-      throw DateTimeLimitException(date: date, limit: limit);
+      throw DateTimeLimitReachedException(date: date, limit: limit);
     }
     final nextDates = map((every) => every.next(date));
     final validDates = nextDates.where(valid);
@@ -666,7 +666,7 @@ class EveryDateValidatorDifference<T extends EveryDateValidator>
   DateTime previous(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
     if ((limit != null) && date.isBefore(limit)) {
-      throw DateTimeLimitException(date: date, limit: limit);
+      throw DateTimeLimitReachedException(date: date, limit: limit);
     }
     final previousDates = map((every) => every.previous(date));
     final validDates = previousDates.where(valid);
@@ -691,8 +691,8 @@ DateTime _reducePast(DateTime value, DateTime element) {
   return value.isAfter(element) ? value : element;
 }
 
-class DateTimeLimitException implements Exception {
-  const DateTimeLimitException({
+class DateTimeLimitReachedException implements Exception {
+  const DateTimeLimitReachedException({
     required this.date,
     required this.limit,
   });

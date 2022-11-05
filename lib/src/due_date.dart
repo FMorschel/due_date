@@ -11,8 +11,17 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// to create a `DueDateTime` object representing the 7th of September 2017,
   /// 5:30pm
   ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery].
+  ///
   /// ```dart
-  /// final dentistAppointment = DueDateTime(2017, 9, 7, 17, 30);
+  /// final dentistAppointment = DueDateTime(
+  ///   year: 2017,
+  ///   month: 9,
+  ///   day: 7,
+  ///   hour: 17,
+  ///   minute: 30,
+  /// );
   /// ```
   /// The [every] parameter is optional. If it is provided, the [DueDateTime]
   /// will be adjusted to the next due date. If it is not provided, the
@@ -34,6 +43,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     int millisecond = 0,
     int microsecond = 0,
     bool utc = false,
+
+    /// The limit for the operations.
+    DateTime? limit,
   }) {
     late final DateTime date;
     if (utc) {
@@ -59,7 +71,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         microsecond,
       );
     }
-    return DueDateTime.fromDate(date, every);
+    return DueDateTime.fromDate(date, every: every, limit: limit);
   }
 
   DueDateTime._fromDate({
@@ -93,8 +105,18 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// Constructs a [DueDateTime] instance specified in the UTC time zone.
   ///
   /// ```dart
-  /// final moonLanding = DueDateTime.utc(1969, 7, 20, 20, 18, 04);
+  /// final moonLanding = DueDateTime.utc(
+  ///   year: 1969,
+  ///   month: 7,
+  ///   day: 20,
+  ///   hour: 20,
+  ///   minute: 18,
+  ///   second: 04,
+  /// );
   /// ```
+  ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery].
   ///
   /// When dealing with dates or historic events, preferably use UTC DateTimes,
   /// since they are unaffected by daylight-saving changes and are unaffected
@@ -119,6 +141,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     int second = 0,
     int millisecond = 0,
     int microsecond = 0,
+
+    /// The limit for the operations.
+    DateTime? limit,
   }) =>
       DueDateTime(
         every: every,
@@ -131,6 +156,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         millisecond: millisecond,
         microsecond: microsecond,
         utc: true,
+        limit: limit,
       );
 
   /// Constructs a [DueDateTime] instance with current date and time in the
@@ -138,7 +164,20 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
-  factory DueDateTime.now() => DueDateTime.fromDate(DateTime.now());
+  ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery].
+  factory DueDateTime.now({
+    /// The limit for the operations.
+    DateTime? limit,
+  }) {
+    final now = DateTime.now();
+    return DueDateTime.fromDate(
+      now,
+      every: EveryDueDayMonth(now.day) as T,
+      limit: limit,
+    );
+  }
 
   /// Creates a [DueDateTime] from the [reference].
   ///
@@ -150,11 +189,14 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// EveryDueDayMonth(reference.day).
   /// ```
   factory DueDateTime.fromDate(
-    DateTime reference, [
+    DateTime reference, {
 
     /// The handler for the operations.
     T? every,
-  ]) {
+
+    /// The limit for the operations.
+    DateTime? limit,
+  }) {
     if (every == null) {
       return DueDateTime._toConstructor(
         every: EveryDueDayMonth(reference.day) as T,
@@ -162,7 +204,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
       );
     } else {
       return DueDateTime<T>._toConstructor(
-        date: every.startDate(reference),
+        date: every is LimitedEvery
+            ? every.startDate(reference, limit: limit)
+            : every.startDate(reference),
         every: every,
       );
     }
@@ -252,8 +296,23 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
-  static DueDateTime parse(String formattedString, [Every? every]) {
-    return DueDateTime.fromDate(DateTime.parse(formattedString), every);
+  ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery] instance.
+  static DueDateTime parse(
+    String formattedString, {
+
+    /// The handler for the operations.
+    Every? every,
+
+    /// The limit for the operations.
+    DateTime? limit,
+  }) {
+    return DueDateTime.fromDate(
+      DateTime.parse(formattedString),
+      every: every,
+      limit: limit,
+    );
   }
 
   /// Constructs a new [DueDateTime] instance based on [formattedString].
@@ -268,10 +327,21 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
-  static DueDateTime? tryParse(String formattedString, [Every? every]) {
+  ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery] instance.
+  static DueDateTime? tryParse(
+    String formattedString, {
+
+    /// The handler for the operations.
+    Every? every,
+
+    /// The limit for the operations.
+    DateTime? limit,
+  }) {
     final nullableDate = DateTime.tryParse(formattedString);
     if (nullableDate == null) return null;
-    return DueDateTime.fromDate(nullableDate, every);
+    return DueDateTime.fromDate(nullableDate, every: every, limit: limit);
   }
 
   /// Constructs a new [DueDateTime] instance
@@ -295,16 +365,24 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
+  ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery] instance.
   static DueDateTime fromMillisecondsSinceEpoch(
     int millisecondsSinceEpoch, {
-    Every? every,
     bool isUtc = false,
+
+    /// The handler for the operations.
+    Every? every,
+
+    /// The limit for the operations.
+    DateTime? limit,
   }) {
     final date = DateTime.fromMillisecondsSinceEpoch(
       millisecondsSinceEpoch,
       isUtc: isUtc,
     );
-    return DueDateTime.fromDate(date, every);
+    return DueDateTime.fromDate(date, every: every, limit: limit);
   }
 
   /// Constructs a new [DueDateTime] instance
@@ -328,20 +406,31 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
+  ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery] instance.
   static DueDateTime fromMicrosecondsSinceEpoch(
     int microsecondsSinceEpoch, {
-    Every? every,
     bool isUtc = false,
+
+    /// The handler for the operations.
+    Every? every,
+
+    /// The limit for the operations.
+    DateTime? limit,
   }) {
     final date = DateTime.fromMicrosecondsSinceEpoch(
       microsecondsSinceEpoch,
       isUtc: isUtc,
     );
-    return DueDateTime.fromDate(date, every);
+    return DueDateTime.fromDate(date, every: every, limit: limit);
   }
 
   /// Creates a copy of this [DueDateTime] but with the given fields replaced
   /// with the new values.
+  ///
+  /// The [limit] will be passed to the [Every] instance if it is a
+  /// [LimitedEvery] instance.
   DueDateTime copyWith({
     Every? every,
     int? year,
@@ -352,6 +441,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     int? second,
     int? millisecond,
     int? microsecond,
+
+    /// The limit for the operations.
+    DateTime? limit,
   }) {
     return DueDateTime(
       every: every ?? this.every,
@@ -363,6 +455,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
       second: second ?? this.second,
       millisecond: millisecond ?? this.millisecond,
       microsecond: microsecond ?? this.microsecond,
+      limit: limit,
     );
   }
 
@@ -421,7 +514,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     bool sameEvery = true,
   }) {
     final date = super.add(duration);
-    return DueDateTime.fromDate(date, sameEvery ? every : null);
+    return DueDateTime.fromDate(date, every: sameEvery ? every : null);
   }
 
   /// Returns a new [DueDateTime] instance with [duration] subtracted from [this].
@@ -449,7 +542,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     bool sameEvery = true,
   }) {
     final date = super.subtract(duration);
-    return DueDateTime.fromDate(date, sameEvery ? every : null);
+    return DueDateTime.fromDate(date, every: sameEvery ? every : null);
   }
 
   /// Returns a new [DueDateTime] instance with [weeks] weeks added to this.
@@ -464,7 +557,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   DueDateTime addWeeks(int weeks, {bool sameEvery = true}) {
     if (every is EveryWeek) {
       final date = (every as EveryWeek).addWeeks(this, weeks);
-      return DueDateTime.fromDate(date, sameEvery ? every : null);
+      return DueDateTime.fromDate(date, every: sameEvery ? every : null);
     } else {
       return add(_week * weeks, sameEvery: sameEvery);
     }
@@ -501,12 +594,12 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     if (every is EveryMonth) {
       return DueDateTime.fromDate(
         (every as EveryMonth).addMonths(this, months),
-        sameEvery ? every : null,
+        every: sameEvery ? every : null,
       );
     } else {
       return DueDateTime.fromDate(
         EveryDueDayMonth(day).addMonths(this, months),
-        sameEvery ? every : null,
+        every: sameEvery ? every : null,
       );
     }
   }
@@ -552,12 +645,12 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     if (every is EveryYear) {
       return DueDateTime.fromDate(
         (every as EveryYear).addYears(this, years),
-        sameEvery ? every : null,
+        every: sameEvery ? every : null,
       );
     } else {
       return DueDateTime.fromDate(
         EveryDueDayMonth(day).addYears(this, years),
-        sameEvery ? every : null,
+        every: sameEvery ? every : null,
       );
     }
   }
@@ -592,11 +685,45 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   /// Returns a new [DueDateTime] instance with the next date that matches the
   /// [every] main pattern.
-  DueDateTime get next => DueDateTime.fromDate(every.next(this), every);
+  ///
+  /// The [limit] parameter is used to limit the search for the next date when
+  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
+  /// is ignored.
+  ///
+  /// The [limit] parameter is used to limit the search for the next date when
+  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
+  /// is ignored.
+  DueDateTime next({
+    /// The limit to search for the next date.
+    DateTime? limit,
+  }) =>
+      DueDateTime.fromDate(
+        every is LimitedEvery
+            ? (every as LimitedEvery).next(this, limit: limit)
+            : every.next(this),
+        every: every,
+      );
 
   /// Returns a new [DueDateTime] instance with the previous date that matches
   /// the [every] main pattern.
-  DueDateTime get previous => DueDateTime.fromDate(every.previous(this), every);
+  ///
+  /// The [limit] parameter is used to limit the search for the next date when
+  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
+  /// is ignored.
+  ///
+  /// The [limit] parameter is used to limit the search for the next date when
+  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
+  /// is ignored.
+  DueDateTime previous({
+    /// The limit to search for the previous date.
+    DateTime? limit,
+  }) =>
+      DueDateTime.fromDate(
+        every is LimitedEvery
+            ? (every as LimitedEvery).next(this, limit: limit)
+            : every.previous(this),
+        every: every,
+      );
 
   @override
   List<Object> get props => [

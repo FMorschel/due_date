@@ -312,8 +312,12 @@ class DateValidatorDifference<T extends DateValidator> extends DelegatingList<T>
 
   @override
   bool valid(DateTime date) {
-    final valids = validators.where((validator) => validator.valid(date));
-    return valids.length == 1;
+    int valids = 0;
+    for (final validator in validators) {
+      if (validator.valid(date)) valids++;
+      if (valids > 1) return false;
+    }
+    return true;
   }
 
   @override

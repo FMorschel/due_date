@@ -79,6 +79,11 @@ enum Weekday implements Comparable<Weekday> {
   bool operator <(Weekday other) => index < other.index;
   bool operator <=(Weekday other) => index <= other.index;
 
+  Weekday operator +(int days) =>
+      Weekday.fromDateTimeValue(dateTimeValue + days % 7);
+  Weekday operator -(int days) =>
+      Weekday.fromDateTimeValue(dateTimeValue - days % 7); // TODO: Review this.
+
   /// Returns the [EveryWeekday] that corresponds to this weekday.
   EveryWeekday get every => EveryWeekday(this);
 
