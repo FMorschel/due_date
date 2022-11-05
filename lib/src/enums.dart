@@ -82,7 +82,7 @@ enum Weekday implements Comparable<Weekday> {
   Weekday operator +(int days) =>
       Weekday.fromDateTimeValue(dateTimeValue + days % 7);
   Weekday operator -(int days) =>
-      Weekday.fromDateTimeValue(dateTimeValue - days % 7); // TODO: Review this.
+      Weekday.fromDateTimeValue(dateTimeValue - days % 7);
 
   /// Returns the [EveryWeekday] that corresponds to this weekday.
   EveryWeekday get every => EveryWeekday(this);
@@ -202,6 +202,11 @@ enum Month implements Comparable<Month> {
   bool operator <(Month other) => index < other.index;
   bool operator <=(Month other) => index <= other.index;
 
+  Month operator +(int days) =>
+      Month.fromDateTimeValue(dateTimeValue + days % 7);
+  Month operator -(int days) =>
+      Month.fromDateTimeValue(dateTimeValue - days % 7);
+
   /// Returns the [Month] previous to this.
   Month get previous {
     if (dateTimeValue != january.dateTimeValue) {
@@ -313,6 +318,9 @@ enum Week implements Comparable<Week> {
   bool operator >=(Week other) => index >= other.index;
   bool operator <(Week other) => index < other.index;
   bool operator <=(Week other) => index <= other.index;
+
+  Week operator +(int days) => Week.values[(index + days) % 5];
+  Week operator -(int days) => Week.values[(index - days) % 5];
 
   /// Returns the [Week] previous to this.
   Week get previous {
