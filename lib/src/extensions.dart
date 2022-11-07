@@ -2,6 +2,10 @@ import 'package:time/time.dart';
 
 import '../due_date.dart';
 
+extension DayInYear on DateTime {
+  int get dayInYear => difference(firstDayOfYear).inDays + 1;
+}
+
 /// Extension methods related to adding or subtracting days from a [DateTime].
 extension AddDays on DateTime {
   /// Returns true if and only if this [weekday] is weekend.
@@ -113,5 +117,42 @@ extension PreviousNext on Iterable<Weekday> {
       set.add(weekday.next);
     }
     return set;
+  }
+}
+
+/// Extension methods related to [DateValidator]s. Simpply wrappers around
+/// creating [DateValidatorIntersection], [DateValidatorUnion] or
+/// [DateValidatorDifference].
+extension DateValidatorListExt on List<DateValidator> {
+  /// Returns a [DateValidatorIntersection] of this [List] of [DateValidator]s.
+  DateValidatorIntersection get intersection => DateValidatorIntersection(this);
+
+  /// Returns a [DateValidatorUnion] of this [List] of [DateValidator]s.
+  DateValidatorDifference get difference => DateValidatorDifference(this);
+
+  /// Returns a [DateValidatorDifference] of this [List] of [DateValidator]s.
+  DateValidatorUnion get union => DateValidatorUnion(this);
+}
+
+/// Extension methods related to [EveryDateValidator]s. Simpply wrappers around
+/// creating [EveryDateValidatorIntersection], [EveryDateValidatorUnion] or
+/// [EveryDateValidatorDifference].
+extension EveryDateValidatorListExt on List<EveryDateValidator> {
+  /// Returns a [EveryDateValidatorIntersection] of this [List] of
+  /// [EveryDateValidator]s.
+  EveryDateValidatorIntersection get intersection {
+    return EveryDateValidatorIntersection(this);
+  }
+
+  /// Returns a [EveryDateValidatorDifference] of this [List] of
+  /// [EveryDateValidator]s.
+  EveryDateValidatorDifference get difference {
+    return EveryDateValidatorDifference(this);
+  }
+
+  /// Returns a [EveryDateValidatorUnion] of this [List] of
+  /// [EveryDateValidator]s.
+  EveryDateValidatorUnion get union {
+    return EveryDateValidatorUnion(this);
   }
 }

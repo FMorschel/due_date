@@ -171,6 +171,82 @@ void main() {
         });
       }
     });
+    group('from', () {
+      test('august', () {
+        final august = List.generate(
+          31,
+          (index) => DateTime(2022, DateTime.august, index + 1),
+        );
+        expect(Month.august.from(2022, utc: false), containsAllInOrder(august));
+      });
+      test('august utc', () {
+        final august = List.generate(
+          31,
+          (index) => DateTime.utc(2022, DateTime.august, index + 1),
+        );
+        expect(Month.august.from(2022), containsAllInOrder(august));
+      });
+      test('september', () {
+        final september = List.generate(
+          30,
+          (index) => DateTime(2022, DateTime.september, index + 1),
+        );
+        expect(
+          Month.september.from(2022, utc: false),
+          containsAllInOrder(september),
+        );
+      });
+      test('september utc', () {
+        final september = List.generate(
+          30,
+          (index) => DateTime.utc(2022, DateTime.september, index + 1),
+        );
+        expect(
+          Month.september.from(2022),
+          containsAllInOrder(september),
+        );
+      });
+      test('february 2022', () {
+        final february = List.generate(
+          28,
+          (index) => DateTime(2022, DateTime.february, index + 1),
+        );
+        expect(
+          Month.february.from(2022, utc: false),
+          containsAllInOrder(february),
+        );
+      });
+      test('february 2022 utc', () {
+        final february = List.generate(
+          28,
+          (index) => DateTime.utc(2022, DateTime.february, index + 1),
+        );
+        expect(
+          Month.february.from(2022),
+          containsAllInOrder(february),
+        );
+      });
+      test('february 2020', () {
+        final february = List.generate(
+          28,
+          (index) => DateTime(2020, DateTime.february, index + 1),
+        );
+        expect(
+          Month.february.from(2020, utc: false),
+          containsAllInOrder(february),
+        );
+      });
+      test('february 2020 utc', () {
+        final february = List.generate(
+          28,
+          (index) => DateTime.utc(2020, DateTime.february, index + 1),
+        );
+        expect(
+          Month.february.from(2020),
+          containsAllInOrder(february),
+        );
+      });
+    });
     test('July of 2022', () {
       const year = 2022;
       const month = Month.july;

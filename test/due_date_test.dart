@@ -83,7 +83,7 @@ void main() {
         expect(DueDateTime.fromDate(matcher), equals(matcher));
       });
       test('With every', () {
-        expect(DueDateTime.fromDate(matcher, dueDay30), equals(matcher));
+        expect(DueDateTime.fromDate(matcher, every: dueDay30), equals(matcher));
       });
     });
   });
@@ -96,7 +96,7 @@ void main() {
     });
     test('With every', () {
       expect(
-        DueDateTime.parse('2022-01-01', dueDay15),
+        DueDateTime.parse('2022-01-01', every: dueDay15),
         equals(DateTime(2022, 1, 15)),
       );
     });
@@ -110,7 +110,7 @@ void main() {
     });
     test('With every', () {
       expect(
-        DueDateTime.tryParse('2022-01-01', dueDay15),
+        DueDateTime.tryParse('2022-01-01', every: dueDay15),
         equals(DateTime(2022, 1, 15)),
       );
     });
@@ -437,14 +437,14 @@ void main() {
         final day = DateTime(2022, DateTime.august, 22);
         final everyWeekday = DueDateTime.fromDate(
           day,
-          EveryWeekdayCountInMonth(
+          every: EveryWeekdayCountInMonth(
             day: Weekday.monday,
             week: Week.fourth,
           ),
         );
         final everyWeekday2 = DueDateTime.fromDate(
           day,
-          WeekdayOccurrence.fourthMonday,
+          every: WeekdayOccurrence.fourthMonday,
         );
         final matcher = DateTime(2022, DateTime.september, 26);
         expect(everyWeekday.next, equals(matcher));
@@ -454,7 +454,7 @@ void main() {
         final day = DateTime(2022, DateTime.august, 22);
         final everyWeekday = DueDateTime.fromDate(
           day,
-          EveryDayInYear.from(day),
+          every: EveryDayInYear.from(day),
         );
         expect(
           everyWeekday.next,
@@ -491,14 +491,14 @@ void main() {
         final day = DateTime.utc(2022, DateTime.august, 22);
         final everyWeekday = DueDateTime.fromDate(
           day,
-          EveryWeekdayCountInMonth(
+          every: EveryWeekdayCountInMonth(
             day: Weekday.monday,
             week: Week.fourth,
           ),
         );
         final everyWeekday2 = DueDateTime.fromDate(
           day,
-          WeekdayOccurrence.fourthMonday,
+          every: WeekdayOccurrence.fourthMonday,
         );
         final matcher = DateTime.utc(2022, DateTime.september, 26);
         expect(everyWeekday.next, equals(matcher));
@@ -508,7 +508,7 @@ void main() {
         final day = DateTime.utc(2022, DateTime.august, 22);
         final everyWeekday = DueDateTime.fromDate(
           day,
-          EveryDayInYear.from(day),
+          every: EveryDayInYear.from(day),
         );
         expect(
           everyWeekday.next,

@@ -79,8 +79,16 @@ enum Weekday implements Comparable<Weekday> {
   bool operator <(Weekday other) => index < other.index;
   bool operator <=(Weekday other) => index <= other.index;
 
+  Weekday operator +(int days) =>
+      Weekday.fromDateTimeValue(dateTimeValue + days % 7);
+  Weekday operator -(int days) =>
+      Weekday.fromDateTimeValue(dateTimeValue - days % 7);
+
   /// Returns the [EveryWeekday] that corresponds to this weekday.
   EveryWeekday get every => EveryWeekday(this);
+
+  /// Returns the [DateValidator] that corresponds to this weekday.
+  DateValidator get validator => DateValidatorWeekday(this);
 
   /// Returns the [Weekday] previous to this.
   Weekday get previous {
@@ -165,6 +173,25 @@ enum Month implements Comparable<Month> {
   /// The value of the month in [DateTime] class.
   final int dateTimeValue;
 
+  List<DateTime> from(
+    int year, {
+    bool utc = true,
+  }) {
+    DateTime firstDay = DateTime(year, dateTimeValue, 1);
+    if (utc) firstDay = DateTime.utc(year, dateTimeValue, 1);
+    final lastDay = firstDay.lastDayOfMonth;
+    final days = lastDay.day;
+    return List.generate(
+      days,
+      (index) {
+        final day = index + 1;
+        if (utc) return DateTime.utc(year, dateTimeValue, day);
+        return DateTime(year, dateTimeValue, day);
+      },
+      growable: false,
+    );
+  }
+
   /// Returns the first day of the month on the given [year] (utc).
   DateTime of(int year) => DateTime.utc(year, dateTimeValue);
 
@@ -179,6 +206,11 @@ enum Month implements Comparable<Month> {
   bool operator >=(Month other) => index >= other.index;
   bool operator <(Month other) => index < other.index;
   bool operator <=(Month other) => index <= other.index;
+
+  Month operator +(int days) =>
+      Month.fromDateTimeValue(dateTimeValue + days % 7);
+  Month operator -(int days) =>
+      Month.fromDateTimeValue(dateTimeValue - days % 7);
 
   /// Returns the [Month] previous to this.
   Month get previous {
@@ -292,6 +324,9 @@ enum Week implements Comparable<Week> {
   bool operator <(Week other) => index < other.index;
   bool operator <=(Week other) => index <= other.index;
 
+  Week operator +(int days) => Week.values[(index + days) % 5];
+  Week operator -(int days) => Week.values[(index - days) % 5];
+
   /// Returns the [Week] previous to this.
   Week get previous {
     if (index != first.index) {
@@ -315,7 +350,9 @@ enum Week implements Comparable<Week> {
 ///
 /// Shows all possible values for the [EveryWeekdayCountInMonth] with better
 /// naming.
-enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
+enum WeekdayOccurrence
+    with DateValidatorMixin
+    implements EveryWeekdayCountInMonth {
   firstMonday(
     EveryWeekdayCountInMonth(
       day: Weekday.monday,
@@ -568,7 +605,11 @@ enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
   DateTime addYears(DateTime date, int years) => _handler.addYears(date, years);
 
   @override
-  int compareTo(EveryWeekdayCountInMonth other) => _handler.compareTo(other);
+  bool valid(DateTime date) => _handler.valid(date);
+
+  @override
+  int compareTo(DateValidatorWeekdayCountInMonth other) =>
+      _handler.compareTo(other);
 
   bool operator >(WeekdayOccurrence other) => index > other.index;
   bool operator >=(WeekdayOccurrence other) => index >= other.index;
@@ -579,5 +620,5 @@ enum WeekdayOccurrence implements EveryWeekdayCountInMonth {
   bool? get stringify => _handler.stringify;
 
   @override
-  List<Object?> get props => _handler.props;
+  List<Object> get props => _handler.props;
 }

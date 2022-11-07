@@ -23,6 +23,7 @@
 /// class.
 library due_date;
 
+export 'src/date_validator.dart';
 export 'src/due_date.dart';
 export 'src/enums.dart';
 export 'src/every.dart';

@@ -3,6 +3,17 @@ import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
 void main() {
+  group('DayInYear on DateTime', () {
+    test('January 1st', () {
+      expect(DateTime(2022, DateTime.january, 1).dayInYear, 1);
+    });
+    test('December 31st 2022', () {
+      expect(DateTime(2022, DateTime.december, 31).dayInYear, 365);
+    });
+    test('December 31st 2020', () {
+      expect(DateTime(2020, DateTime.december, 31).dayInYear, 366);
+    });
+  });
   group('AddDays on DateTime:', () {
     group('Is weekend:', () {
       test('Saturday', () {
@@ -244,6 +255,40 @@ void main() {
           );
         }
       });
+    });
+  });
+  group('DateValidatorListExt on List<DateValidator>', () {
+    const tuesday = DateValidatorWeekday(Weekday.tuesday);
+    const thursday = DateValidatorWeekday(Weekday.thursday);
+    final list = [tuesday, thursday];
+    test('Intersection', () {
+      final result = DateValidatorIntersection(list);
+      expect(list.intersection, equals(result));
+    });
+    test('Union', () {
+      final result = DateValidatorUnion(list);
+      expect(list.union, equals(result));
+    });
+    test('Difference', () {
+      final result = DateValidatorDifference(list);
+      expect(list.difference, equals(result));
+    });
+  });
+  group('EveryDateValidatorListExt on List<EveryDateValidator>', () {
+    const tuesday = EveryWeekday(Weekday.tuesday);
+    const thursday = EveryWeekday(Weekday.thursday);
+    final list = [tuesday, thursday];
+    test('Intersection', () {
+      final result = EveryDateValidatorIntersection(list);
+      expect(list.intersection, equals(result));
+    });
+    test('Union', () {
+      final result = EveryDateValidatorUnion(list);
+      expect(list.union, equals(result));
+    });
+    test('Difference', () {
+      final result = EveryDateValidatorDifference(list);
+      expect(list.difference, equals(result));
     });
   });
 }
