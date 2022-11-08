@@ -555,16 +555,12 @@ class SkipCount<T extends EveryDateValidator> extends Skip<T> {
 
   @override
   DateTime startDate(DateTime date, {DateTime? limit}) =>
-      (every is LimitedEvery)
-          ? (every as LimitedEvery).startDate(date, limit: limit)
-          : every.startDate(date);
+      _startDate(every, date, limit: limit);
 
   @override
   DateTime next(DateTime date, {DateTime? limit}) {
     for (int i = 0; i < count; i++) {
-      date = (every is LimitedEvery)
-          ? (every as LimitedEvery).next(date, limit: limit)
-          : every.next(date);
+      date = _next(every, date, limit: limit);
     }
     return date;
   }
@@ -572,9 +568,7 @@ class SkipCount<T extends EveryDateValidator> extends Skip<T> {
   @override
   DateTime previous(DateTime date, {DateTime? limit}) {
     for (int i = 0; i < count; i++) {
-      date = (every is LimitedEvery)
-          ? (every as LimitedEvery).previous(date, limit: limit)
-          : every.previous(date);
+      date = _previous(every, date, limit: limit);
     }
     return date;
   }
@@ -623,39 +617,27 @@ class SkipWhen<T extends EveryDateValidator> extends Skip<T> {
 
   @override
   DateTime startDate(DateTime date, {DateTime? limit}) {
-    date = (every is LimitedEvery)
-        ? (every as LimitedEvery).startDate(date, limit: limit)
-        : every.startDate(date);
+    date = _startDate(every, date, limit: limit);
     while (when(date)) {
-      date = (every is LimitedEvery)
-          ? (every as LimitedEvery).next(date, limit: limit)
-          : every.next(date);
+      date = _next(every, date, limit: limit);
     }
     return date;
   }
 
   @override
   DateTime next(DateTime date, {DateTime? limit}) {
-    date = (every is LimitedEvery)
-        ? (every as LimitedEvery).next(date, limit: limit)
-        : every.next(date);
+    date = _next(every, date, limit: limit);
     while (when(date)) {
-      date = (every is LimitedEvery)
-          ? (every as LimitedEvery).next(date, limit: limit)
-          : every.next(date);
+      date = _next(every, date, limit: limit);
     }
     return date;
   }
 
   @override
   DateTime previous(DateTime date, {DateTime? limit}) {
-    date = (every is LimitedEvery)
-        ? (every as LimitedEvery).previous(date, limit: limit)
-        : every.previous(date);
+    date = _previous(every, date, limit: limit);
     while (when(date)) {
-      date = (every is LimitedEvery)
-          ? (every as LimitedEvery).previous(date, limit: limit)
-          : every.previous(date);
+      date = _previous(every, date, limit: limit);
     }
     return date;
   }
@@ -695,9 +677,7 @@ class SkipCountWhen<T extends EveryDateValidator> extends SkipCount<T>
 
   @override
   DateTime startDate(DateTime date, {DateTime? limit}) {
-    date = (every is LimitedEvery)
-        ? (every as LimitedEvery).startDate(date, limit: limit)
-        : every.startDate(date);
+    date = _startDate(every, date, limit: limit);
     while (when(date)) {
       date = super.next(date, limit: limit);
     }
@@ -706,9 +686,7 @@ class SkipCountWhen<T extends EveryDateValidator> extends SkipCount<T>
 
   @override
   DateTime next(DateTime date, {DateTime? limit}) {
-    date = (every is LimitedEvery)
-        ? (every as LimitedEvery).next(date, limit: limit)
-        : every.next(date);
+    date = _next(every, date, limit: limit);
     while (when(date)) {
       date = super.next(date, limit: limit);
     }
@@ -717,9 +695,7 @@ class SkipCountWhen<T extends EveryDateValidator> extends SkipCount<T>
 
   @override
   DateTime previous(DateTime date, {DateTime? limit}) {
-    date = (every is LimitedEvery)
-        ? (every as LimitedEvery).previous(date, limit: limit)
-        : every.previous(date);
+    date = _previous(every, date, limit: limit);
     while (when(date)) {
       date = super.previous(date, limit: limit);
     }
@@ -919,6 +895,33 @@ class EveryDateValidatorDifference<T extends EveryDateValidator>
         ((other is EveryDateValidatorDifference) &&
             (other.validators == validators));
   }
+}
+
+DateTime _startDate<T extends Every>(
+  T every,
+  DateTime date, {
+  required DateTime? limit,
+}) {
+  if (every is! LimitedEvery) return every.startDate(date);
+  return every.startDate(date, limit: limit);
+}
+
+DateTime _next<T extends Every>(
+  T every,
+  DateTime date, {
+  required DateTime? limit,
+}) {
+  if (every is! LimitedEvery) return every.next(date);
+  return every.next(date, limit: limit);
+}
+
+DateTime _previous<T extends Every>(
+  T every,
+  DateTime date, {
+  required DateTime? limit,
+}) {
+  if (every is! LimitedEvery) return every.previous(date);
+  return every.previous(date, limit: limit);
 }
 
 DateTime _reduceFuture(DateTime value, DateTime element) {
