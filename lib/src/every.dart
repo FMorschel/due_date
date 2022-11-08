@@ -731,30 +731,30 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
 }
 
 DateTime _startDate<T extends Every>(
-  T validator,
+  T every,
   DateTime date, {
-  DateTime? limit,
+  required DateTime? limit,
 }) {
-  if (validator is! LimitedEvery) return validator.startDate(date);
-  return validator.startDate(date, limit: limit);
+  if (every is! LimitedEvery) return every.startDate(date);
+  return every.startDate(date, limit: limit);
 }
 
 DateTime _next<T extends Every>(
-  T validator,
+  T every,
   DateTime date, {
-  DateTime? limit,
+  required DateTime? limit,
 }) {
-  if (validator is! LimitedEvery) return validator.next(date);
-  return validator.next(date, limit: limit);
+  if (every is! LimitedEvery) return every.next(date);
+  return every.next(date, limit: limit);
 }
 
 DateTime _previous<T extends Every>(
-  T validator,
+  T every,
   DateTime date, {
-  DateTime? limit,
+  required DateTime? limit,
 }) {
-  if (validator is! LimitedEvery) return validator.previous(date);
-  return validator.previous(date, limit: limit);
+  if (every is! LimitedEvery) return every.previous(date);
+  return every.previous(date, limit: limit);
 }
 
 DateTime _reduceFuture(DateTime value, DateTime element) {
