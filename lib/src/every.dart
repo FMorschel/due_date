@@ -735,17 +735,17 @@ class SkipCountWhen<T extends EveryDateValidator> extends SkipCount<T>
   List<Object?> get props => [every, when, count];
 }
 
-mixin EveryDateValidatorListMixin<T extends EveryDateValidator>
-    on DateValidatorListMixin<T> {
+mixin EveryDateValidatorListMixin<E extends EveryDateValidator>
+    on DateValidatorListMixin<E> {
   /// List for all of the [everies] that will be used to generate the date.
   List<EveryDateValidator> get everies => [...this];
 }
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where all of the [EveryDateValidator]s conditions are met.
-class EveryDateValidatorIntersection<T extends EveryDateValidator>
-    extends DateValidatorIntersection<T>
-    with EveryDateValidatorListMixin<T>
+class EveryDateValidatorIntersection<E extends EveryDateValidator>
+    extends DateValidatorIntersection<E>
+    with EveryDateValidatorListMixin<E>
     implements EveryDateValidator, LimitedEvery {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where all of the [EveryDateValidator]s conditions are met.
@@ -801,9 +801,9 @@ class EveryDateValidatorIntersection<T extends EveryDateValidator>
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where any of the [EveryDateValidator]s conditions are met.
-class EveryDateValidatorUnion<T extends EveryDateValidator>
-    extends DateValidatorUnion<T>
-    with EveryDateValidatorListMixin<T>
+class EveryDateValidatorUnion<E extends EveryDateValidator>
+    extends DateValidatorUnion<E>
+    with EveryDateValidatorListMixin<E>
     implements EveryDateValidator {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where any of the [EveryDateValidator]s conditions are met.
@@ -841,9 +841,9 @@ class EveryDateValidatorUnion<T extends EveryDateValidator>
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where only one of the [EveryDateValidator]s conditions is met.
-class EveryDateValidatorDifference<T extends EveryDateValidator>
-    extends DateValidatorDifference<T>
-    with EveryDateValidatorListMixin<T>
+class EveryDateValidatorDifference<E extends EveryDateValidator>
+    extends DateValidatorDifference<E>
+    with EveryDateValidatorListMixin<E>
     implements EveryDateValidator, LimitedEvery {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where only one of the [EveryDateValidator]s conditions is met.
