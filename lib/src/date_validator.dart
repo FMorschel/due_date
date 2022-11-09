@@ -250,7 +250,7 @@ class DateValidatorDayInYear extends DateValidator
   List<Object> get props => [dayInYear];
 }
 
-mixin DateValidatorListMixin<T extends DateValidator> on List<T>
+mixin DateValidatorListMixin<E extends DateValidator> on List<E>
     implements DateValidator {
   /// List for all of the [validators] that will be used to validate the date.
   List<DateValidator> get validators => [...this];
@@ -258,8 +258,8 @@ mixin DateValidatorListMixin<T extends DateValidator> on List<T>
 
 /// A [DateValidator] that validates a [DateTime] if the date is valid for all
 /// of the [validators].
-class DateValidatorIntersection<T extends DateValidator>
-    extends DelegatingList<T>
+class DateValidatorIntersection<E extends DateValidator>
+    extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   /// A [DateValidator] that validates a [DateTime] if the date is valid for all
   /// of the [validators].
@@ -284,7 +284,7 @@ class DateValidatorIntersection<T extends DateValidator>
 
 /// A [DateValidator] that validates a [DateTime] if the date is valid for any
 /// of the [validators].
-class DateValidatorUnion<T extends DateValidator> extends DelegatingList<T>
+class DateValidatorUnion<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   const DateValidatorUnion(super.validators);
 
@@ -306,7 +306,7 @@ class DateValidatorUnion<T extends DateValidator> extends DelegatingList<T>
 
 /// A [DateValidator] that validates a [DateTime] if the date is valid for only
 /// one of the [validators].
-class DateValidatorDifference<T extends DateValidator> extends DelegatingList<T>
+class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   const DateValidatorDifference(super.validators);
 
@@ -317,6 +317,7 @@ class DateValidatorDifference<T extends DateValidator> extends DelegatingList<T>
       if (validator.valid(date)) valids++;
       if (valids > 1) return false;
     }
+    if (valids == 0) return false;
     return true;
   }
 

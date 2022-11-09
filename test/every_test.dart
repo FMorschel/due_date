@@ -559,7 +559,7 @@ void main() {
   group('EveryDateValidatorIntersection', () {
     final everies = EveryDateValidatorIntersection([
       EveryDueDayMonth(24),
-      EveryWeekday(Weekday.saturday),
+      EveryDateValidatorDifference([EveryWeekday(Weekday.saturday)]),
     ]);
     group('Start Date', () {
       test('September 24th 2022', () {
@@ -571,6 +571,26 @@ void main() {
         final date = DateTime(2021, DateTime.july, 23);
         final expected = DateTime(2021, DateTime.july, 24);
         expect(everies.startDate(date), equals(expected));
+      });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2021, DateTime.july, 22);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Self', () {
+          final limit = DateTime(2021, DateTime.july, 22);
+          expect(
+            () => everies.startDate(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+        test('Inner every', () {
+          final limit = DateTime(2021, DateTime.july, 23);
+          expect(
+            () => everies.startDate(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
       });
     });
     group('Next', () {
@@ -584,6 +604,26 @@ void main() {
         final expected = DateTime(2021, DateTime.july, 24);
         expect(everies.next(date), equals(expected));
       });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2021, DateTime.july, 22);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Self', () {
+          final limit = DateTime(2021, DateTime.july, 22);
+          expect(
+            () => everies.next(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+        test('Inner every', () {
+          final limit = DateTime(2021, DateTime.july, 23);
+          expect(
+            () => everies.next(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+      });
     });
     group('Previous', () {
       test('July 24th 2021', () {
@@ -596,12 +636,32 @@ void main() {
         final expected = DateTime(2022, DateTime.september, 24);
         expect(everies.previous(date), equals(expected));
       });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2022, DateTime.september, 26);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Self', () {
+          final limit = DateTime(2022, DateTime.september, 26);
+          expect(
+            () => everies.previous(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+        test('Inner every', () {
+          final limit = DateTime(2022, DateTime.september, 25);
+          expect(
+            () => everies.previous(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+      });
     });
   });
   group('DateValidatorUnion', () {
     final everies = EveryDateValidatorUnion([
       EveryDueDayMonth(24),
-      EveryWeekday(Weekday.saturday),
+      EveryDateValidatorDifference([EveryWeekday(Weekday.saturday)]),
     ]);
     group('Start Date', () {
       test('All valid', () {
@@ -618,6 +678,19 @@ void main() {
         final date = DateTime(2022, DateTime.august, 23);
         final expected = DateTime(2022, DateTime.august, 24);
         expect(everies.startDate(date), equals(expected));
+      });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2021, DateTime.july, 22);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Inner every', () {
+          final limit = DateTime(2021, DateTime.july, 23);
+          expect(
+            () => everies.startDate(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
       });
     });
     group('Next', () {
@@ -636,6 +709,19 @@ void main() {
         final expected = DateTime(2022, DateTime.august, 24);
         expect(everies.next(date), equals(expected));
       });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2021, DateTime.july, 22);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Inner every', () {
+          final limit = DateTime(2021, DateTime.july, 23);
+          expect(
+            () => everies.next(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+      });
     });
     group('Previous', () {
       test('All valid', () {
@@ -653,12 +739,25 @@ void main() {
         final expected = DateTime(2022, DateTime.august, 24);
         expect(everies.previous(date), equals(expected));
       });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2022, DateTime.september, 26);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Inner every', () {
+          final limit = DateTime(2022, DateTime.september, 25);
+          expect(
+            () => everies.previous(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+      });
     });
   });
   group('DateValidatorDifference', () {
     final everies = EveryDateValidatorDifference([
       EveryDueDayMonth(24),
-      EveryWeekday(Weekday.saturday),
+      EveryDateValidatorIntersection([EveryWeekday(Weekday.saturday)]),
     ]);
     group('Start Date', () {
       test('All valid', () {
@@ -675,6 +774,26 @@ void main() {
         final date = DateTime(2022, DateTime.august, 23);
         final expected = DateTime(2022, DateTime.august, 24);
         expect(everies.startDate(date), equals(expected));
+      });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Self', () {
+          final limit = DateTime(2022, DateTime.september, 24);
+          expect(
+            () => everies.startDate(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+        test('Inner every', () {
+          final limit = DateTime(2022, DateTime.september, 25);
+          expect(
+            () => everies.startDate(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
       });
     });
     group('Next', () {
@@ -693,6 +812,26 @@ void main() {
         final expected = DateTime(2022, DateTime.august, 24);
         expect(everies.next(date), equals(expected));
       });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Self', () {
+          final limit = DateTime(2022, DateTime.september, 24);
+          expect(
+            () => everies.next(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+        test('Inner every', () {
+          final limit = DateTime(2022, DateTime.september, 25);
+          expect(
+            () => everies.next(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+      });
     });
     group('Previous', () {
       test('All valid', () {
@@ -709,6 +848,26 @@ void main() {
         final date = DateTime(2022, DateTime.august, 25);
         final expected = DateTime(2022, DateTime.august, 24);
         expect(everies.previous(date), equals(expected));
+      });
+      group('Throws DateTimeLimitReachedException', () {
+        final date = DateTime(2022, DateTime.september, 26);
+        final throwsDateTimeLimitReachedException = throwsA(
+          isA<DateTimeLimitReachedException>(),
+        );
+        test('Self', () {
+          final limit = DateTime(2022, DateTime.september, 26);
+          expect(
+            () => everies.previous(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
+        test('Inner every', () {
+          final limit = DateTime(2022, DateTime.september, 25);
+          expect(
+            () => everies.previous(date, limit: limit),
+            throwsDateTimeLimitReachedException,
+          );
+        });
       });
     });
   });
