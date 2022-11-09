@@ -317,6 +317,7 @@ class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
       if (validator.valid(date)) valids++;
       if (valids > 1) return false;
     }
+    if (valids == 0) return false;
     return true;
   }
 
