@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
 import 'date_validator.dart';
@@ -155,7 +156,9 @@ mixin EveryYear implements Every {
   DateTime previous(DateTime date) => addYears(date, -1);
 }
 
-abstract class EveryDateValidator extends Every with DateValidatorMixin {}
+abstract class EveryDateValidator extends Every with DateValidatorMixin {
+  const EveryDateValidator();
+}
 
 /// Class that processes [DateTime] so that the [addWeeks] always returns the
 /// next week's with the [DateTime.weekday] equals to the [weekday].
@@ -519,6 +522,217 @@ class EveryDayInYear extends DateValidatorDayInYear
   String toString() {
     return 'EveryDayInYear<$dayInYear>';
   }
+}
+
+/// Wrapper for [EveryDateValidator] that skips the [startDate], [next] and
+/// [previous] result in a specific way.
+///
+/// This is an abstract class, look for [SkipCount], [SkipWhen] and
+/// [SkipCountWhen] for implementations.
+abstract class Skip<T extends EveryDateValidator> extends EveryDateValidator
+    with EquatableMixin
+    implements LimitedEvery {
+  /// Wrapper for [EveryDateValidator] that skips the [startDate], [next] or
+  /// [previous] result in a specific way.
+  ///
+  /// This is an abstract class, look for [SkipCount], [SkipWhen] and
+  /// [SkipCountWhen] for implementations.
+  const Skip({required this.every});
+
+  final T every;
+}
+
+class SkipCount<T extends EveryDateValidator> extends Skip<T> {
+  const SkipCount({
+    required super.every,
+    required this.count,
+  }) : assert(count >= 0, 'Count must be greater than or equal to 0');
+
+  final int count;
+
+  @override
+  bool valid(DateTime date) => every.valid(date);
+
+  @override
+  DateTime startDate(DateTime date, {DateTime? limit}) =>
+      _startDate(every, date, limit: limit);
+
+  @override
+  DateTime next(DateTime date, {DateTime? limit}) {
+    for (int i = 0; i < count; i++) {
+      date = _next(every, date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  DateTime previous(DateTime date, {DateTime? limit}) {
+    for (int i = 0; i < count; i++) {
+      date = _previous(every, date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  String toString() {
+    return 'SkipCount<$every, $count>';
+  }
+
+  SkipCount operator +(int count) => SkipCount(
+        every: every,
+        count: this.count + count,
+      );
+
+  SkipCount operator -(int count) => SkipCount(
+        every: every,
+        count: this.count - count,
+      );
+
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is SkipCount) &&
+            (every == other.every) &&
+            (count == other.count));
+  }
+
+  @override
+  List<Object?> get props => [every, count];
+}
+
+class SkipWhen<T extends EveryDateValidator> extends Skip<T> {
+  const SkipWhen({
+    required super.every,
+    required this.when,
+  });
+
+  final bool Function(DateTime date) when;
+
+  @override
+  bool valid(DateTime date) {
+    if (every.valid(date)) return !when(date);
+    return false;
+  }
+
+  @override
+  DateTime startDate(DateTime date, {DateTime? limit}) {
+    date = _startDate(every, date, limit: limit);
+    while (when(date)) {
+      date = _next(every, date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  DateTime next(DateTime date, {DateTime? limit}) {
+    date = _next(every, date, limit: limit);
+    while (when(date)) {
+      date = _next(every, date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  DateTime previous(DateTime date, {DateTime? limit}) {
+    date = _previous(every, date, limit: limit);
+    while (when(date)) {
+      date = _previous(every, date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  String toString() {
+    return 'SkipWhen<$every, $when>';
+  }
+
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is SkipWhen) && (every == other.every) && (when == other.when));
+  }
+
+  @override
+  List<Object?> get props => [every, when];
+}
+
+class SkipCountWhen<T extends EveryDateValidator> extends SkipCount<T>
+    implements SkipWhen<T> {
+  const SkipCountWhen({
+    required super.every,
+    required super.count,
+    required this.when,
+  }) : assert(count >= 0, 'Count must be greater than or equal to 0');
+
+  @override
+  final bool Function(DateTime date) when;
+
+  @override
+  bool valid(DateTime date) {
+    if (every.valid(date)) return !when(date);
+    return false;
+  }
+
+  @override
+  DateTime startDate(DateTime date, {DateTime? limit}) {
+    date = _startDate(every, date, limit: limit);
+    while (when(date)) {
+      date = super.next(date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  DateTime next(DateTime date, {DateTime? limit}) {
+    date = _next(every, date, limit: limit);
+    while (when(date)) {
+      date = super.next(date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  DateTime previous(DateTime date, {DateTime? limit}) {
+    date = _previous(every, date, limit: limit);
+    while (when(date)) {
+      date = super.previous(date, limit: limit);
+    }
+    return date;
+  }
+
+  @override
+  String toString() {
+    return 'SkipCountWhen<$every, $when, $count>';
+  }
+
+  @override
+  SkipCountWhen operator +(int count) => SkipCountWhen(
+        every: every,
+        count: this.count + count,
+        when: when,
+      );
+
+  @override
+  SkipCountWhen operator -(int count) => SkipCountWhen(
+        every: every,
+        count: this.count - count,
+        when: when,
+      );
+
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is SkipCountWhen) &&
+            (every == other.every) &&
+            (when == other.when) &&
+            (count == other.count));
+  }
+
+  @override
+  List<Object?> get props => [every, when, count];
 }
 
 mixin EveryDateValidatorListMixin<E extends EveryDateValidator>
