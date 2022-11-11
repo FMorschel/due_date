@@ -735,6 +735,54 @@ class SkipCountWhen<T extends EveryDateValidator> extends SkipCount<T>
   List<Object?> get props => [every, when, count];
 }
 
+abstract class Override<T extends EveryDateValidator> extends EveryDateValidator
+    with EquatableMixin
+    implements LimitedEvery {
+  const Override({
+    required this.every,
+  });
+
+  final T every;
+
+  bool when(DateTime date);
+
+  DateTime replace(DateTime given, DateTime invalid);
+
+  @override
+  bool valid(DateTime date) {
+    if (every.valid(date)) return !when(date);
+    return false;
+  }
+
+  @override
+  DateTime startDate(DateTime date, {DateTime? limit}) {
+    DateTime result = _startDate(every, date, limit: limit);
+    if (when(result)) result = replace(date, result);
+    return result;
+  }
+
+  @override
+  DateTime next(DateTime date, {DateTime? limit}) {
+    DateTime result = _next(every, date, limit: limit);
+    if (when(result)) result = replace(date, result);
+    return result;
+  }
+
+  @override
+  DateTime previous(DateTime date, {DateTime? limit}) {
+    DateTime result = _previous(every, date, limit: limit);
+    if (when(result)) result = replace(date, result);
+    return result;
+  }
+
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is Override) && (every == other.every));
+  }
+}
+
 mixin EveryDateValidatorListMixin<E extends EveryDateValidator>
     on DateValidatorListMixin<E> {
   /// List for all of the [everies] that will be used to generate the date.
