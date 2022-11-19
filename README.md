@@ -21,7 +21,7 @@ On your `pubspec.yaml` file, add this package to your dependencies:
 
 ```yaml
   dependencies:
-    due_date: ^1.0.4
+    due_date: ^2.0.0
 ```
 
 Import the package library on your code:
@@ -37,8 +37,8 @@ Longer examples at `/example` folder.
 ```dart
 final date = DateTime(2022, DateTime.january, 31);
 DueDateTime dueDate = date.dueDateTime; // 2022-01-31
-dueDate = dueDate.next; // 2022-02-28
-dueDate = dueDate.next; // 2022-03-31
+dueDate = dueDate.next(); // 2022-02-28
+dueDate = dueDate.next(); // 2022-03-31
 ```
 
 ## Additional information

@@ -1,3 +1,13 @@
+# 2.0.0 - 2022.11.19
+
+- BREAKING CHANGES:
+  - Getters `next` and `previous` on `DueDateTime` changed to methods.
+  - Optional positional parameters changed to opional named parameters.
+- Added `DateValidator`.
+- Added `LimitedEvery`
+- Added `DateValidatorIntersection`, `DateValidatorUnion` and `DateValidatorDifference`.
+- Added `EveryDateValidatorIntersection`, `EveryDateValidatorUnion` and `EveryDateValidatorDifference`.
+
 # 1.0.4 - 2022.08.23
 
 - Fixed typo on changelog.
