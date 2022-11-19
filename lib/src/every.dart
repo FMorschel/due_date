@@ -524,6 +524,7 @@ class EveryDayInYear extends DateValidatorDayInYear
   }
 }
 
+/// List for all of the [everies] that will be used to generate the date.
 mixin EveryDateValidatorListMixin<E extends EveryDateValidator>
     on DateValidatorListMixin<E> {
   /// List for all of the [everies] that will be used to generate the date.
@@ -733,6 +734,8 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
   }
 }
 
+/// Function that returns the start date from the given [date] considering the
+/// [every] and the [limit] if it is a [LimitedEvery].
 DateTime _startDate<T extends Every>(
   T every,
   DateTime date, {
@@ -742,6 +745,8 @@ DateTime _startDate<T extends Every>(
   return every.startDate(date, limit: limit);
 }
 
+/// Function that returns the next date from the given [date] considering the
+/// [every] and the [limit] if it is a [LimitedEvery].
 DateTime _next<T extends Every>(
   T every,
   DateTime date, {
@@ -751,6 +756,8 @@ DateTime _next<T extends Every>(
   return every.next(date, limit: limit);
 }
 
+/// Function that returns the previous date from the given [date] considering
+/// the [every] and the [limit] if it is a [LimitedEvery].
 DateTime _previous<T extends Every>(
   T every,
   DateTime date, {
@@ -760,21 +767,27 @@ DateTime _previous<T extends Every>(
   return every.previous(date, limit: limit);
 }
 
+/// Function that returns the date that is before the other.
 DateTime _reduceFuture(DateTime value, DateTime element) {
   return value.isBefore(element) ? value : element;
 }
 
+/// Function that returns the date that is after the other.
 DateTime _reducePast(DateTime value, DateTime element) {
   return value.isAfter(element) ? value : element;
 }
 
+/// Exception that is thrown when the [limit] is reached.
 class DateTimeLimitReachedException implements Exception {
+  /// Exception that is thrown when the [limit] is reached.
   const DateTimeLimitReachedException({
     required this.date,
     required this.limit,
   });
 
+  /// The date that was being processed.
   final DateTime date;
+  /// The limit that was reached.
   final DateTime limit;
 
   @override
