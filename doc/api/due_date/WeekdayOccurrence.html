@@ -21,8 +21,7 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
@@ -82,6 +81,12 @@ naming.</p>
     </ul>
   </dd>
         
+  <dt>Mixed in types</dt>
+  <dd>
+    <ul class="comma-separated eNum-relationships">
+        <li><a href="../due_date/DateValidatorMixin-mixin.html">DateValidatorMixin</a></li>
+    </ul>
+  </dd>
         
       </dl>
     </section>
@@ -690,7 +695,7 @@ naming.</p>
 
         <dt id="props" class="property">
   <span class="name"><a href="../due_date/WeekdayOccurrence/props.html">props</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -772,7 +777,7 @@ of the <a href="../due_date/WeekdayOccurrence/day.html">day</a>.
 </dd>
 
         <dt id="compareTo" class="callable">
-  <span class="name"><a href="../due_date/WeekdayOccurrence/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></span> <span class="parameter-name">other</span></span>)
+  <span class="name"><a href="../due_date/WeekdayOccurrence/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="../due_date/DateValidatorWeekdayCountInMonth-class.html">DateValidatorWeekdayCountInMonth</a></span> <span class="parameter-name">other</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
   </span>
   
@@ -792,8 +797,8 @@ of the <a href="../due_date/WeekdayOccurrence/day.html">day</a>.
 
 </dt>
 <dd>
-  Returns the next instance of the given <code>date</code> considering this <a href="../due_date/Every-class.html">Every</a>
-base process.
+  Returns the next year of the given <code>date</code> considering this <a href="../due_date/EveryYear-mixin.html">EveryYear</a>
+implementation.
   <div class="features">override</div>
 
 </dd>
@@ -819,8 +824,8 @@ base process.
 
 </dt>
 <dd>
-  Returns the previous instance of the given <code>date</code> considering this <a href="../due_date/Every-class.html">Every</a>
-base process.
+  Returns the previous year of the given <code>date</code> considering this <a href="../due_date/EveryYear-mixin.html">EveryYear</a>
+implementation.
   <div class="features">override</div>
 
 </dd>
@@ -847,6 +852,32 @@ base process.
 </dt>
 <dd class="inherited">
   A string representation of this object.
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="valid" class="callable">
+  <span class="name"><a href="../due_date/WeekdayOccurrence/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns true if the <code>date</code> is valid for this <a href="../due_date/DateValidator-class.html">DateValidator</a>.
+  <div class="features">override</div>
+
+</dd>
+
+        <dt id="validsIn" class="callable inherited">
+  <span class="name"><a href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></span><span class="signature">(<wbr><span class="parameter" id="validsIn-param-dates"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns the valid dates for this <a href="../due_date/DateValidator-class.html">DateValidator</a> in <code>dates</code>.
   <div class="features">inherited</div>
 
 </dd>
@@ -970,20 +1001,39 @@ base process.
     <h5>due_date library</h5>
     <ol>
   <li class="section-title"><a href="../due_date/due_date-library.html#classes">Classes</a></li>
+  <li><a href="../due_date/DateValidator-class.html">DateValidator</a></li>
+  <li><a href="../due_date/DateValidatorDayInYear-class.html">DateValidatorDayInYear</a></li>
+  <li><a href="../due_date/DateValidatorDifference-class.html">DateValidatorDifference</a></li>
+  <li><a href="../due_date/DateValidatorDueDayMonth-class.html">DateValidatorDueDayMonth</a></li>
+  <li><a href="../due_date/DateValidatorIntersection-class.html">DateValidatorIntersection</a></li>
+  <li><a href="../due_date/DateValidatorUnion-class.html">DateValidatorUnion</a></li>
+  <li><a href="../due_date/DateValidatorWeekday-class.html">DateValidatorWeekday</a></li>
+  <li><a href="../due_date/DateValidatorWeekdayCountInMonth-class.html">DateValidatorWeekdayCountInMonth</a></li>
   <li><a href="../due_date/DueDateTime-class.html">DueDateTime</a></li>
   <li><a href="../due_date/Every-class.html">Every</a></li>
+  <li><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></li>
+  <li><a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a></li>
+  <li><a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a></li>
+  <li><a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a></li>
   <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
   <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
   <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
   <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
+  <li><a href="../due_date/LimitedEvery-class.html">LimitedEvery</a></li>
 
   <li class="section-title"><a href="../due_date/due_date-library.html#extensions">Extensions</a></li>
   <li><a href="../due_date/AddDays.html">AddDays</a></li>
   <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
+  <li><a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a></li>
+  <li><a href="../due_date/DayInYear.html">DayInYear</a></li>
+  <li><a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a></li>
   <li><a href="../due_date/PreviousNext.html">PreviousNext</a></li>
   <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
 
   <li class="section-title"><a href="../due_date/due_date-library.html#mixins">Mixins</a></li>
+  <li><a href="../due_date/DateValidatorListMixin-mixin.html">DateValidatorListMixin</a></li>
+  <li><a href="../due_date/DateValidatorMixin-mixin.html">DateValidatorMixin</a></li>
+  <li><a href="../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin</a></li>
   <li><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></li>
   <li><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></li>
   <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a></li>
@@ -998,6 +1048,8 @@ base process.
   <li><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></li>
 
 
+  <li class="section-title"><a href="../due_date/due_date-library.html#exceptions">Exceptions</a></li>
+  <li><a href="../due_date/DateTimeLimitReachedException-class.html">DateTimeLimitReachedException</a></li>
 </ol>
 
   </div>
@@ -1067,6 +1119,8 @@ base process.
     <li><a href="../due_date/WeekdayOccurrence/previous.html">previous</a></li>
     <li><a href="../due_date/WeekdayOccurrence/startDate.html">startDate</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+    <li><a href="../due_date/WeekdayOccurrence/valid.html">valid</a></li>
+    <li class="inherited"><a href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></li>
 
     <li class="section-title"><a href="../due_date/WeekdayOccurrence.html#operators">Operators</a></li>
     <li><a href="../due_date/WeekdayOccurrence/operator_less.html">operator <</a></li>
@@ -1089,7 +1143,7 @@ base process.
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -1098,7 +1152,7 @@ base process.
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

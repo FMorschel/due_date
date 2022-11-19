@@ -21,8 +21,7 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
@@ -397,6 +396,19 @@
 
 </dd>
 
+        <dt id="from" class="callable">
+  <span class="name"><a href="../due_date/Month/from.html">from</a></span><span class="signature">(<wbr><span class="parameter" id="from-param-year"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="from-param-utc">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">true</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
         <dt id="lastDayOfAt" class="callable">
   <span class="name"><a href="../due_date/Month/lastDayOfAt.html">lastDayOfAt</a></span><span class="signature">(<wbr><span class="parameter" id="lastDayOfAt-param-year"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
@@ -457,6 +469,32 @@
       id="operators">
     <h2>Operators</h2>
     <dl class="callables">
+        <dt id="operator +" class="callable">
+  <span class="name"><a href="../due_date/Month/operator_plus.html">operator +</a></span><span class="signature">(<wbr><span class="parameter" id="+-param-days"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../due_date/Month.html">Month</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="operator -" class="callable">
+  <span class="name"><a href="../due_date/Month/operator_minus.html">operator -</a></span><span class="signature">(<wbr><span class="parameter" id="--param-days"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../due_date/Month.html">Month</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
         <dt id="operator &lt;" class="callable">
   <span class="name"><a href="../due_date/Month/operator_less.html">operator <</a></span><span class="signature">(<wbr><span class="parameter" id="<-param-other"><span class="type-annotation"><a href="../due_date/Month.html">Month</a></span> <span class="parameter-name">other</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
@@ -568,20 +606,39 @@
     <h5>due_date library</h5>
     <ol>
   <li class="section-title"><a href="../due_date/due_date-library.html#classes">Classes</a></li>
+  <li><a href="../due_date/DateValidator-class.html">DateValidator</a></li>
+  <li><a href="../due_date/DateValidatorDayInYear-class.html">DateValidatorDayInYear</a></li>
+  <li><a href="../due_date/DateValidatorDifference-class.html">DateValidatorDifference</a></li>
+  <li><a href="../due_date/DateValidatorDueDayMonth-class.html">DateValidatorDueDayMonth</a></li>
+  <li><a href="../due_date/DateValidatorIntersection-class.html">DateValidatorIntersection</a></li>
+  <li><a href="../due_date/DateValidatorUnion-class.html">DateValidatorUnion</a></li>
+  <li><a href="../due_date/DateValidatorWeekday-class.html">DateValidatorWeekday</a></li>
+  <li><a href="../due_date/DateValidatorWeekdayCountInMonth-class.html">DateValidatorWeekdayCountInMonth</a></li>
   <li><a href="../due_date/DueDateTime-class.html">DueDateTime</a></li>
   <li><a href="../due_date/Every-class.html">Every</a></li>
+  <li><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></li>
+  <li><a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a></li>
+  <li><a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a></li>
+  <li><a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a></li>
   <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
   <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
   <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
   <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
+  <li><a href="../due_date/LimitedEvery-class.html">LimitedEvery</a></li>
 
   <li class="section-title"><a href="../due_date/due_date-library.html#extensions">Extensions</a></li>
   <li><a href="../due_date/AddDays.html">AddDays</a></li>
   <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
+  <li><a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a></li>
+  <li><a href="../due_date/DayInYear.html">DayInYear</a></li>
+  <li><a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a></li>
   <li><a href="../due_date/PreviousNext.html">PreviousNext</a></li>
   <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
 
   <li class="section-title"><a href="../due_date/due_date-library.html#mixins">Mixins</a></li>
+  <li><a href="../due_date/DateValidatorListMixin-mixin.html">DateValidatorListMixin</a></li>
+  <li><a href="../due_date/DateValidatorMixin-mixin.html">DateValidatorMixin</a></li>
+  <li><a href="../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin</a></li>
   <li><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></li>
   <li><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></li>
   <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a></li>
@@ -596,6 +653,8 @@
   <li><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></li>
 
 
+  <li class="section-title"><a href="../due_date/due_date-library.html#exceptions">Exceptions</a></li>
+  <li><a href="../due_date/DateTimeLimitReachedException-class.html">DateTimeLimitReachedException</a></li>
 </ol>
 
   </div>
@@ -634,12 +693,15 @@
 
     <li class="section-title"><a href="../due_date/Month.html#instance-methods">Methods</a></li>
     <li><a href="../due_date/Month/compareTo.html">compareTo</a></li>
+    <li><a href="../due_date/Month/from.html">from</a></li>
     <li><a href="../due_date/Month/lastDayOfAt.html">lastDayOfAt</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li><a href="../due_date/Month/of.html">of</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title"><a href="../due_date/Month.html#operators">Operators</a></li>
+    <li><a href="../due_date/Month/operator_plus.html">operator +</a></li>
+    <li><a href="../due_date/Month/operator_minus.html">operator -</a></li>
     <li><a href="../due_date/Month/operator_less.html">operator <</a></li>
     <li><a href="../due_date/Month/operator_less_equal.html">operator <=</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
@@ -660,7 +722,7 @@
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -669,7 +731,7 @@
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

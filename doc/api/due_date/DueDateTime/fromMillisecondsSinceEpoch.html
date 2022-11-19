@@ -21,8 +21,7 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
@@ -54,8 +53,9 @@
 
 <span class="returntype"><a href="../../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../due_date/Every-class.html">Every</a></span>&gt;</span></span>
 <span class="name ">fromMillisecondsSinceEpoch</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="fromMillisecondsSinceEpoch-param-millisecondsSinceEpoch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecondsSinceEpoch</span>, </span></li>
-<li><span class="parameter" id="fromMillisecondsSinceEpoch-param-every">{<span class="type-annotation"><a href="../../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span></li>
-<li><span class="parameter" id="fromMillisecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>}</span></li>
+<li><span class="parameter" id="fromMillisecondsSinceEpoch-param-isUtc">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="fromMillisecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span></li>
+<li><span class="parameter" id="fromMillisecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span></li>
 </ol>)
 
       
@@ -79,6 +79,8 @@ will be adjusted to the next due date. If it is not provided, the
 property will be:</p>
 <pre class="language-dart"><code class="language-dart">EveryDueDayMonth(day);
 </code></pre>
+<p>The <code>limit</code> will be passed to the <code>Every</code> instance if it is a
+<a href="../../due_date/LimitedEvery-class.html">LimitedEvery</a> instance.</p>
 </section>
 
 
@@ -87,14 +89,19 @@ property will be:</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">static DueDateTime fromMillisecondsSinceEpoch(
   int millisecondsSinceEpoch, {
-  Every? every,
   bool isUtc = false,
+
+  &#47;&#47;&#47; The handler for the operations.
+  Every? every,
+
+  &#47;&#47;&#47; The limit for the operations.
+  DateTime? limit,
 }) {
   final date = DateTime.fromMillisecondsSinceEpoch(
     millisecondsSinceEpoch,
     isUtc: isUtc,
   );
-  return DueDateTime.fromDate(date, every);
+  return DueDateTime.fromDate(date, every: every, limit: limit);
 }</code></pre>
 </section>
 
@@ -131,7 +138,7 @@ property will be:</p>
     </li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">day</a></li>
     <li><a href="../../due_date/DueDateTime/every.html">every</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/hour.html">hour</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isUtc.html">isUtc</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/microsecond.html">microsecond</a></li>
@@ -140,12 +147,10 @@ property will be:</p>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/millisecondsSinceEpoch.html">millisecondsSinceEpoch</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/minute.html">minute</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/month.html">month</a></li>
-    <li><a href="../../due_date/DueDateTime/next.html">next</a></li>
-    <li><a href="../../due_date/DueDateTime/previous.html">previous</a></li>
     <li><a href="../../due_date/DueDateTime/props.html">props</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/second.html">second</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/stringify.html">stringify</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/stringify.html">stringify</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneName.html">timeZoneName</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneOffset.html">timeZoneOffset</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">weekday</a></li>
@@ -162,7 +167,9 @@ property will be:</p>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAfter.html">isAfter</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAtSameMomentAs.html">isAtSameMomentAs</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isBefore.html">isBefore</a></li>
+    <li><a href="../../due_date/DueDateTime/next.html">next</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../../due_date/DueDateTime/previous.html">previous</a></li>
     <li><a href="../../due_date/DueDateTime/subtract.html">subtract</a></li>
     <li><a href="../../due_date/DueDateTime/subtractMonths.html">subtractMonths</a></li>
     <li><a href="../../due_date/DueDateTime/subtractWeeks.html">subtractWeeks</a></li>
@@ -195,7 +202,7 @@ property will be:</p>
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -204,7 +211,7 @@ property will be:</p>
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

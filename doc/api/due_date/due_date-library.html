@@ -21,8 +21,7 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
@@ -76,6 +75,80 @@ class.</p>
       <h2>Classes</h2>
 
       <dl>
+        <dt id="DateValidator">
+  <span class="name "><a href="../due_date/DateValidator-class.html">DateValidator</a></span> 
+
+</dt>
+<dd>
+  A class to save a specific validation for a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>.
+</dd>
+
+        <dt id="DateValidatorDayInYear">
+  <span class="name "><a href="../due_date/DateValidatorDayInYear-class.html">DateValidatorDayInYear</a></span> 
+
+</dt>
+<dd>
+  A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">DateTime.day</a> is the
+<a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a> of the year.
+</dd>
+
+        <dt id="DateValidatorDifference">
+  <span class="name "><a href="../due_date/DateValidatorDifference-class.html">DateValidatorDifference</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> if the date is valid for only
+one of the <a href="../due_date/DateValidatorListMixin/validators.html">validators</a>.
+</dd>
+
+        <dt id="DateValidatorDueDayMonth">
+  <span class="name "><a href="../due_date/DateValidatorDueDayMonth-class.html">DateValidatorDueDayMonth</a></span> 
+
+</dt>
+<dd>
+  A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">DateTime.day</a> is the
+same value as <a href="../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>.
+If <a href="../due_date/DateValidatorDueDayMonth/exact.html">exact</a> is false, and the <a href="../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> is greater than the days in month,
+the <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> will be valid if the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">DateTime.day</a> is the last day of the
+month.
+</dd>
+
+        <dt id="DateValidatorIntersection">
+  <span class="name "><a href="../due_date/DateValidatorIntersection-class.html">DateValidatorIntersection</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> if the date is valid for all
+of the <a href="../due_date/DateValidatorListMixin/validators.html">validators</a>.
+</dd>
+
+        <dt id="DateValidatorUnion">
+  <span class="name "><a href="../due_date/DateValidatorUnion-class.html">DateValidatorUnion</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> if the date is valid for any
+of the <a href="../due_date/DateValidatorListMixin/validators.html">validators</a>.
+</dd>
+
+        <dt id="DateValidatorWeekday">
+  <span class="name "><a href="../due_date/DateValidatorWeekday-class.html">DateValidatorWeekday</a></span> 
+
+</dt>
+<dd>
+  A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> if it is on the given
+<a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
+</dd>
+
+        <dt id="DateValidatorWeekdayCountInMonth">
+  <span class="name "><a href="../due_date/DateValidatorWeekdayCountInMonth-class.html">DateValidatorWeekdayCountInMonth</a></span> 
+
+</dt>
+<dd>
+  A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">DateTime.day</a> is the
+<a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a> of the week and is the <a href="../due_date/DateValidatorWeekdayCountInMonth/week.html">week</a> of the month.
+</dd>
+
         <dt id="DueDateTime">
   <span class="name "><a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
 
@@ -92,6 +165,41 @@ class.</p>
   Abstract class that, when extended, processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> with custom logic.
 </dd>
 
+        <dt id="EveryDateValidator">
+  <span class="name "><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+        <dt id="EveryDateValidatorDifference">
+  <span class="name "><a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Class that processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorDifference/next.html">next</a> always returns the next
+day where only one of the <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s conditions is met.
+</dd>
+
+        <dt id="EveryDateValidatorIntersection">
+  <span class="name "><a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Class that processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorIntersection/next.html">next</a> always returns the next
+day where all of the <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s conditions are met.
+</dd>
+
+        <dt id="EveryDateValidatorUnion">
+  <span class="name "><a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Class that processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorUnion/next.html">next</a> always returns the next
+day where any of the <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s conditions are met.
+</dd>
+
         <dt id="EveryDayInYear">
   <span class="name "><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></span> 
 
@@ -99,7 +207,7 @@ class.</p>
 <dd>
   Class that processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDayInYear/addYears.html">addYears</a> always returns the
 next day where the difference in days between the date and the first day of
-the year is equal to the <a href="../due_date/EveryDayInYear/dayInYear.html">dayInYear</a>.
+the year is equal to the <a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a>.
 </dd>
 
         <dt id="EveryDueDayMonth">
@@ -108,7 +216,7 @@ the year is equal to the <a href="../due_date/EveryDayInYear/dayInYear.html">day
 </dt>
 <dd>
   Class that processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> always returns the
-next month's with the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">DateTime.day</a> as the <a href="../due_date/EveryDueDayMonth/dueDay.html">dueDay</a> clamped to fit in the
+next month's with the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">DateTime.day</a> as the <a href="../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> clamped to fit in the
 length of the next month.
 </dd>
 
@@ -118,7 +226,7 @@ length of the next month.
 </dt>
 <dd>
   Class that processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a> always returns the
-next week's with the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">DateTime.weekday</a> equals to the <a href="../due_date/EveryWeekday/weekday.html">weekday</a>.
+next week's with the <a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">DateTime.weekday</a> equals to the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
 </dd>
 
         <dt id="EveryWeekdayCountInMonth">
@@ -127,8 +235,17 @@ next week's with the <a href="https://api.flutter.dev/flutter/dart-core/DateTime
 </dt>
 <dd>
   Class that processes <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekdayCountInMonth/addMonths.html">addMonths</a> always returns the
-next month's with the <a href="../due_date/EveryWeekdayCountInMonth/week.html">week</a> occurence of the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a> (<a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">DateTime.weekday</a>
-is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href="../due_date/Weekday/dateTimeValue.html">Weekday.dateTimeValue</a>).
+next month's with the <a href="../due_date/DateValidatorWeekdayCountInMonth/week.html">week</a> occurence of the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a> (<a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">DateTime.weekday</a>
+is the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a>'s <a href="../due_date/Weekday/dateTimeValue.html">Weekday.dateTimeValue</a>).
+</dd>
+
+        <dt id="LimitedEvery">
+  <span class="name "><a href="../due_date/LimitedEvery-class.html">LimitedEvery</a></span> 
+
+</dt>
+<dd>
+  Abstract class that forces the implementation of <a href="../due_date/Every-class.html">Every</a> to have a
+limit parameter for the <a href="../due_date/LimitedEvery/startDate.html">startDate</a>, <a href="../due_date/LimitedEvery/next.html">next</a> and <a href="../due_date/LimitedEvery/previous.html">previous</a> methods.
 </dd>
 
       </dl>
@@ -138,6 +255,30 @@ is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href
       <h2>Mixins</h2>
 
       <dl>
+        <dt id="DateValidatorListMixin">
+  <span class="name "><a href="../due_date/DateValidatorListMixin-mixin.html">DateValidatorListMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  List for all of the <a href="../due_date/DateValidatorListMixin/validators.html">validators</a> that will be used to validate the date.
+</dd>
+
+        <dt id="DateValidatorMixin">
+  <span class="name "><a href="../due_date/DateValidatorMixin-mixin.html">DateValidatorMixin</a></span> 
+
+</dt>
+<dd>
+  Mixin to easily implement the <a href="../due_date/DateValidator/validsIn.html">DateValidator.validsIn</a> method.
+</dd>
+
+        <dt id="EveryDateValidatorListMixin">
+  <span class="name "><a href="../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  List for all of the <a href="../due_date/EveryDateValidatorListMixin/everies.html">everies</a> that will be used to generate the date.
+</dd>
+
         <dt id="EveryMonth">
   <span class="name "><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></span> 
 
@@ -184,6 +325,37 @@ is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href
 </dt>
 <dd>
     Extension methods related to clamping months on <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>.
+</dd>
+
+
+        <dt id="DateValidatorListExt">
+    <span class="name "><a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a></span> 
+
+</dt>
+<dd>
+    Extension methods related to <a href="../due_date/DateValidator-class.html">DateValidator</a>s. Simpply wrappers around
+creating <a href="../due_date/DateValidatorIntersection-class.html">DateValidatorIntersection</a>, <a href="../due_date/DateValidatorUnion-class.html">DateValidatorUnion</a> or
+<a href="../due_date/DateValidatorDifference-class.html">DateValidatorDifference</a>.
+</dd>
+
+
+        <dt id="DayInYear">
+    <span class="name "><a href="../due_date/DayInYear.html">DayInYear</a></span> 
+
+</dt>
+<dd>
+    
+</dd>
+
+
+        <dt id="EveryDateValidatorListExt">
+    <span class="name "><a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a></span> 
+
+</dt>
+<dd>
+    Extension methods related to <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s. Simpply wrappers around
+creating <a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a>, <a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a> or
+<a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a>.
 </dd>
 
 
@@ -252,6 +424,20 @@ is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href
     </section>
 
 
+    <section class="summary offset-anchor" id="exceptions">
+      <h2>Exceptions / Errors</h2>
+
+      <dl>
+        <dt id="DateTimeLimitReachedException">
+  <span class="name "><a href="../due_date/DateTimeLimitReachedException-class.html">DateTimeLimitReachedException</a></span> 
+
+</dt>
+<dd>
+  Exception that is thrown when the <a href="../due_date/DateTimeLimitReachedException/limit.html">limit</a> is reached.
+</dd>
+
+      </dl>
+    </section>
 
   </div> <!-- /.main-content -->
 
@@ -280,20 +466,39 @@ is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href
     <h5>due_date library</h5>
     <ol>
   <li class="section-title"><a href="../due_date/due_date-library.html#classes">Classes</a></li>
+  <li><a href="../due_date/DateValidator-class.html">DateValidator</a></li>
+  <li><a href="../due_date/DateValidatorDayInYear-class.html">DateValidatorDayInYear</a></li>
+  <li><a href="../due_date/DateValidatorDifference-class.html">DateValidatorDifference</a></li>
+  <li><a href="../due_date/DateValidatorDueDayMonth-class.html">DateValidatorDueDayMonth</a></li>
+  <li><a href="../due_date/DateValidatorIntersection-class.html">DateValidatorIntersection</a></li>
+  <li><a href="../due_date/DateValidatorUnion-class.html">DateValidatorUnion</a></li>
+  <li><a href="../due_date/DateValidatorWeekday-class.html">DateValidatorWeekday</a></li>
+  <li><a href="../due_date/DateValidatorWeekdayCountInMonth-class.html">DateValidatorWeekdayCountInMonth</a></li>
   <li><a href="../due_date/DueDateTime-class.html">DueDateTime</a></li>
   <li><a href="../due_date/Every-class.html">Every</a></li>
+  <li><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></li>
+  <li><a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a></li>
+  <li><a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a></li>
+  <li><a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a></li>
   <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
   <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
   <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
   <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
+  <li><a href="../due_date/LimitedEvery-class.html">LimitedEvery</a></li>
 
   <li class="section-title"><a href="../due_date/due_date-library.html#extensions">Extensions</a></li>
   <li><a href="../due_date/AddDays.html">AddDays</a></li>
   <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
+  <li><a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a></li>
+  <li><a href="../due_date/DayInYear.html">DayInYear</a></li>
+  <li><a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a></li>
   <li><a href="../due_date/PreviousNext.html">PreviousNext</a></li>
   <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
 
   <li class="section-title"><a href="../due_date/due_date-library.html#mixins">Mixins</a></li>
+  <li><a href="../due_date/DateValidatorListMixin-mixin.html">DateValidatorListMixin</a></li>
+  <li><a href="../due_date/DateValidatorMixin-mixin.html">DateValidatorMixin</a></li>
+  <li><a href="../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin</a></li>
   <li><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></li>
   <li><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></li>
   <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a></li>
@@ -308,6 +513,8 @@ is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href
   <li><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></li>
 
 
+  <li class="section-title"><a href="../due_date/due_date-library.html#exceptions">Exceptions</a></li>
+  <li><a href="../due_date/DateTimeLimitReachedException-class.html">DateTimeLimitReachedException</a></li>
 </ol>
 
   </div><!--/sidebar-offcanvas-right-->
@@ -317,7 +524,7 @@ is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -326,7 +533,7 @@ is the <a href="../due_date/EveryWeekdayCountInMonth/day.html">day</a>'s <a href
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

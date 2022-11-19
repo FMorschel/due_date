@@ -21,8 +21,7 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
@@ -61,7 +60,8 @@
 <li><span class="parameter" id="copyWith-param-minute"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">minute</span>, </span></li>
 <li><span class="parameter" id="copyWith-param-second"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">second</span>, </span></li>
 <li><span class="parameter" id="copyWith-param-millisecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">millisecond</span>, </span></li>
-<li><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span>}</span></li>
+<li><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span>, </span></li>
+<li><span class="parameter" id="copyWith-param-limit"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span></li>
 </ol>)
 
       
@@ -71,6 +71,8 @@
 <section class="desc markdown">
   <p>Creates a copy of this <a href="../../due_date/DueDateTime-class.html">DueDateTime</a> but with the given fields replaced
 with the new values.</p>
+<p>The <code>limit</code> will be passed to the <code>Every</code> instance if it is a
+<a href="../../due_date/LimitedEvery-class.html">LimitedEvery</a> instance.</p>
 </section>
 
 
@@ -87,6 +89,9 @@ with the new values.</p>
   int? second,
   int? millisecond,
   int? microsecond,
+
+  &#47;&#47;&#47; The limit for the operations.
+  DateTime? limit,
 }) {
   return DueDateTime(
     every: every ?? this.every,
@@ -98,6 +103,7 @@ with the new values.</p>
     second: second ?? this.second,
     millisecond: millisecond ?? this.millisecond,
     microsecond: microsecond ?? this.microsecond,
+    limit: limit,
   );
 }</code></pre>
 </section>
@@ -135,7 +141,7 @@ with the new values.</p>
     </li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">day</a></li>
     <li><a href="../../due_date/DueDateTime/every.html">every</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/hour.html">hour</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isUtc.html">isUtc</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/microsecond.html">microsecond</a></li>
@@ -144,12 +150,10 @@ with the new values.</p>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/millisecondsSinceEpoch.html">millisecondsSinceEpoch</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/minute.html">minute</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/month.html">month</a></li>
-    <li><a href="../../due_date/DueDateTime/next.html">next</a></li>
-    <li><a href="../../due_date/DueDateTime/previous.html">previous</a></li>
     <li><a href="../../due_date/DueDateTime/props.html">props</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/second.html">second</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/stringify.html">stringify</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/stringify.html">stringify</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneName.html">timeZoneName</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneOffset.html">timeZoneOffset</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">weekday</a></li>
@@ -166,7 +170,9 @@ with the new values.</p>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAfter.html">isAfter</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAtSameMomentAs.html">isAtSameMomentAs</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isBefore.html">isBefore</a></li>
+    <li><a href="../../due_date/DueDateTime/next.html">next</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../../due_date/DueDateTime/previous.html">previous</a></li>
     <li><a href="../../due_date/DueDateTime/subtract.html">subtract</a></li>
     <li><a href="../../due_date/DueDateTime/subtractMonths.html">subtractMonths</a></li>
     <li><a href="../../due_date/DueDateTime/subtractWeeks.html">subtractWeeks</a></li>
@@ -199,7 +205,7 @@ with the new values.</p>
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -208,7 +214,7 @@ with the new values.</p>
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 5.1.0-dev">
+  <meta name="generator" content="made with love by dartdoc 6.0.0">
   <meta name="description" content="due_date API docs, for the Dart programming language.">
   <title>due_date - Dart API docs</title>
 
@@ -22,15 +22,14 @@
 </head>
 
 
-<body data-base-href=""
-      data-using-base-href="false">
+<body data-base-href="" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
-    <li><a href="https://github.com/FMorschel/due_date">due_date package</a></li>
+    <li><a href="https://fmorschel.github.io/due_date/">due_date package</a></li>
   </ol>
   <div class="self-name">due_date</div>
   <form class="search navbar-right" role="search">
@@ -57,7 +56,7 @@ dueDate = dueDate.addMonths(1); // March 31th, 2022
 <h2 id="getting-started">Getting started</h2>
 <p>On your <code>pubspec.yaml</code> file, add this package to your dependencies:</p>
 <pre class="language-yaml"><code class="language-yaml">  dependencies:
-    due_date: ^1.0.2
+    due_date: ^2.0.0
 </code></pre>
 <p>Import the package library on your code:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:due_date/due_date.dart';
@@ -66,8 +65,8 @@ dueDate = dueDate.addMonths(1); // March 31th, 2022
 <p>Longer examples at <code>/example</code> folder.</p>
 <pre class="language-dart"><code class="language-dart">final date = DateTime(2022, DateTime.january, 31);
 DueDateTime dueDate = date.dueDateTime; // 2022-01-31
-dueDate = dueDate.next; // 2022-02-28
-dueDate = dueDate.next; // 2022-03-31
+dueDate = dueDate.next(); // 2022-02-28
+dueDate = dueDate.next(); // 2022-03-31
 </code></pre>
 <h2 id="additional-information">Additional information</h2>
 <p>See the API docs <a href="https://fmorschel.github.io/due_date/">here</a>.</p>
@@ -100,7 +99,7 @@ dueDate = dueDate.next; // 2022-03-31
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="https://github.com/FMorschel/due_date">due_date package</a></li>
+  <li><a href="https://fmorschel.github.io/due_date/">due_date package</a></li>
 </ol>
 
 
@@ -120,7 +119,7 @@ dueDate = dueDate.next; // 2022-03-31
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -129,7 +128,7 @@ dueDate = dueDate.next; // 2022-03-31
 
 
 <script src="static-assets/highlight.pack.js?v1"></script>
-<script src="static-assets/script.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
 
 
 
