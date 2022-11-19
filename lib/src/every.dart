@@ -3,7 +3,7 @@ import 'package:time/time.dart';
 
 import 'date_validator.dart';
 import 'enums.dart';
-import 'extensions.dart';
+import 'extensions.dart' show WeekCalc, DayInYear;
 
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
 ///
@@ -749,12 +749,6 @@ abstract class Override<T extends EveryDateValidator> extends EveryDateValidator
   DateTime replace(DateTime given, DateTime invalid);
 
   @override
-  bool valid(DateTime date) {
-    if (every.valid(date)) return !when(date);
-    return false;
-  }
-
-  @override
   DateTime startDate(DateTime date, {DateTime? limit}) {
     DateTime result = _startDate(every, date, limit: limit);
     if (when(result)) result = replace(date, result);
@@ -778,9 +772,126 @@ abstract class Override<T extends EveryDateValidator> extends EveryDateValidator
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
-    return (super == other) ||
-        ((other is Override) && (every == other.every));
+    return (super == other) || ((other is Override) && (every == other.every));
   }
+}
+
+abstract class OverrideSkipDayByDay<T extends EveryDateValidator>
+    extends Override<T> {
+  const OverrideSkipDayByDay({required super.every});
+
+  @override
+  DateTime replace(DateTime given, DateTime invalid) {
+    DateTime date = invalid;
+    if (given.isAfter(invalid)) {
+      do {
+        date = date.copyWith(day: date.day - 1);
+      } while (when(date));
+      return date;
+    }
+    do {
+      date = date.copyWith(day: date.day + 1);
+    } while (when(date));
+    return date;
+  }
+
+  @override
+  List<Object?> get props => [every];
+}
+
+class OverrideOn<T extends EveryDateValidatorUnion>
+    extends OverrideSkipDayByDay<T> {
+  const OverrideOn({
+    required super.every,
+  });
+
+  @override
+  bool valid(DateTime date) {
+    final wouldOverride = when(date);
+    if (wouldOverride) {
+      final dayBefore = every.valid(date.copyWith(day: date.day - 1));
+      if (dayBefore) return true;
+      return every.valid(date.copyWith(day: date.day + 1));
+    }
+    return false;
+  }
+
+  @override
+  bool when(DateTime date) {
+    return every.valid(date);
+  }
+
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is OverrideOn) && (every == other.every));
+  }
+
+  @override
+  List<Object?> get props => [every];
+}
+
+class OverrideToWeekday<T extends EveryDateValidator>
+    extends OverrideSkipDayByDay<T> {
+  OverrideToWeekday({required super.every});
+
+  @override
+  bool valid(DateTime date) {
+    final wouldOverride = when(date);
+    if (every.valid(date) && !wouldOverride) return true;
+    if (every.valid(date) && wouldOverride) return false;
+    if (wouldOverride) {
+      if (date.weekday == DateTime.sunday) {
+        final monday = every.valid(date.copyWith(day: date.day + 1));
+        if (monday) return true;
+        return every.valid(date.copyWith(day: date.day - 2));
+      }
+      final friday = every.valid(date.copyWith(day: date.day - 1));
+      if (friday) return true;
+      return every.valid(date.copyWith(day: date.day + 2));
+    }
+    return false;
+  }
+
+  @override
+  bool when(DateTime date) {
+    return date.isWeekend;
+  }
+
+  @override
+  List<Object?> get props => [every];
+}
+
+class OverrideToWorkday<T extends EveryDateValidator>
+    extends OverrideSkipDayByDay<T> {
+  OverrideToWorkday({required super.every});
+
+  @override
+  bool valid(DateTime date) {
+    final wouldOverride = when(date);
+    if (every.valid(date) && !wouldOverride) return true;
+    if (every.valid(date) && wouldOverride) return false;
+    if (wouldOverride) {
+      if (date.weekday == DateTime.monday) {
+        final sunday = every.valid(date.copyWith(day: date.day - 1));
+        if (sunday) return true;
+        return every.valid(date.copyWith(day: date.day - 2));
+      }
+      final saturday = every.valid(date.copyWith(day: date.day + 1));
+      if (saturday) return true;
+      return every.valid(date.copyWith(day: date.day + 2));
+    }
+    return false;
+  }
+
+  @override
+  bool when(DateTime date) {
+    return date.isWorkday;
+  }
+
+  @override
+  List<Object?> get props => [every];
 }
 
 mixin EveryDateValidatorListMixin<E extends EveryDateValidator>
