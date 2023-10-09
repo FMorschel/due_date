@@ -6,6 +6,7 @@ import '../due_date.dart';
 
 /// A class to save a specific validation for a [DateTime].
 abstract class DateValidator {
+  /// A class to save a specific validation for a [DateTime].
   const DateValidator();
 
   /// Returns true if the [date] is valid for this [DateValidator].
@@ -250,6 +251,7 @@ class DateValidatorDayInYear extends DateValidator
   List<Object> get props => [dayInYear];
 }
 
+/// Mixin that represents a list of [DateValidator]s.
 mixin DateValidatorListMixin<E extends DateValidator> on List<E>
     implements DateValidator {
   /// List for all of the [validators] that will be used to validate the date.
@@ -286,6 +288,8 @@ class DateValidatorIntersection<E extends DateValidator>
 /// of the [validators].
 class DateValidatorUnion<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
+  /// A [DateValidator] that validates a [DateTime] if the date is valid for any
+  /// of the [validators].
   const DateValidatorUnion(super.validators);
 
   @override
@@ -308,6 +312,8 @@ class DateValidatorUnion<E extends DateValidator> extends DelegatingList<E>
 /// one of the [validators].
 class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
+  /// A [DateValidator] that validates a [DateTime] if the date is valid for only
+  /// one of the [validators].
   const DateValidatorDifference(super.validators);
 
   @override

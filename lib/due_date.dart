@@ -2,7 +2,7 @@
 ///
 /// This package is used to create custom due dates.
 ///
-/// Implementing your own DueDateTime is easy. You implement an [Every]
+/// Implementing your own [DueDateTime] is easy. You implement an [Every]
 /// class and pass it to the [DueDateTime] constructor.
 ///
 /// There are already some [Every] classes implemented in this package. Look for
@@ -25,6 +25,14 @@ library due_date;
 
 export 'src/date_validator.dart';
 export 'src/due_date.dart';
-export 'src/enums.dart';
+export 'src/enums.dart' show Weekday, Month, Week, WeekdayOccurrence;
 export 'src/every.dart';
-export 'src/extensions.dart';
+export 'src/extensions.dart'
+    show
+        DayInYear,
+        AddDays,
+        WeekCalc,
+        ClampInMonth,
+        PreviousNext,
+        DateValidatorListExt,
+        EveryDateValidatorListExt;

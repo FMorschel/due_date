@@ -1,3 +1,15 @@
+# 2.0.0 - 2023.03.28
+
+- Added [DateValidator] and some implementations.
+- Implemented [DateValidator] in all implementations of [Every].
+- Created [Period] and some implementations.
+- Created [PeriodGeneratorMixin] and some implementations.
+
+## Breaking changes
+
+- API changes to always use optional named parameters.
+- API changes replacing optional positional parameters for optional named parameters.
+
 # 1.0.4 - 2022.08.23
 
 - Fixed typo on changelog.

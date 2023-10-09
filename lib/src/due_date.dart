@@ -190,7 +190,6 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```
   factory DueDateTime.fromDate(
     DateTime reference, {
-
     /// The handler for the operations.
     T? every,
 
@@ -227,6 +226,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// The handler for processing the next dates.
   T every;
 
+  // ignore: format-comment, false positive
   /// Constructs a new [DueDateTime] instance based on [formattedString].
   ///
   /// Throws a [FormatException] if the input string cannot be parsed.
@@ -301,7 +301,6 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// [LimitedEvery] instance.
   static DueDateTime parse(
     String formattedString, {
-
     /// The handler for the operations.
     Every? every,
 
@@ -332,7 +331,6 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// [LimitedEvery] instance.
   static DueDateTime? tryParse(
     String formattedString, {
-
     /// The handler for the operations.
     Every? every,
 

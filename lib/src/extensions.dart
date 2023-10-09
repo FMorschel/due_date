@@ -2,26 +2,26 @@ import 'package:time/time.dart';
 
 import '../due_date.dart';
 
+/// Extension methods to get the day of the year of a [DateTime].
 extension DayInYear on DateTime {
+  /// Returns the number of this [DateTime] in the year.
+  /// The first day of the year is 1.
   int get dayInYear => difference(firstDayOfYear).inDays + 1;
 }
 
 /// Extension methods related to adding or subtracting days from a [DateTime].
 extension AddDays on DateTime {
-  /// Returns true if and only if this [weekday] is weekend.
-  bool get isWeekend => Weekday.fromDateTimeValue(weekday).isWeekend;
-
-  /// Returns true if and only if this [weekday] is workday.
-  bool get isWorkday => !isWeekend;
-
   /// Returns a new [DateTime] with the given [days] added to this [DateTime].
   /// Ignoring the [Weekday]s on [ignoring].
   DateTime addDays(int days, {Iterable<Weekday> ignoring = const []}) {
     final ignoreSet = ignoring.toSet();
-    assert(
-      ignoreSet.length < Weekday.values.length,
-      'Too many ignore days, will skip forever.',
-    );
+    if (ignoreSet.length >= Weekday.values.length) {
+      throw ArgumentError.value(
+        ignoring,
+        'ignoring',
+        'Too many ignore days, will skip forever.',
+      );
+    }
     final day = Weekday.fromDateTimeValue(weekday);
     if (!ignoreSet.contains(day) && (days == 0)) return this;
     final dayToAdd = (days.isNegative ? -1 : 1).days;
@@ -55,13 +55,26 @@ extension AddDays on DateTime {
   }
 }
 
+/// Extension methods to calculate the end of a day.
+extension EndOfDay on DateTime {
+  /// Returns a new [DateTime] with the same day, month and year, with the time
+  /// set to the end of the day.
+  DateTime get endOfDay {
+    late DateTime date;
+    if (isUtc) {
+      date = DateTime.utc(year, month, day + 1);
+    } else {
+      date = DateTime(year, month, day + 1);
+    }
+    while (!isAtSameDayAs(date)) {
+      date = date.subtract(const Duration(microseconds: 1));
+    }
+    return date;
+  }
+}
+
 /// Extension methods related to weeks on a [DateTime].
 extension WeekCalc on DateTime {
-  /// Returns the [Weekday.monday] for the given [week] for the current [month].
-  DateTime startOfWeek(Week week) {
-    return week.weekOf(year, month);
-  }
-
   /// Returns the next [weekday] after this.
   ///
   /// If this [DateTime.weekday] is [weekday] returns this.
