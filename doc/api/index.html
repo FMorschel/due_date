@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 5.1.0-dev">
+  <meta name="generator" content="made with love by dartdoc 7.0.0-dev">
   <meta name="description" content="due_date API docs, for the Dart programming language.">
   <title>due_date - Dart API docs</title>
 
@@ -12,7 +12,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="static-assets/github.css?v1">
   <link rel="stylesheet" href="static-assets/styles.css?v1">
@@ -22,45 +22,88 @@
 </head>
 
 
-<body data-base-href=""
-      data-using-base-href="false">
+<body data-base-href="" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
-    <li><a href="https://github.com/FMorschel/due_date">due_date package</a></li>
+    <li><a href="https://fmorschel.github.io/due_date/">due_date package</a></li>
   </ol>
   <div class="self-name">due_date</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
   <h1 id="duedate">DueDate</h1>
-<p>A package for working with repeating DateTime patterns.</p>
-<p>Ever wanted to create a new DateTime with, let's say, the same day in month? But the day is 31 and next month only has 30, so you go to 30 and the next day is lost because then you have no variable to save the original's month day? With DueDateTime this managing is done for you without any headaches.</p>
+<p>A package for working with repeating <code>DateTime</code> patterns.</p>
+<p>Ever wanted to create a new <code>DateTime</code> with, let's say, the same day in month? But the day is 31 and next month only has 30, so you go to 30 and the next day is lost because then you have no variable to save the original's month day? With <code>DueDateTime</code> this managing is done for you without any headaches.</p>
+<p>Or maybe you have to check if some <code>DateTime</code> is inside a certain period of time and always have to manually get, let's say, the start and end of the week and process it yourself. Now you can use <code>PeriodGenerator</code>s and <code>Period</code> methods to work it out for you.</p>
 <h2 id="features">Features</h2>
 <p>Examples of what this package can do:</p>
+<h3 id="duedatetime">DueDateTime</h3>
 <pre class="language-dart"><code class="language-dart">final date = DateTime(2022, DateTime.january, 31);
 DueDateTime dueDate = DueDateTime.fromDate(date);
 dueDate = dueDate.addMonths(1); // February 28th, 2022
 dueDate = dueDate.addMonths(1); // March 31th, 2022
 </code></pre>
+<h3 id="period">Period</h3>
+<pre class="language-dart"><code class="language-dart">final period1 = Period(
+  start: DateTime(2022, DateTime.january, 1),
+  end: DateTime(2022, DateTime.january, 5),
+);
+final period2 = Period(
+  start: DateTime(2022, DateTime.january, 3),
+  end: DateTime(2022, DateTime.january, 7),
+);
+if (period1.overlapsWith(period2)) {
+  print('The two periods overlap.');
+} else {
+  print('The two periods do not overlap.');
+}
+</code></pre>
+<h3 id="periodgenerator">PeriodGenerator</h3>
+<pre class="language-dart"><code class="language-dart">final hourGenerator = HourGenerator();
+final secondGenerator = SecondGenerator();
+final now = DateTime.now();
+final currentHour = hourGenerator.of(now);
+final currentSecond = secondGenerator.of(now);
+print('The current hour is $currentHour.');
+print('The current second is $currentSecond.');
+final nextHour = currentHour.getNext(hourGenerator);
+final nextSecond = currentSecond.getNext(secondGenerator);
+print('The next hour is $nextHour.');
+print('The next second is $nextSecond.');
+final previousHour = currentHour.getPrevious(hourGenerator);
+final previousSecond = currentSecond.getPrevious(secondGenerator);
+print('The previous hour is $previousHour.');
+print('The previous second is $previousSecond.');
+</code></pre>
 <h2 id="getting-started">Getting started</h2>
 <p>On your <code>pubspec.yaml</code> file, add this package to your dependencies:</p>
 <pre class="language-yaml"><code class="language-yaml">  dependencies:
-    due_date: ^1.0.2
+    due_date: ^2.0.0
 </code></pre>
-<p>Import the package library on your code:</p>
+<p>Import one of the, or both, package libraries on your code:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:due_date/due_date.dart';
+import 'package:due_date/period.dart';
 </code></pre>
 <h2 id="usage">Usage</h2>
 <p>Longer examples at <code>/example</code> folder.</p>
@@ -87,20 +130,28 @@ dueDate = dueDate.next; // 2022-03-31
 <dd>Support for creating your own custom due dates.
 </dd>
 
+          <dt id="period">
+  <span class="name"><a href="period/period-library.html">period</a></span> 
+
+</dt>
+<dd>Support for creating your own custom periods.
+</dd>
+
         </dl>
       </section>
 
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="https://github.com/FMorschel/due_date">due_date package</a></li>
+    <li><a href="https://fmorschel.github.io/due_date/">due_date package</a></li>
 </ol>
 
 
@@ -108,6 +159,7 @@ dueDate = dueDate.next; // 2022-03-31
     <ol>
       <li class="section-title">Libraries</li>
       <li><a href="due_date/due_date-library.html">due_date</a></li>
+      <li><a href="period/period-library.html">period</a></li>
 </ol>
 
   </div>
@@ -120,7 +172,7 @@ dueDate = dueDate.next; // 2022-03-31
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -129,7 +181,7 @@ dueDate = dueDate.next; // 2022-03-31
 
 
 <script src="static-assets/highlight.pack.js?v1"></script>
-<script src="static-assets/script.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
 
 
 
