@@ -155,7 +155,9 @@ mixin EveryYear implements Every {
   DateTime previous(DateTime date) => addYears(date, -1);
 }
 
+/// A base class that represents an [Every] with a [DateValidator].
 abstract class EveryDateValidator extends Every with DateValidatorMixin {
+  /// A base class that represents an [Every] with a [DateValidator].
   const EveryDateValidator();
 }
 
@@ -180,7 +182,7 @@ class EveryWeekday extends DateValidatorWeekday
   /// Returns the next date that fits the [weekday].
   @override
   DateTime startDate(DateTime date) {
-    final day = weekday.fromThisWeek(date);
+    final day = weekday.fromWeekOf(date);
     if (day.toUtc().date.isBefore(date.toUtc().date)) {
       final nextDay = day.toUtc().add(const Duration(days: 1));
       if (date.isUtc) {
@@ -203,13 +205,13 @@ class EveryWeekday extends DateValidatorWeekday
         if (date.weekday < weekday.dateTimeValue) {
           date = date.firstDayOfWeek.subtract(const Duration(days: 1));
         }
-        date = weekday.fromThisWeek(date);
+        date = weekday.fromWeekOf(date);
         weeks++;
       } else {
         if (date.weekday > weekday.dateTimeValue) {
           date = date.lastDayOfWeek.add(const Duration(days: 1));
         }
-        date = weekday.fromThisWeek(date);
+        date = weekday.fromWeekOf(date);
         weeks--;
       }
     }
@@ -237,8 +239,8 @@ class EveryWeekday extends DateValidatorWeekday
 
   /// Solves the date for the given [date] and [day].
   DateTime _solveFor(DateTime date, DateTime day) {
-    if (date.isUtc) return weekday.fromThisWeek(day.date).add(date.timeOfDay);
-    return weekday.fromThisWeek(day.toLocal().date).add(date.timeOfDay);
+    if (date.isUtc) return weekday.fromWeekOf(day.date).add(date.timeOfDay);
+    return weekday.fromWeekOf(day.toLocal().date).add(date.timeOfDay);
   }
 }
 
@@ -523,6 +525,7 @@ class EveryDayInYear extends DateValidatorDayInYear
   }
 }
 
+/// Mixin that represents a list of [EveryDateValidator].
 mixin EveryDateValidatorListMixin<E extends EveryDateValidator>
     on DateValidatorListMixin<E> {
   /// List for all of the [everies] that will be used to generate the date.
@@ -767,13 +770,18 @@ DateTime _reducePast(DateTime value, DateTime element) {
   return value.isAfter(element) ? value : element;
 }
 
+/// Exception thrown when a date limit is reached.
 class DateTimeLimitReachedException implements Exception {
+  /// Exception thrown when a date limit is reached.
   const DateTimeLimitReachedException({
     required this.date,
     required this.limit,
   });
 
+  /// Date that reached the limit.
   final DateTime date;
+
+  /// Limit date.
   final DateTime limit;
 
   @override

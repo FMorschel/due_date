@@ -15,41 +15,20 @@ void main() {
     });
   });
   group('AddDays on DateTime:', () {
-    group('Is weekend:', () {
-      test('Saturday', () {
-        expect(DateTime(2022, DateTime.july, 23).isWeekend, isTrue);
-      });
-      test('Sunday', () {
-        expect(DateTime(2022, DateTime.july, 24).isWeekend, isTrue);
-      });
-    });
-    group('Is workday:', () {
-      final monday = DateTime.utc(2022, DateTime.july, 18);
-      final friday = DateTime.utc(2022, DateTime.july, 22);
-      final list = <DateTime>[monday];
-      do {
-        list.add(list.last.add(const Duration(days: 1)));
-      } while (list.last != friday);
-      for (final weekday in list) {
-        test(Weekday.fromDateTimeValue(weekday.weekday).name, () {
-          expect(weekday.isWorkday, isTrue);
-        });
-      }
-    });
     group('Add/Subtract Days:', () {
       final monday = DateTime.utc(2022, DateTime.july, 18);
-      group('Assert won\'t skip all days', () {
+      group('Throws won\'t skip all days', () {
         final allWeek = Weekday.values;
         test('Add ignoring all weekdays', () {
           expect(
             () => monday.addDays(1, ignoring: allWeek),
-            throwsA(isA<AssertionError>()),
+            throwsArgumentError,
           );
         });
         test('Subtract ignoring all weekdays', () {
           expect(
             () => monday.subtractDays(1, ignoring: allWeek),
-            throwsA(isA<AssertionError>()),
+            throwsArgumentError,
           );
         });
       });
@@ -78,39 +57,6 @@ void main() {
     });
   });
   group('WeekCalc on DateTime:', () {
-    group('Start of week:', () {
-      final august = DateTime.utc(2022, DateTime.august);
-      test('First week', () {
-        expect(
-          august.startOfWeek(Week.first),
-          equals(DateTime.utc(2022, DateTime.august)),
-        );
-      });
-      test('Second week', () {
-        expect(
-          august.startOfWeek(Week.second),
-          equals(DateTime.utc(2022, DateTime.august, 8)),
-        );
-      });
-      test('Third week', () {
-        expect(
-          august.startOfWeek(Week.third),
-          equals(DateTime.utc(2022, DateTime.august, 15)),
-        );
-      });
-      test('Fourth week', () {
-        expect(
-          august.startOfWeek(Week.fourth),
-          equals(DateTime.utc(2022, DateTime.august, 22)),
-        );
-      });
-      test('Last week', () {
-        expect(
-          august.startOfWeek(Week.last),
-          equals(DateTime.utc(2022, DateTime.august, 29)),
-        );
-      });
-    });
     group('Next Weekday', () {
       final august = DateTime.utc(2022, DateTime.august);
       test('Monday', () {

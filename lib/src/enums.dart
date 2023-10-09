@@ -1,18 +1,44 @@
 import 'package:time/time.dart';
 
 import '../due_date.dart';
+import '../period.dart';
 
 /// Weekday constants that are returned by [DateTime.weekday] method.
 enum Weekday implements Comparable<Weekday> {
-  monday(DateTime.monday),
-  tuesday(DateTime.tuesday),
-  wednesday(DateTime.wednesday),
-  thursday(DateTime.thursday),
-  friday(DateTime.friday),
-  saturday(DateTime.saturday, isWeekend: true),
-  sunday(DateTime.sunday, isWeekend: true);
+  monday(DateTime.monday, generator: WeekGenerator()),
+  tuesday(
+    DateTime.tuesday,
+    generator: WeekGenerator(weekStart: DateTime.tuesday),
+  ),
+  wednesday(
+    DateTime.wednesday,
+    generator: WeekGenerator(weekStart: DateTime.wednesday),
+  ),
+  thursday(
+    DateTime.thursday,
+    generator: WeekGenerator(weekStart: DateTime.thursday),
+  ),
+  friday(
+    DateTime.friday,
+    generator: WeekGenerator(weekStart: DateTime.friday),
+  ),
+  saturday(
+    DateTime.saturday,
+    isWeekend: true,
+    generator: WeekGenerator(weekStart: DateTime.saturday),
+  ),
+  sunday(
+    DateTime.sunday,
+    isWeekend: true,
+    generator: WeekGenerator(weekStart: DateTime.sunday),
+  );
 
-  const Weekday(this.dateTimeValue, {this.isWeekend = false});
+  /// Weekday constants that are returned by [DateTime.weekday] method.
+  const Weekday(
+    this.dateTimeValue, {
+    required WeekGenerator generator,
+    this.isWeekend = false,
+  }) : weekGenerator = generator;
 
   /// Returns the Weekday constant that corresponds to the given [date].
   factory Weekday.from(DateTime date) =>
@@ -39,6 +65,9 @@ enum Weekday implements Comparable<Weekday> {
     throw RangeError.range(weekday, DateTime.monday, DateTime.sunday);
   }
 
+  /// Generator that returns a [WeekPeriod] that starts on this weekday.
+  final WeekGenerator weekGenerator;
+
   /// The value of the weekday on the [DateTime] class.
   final int dateTimeValue;
 
@@ -63,7 +92,7 @@ enum Weekday implements Comparable<Weekday> {
   }
 
   /// Returns the same weekday of the given week that [date] is in.
-  DateTime fromThisWeek(DateTime date) {
+  DateTime fromWeekOf(DateTime date) {
     final monday = date.firstDayOfWeek;
     final result = monday.add(Duration(days: index));
     return date.isUtc
@@ -74,21 +103,75 @@ enum Weekday implements Comparable<Weekday> {
   @override
   int compareTo(Weekday other) => dateTimeValue.compareTo(other.dateTimeValue);
 
+  /// Returns true if this weekday is after other.
   bool operator >(Weekday other) => index > other.index;
+
+  /// Returns true if this weekday is after or equal to other.
   bool operator >=(Weekday other) => index >= other.index;
+
+  /// Returns true if this weekday is before than other.
   bool operator <(Weekday other) => index < other.index;
+
+  /// Returns true if this weekday is before or equal to other.
   bool operator <=(Weekday other) => index <= other.index;
 
+  /// Returns the [Weekday] that corresponds to this added [days].
+  /// Eg.:
+  ///  - [monday] + `1` returns [tuesday].
+  ///  - [friday] + `3` returns [monday].
   Weekday operator +(int days) =>
-      Weekday.fromDateTimeValue(dateTimeValue + days % 7);
+      Weekday.fromDateTimeValue(dateTimeValue + days % values.length);
+
+  /// Returns the [Weekday] that corresponds to this subtracted [days].
+  /// Eg.:
+  ///  - [tuesday] - `1` returns [monday].
+  ///  - [monday] - `3` returns [friday].
   Weekday operator -(int days) =>
-      Weekday.fromDateTimeValue(dateTimeValue - days % 7);
+      Weekday.fromDateTimeValue(dateTimeValue - days % values.length);
 
   /// Returns the [EveryWeekday] that corresponds to this weekday.
-  EveryWeekday get every => EveryWeekday(this);
+  EveryWeekday get every {
+    switch (this) {
+      case monday:
+        return const EveryWeekday(monday);
+      case tuesday:
+        return const EveryWeekday(tuesday);
+      case wednesday:
+        return const EveryWeekday(wednesday);
+      case thursday:
+        return const EveryWeekday(thursday);
+      case friday:
+        return const EveryWeekday(friday);
+      case saturday:
+        return const EveryWeekday(saturday);
+      case sunday:
+        return const EveryWeekday(sunday);
+      default:
+        return EveryWeekday(this);
+    }
+  }
 
   /// Returns the [DateValidator] that corresponds to this weekday.
-  DateValidator get validator => DateValidatorWeekday(this);
+  DateValidator get validator {
+    switch (this) {
+      case monday:
+        return const DateValidatorWeekday(monday);
+      case tuesday:
+        return const DateValidatorWeekday(tuesday);
+      case wednesday:
+        return const DateValidatorWeekday(wednesday);
+      case thursday:
+        return const DateValidatorWeekday(thursday);
+      case friday:
+        return const DateValidatorWeekday(friday);
+      case saturday:
+        return const DateValidatorWeekday(saturday);
+      case sunday:
+        return const DateValidatorWeekday(sunday);
+      default:
+        return DateValidatorWeekday(this);
+    }
+  }
 
   /// Returns the [Weekday] previous to this.
   Weekday get previous {
@@ -134,10 +217,11 @@ enum Month implements Comparable<Month> {
   november(DateTime.november),
   december(DateTime.december);
 
+  /// Month constants that are returned by [DateTime.month] method.
   const Month(this.dateTimeValue);
 
   /// Returns the [Month] constant that corresponds to the given [date].
-  factory Month.from(DateTime date) => Month.fromDateTimeValue(date.month);
+  factory Month.of(DateTime date) => Month.fromDateTimeValue(date.month);
 
   /// Returns the [Month] constant that corresponds to the given [month] on
   /// [dateTimeValue].
@@ -170,47 +254,45 @@ enum Month implements Comparable<Month> {
     throw RangeError.range(month, DateTime.monday, DateTime.december);
   }
 
+  /// Returns a constant [MonthGenerator].
+  static const generator = MonthGenerator();
+
   /// The value of the month in [DateTime] class.
   final int dateTimeValue;
 
-  List<DateTime> from(
-    int year, {
-    bool utc = true,
-  }) {
-    DateTime firstDay = DateTime(year, dateTimeValue, 1);
-    if (utc) firstDay = DateTime.utc(year, dateTimeValue, 1);
-    final lastDay = firstDay.lastDayOfMonth;
-    final days = lastDay.day;
-    return List.generate(
-      days,
-      (index) {
-        final day = index + 1;
-        if (utc) return DateTime.utc(year, dateTimeValue, day);
-        return DateTime(year, dateTimeValue, day);
-      },
-      growable: false,
-    );
-  }
-
-  /// Returns the first day of the month on the given [year] (utc).
-  DateTime of(int year) => DateTime.utc(year, dateTimeValue);
-
-  /// Returns the last day of the month on the given [year] (utc).
-  DateTime lastDayOfAt(int year) =>
-      DateTime.utc(year, dateTimeValue).lastDayOfMonth;
+  /// Returns the period of the month on the given [year].
+  MonthPeriod of(int year, {bool utc = true}) => generator.of(
+        utc ? DateTime.utc(year, dateTimeValue) : DateTime(year, dateTimeValue),
+      );
 
   @override
   int compareTo(Month other) => dateTimeValue.compareTo(other.dateTimeValue);
 
+  /// Returns true if this month is after other.
   bool operator >(Month other) => index > other.index;
+
+  /// Returns true if this month is after or equal to other.
   bool operator >=(Month other) => index >= other.index;
+
+  /// Returns true if this month is before than other.
   bool operator <(Month other) => index < other.index;
+
+  /// Returns true if this month is before or equal to other.
   bool operator <=(Month other) => index <= other.index;
 
-  Month operator +(int days) =>
-      Month.fromDateTimeValue(dateTimeValue + days % 7);
-  Month operator -(int days) =>
-      Month.fromDateTimeValue(dateTimeValue - days % 7);
+  /// Returns the [Month] that corresponds to this added [months].
+  /// Eg.:
+  ///  - [january] + `1` returns [february].
+  ///  - [december] + `3` returns [march].
+  Month operator +(int months) =>
+      Month.fromDateTimeValue(((dateTimeValue + months) % values.length).abs());
+
+  /// Returns the [Month] that corresponds to this subtracted [months].
+  /// Eg.:
+  ///  - [february] - `1` returns [january].
+  ///  - [march] - `3` returns [december].
+  Month operator -(int months) =>
+      Month.fromDateTimeValue(((dateTimeValue - months) % values.length).abs());
 
   /// Returns the [Month] previous to this.
   Month get previous {
@@ -245,42 +327,57 @@ enum Week implements Comparable<Week> {
 
   /// Returns the [Week] constant that corresponds to the given [date].
   factory Week.from(DateTime date) {
-    const week = Duration(days: 7);
+    const weekDuration = Duration(days: 7);
     final seventhDayOfMonth = date.toUtc().firstDayOfMonth.add(
           const Duration(days: 6),
         );
     final monday = date.toUtc().firstDayOfWeek;
     if (monday.compareTo(seventhDayOfMonth) <= 0) {
       return first;
-    } else if (monday.compareTo(seventhDayOfMonth.add(week)) <= 0) {
+    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration)) <= 0) {
       return second;
-    } else if (monday.compareTo(seventhDayOfMonth.add(week * 2)) <= 0) {
+    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration * 2)) <= 0) {
       return third;
-    } else if (monday.compareTo(seventhDayOfMonth.add(week * 3)) <= 0) {
+    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration * 3)) <= 0) {
       return fourth;
-    } else if (monday.compareTo(seventhDayOfMonth.add(week * 4)) <= 0) {
+    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration * 4)) <= 0) {
       return last;
     }
     throw Exception('Unsupported week');
   }
 
-  /// Returns the first day (just as [DateTime], is Monday) of the week of the
-  /// selected week for the given [year] and [month].
-  DateTime weekOf(int year, int month) {
-    final firstDayOfMonth = DateTime.utc(year, month);
+  /// Returns a WeekPeriod for the week of the given [year] and [month].
+  WeekPeriod of(
+    int year,
+    int month, {
+    Weekday firstDayOfWeek = Weekday.monday,
+    bool utc = true,
+  }) {
+    final firstDayOfMonth =
+        utc ? DateTime.utc(year, month) : DateTime(year, month);
     switch (this) {
       case first:
-        return firstDayOfMonth.firstDayOfWeek;
+        return firstDayOfWeek.weekGenerator.of(firstDayOfMonth);
       case second:
-        return DateTime.utc(year, month, 8).firstDayOfWeek;
+        return firstDayOfWeek.weekGenerator.of(
+          utc ? DateTime.utc(year, month, 8) : DateTime(year, month, 8),
+        );
       case third:
-        return DateTime.utc(year, month, 15).firstDayOfWeek;
+        return firstDayOfWeek.weekGenerator.of(
+          utc ? DateTime.utc(year, month, 15) : DateTime(year, month, 15),
+        );
       case fourth:
-        return DateTime.utc(year, month, 22).firstDayOfWeek;
+        return firstDayOfWeek.weekGenerator.of(
+          utc ? DateTime.utc(year, month, 22) : DateTime(year, month, 22),
+        );
       case last:
-        final fourthWeek = fourth.weekOf(year, month);
-        if (fourthWeek.lastDayOfWeek.isBefore(firstDayOfMonth.lastDayOfMonth)) {
-          return DateTime.utc(year, month).lastDayOfMonth.firstDayOfWeek;
+        final fourthWeek = fourth.of(year, month);
+        if (fourthWeek.end.isBefore(firstDayOfMonth.lastDayOfMonth)) {
+          return firstDayOfWeek.weekGenerator.of(
+            utc
+                ? DateTime.utc(year, month).lastDayOfMonth
+                : DateTime(year, month).lastDayOfMonth,
+          );
         } else {
           return fourthWeek;
         }
@@ -319,13 +416,29 @@ enum Week implements Comparable<Week> {
   @override
   int compareTo(Week other) => index.compareTo(other.index);
 
+  /// Returns true if this is afrer [other].
   bool operator >(Week other) => index > other.index;
+
+  /// Returns true if this is after or equal to [other].
   bool operator >=(Week other) => index >= other.index;
+
+  /// Returns true if this is before than [other].
   bool operator <(Week other) => index < other.index;
+
+  /// Returns true if this is before or equal to [other].
   bool operator <=(Week other) => index <= other.index;
 
-  Week operator +(int days) => Week.values[(index + days) % 5];
-  Week operator -(int days) => Week.values[(index - days) % 5];
+  /// Returns the [Week] that corresponds to this added [weeks].
+  /// Eg.:
+  ///  - [first] + `1` returns [second].
+  ///  - [fourth] + `3` returns [second].
+  Week operator +(int weeks) => Week.values[(index + weeks) % values.length];
+
+  /// Returns the [Week] that corresponds to this subtracted [weeks].
+  /// Eg.:
+  ///  - [second] - `1` returns [first].
+  ///  - [second] - `3` returns [fourth].
+  Week operator -(int weeks) => Week.values[(index - weeks) % values.length];
 
   /// Returns the [Week] previous to this.
   Week get previous {
@@ -564,6 +677,10 @@ enum WeekdayOccurrence
     ),
   );
 
+  /// An enum wrapper in EveryWeekdayCountInMonth class.
+  ///
+  /// Shows all possible values for the [EveryWeekdayCountInMonth] with better
+  /// naming.
   const WeekdayOccurrence(this._handler);
 
   /// Returns the [WeekdayOccurrence] for the given [date].
@@ -611,9 +728,24 @@ enum WeekdayOccurrence
   int compareTo(DateValidatorWeekdayCountInMonth other) =>
       _handler.compareTo(other);
 
+  /// Returns true if this [week] is after [other]s [WeekdayOccurrence.week], or
+  /// if they are the same and this [day] is after [other]s
+  /// [WeekdayOccurrence.day].
   bool operator >(WeekdayOccurrence other) => index > other.index;
+
+  /// Returns true if this [week] is after or equal to [other]s
+  /// [WeekdayOccurrence.week], or if they are the same and this [day] is
+  /// after or equal to [other]s [WeekdayOccurrence.day].
   bool operator >=(WeekdayOccurrence other) => index >= other.index;
+
+  /// Returns true if this [week] is before [other]s [WeekdayOccurrence.week],
+  /// or if they are the same and this [day] is before [other]s
+  /// [WeekdayOccurrence.day].
   bool operator <(WeekdayOccurrence other) => index < other.index;
+
+  /// Returns true if this [week] is before or equal to [other]s
+  /// [WeekdayOccurrence.week], or if they are the same and this [day] is
+  /// before or equal to [other]s [WeekdayOccurrence.day].
   bool operator <=(WeekdayOccurrence other) => index <= other.index;
 
   @override
@@ -621,4 +753,50 @@ enum WeekdayOccurrence
 
   @override
   List<Object> get props => _handler.props;
+}
+
+/// An enumeration of the different period generators implemented in this
+/// package.
+enum PeriodGenerator<T extends Period> with PeriodGeneratorMixin<T> {
+  /// Creates periods of a second.
+  second(SecondGenerator()),
+
+  /// Creates periods of a minute.
+  minute(MinuteGenerator()),
+
+  /// Creates periods of an hour.
+  hour(HourGenerator()),
+
+  /// Creates periods of a day.
+  day(DayGenerator()),
+
+  /// Creates periods of a week.
+  week(WeekGenerator()),
+
+  /// Creates periods of a fortnight.
+  fortnight(FortnightGenerator()),
+
+  /// Creates periods of a month.
+  month(MonthGenerator()),
+
+  /// Creates periods of a trimester.
+  trimester(TrimesterGenerator()),
+
+  /// Creates periods of a semester.
+  semester(SemesterGenerator()),
+
+  /// Creates periods of a year.
+  year(YearGenerator());
+
+  /// An enumeration of the different period generators implemented in this
+  /// package.
+  const PeriodGenerator(PeriodGeneratorMixin<T> handler) : _handler = handler;
+
+  final PeriodGeneratorMixin<T> _handler;
+
+  @override
+  T of(DateTime date) => _handler.of(date);
+
+  @override
+  bool fitsGenerator(Period period) => _handler.fitsGenerator(period);
 }

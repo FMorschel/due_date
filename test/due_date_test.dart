@@ -419,7 +419,10 @@ void main() {
           month: DateTime.august,
           day: 22,
         );
-        expect(everyWeekday.next(), equals(DateTime(2022, DateTime.august, 29)));
+        expect(
+          everyWeekday.next(),
+          equals(DateTime(2022, DateTime.august, 29)),
+        );
       });
       test('EveryDueDayMonth', () {
         final everyWeekday = DueDateTime(
