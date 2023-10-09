@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">due_date</a></li>
     <li><a href="../due_date/due_date-library.html">due_date</a></li>
@@ -37,18 +36,30 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
 
-
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="due_date&#47;due_date-library-sidebar.html"
+      data-below-sidebar="due_date&#47;WeekdayOccurrence-enum-sidebar.html">
       <div>
 
         <h1>
           <span class="kind-enum">WeekdayOccurrence</span>
           enum 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 
         </h1>
@@ -68,8 +79,8 @@ naming.</p>
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark eNum-relationships">
-      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
-        <li><a href="https://api.flutter.dev/flutter/dart-core/Enum-class.html">Enum</a></li>
+      <li><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></li>
+        <li><a href="https://api.dart.dev/stable/3.1.3/dart-core/Enum-class.html">Enum</a></li>
       <li>WeekdayOccurrence</li>
     </ul>
   </dd>
@@ -82,7 +93,15 @@ naming.</p>
     </ul>
   </dd>
         
+  <dt>Mixed in types</dt>
+  <dd>
+    <ul class="comma-separated eNum-relationships">
+        <li><a href="../due_date/DateValidatorMixin-mixin.html">DateValidatorMixin</a></li>
+    </ul>
+  </dd>
         
+
+
       </dl>
     </section>
 
@@ -95,11 +114,11 @@ naming.</p>
           <span class="name"><a href="../due_date/WeekdayOccurrence/WeekdayOccurrence.html">WeekdayOccurrence</a></span><span class="signature">(<span class="parameter" id="-param-_handler"><span class="type-annotation"><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></span> <span class="parameter-name">_handler</span></span>)</span>
         </dt>
         <dd>
-          
+          An enum wrapper in EveryWeekdayCountInMonth class.
             <div class="constructor-modifier features">const</div>
         </dd>
         <dt id="WeekdayOccurrence.from" class="callable">
-          <span class="name"><a href="../due_date/WeekdayOccurrence/WeekdayOccurrence.from.html">WeekdayOccurrence.from</a></span><span class="signature">(<span class="parameter" id="from-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)</span>
+          <span class="name"><a href="../due_date/WeekdayOccurrence/WeekdayOccurrence.from.html">WeekdayOccurrence.from</a></span><span class="signature">(<span class="parameter" id="from-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)</span>
         </dt>
         <dd>
           Returns the <a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a> for the given <code>date</code>.
@@ -129,9 +148,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.first))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.first))</code></span>
+    </div>
 </dd>
 
           <dt id="firstTuesday" class="constant">
@@ -144,9 +163,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.first))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.first))</code></span>
+    </div>
 </dd>
 
           <dt id="firstWednesday" class="constant">
@@ -159,9 +178,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.first))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.first))</code></span>
+    </div>
 </dd>
 
           <dt id="firstThursday" class="constant">
@@ -174,9 +193,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.first))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.first))</code></span>
+    </div>
 </dd>
 
           <dt id="firstFriday" class="constant">
@@ -189,9 +208,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.first))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.first))</code></span>
+    </div>
 </dd>
 
           <dt id="firstSaturday" class="constant">
@@ -204,9 +223,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.first))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.first))</code></span>
+    </div>
 </dd>
 
           <dt id="firstSunday" class="constant">
@@ -219,9 +238,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.first))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.first))</code></span>
+    </div>
 </dd>
 
           <dt id="secondMonday" class="constant">
@@ -234,9 +253,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.second))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.second))</code></span>
+    </div>
 </dd>
 
           <dt id="secondTuesday" class="constant">
@@ -249,9 +268,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.second))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.second))</code></span>
+    </div>
 </dd>
 
           <dt id="secondWednesday" class="constant">
@@ -264,9 +283,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.second))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.second))</code></span>
+    </div>
 </dd>
 
           <dt id="secondThursday" class="constant">
@@ -279,9 +298,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.second))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.second))</code></span>
+    </div>
 </dd>
 
           <dt id="secondFriday" class="constant">
@@ -294,9 +313,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.second))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.second))</code></span>
+    </div>
 </dd>
 
           <dt id="secondSaturday" class="constant">
@@ -309,9 +328,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.second))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.second))</code></span>
+    </div>
 </dd>
 
           <dt id="secondSunday" class="constant">
@@ -324,9 +343,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.second))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.second))</code></span>
+    </div>
 </dd>
 
           <dt id="thirdMonday" class="constant">
@@ -339,9 +358,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.third))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.third))</code></span>
+    </div>
 </dd>
 
           <dt id="thirdTuesday" class="constant">
@@ -354,9 +373,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.third))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.third))</code></span>
+    </div>
 </dd>
 
           <dt id="thirdWednesday" class="constant">
@@ -369,9 +388,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.third))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.third))</code></span>
+    </div>
 </dd>
 
           <dt id="thirdThursday" class="constant">
@@ -384,9 +403,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.third))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.third))</code></span>
+    </div>
 </dd>
 
           <dt id="thirdFriday" class="constant">
@@ -399,9 +418,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.third))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.third))</code></span>
+    </div>
 </dd>
 
           <dt id="thirdSaturday" class="constant">
@@ -414,9 +433,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.third))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.third))</code></span>
+    </div>
 </dd>
 
           <dt id="thirdSunday" class="constant">
@@ -429,9 +448,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.third))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.third))</code></span>
+    </div>
 </dd>
 
           <dt id="fourthMonday" class="constant">
@@ -444,9 +463,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.fourth))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.fourth))</code></span>
+    </div>
 </dd>
 
           <dt id="fourthTuesday" class="constant">
@@ -459,9 +478,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.fourth))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.fourth))</code></span>
+    </div>
 </dd>
 
           <dt id="fourthWednesday" class="constant">
@@ -474,9 +493,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.fourth))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.fourth))</code></span>
+    </div>
 </dd>
 
           <dt id="fourthThursday" class="constant">
@@ -489,9 +508,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.fourth))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.fourth))</code></span>
+    </div>
 </dd>
 
           <dt id="fourthFriday" class="constant">
@@ -504,9 +523,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.fourth))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.fourth))</code></span>
+    </div>
 </dd>
 
           <dt id="fourthSaturday" class="constant">
@@ -519,9 +538,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.fourth))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.fourth))</code></span>
+    </div>
 </dd>
 
           <dt id="fourthSunday" class="constant">
@@ -534,9 +553,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.fourth))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.fourth))</code></span>
+    </div>
 </dd>
 
           <dt id="lastMonday" class="constant">
@@ -549,9 +568,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.last))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.monday, week: Week.last))</code></span>
+    </div>
 </dd>
 
           <dt id="lastTuesday" class="constant">
@@ -564,9 +583,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.last))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.tuesday, week: Week.last))</code></span>
+    </div>
 </dd>
 
           <dt id="lastWednesday" class="constant">
@@ -579,9 +598,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.last))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.wednesday, week: Week.last))</code></span>
+    </div>
 </dd>
 
           <dt id="lastThursday" class="constant">
@@ -594,9 +613,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.last))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.thursday, week: Week.last))</code></span>
+    </div>
 </dd>
 
           <dt id="lastFriday" class="constant">
@@ -609,9 +628,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.last))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.friday, week: Week.last))</code></span>
+    </div>
 </dd>
 
           <dt id="lastSaturday" class="constant">
@@ -624,9 +643,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.last))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.saturday, week: Week.last))</code></span>
+    </div>
 </dd>
 
           <dt id="lastSunday" class="constant">
@@ -639,9 +658,9 @@ naming.</p>
   
   
 
-  <div>
-    <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.last))</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>WeekdayOccurrence(EveryWeekdayCountInMonth(day: Weekday.sunday, week: Week.last))</code></span>
+    </div>
 </dd>
 
       </dl>
@@ -657,80 +676,80 @@ naming.</p>
       <dl class="properties">
         <dt id="day" class="property">
   <span class="name"><a href="../due_date/WeekdayOccurrence/day.html">day</a></span>
-  <span class="signature">&#8594; <a href="../due_date/Weekday.html">Weekday</a></span> 
+  <span class="signature">&#8594; <a href="../period/Weekday.html">Weekday</a></span> 
 
 </dt>
 <dd>
   The expected day of the week.
-  <div class="features">read-only, override</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="index" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Enum/index.html">index</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   A numeric identifier for the enumerated value.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="props" class="property">
   <span class="name"><a href="../due_date/WeekdayOccurrence/props.html">props</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
   The list of properties that will be used to determine whether
 two instances are equal.
-  <div class="features">read-only, override</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Type-class.html">Type</a></span> 
 
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="stringify" class="property">
   <span class="name"><a href="../due_date/WeekdayOccurrence/stringify.html">stringify</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> 
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a>?</span> 
 
 </dt>
 <dd>
-  If set to <code>true</code>, the <a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a> method will be overridden to output
+  If set to <code>true</code>, the <a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/toString.html">toString</a> method will be overridden to output
 this instance's <a href="../due_date/WeekdayOccurrence/props.html">props</a>.
-  <div class="features">read-only, override</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="week" class="property">
   <span class="name"><a href="../due_date/WeekdayOccurrence/week.html">week</a></span>
-  <span class="signature">&#8594; <a href="../due_date/Week.html">Week</a></span> 
+  <span class="signature">&#8594; <a href="../period/Week.html">Week</a></span> 
 
 </dt>
 <dd>
   The expected week of the month.
-  <div class="features">read-only, override</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
@@ -744,110 +763,136 @@ this instance's <a href="../due_date/WeekdayOccurrence/props.html">props</a>.
     <h2>Methods</h2>
     <dl class="callables">
         <dt id="addMonths" class="callable">
-  <span class="name"><a href="../due_date/WeekdayOccurrence/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/WeekdayOccurrence/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns the <code>date</code> - <a href="https://api.flutter.dev/flutter/dart-core/DateTime/month.html">DateTime.month</a> + <code>months</code> with the <a href="../due_date/WeekdayOccurrence/week.html">week</a> occurence
+  Returns the <code>date</code> - <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/month.html">DateTime.month</a> + <code>months</code> with the <a href="../due_date/WeekdayOccurrence/week.html">week</a> occurence
 of the <a href="../due_date/WeekdayOccurrence/day.html">day</a>.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="addYears" class="callable">
-  <span class="name"><a href="../due_date/WeekdayOccurrence/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/WeekdayOccurrence/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns the <code>date</code> - <a href="https://api.flutter.dev/flutter/dart-core/DateTime/year.html">DateTime.year</a> + <code>years</code> with the <a href="../due_date/WeekdayOccurrence/week.html">week</a> occurence
+  Returns the <code>date</code> - <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/year.html">DateTime.year</a> + <code>years</code> with the <a href="../due_date/WeekdayOccurrence/week.html">week</a> occurence
 of the <a href="../due_date/WeekdayOccurrence/day.html">day</a>.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="compareTo" class="callable">
-  <span class="name"><a href="../due_date/WeekdayOccurrence/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="../due_date/WeekdayOccurrence/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="../due_date/DateValidatorWeekdayCountInMonth-class.html">DateValidatorWeekdayCountInMonth</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span>
   </span>
   
 
 </dt>
 <dd>
   Compares this object to another object.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="next" class="callable">
-  <span class="name"><a href="../due_date/WeekdayOccurrence/next.html">next</a></span><span class="signature">(<wbr><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/WeekdayOccurrence/next.html">next</a></span><span class="signature">(<wbr><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns the next instance of the given <code>date</code> considering this <a href="../due_date/Every-class.html">Every</a>
-base process.
-  <div class="features">override</div>
+  Returns the next year of the given <code>date</code> considering this <a href="../due_date/EveryYear-mixin.html">EveryYear</a>
+implementation.
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="previous" class="callable">
-  <span class="name"><a href="../due_date/WeekdayOccurrence/previous.html">previous</a></span><span class="signature">(<wbr><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/WeekdayOccurrence/previous.html">previous</a></span><span class="signature">(<wbr><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns the previous instance of the given <code>date</code> considering this <a href="../due_date/Every-class.html">Every</a>
-base process.
-  <div class="features">override</div>
+  Returns the previous year of the given <code>date</code> considering this <a href="../due_date/EveryYear-mixin.html">EveryYear</a>
+implementation.
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="startDate" class="callable">
-  <span class="name"><a href="../due_date/WeekdayOccurrence/startDate.html">startDate</a></span><span class="signature">(<wbr><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/WeekdayOccurrence/startDate.html">startDate</a></span><span class="signature">(<wbr><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
   Returns the next date that fits the <a href="../due_date/WeekdayOccurrence/day.html">day</a> and the <a href="../due_date/WeekdayOccurrence/week.html">week</a>.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="valid" class="callable">
+  <span class="name"><a href="../due_date/WeekdayOccurrence/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns true if the <code>date</code> is valid for this <a href="../due_date/DateValidator-class.html">DateValidator</a>.
+  <div class="features"><span class="feature">override</span></div>
+
+</dd>
+
+        <dt id="validsIn" class="callable inherited">
+  <span class="name"><a href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></span><span class="signature">(<wbr><span class="parameter" id="validsIn-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns the valid dates for this <a href="../due_date/DateValidator-class.html">DateValidator</a> in <code>dates</code>.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -861,65 +906,73 @@ base process.
     <dl class="callables">
         <dt id="operator &lt;" class="callable">
   <span class="name"><a href="../due_date/WeekdayOccurrence/operator_less.html">operator <</a></span><span class="signature">(<wbr><span class="parameter" id="<-param-other"><span class="type-annotation"><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Returns true if this <a href="../due_date/WeekdayOccurrence/week.html">week</a> is before <code>other</code>s <a href="../due_date/WeekdayOccurrence/week.html">WeekdayOccurrence.week</a>,
+or if they are the same and this <a href="../due_date/WeekdayOccurrence/day.html">day</a> is before <code>other</code>s
+<a href="../due_date/WeekdayOccurrence/day.html">WeekdayOccurrence.day</a>.
   
 
 </dd>
 
         <dt id="operator &lt;=" class="callable">
   <span class="name"><a href="../due_date/WeekdayOccurrence/operator_less_equal.html">operator <=</a></span><span class="signature">(<wbr><span class="parameter" id="<=-param-other"><span class="type-annotation"><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Returns true if this <a href="../due_date/WeekdayOccurrence/week.html">week</a> is before or equal to <code>other</code>s
+<a href="../due_date/WeekdayOccurrence/week.html">WeekdayOccurrence.week</a>, or if they are the same and this <a href="../due_date/WeekdayOccurrence/day.html">day</a> is
+before or equal to <code>other</code>s <a href="../due_date/WeekdayOccurrence/day.html">WeekdayOccurrence.day</a>.
   
 
 </dd>
 
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   The equality operator.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="operator &gt;" class="callable">
   <span class="name"><a href="../due_date/WeekdayOccurrence/operator_greater.html">operator ></a></span><span class="signature">(<wbr><span class="parameter" id=">-param-other"><span class="type-annotation"><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Returns true if this <a href="../due_date/WeekdayOccurrence/week.html">week</a> is after <code>other</code>s <a href="../due_date/WeekdayOccurrence/week.html">WeekdayOccurrence.week</a>, or
+if they are the same and this <a href="../due_date/WeekdayOccurrence/day.html">day</a> is after <code>other</code>s
+<a href="../due_date/WeekdayOccurrence/day.html">WeekdayOccurrence.day</a>.
   
 
 </dd>
 
         <dt id="operator &gt;=" class="callable">
   <span class="name"><a href="../due_date/WeekdayOccurrence/operator_greater_equal.html">operator >=</a></span><span class="signature">(<wbr><span class="parameter" id=">=-param-other"><span class="type-annotation"><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Returns true if this <a href="../due_date/WeekdayOccurrence/week.html">week</a> is after or equal to <code>other</code>s
+<a href="../due_date/WeekdayOccurrence/week.html">WeekdayOccurrence.week</a>, or if they are the same and this <a href="../due_date/WeekdayOccurrence/day.html">day</a> is
+after or equal to <code>other</code>s <a href="../due_date/WeekdayOccurrence/day.html">WeekdayOccurrence.day</a>.
   
 
 </dd>
@@ -936,7 +989,7 @@ base process.
     <dl class="properties">
         <dt id="values" class="constant">
     <span class="name "><a href="../due_date/WeekdayOccurrence/values-constant.html">values</a></span>
-  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></span>&gt;</span></span>
+  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></span>&gt;</span></span>
   
 
 </dt>
@@ -944,9 +997,9 @@ base process.
   A constant List of the values in this enum, in order of their declaration.
   
 
-  <div>
-    <span class="signature"><code>[firstMonday, firstTuesday, firstWednesday, firstThursday, firstFriday, firstSaturday, firstSunday, secondMonday, secondTuesday, secondWednesday, secondThursday, secondFriday, secondSaturday, secondSu…</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>[firstMonday, firstTuesday, firstWednesday, firstThursday, firstFriday, firstSaturday, firstSunday, secondMonday, secondTuesday, secondWednesday, secondThursday, secondFriday, secondSaturday, secondSu…</code></span>
+    </div>
 </dd>
 
     </dl>
@@ -954,134 +1007,24 @@ base process.
   </div><!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">due_date</a></li>
-  <li><a href="../due_date/due_date-library.html">due_date</a></li>
-  <li class="self-crumb">WeekdayOccurrence enum</li>
+    <li><a href="../index.html">due_date</a></li>
+    <li><a href="../due_date/due_date-library.html">due_date</a></li>
+    <li class="self-crumb">WeekdayOccurrence enum</li>
 </ol>
 
 
     <h5>due_date library</h5>
-    <ol>
-  <li class="section-title"><a href="../due_date/due_date-library.html#classes">Classes</a></li>
-  <li><a href="../due_date/DueDateTime-class.html">DueDateTime</a></li>
-  <li><a href="../due_date/Every-class.html">Every</a></li>
-  <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
-  <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
-  <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
-  <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#extensions">Extensions</a></li>
-  <li><a href="../due_date/AddDays.html">AddDays</a></li>
-  <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
-  <li><a href="../due_date/PreviousNext.html">PreviousNext</a></li>
-  <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#mixins">Mixins</a></li>
-  <li><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></li>
-  <li><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></li>
-  <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a></li>
-
-
-
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#enums">Enums</a></li>
-  <li><a href="../due_date/Month.html">Month</a></li>
-  <li><a href="../due_date/Week.html">Week</a></li>
-  <li><a href="../due_date/Weekday.html">Weekday</a></li>
-  <li><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></li>
-
-
-</ol>
-
   </div>
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-    <ol>
-
-        <li class="section-title"><a href="../due_date/WeekdayOccurrence.html#constructors">Constructors</a></li>
-          <li><a href="../due_date/WeekdayOccurrence/WeekdayOccurrence.html">WeekdayOccurrence</a></li>
-          <li><a href="../due_date/WeekdayOccurrence/WeekdayOccurrence.from.html">from</a></li>
-          <li><a href="../due_date/WeekdayOccurrence/WeekdayOccurrence.fromEvery.html">fromEvery</a></li>
-
-    <li class="section-title"><a href="../due_date/WeekdayOccurrence.html#values">Values</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#firstMonday">firstMonday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#firstTuesday">firstTuesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#firstWednesday">firstWednesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#firstThursday">firstThursday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#firstFriday">firstFriday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#firstSaturday">firstSaturday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#firstSunday">firstSunday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#secondMonday">secondMonday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#secondTuesday">secondTuesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#secondWednesday">secondWednesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#secondThursday">secondThursday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#secondFriday">secondFriday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#secondSaturday">secondSaturday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#secondSunday">secondSunday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#thirdMonday">thirdMonday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#thirdTuesday">thirdTuesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#thirdWednesday">thirdWednesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#thirdThursday">thirdThursday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#thirdFriday">thirdFriday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#thirdSaturday">thirdSaturday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#thirdSunday">thirdSunday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#fourthMonday">fourthMonday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#fourthTuesday">fourthTuesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#fourthWednesday">fourthWednesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#fourthThursday">fourthThursday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#fourthFriday">fourthFriday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#fourthSaturday">fourthSaturday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#fourthSunday">fourthSunday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#lastMonday">lastMonday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#lastTuesday">lastTuesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#lastWednesday">lastWednesday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#lastThursday">lastThursday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#lastFriday">lastFriday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#lastSaturday">lastSaturday</a></li>
-    <li><a href="../due_date/WeekdayOccurrence.html#lastSunday">lastSunday</a></li>
-
-    <li class="section-title">
-      <a href="../due_date/WeekdayOccurrence.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../due_date/WeekdayOccurrence/day.html">day</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/props.html">props</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/stringify.html">stringify</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/week.html">week</a></li>
-
-    <li class="section-title"><a href="../due_date/WeekdayOccurrence.html#instance-methods">Methods</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/addMonths.html">addMonths</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/addYears.html">addYears</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/compareTo.html">compareTo</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/next.html">next</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/previous.html">previous</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/startDate.html">startDate</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
-
-    <li class="section-title"><a href="../due_date/WeekdayOccurrence.html#operators">Operators</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/operator_less.html">operator <</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/operator_less_equal.html">operator <=</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
-    <li><a href="../due_date/WeekdayOccurrence/operator_greater.html">operator ></a></li>
-    <li><a href="../due_date/WeekdayOccurrence/operator_greater_equal.html">operator >=</a></li>
-
-
-
-
-        <li class="section-title"><a href="../due_date/WeekdayOccurrence.html#constants">Constants</a></li>
-          <li><a href="../due_date/WeekdayOccurrence/values-constant.html">values</a></li>
-</ol>
-
   </div><!-- /.sidebar-offcanvas -->
 
 </main>
@@ -1089,7 +1032,7 @@ base process.
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -1098,7 +1041,7 @@ base process.
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

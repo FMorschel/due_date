@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the WeekPeriod class from the period library, for the Dart programming language.">
+  <title>WeekPeriod class - period library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">due_date</a></li>
+    <li><a href="../period/period-library.html">period</a></li>
+    <li class="self-crumb">WeekPeriod class</li>
+  </ol>
+  <div class="self-name">WeekPeriod</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="period&#47;period-library-sidebar.html"
+      data-below-sidebar="period&#47;WeekPeriod-class-sidebar.html">
+      <div>
+<h1><span class="kind-class">WeekPeriod</span> class 
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>A class that implements a period type of a week.</p>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+  <dt>Inheritance</dt>
+  <dd>
+    <ul class="gt-separated dark clazz-relationships">
+      <li><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></li>
+        <li><a href="../period/Period-class.html">Period</a></li>
+      <li>WeekPeriod</li>
+    </ul>
+  </dd>
+
+        
+  <dt>Implemented types</dt>
+  <dd>
+    <ul class="comma-separated clazz-relationships">
+        <li><a href="../period/DayPeriodBundle-class.html">DayPeriodBundle</a></li>
+    </ul>
+  </dd>
+        
+
+
+
+        
+
+
+      </dl>
+    </section>
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+
+    <dl class="constructor-summary-list">
+        <dt id="WeekPeriod" class="callable">
+          <span class="name"><a href="../period/WeekPeriod/WeekPeriod.html">WeekPeriod</a></span><span class="signature">(<span class="parameter" id="-param-start">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="-param-end"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">end</span>}</span>)</span>
+        </dt>
+        <dd>
+          A class that implements a period type of a week.
+        </dd>
+    </dl>
+  </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="days" class="property">
+  <span class="name"><a href="../period/WeekPeriod/days.html">days</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/DayPeriod-class.html">DayPeriod</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Returns the list of days in this bundle.
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
+
+</dd>
+
+        <dt id="duration" class="property inherited">
+  <span class="name"><a href="../period/Period/duration.html">duration</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> 
+
+</dt>
+<dd class="inherited">
+  The difference between the <a href="../period/Period/start.html">start</a> and <a href="../period/Period/end.html">end</a> plus one microsecond.
+If <a href="../period/Period/start.html">start</a> and <a href="../period/Period/end.html">end</a> are equal, returns <code>Duration(microseconds: 1)</code>.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="end" class="property inherited">
+  <span class="name"><a href="../period/Period/end.html">end</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> 
+
+</dt>
+<dd class="inherited">
+  The end of the period. It is included in the period.
+  <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="isEmpty" class="property inherited">
+  <span class="name"><a href="../period/Period/isEmpty.html">isEmpty</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  If <a href="../period/Period/start.html">start</a> and <a href="../period/Period/end.html">end</a> are equal.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="isNotEmpty" class="property inherited">
+  <span class="name"><a href="../period/Period/isNotEmpty.html">isNotEmpty</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  If <a href="../period/Period/start.html">start</a> and <a href="../period/Period/end.html">end</a> are different.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="props" class="property inherited">
+  <span class="name"><a href="../period/Period/props.html">props</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> 
+
+</dt>
+<dd class="inherited">
+  The list of properties that will be used to determine whether
+two instances are equal.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="start" class="property inherited">
+  <span class="name"><a href="../period/Period/start.html">start</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> 
+
+</dt>
+<dd class="inherited">
+  The start of the period. It is included in the period.
+  <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="stringify" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/stringify.html">stringify</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a>?</span> 
+
+</dt>
+<dd class="inherited">
+  If set to <code>true</code>, the <a href="../period/Period/toString.html">toString</a> method will be overridden to output
+this instance's <a href="../period/Period/props.html">props</a>.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="compareTo" class="callable inherited">
+  <span class="name"><a href="../period/Period/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Compares this object to another object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="containedFullyBy" class="callable inherited">
+  <span class="name"><a href="../period/Period/containedFullyBy.html">containedFullyBy</a></span><span class="signature">(<wbr><span class="parameter" id="containedFullyBy-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this is contained fully by <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="containedPartiallyBy" class="callable inherited">
+  <span class="name"><a href="../period/Period/containedPartiallyBy.html">containedPartiallyBy</a></span><span class="signature">(<wbr><span class="parameter" id="containedPartiallyBy-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this is contained partially by <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="contains" class="callable inherited">
+  <span class="name"><a href="../period/Period/contains.html">contains</a></span><span class="signature">(<wbr><span class="parameter" id="contains-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this contains the given <code>date</code>. If the <code>date</code> is equal
+to the <a href="../period/Period/start.html">start</a> or <a href="../period/Period/end.html">end</a> or is between the two dates, it will return
+<code>true</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="containsFully" class="callable inherited">
+  <span class="name"><a href="../period/Period/containsFully.html">containsFully</a></span><span class="signature">(<wbr><span class="parameter" id="containsFully-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this fully contains <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="containsPartially" class="callable inherited">
+  <span class="name"><a href="../period/Period/containsPartially.html">containsPartially</a></span><span class="signature">(<wbr><span class="parameter" id="containsPartially-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this contains partially <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="copyWith" class="callable inherited">
+  <span class="name"><a href="../period/Period/copyWith.html">copyWith</a></span><span class="signature">(<wbr><span class="parameter" id="copyWith-param-start">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">start</span>, </span><span class="parameter" id="copyWith-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">end</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="../period/Period-class.html">Period</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a new <a href="../period/Period-class.html">Period</a> with the given <code>start</code> and <code>end</code> values.
+If <code>start</code> or <code>end</code> are not provided, the corresponding value of this
+is used.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="differenceBetween" class="callable inherited">
+  <span class="name"><a href="../period/Period/differenceBetween.html">differenceBetween</a></span><span class="signature">(<wbr><span class="parameter" id="differenceBetween-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a list of <code>Period</code>s that are the difference between this and
+<code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="doesNotOverlapWith" class="callable inherited">
+  <span class="name"><a href="../period/Period/doesNotOverlapWith.html">doesNotOverlapWith</a></span><span class="signature">(<wbr><span class="parameter" id="doesNotOverlapWith-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this does not overlap with <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="endsAfter" class="callable inherited">
+  <span class="name"><a href="../period/Period/endsAfter.html">endsAfter</a></span><span class="signature">(<wbr><span class="parameter" id="endsAfter-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this ends after the given <code>date</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="endsBefore" class="callable inherited">
+  <span class="name"><a href="../period/Period/endsBefore.html">endsBefore</a></span><span class="signature">(<wbr><span class="parameter" id="endsBefore-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this ends before the given <code>date</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="getDateTimeValues" class="callable inherited">
+  <span class="name"><a href="../period/Period/getDateTimeValues.html">getDateTimeValues</a></span><span class="signature">(<wbr><span class="parameter" id="getDateTimeValues-param-next"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">next</span>(<span class="parameter" id="param-last"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">last</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a list of <code>DateTime</code> values that are contained in this <a href="../period/Period-class.html">Period</a>.
+The <code>next</code> function is used to calculate the <code>DateTime</code> values for the
+returned list.
+The <code>next</code> function is called with the last <code>DateTime</code> value, or <a href="../period/Period/start.html">start</a>.
+The <code>next</code> function must return a <code>DateTime</code> value that is contained in
+this <a href="../period/Period-class.html">Period</a>.
+The <code>next</code> function must return a <code>DateTime</code> value that is not after the
+<a href="../period/Period/end.html">end</a> value of this <a href="../period/Period-class.html">Period</a>.
+When the <code>next</code> function returns <code>null</code>, the iteration stops.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="getIntersection" class="callable inherited">
+  <span class="name"><a href="../period/Period/getIntersection.html">getIntersection</a></span><span class="signature">(<wbr><span class="parameter" id="getIntersection-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../period/Period-class.html">Period</a>?</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a <a href="../period/Period-class.html">Period</a> that is the intersection of this and <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="getNext" class="callable inherited">
+  <span class="name"><a href="../period/Period/getNext.html">getNext</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../period/Period-class.html">Period</a></span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getNext-param-generator"><span class="type-annotation"><a href="../period/PeriodGeneratorMixin-mixin.html">PeriodGeneratorMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">generator</span></span>)
+    <span class="returntype parameter">&#8594; T</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a new <a href="../period/Period-class.html">Period</a> that starts after this using <code>generator</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="getPrevious" class="callable inherited">
+  <span class="name"><a href="../period/Period/getPrevious.html">getPrevious</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../period/Period-class.html">Period</a></span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getPrevious-param-generator"><span class="type-annotation"><a href="../period/PeriodGeneratorMixin-mixin.html">PeriodGeneratorMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">generator</span></span>)
+    <span class="returntype parameter">&#8594; T</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a new <a href="../period/Period-class.html">Period</a> that starts before this using <code>generator</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="mergeWith" class="callable inherited">
+  <span class="name"><a href="../period/Period/mergeWith.html">mergeWith</a></span><span class="signature">(<wbr><span class="parameter" id="mergeWith-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../period/Period-class.html">Period</a>?</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a <a href="../period/Period-class.html">Period</a> that is the union of this and <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="occursAfter" class="callable inherited">
+  <span class="name"><a href="../period/Period/occursAfter.html">occursAfter</a></span><span class="signature">(<wbr><span class="parameter" id="occursAfter-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this occurs after <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="occursBefore" class="callable inherited">
+  <span class="name"><a href="../period/Period/occursBefore.html">occursBefore</a></span><span class="signature">(<wbr><span class="parameter" id="occursBefore-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this occurs before <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="overlapsWith" class="callable inherited">
+  <span class="name"><a href="../period/Period/overlapsWith.html">overlapsWith</a></span><span class="signature">(<wbr><span class="parameter" id="overlapsWith-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this overlaps with <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="shift" class="callable inherited">
+  <span class="name"><a href="../period/Period/shift.html">shift</a></span><span class="signature">(<wbr><span class="parameter" id="shift-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../period/Period-class.html">Period</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a new <a href="../period/Period-class.html">Period</a> that is shifted by the given <code>duration</code>
+.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="splitAt" class="callable inherited">
+  <span class="name"><a href="../period/Period/splitAt.html">splitAt</a></span><span class="signature">(<wbr><span class="parameter" id="splitAt-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span>, </span><span class="parameter" id="splitAt-param-periodBetween">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">periodBetween</span> = <span class="default-value">Duration.zero</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Splits the period in multiple periods at the given <code>dates</code>.
+The <code>periodBetween</code> is the duration between each period.
+The <code>dates</code> not included in the period are ignored.
+The <code>dates</code> will be sorted before splitting.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="splitIn" class="callable inherited">
+  <span class="name"><a href="../period/Period/splitIn.html">splitIn</a></span><span class="signature">(<wbr><span class="parameter" id="splitIn-param-times"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">times</span>, </span><span class="parameter" id="splitIn-param-periodBetween">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">periodBetween</span> = <span class="default-value">Duration.zero</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Split the period in multiple periods. The <code>times</code> is the number of periods
+to split the period in.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="startsAfter" class="callable inherited">
+  <span class="name"><a href="../period/Period/startsAfter.html">startsAfter</a></span><span class="signature">(<wbr><span class="parameter" id="startsAfter-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this starts after the given <code>date</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="startsBefore" class="callable inherited">
+  <span class="name"><a href="../period/Period/startsBefore.html">startsBefore</a></span><span class="signature">(<wbr><span class="parameter" id="startsBefore-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns <code>true</code> if this starts before the given <code>date</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="subtract" class="callable inherited">
+  <span class="name"><a href="../period/Period/subtract.html">subtract</a></span><span class="signature">(<wbr><span class="parameter" id="subtract-param-periods"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span> <span class="parameter-name">periods</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a list of <code>Period</code>s that are the difference between this <code>Period</code>
+and the <code>periods</code> passed as argument.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="../period/Period/toString.html">toString</a></span><span class="signature">(<wbr><span class="parameter" id="toString-param-dateFormat">{<span class="type-annotation"><a href="https://pub.dev/documentation/intl/0.18.1/intl/DateFormat-class.html">DateFormat</a>?</span> <span class="parameter-name">dateFormat</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="trim" class="callable inherited">
+  <span class="name"><a href="../period/Period/trim.html">trim</a></span><span class="signature">(<wbr><span class="parameter" id="trim-param-periods"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span> <span class="parameter-name">periods</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Removes periods that do not overlap with this period and trims the ones
+that do overlap and are not fully contained by this period.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator &amp;" class="callable inherited">
+  <span class="name"><a href="../period/Period/operator_bitwise_and.html">operator &</a></span><span class="signature">(<wbr><span class="parameter" id="&-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../period/Period-class.html">Period</a>?</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a <a href="../period/Period-class.html">Period</a> that is the intersection of this and <code>other</code>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="operator &lt;&lt;" class="callable inherited">
+  <span class="name"><a href="../period/Period/operator_shift_left.html">operator <<</a></span><span class="signature">(<wbr><span class="parameter" id="<<-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../period/Period-class.html">Period</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a new <a href="../period/Period-class.html">Period</a> that is shifted by the given <code>duration</code>
+backwards.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="../period/Period/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="operator &gt;&gt;" class="callable inherited">
+  <span class="name"><a href="../period/Period/operator_shift_right.html">operator >></a></span><span class="signature">(<wbr><span class="parameter" id=">>-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../period/Period-class.html">Period</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a new <a href="../period/Period-class.html">Period</a> that is shifted by the given <code>duration</code>
+forwards.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="operator |" class="callable inherited">
+  <span class="name"><a href="../period/Period/operator_bitwise_or.html">operator |</a></span><span class="signature">(<wbr><span class="parameter" id="|-param-other"><span class="type-annotation"><a href="../period/Period-class.html">Period</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../period/Period-class.html">Period</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns a list of <code>Period</code>s.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">due_date</a></li>
+    <li><a href="../period/period-library.html">period</a></li>
+    <li class="self-crumb">WeekPeriod class</li>
+</ol>
+
+
+    <!--<h5>period library</h5>-->
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    due_date
+      2.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

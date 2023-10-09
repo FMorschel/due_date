@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">due_date</a></li>
     <li><a href="../due_date/due_date-library.html">due_date</a></li>
@@ -37,21 +36,33 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
 
-
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="due_date&#47;due_date-library-sidebar.html"
+      data-below-sidebar="due_date&#47;DueDateTime-class-sidebar.html">
       <div>
 <h1><span class="kind-class">DueDateTime&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
     
 <section class="desc markdown">
-  <p>Wrapper for <a href="../due_date/Every-class.html">Every</a> and <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> to represent a due date.</p>
+  <p>Wrapper for <a href="../due_date/Every-class.html">Every</a> and <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a> to represent a due date.</p>
 </section>
 
 
@@ -61,8 +72,8 @@
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark clazz-relationships">
-      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
-        <li><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></li>
+      <li><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></li>
+        <li><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></li>
       <li>DueDateTime</li>
     </ul>
   </dd>
@@ -72,7 +83,7 @@
   <dt>Mixed in types</dt>
   <dd>
     <ul class="comma-separated clazz-relationships">
-        <li><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin-mixin.html">EquatableMixin</a></li>
+        <li><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin-mixin.html">EquatableMixin</a></li>
     </ul>
   </dd>
 
@@ -81,11 +92,16 @@
         <dd><ul class="comma-separated clazz-relationships">
           <li><a href="../due_date/AddDays.html">AddDays</a></li>
           <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
-          <li><a href="https://pub.dev/documentation/time/2.1.1/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a></li>
+          <li><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTimeCopyWith.html">DateTimeCopyWith</a></li>
+          <li><a href="https://pub.dev/documentation/time/2.1.3/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a></li>
+          <li><a href="../due_date/DayInYear.html">DayInYear</a></li>
+          <li><a href="../period/EndOfDay.html">EndOfDay</a></li>
           <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
         </ul></dd>
 
         
+
+
       </dl>
     </section>
 
@@ -95,21 +111,21 @@
 
     <dl class="constructor-summary-list">
         <dt id="DueDateTime" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.html">DueDateTime</a></span><span class="signature">(<span class="parameter" id="-param-year">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="-param-month"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-day"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-hour"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-minute"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-second"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-millisecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-microsecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-utc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">false</span>}</span>)</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.html">DueDateTime</a></span><span class="signature">(<span class="parameter" id="-param-year">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-utc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)</span>
         </dt>
         <dd>
           Constructs a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance.
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="DueDateTime.fromDate" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.fromDate.html">DueDateTime.fromDate</a></span><span class="signature">(<span class="parameter" id="fromDate-param-reference"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">reference</span>, </span><span class="parameter" id="fromDate-param-every">[<span class="type-annotation">T?</span> <span class="parameter-name">every</span>]</span>)</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.fromDate.html">DueDateTime.fromDate</a></span><span class="signature">(<span class="parameter" id="fromDate-param-reference"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">reference</span>, </span><span class="parameter" id="fromDate-param-every">{<span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromDate-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)</span>
         </dt>
         <dd>
           Creates a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> from the <code>reference</code>.
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="DueDateTime.now" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.now.html">DueDateTime.now</a></span><span class="signature">()</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.now.html">DueDateTime.now</a></span><span class="signature">(<span class="parameter" id="now-param-limit">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)</span>
         </dt>
         <dd>
           Constructs a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with current date and time in the
@@ -117,7 +133,7 @@ local time zone. The <a href="../due_date/DueDateTime/every.html">DueDateTime.ev
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="DueDateTime.utc" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.utc.html">DueDateTime.utc</a></span><span class="signature">(<span class="parameter" id="utc-param-year">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="utc-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="utc-param-month"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-day"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-hour"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-minute"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-second"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-millisecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-microsecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>}</span>)</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.utc.html">DueDateTime.utc</a></span><span class="signature">(<span class="parameter" id="utc-param-year">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="utc-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="utc-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)</span>
         </dt>
         <dd>
           Constructs a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance specified in the UTC time zone.
@@ -131,13 +147,13 @@ local time zone. The <a href="../due_date/DueDateTime/every.html">DueDateTime.ev
 
       <dl class="properties">
         <dt id="day" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">day</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/day.html">day</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The day of the month <code>[1..31]</code>.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -148,223 +164,199 @@ local time zone. The <a href="../due_date/DueDateTime/every.html">DueDateTime.ev
 </dt>
 <dd>
   The handler for processing the next dates.
-  <div class="features">read / write</div>
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="hour" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/hour.html">hour</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/hour.html">hour</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The hour of the day, expressed as in a 24-hour clock <code>[0..23]</code>.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="isUtc" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isUtc.html">isUtc</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/isUtc.html">isUtc</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> 
 
 </dt>
 <dd class="inherited">
-  True if this <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> is set to UTC time.
-  <div class="features">final, inherited</div>
+  True if this <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a> is set to UTC time.
+  <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="microsecond" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/microsecond.html">microsecond</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/microsecond.html">microsecond</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The microsecond <code>[0...999]</code>.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="microsecondsSinceEpoch" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/microsecondsSinceEpoch.html">microsecondsSinceEpoch</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/microsecondsSinceEpoch.html">microsecondsSinceEpoch</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The number of microseconds since
 the "Unix epoch" 1970-01-01T00:00:00Z (UTC).
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="millisecond" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/millisecond.html">millisecond</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/millisecond.html">millisecond</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The millisecond <code>[0...999]</code>.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="millisecondsSinceEpoch" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/millisecondsSinceEpoch.html">millisecondsSinceEpoch</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/millisecondsSinceEpoch.html">millisecondsSinceEpoch</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The number of milliseconds since
 the "Unix epoch" 1970-01-01T00:00:00Z (UTC).
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="minute" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/minute.html">minute</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/minute.html">minute</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The minute <code>[0...59]</code>.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="month" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/month.html">month</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/month.html">month</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The month <code>[1..12]</code>.
-  <div class="features">read-only, inherited</div>
-
-</dd>
-
-        <dt id="next" class="property">
-  <span class="name"><a href="../due_date/DueDateTime/next.html">next</a></span>
-  <span class="signature">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  Returns a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with the next date that matches the
-<a href="../due_date/DueDateTime/every.html">every</a> main pattern.
-  <div class="features">read-only</div>
-
-</dd>
-
-        <dt id="previous" class="property">
-  <span class="name"><a href="../due_date/DueDateTime/previous.html">previous</a></span>
-  <span class="signature">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  Returns a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with the previous date that matches
-the <a href="../due_date/DueDateTime/every.html">every</a> main pattern.
-  <div class="features">read-only</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="props" class="property">
   <span class="name"><a href="../due_date/DueDateTime/props.html">props</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
   The list of properties that will be used to determine whether
 two instances are equal.
-  <div class="features">read-only, override</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Type-class.html">Type</a></span> 
 
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="second" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/second.html">second</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/second.html">second</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The second <code>[0...59]</code>.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="stringify" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/stringify.html">stringify</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> 
+  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/stringify.html">stringify</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a>?</span> 
 
 </dt>
 <dd class="inherited">
   If set to <code>true</code>, the <a href="../due_date/DueDateTime/toString.html">toString</a> method will be overridden to output
 this instance's <a href="../due_date/DueDateTime/props.html">props</a>.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="timeZoneName" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneName.html">timeZoneName</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/timeZoneName.html">timeZoneName</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span> 
 
 </dt>
 <dd class="inherited">
   The time zone name.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="timeZoneOffset" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneOffset.html">timeZoneOffset</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/timeZoneOffset.html">timeZoneOffset</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> 
 
 </dt>
 <dd class="inherited">
   The time zone offset, which
 is the difference between local time and UTC.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="weekday" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">weekday</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/weekday.html">weekday</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
-  The day of the week <a href="https://api.flutter.dev/flutter/dart-core/DateTime/monday-constant.html">monday</a>..<a href="https://api.flutter.dev/flutter/dart-core/DateTime/sunday-constant.html">sunday</a>.
-  <div class="features">read-only, inherited</div>
+  The day of the week <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/monday-constant.html">monday</a>..<a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/sunday-constant.html">sunday</a>.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="year" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/year.html">year</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/year.html">year</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
   The year.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -378,7 +370,7 @@ is the difference between local time and UTC.
     <h2>Methods</h2>
     <dl class="callables">
         <dt id="add" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/add.html">add</a></span><span class="signature">(<wbr><span class="parameter" id="add-param-duration"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, </span><span class="parameter" id="add-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/add.html">add</a></span><span class="signature">(<wbr><span class="parameter" id="add-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, </span><span class="parameter" id="add-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -386,12 +378,12 @@ is the difference between local time and UTC.
 </dt>
 <dd>
   Returns a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with <code>duration</code> added to <a href="../due_date/DueDateTime-class.html">this</a>.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="addMonths" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, </span><span class="parameter" id="addMonths-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, </span><span class="parameter" id="addMonths-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -404,7 +396,7 @@ is the difference between local time and UTC.
 </dd>
 
         <dt id="addWeeks" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/addWeeks.html">addWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, </span><span class="parameter" id="addWeeks-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/addWeeks.html">addWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, </span><span class="parameter" id="addWeeks-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -417,7 +409,7 @@ is the difference between local time and UTC.
 </dd>
 
         <dt id="addYears" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, </span><span class="parameter" id="addYears-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, </span><span class="parameter" id="addYears-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -430,8 +422,8 @@ is the difference between local time and UTC.
 </dd>
 
         <dt id="compareTo" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span>
   </span>
   
 
@@ -439,12 +431,12 @@ is the difference between local time and UTC.
 <dd class="inherited">
   Compares this DateTime object to <code>other</code>,
 returning zero if the values are equal.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="copyWith" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/copyWith.html">copyWith</a></span><span class="signature">(<wbr><span class="parameter" id="copyWith-param-every">{<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="copyWith-param-year"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">year</span>, </span><span class="parameter" id="copyWith-param-month"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">month</span>, </span><span class="parameter" id="copyWith-param-day"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">day</span>, </span><span class="parameter" id="copyWith-param-hour"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">hour</span>, </span><span class="parameter" id="copyWith-param-minute"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">minute</span>, </span><span class="parameter" id="copyWith-param-second"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">second</span>, </span><span class="parameter" id="copyWith-param-millisecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">millisecond</span>, </span><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/copyWith.html">copyWith</a></span><span class="signature">(<wbr><span class="parameter" id="copyWith-param-every">{<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="copyWith-param-year"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">year</span>, </span><span class="parameter" id="copyWith-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">month</span>, </span><span class="parameter" id="copyWith-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">day</span>, </span><span class="parameter" id="copyWith-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">hour</span>, </span><span class="parameter" id="copyWith-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">minute</span>, </span><span class="parameter" id="copyWith-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">second</span>, </span><span class="parameter" id="copyWith-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">millisecond</span>, </span><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span>, </span><span class="parameter" id="copyWith-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -458,73 +450,101 @@ with the new values.
 </dd>
 
         <dt id="difference" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/difference.html">difference</a></span><span class="signature">(<wbr><span class="parameter" id="difference-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/difference.html">difference</a></span><span class="signature">(<wbr><span class="parameter" id="difference-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Returns a <a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a> with the difference when subtracting <code>other</code> from
+  Returns a <a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a> with the difference when subtracting <code>other</code> from
 <a href="../due_date/DueDateTime-class.html">this</a>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="isAfter" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAfter.html">isAfter</a></span><span class="signature">(<wbr><span class="parameter" id="isAfter-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/isAfter.html">isAfter</a></span><span class="signature">(<wbr><span class="parameter" id="isAfter-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   Returns true if <a href="../due_date/DueDateTime-class.html">this</a> occurs after <code>other</code>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="isAtSameMomentAs" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAtSameMomentAs.html">isAtSameMomentAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMomentAs-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/isAtSameMomentAs.html">isAtSameMomentAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMomentAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   Returns true if <a href="../due_date/DueDateTime-class.html">this</a> occurs at the same moment as <code>other</code>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="isBefore" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isBefore.html">isBefore</a></span><span class="signature">(<wbr><span class="parameter" id="isBefore-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/isBefore.html">isBefore</a></span><span class="signature">(<wbr><span class="parameter" id="isBefore-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   Returns true if <a href="../due_date/DueDateTime-class.html">this</a> occurs before <code>other</code>.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="next" class="callable">
+  <span class="name"><a href="../due_date/DueDateTime/next.html">next</a></span><span class="signature">(<wbr><span class="parameter" id="next-param-limit">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with the next date that matches the
+<a href="../due_date/DueDateTime/every.html">every</a> main pattern.
+  
 
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="previous" class="callable">
+  <span class="name"><a href="../due_date/DueDateTime/previous.html">previous</a></span><span class="signature">(<wbr><span class="parameter" id="previous-param-limit">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with the previous date that matches
+the <a href="../due_date/DueDateTime/every.html">every</a> main pattern.
+  
 
 </dd>
 
         <dt id="subtract" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtract.html">subtract</a></span><span class="signature">(<wbr><span class="parameter" id="subtract-param-duration"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, </span><span class="parameter" id="subtract-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/subtract.html">subtract</a></span><span class="signature">(<wbr><span class="parameter" id="subtract-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, </span><span class="parameter" id="subtract-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -532,12 +552,12 @@ with the new values.
 </dt>
 <dd>
   Returns a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with <code>duration</code> subtracted from <a href="../due_date/DueDateTime-class.html">this</a>.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="subtractMonths" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtractMonths.html">subtractMonths</a></span><span class="signature">(<wbr><span class="parameter" id="subtractMonths-param-months"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, </span><span class="parameter" id="subtractMonths-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/subtractMonths.html">subtractMonths</a></span><span class="signature">(<wbr><span class="parameter" id="subtractMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, </span><span class="parameter" id="subtractMonths-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -551,7 +571,7 @@ this.
 </dd>
 
         <dt id="subtractWeeks" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtractWeeks.html">subtractWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="subtractWeeks-param-weeks"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, </span><span class="parameter" id="subtractWeeks-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/subtractWeeks.html">subtractWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="subtractWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, </span><span class="parameter" id="subtractWeeks-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -565,7 +585,7 @@ this.
 </dd>
 
         <dt id="subtractYears" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtractYears.html">subtractYears</a></span><span class="signature">(<wbr><span class="parameter" id="subtractYears-param-years"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, </span><span class="parameter" id="subtractYears-param-sameEvery">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/subtractYears.html">subtractYears</a></span><span class="signature">(<wbr><span class="parameter" id="subtractYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, </span><span class="parameter" id="subtractYears-param-sameEvery">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -579,15 +599,15 @@ this.
 </dd>
 
         <dt id="toIso8601String" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/toIso8601String.html">toIso8601String</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/toIso8601String.html">toIso8601String</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   Returns an ISO-8601 full-precision extended format representation.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -600,20 +620,20 @@ this.
 </dt>
 <dd>
   Returns this DueDateTime value in the local time zone.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="toString" class="callable">
   <span class="name"><a href="../due_date/DueDateTime/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd>
   Returns a human-readable string for this instance.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
@@ -626,7 +646,7 @@ this.
 </dt>
 <dd>
   Returns this DueDateTime value in the UTC time zone.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
@@ -639,16 +659,16 @@ this.
     <h2>Operators</h2>
     <dl class="callables">
         <dt id="operator ==" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DueDateTime/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns true if <code>other</code> is a <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> at the same moment and in the
+  Returns true if <code>other</code> is a <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a> at the same moment and in the
 same time zone (UTC or local).
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
@@ -660,7 +680,7 @@ same time zone (UTC or local).
     <h2>Static Methods</h2>
     <dl class="callables">
         <dt id="fromMicrosecondsSinceEpoch" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/fromMicrosecondsSinceEpoch.html">fromMicrosecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMicrosecondsSinceEpoch-param-microsecondsSinceEpoch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecondsSinceEpoch</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-every">{<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/fromMicrosecondsSinceEpoch.html">fromMicrosecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMicrosecondsSinceEpoch-param-microsecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecondsSinceEpoch</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-isUtc">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -674,7 +694,7 @@ with the given <code>microsecondsSinceEpoch</code>.
 </dd>
 
         <dt id="fromMillisecondsSinceEpoch" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/fromMillisecondsSinceEpoch.html">fromMillisecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMillisecondsSinceEpoch-param-millisecondsSinceEpoch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecondsSinceEpoch</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-every">{<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>}</span>)
+  <span class="name"><a href="../due_date/DueDateTime/fromMillisecondsSinceEpoch.html">fromMillisecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMillisecondsSinceEpoch-param-millisecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecondsSinceEpoch</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-isUtc">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -688,7 +708,7 @@ with the given <code>millisecondsSinceEpoch</code>.
 </dd>
 
         <dt id="parse" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/parse.html">parse</a></span><span class="signature">(<wbr><span class="parameter" id="parse-param-formattedString"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, </span><span class="parameter" id="parse-param-every">[<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>]</span>)
+  <span class="name"><a href="../due_date/DueDateTime/parse.html">parse</a></span><span class="signature">(<wbr><span class="parameter" id="parse-param-formattedString"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, </span><span class="parameter" id="parse-param-every">{<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="parse-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -696,12 +716,12 @@ with the given <code>millisecondsSinceEpoch</code>.
 </dt>
 <dd>
   Constructs a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance based on <code>formattedString</code>.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="tryParse" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/tryParse.html">tryParse</a></span><span class="signature">(<wbr><span class="parameter" id="tryParse-param-formattedString"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, </span><span class="parameter" id="tryParse-param-every">[<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>]</span>)
+  <span class="name"><a href="../due_date/DueDateTime/tryParse.html">tryParse</a></span><span class="signature">(<wbr><span class="parameter" id="tryParse-param-formattedString"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, </span><span class="parameter" id="tryParse-param-every">{<span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="tryParse-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span>?</span>
   </span>
   
@@ -709,7 +729,7 @@ with the given <code>millisecondsSinceEpoch</code>.
 </dt>
 <dd>
   Constructs a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance based on <code>formattedString</code>.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
@@ -721,123 +741,25 @@ with the given <code>millisecondsSinceEpoch</code>.
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">due_date</a></li>
-  <li><a href="../due_date/due_date-library.html">due_date</a></li>
-  <li class="self-crumb">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span> class</li>
+    <li><a href="../index.html">due_date</a></li>
+    <li><a href="../due_date/due_date-library.html">due_date</a></li>
+    <li class="self-crumb">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span> class</li>
 </ol>
 
 
-    <h5>due_date library</h5>
-    <ol>
-  <li class="section-title"><a href="../due_date/due_date-library.html#classes">Classes</a></li>
-  <li><a href="../due_date/DueDateTime-class.html">DueDateTime</a></li>
-  <li><a href="../due_date/Every-class.html">Every</a></li>
-  <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
-  <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
-  <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
-  <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#extensions">Extensions</a></li>
-  <li><a href="../due_date/AddDays.html">AddDays</a></li>
-  <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
-  <li><a href="../due_date/PreviousNext.html">PreviousNext</a></li>
-  <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#mixins">Mixins</a></li>
-  <li><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></li>
-  <li><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></li>
-  <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a></li>
-
-
-
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#enums">Enums</a></li>
-  <li><a href="../due_date/Month.html">Month</a></li>
-  <li><a href="../due_date/Week.html">Week</a></li>
-  <li><a href="../due_date/Weekday.html">Weekday</a></li>
-  <li><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></li>
-
-
-</ol>
-
+    <!--<h5>due_date library</h5>-->
+    <div id="dartdoc-sidebar-left-content"></div>
   </div>
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-    <ol>
-
-        <li class="section-title"><a href="../due_date/DueDateTime-class.html#constructors">Constructors</a></li>
-          <li><a href="../due_date/DueDateTime/DueDateTime.html">DueDateTime</a></li>
-          <li><a href="../due_date/DueDateTime/DueDateTime.fromDate.html">fromDate</a></li>
-          <li><a href="../due_date/DueDateTime/DueDateTime.now.html">now</a></li>
-          <li><a href="../due_date/DueDateTime/DueDateTime.utc.html">utc</a></li>
-
-
-    <li class="section-title">
-      <a href="../due_date/DueDateTime-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/day.html">day</a></li>
-    <li><a href="../due_date/DueDateTime/every.html">every</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/hour.html">hour</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isUtc.html">isUtc</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/microsecond.html">microsecond</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/microsecondsSinceEpoch.html">microsecondsSinceEpoch</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/millisecond.html">millisecond</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/millisecondsSinceEpoch.html">millisecondsSinceEpoch</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/minute.html">minute</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/month.html">month</a></li>
-    <li><a href="../due_date/DueDateTime/next.html">next</a></li>
-    <li><a href="../due_date/DueDateTime/previous.html">previous</a></li>
-    <li><a href="../due_date/DueDateTime/props.html">props</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/second.html">second</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/equatable/2.0.3/equatable/EquatableMixin/stringify.html">stringify</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneName.html">timeZoneName</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/timeZoneOffset.html">timeZoneOffset</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/weekday.html">weekday</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/year.html">year</a></li>
-
-    <li class="section-title"><a href="../due_date/DueDateTime-class.html#instance-methods">Methods</a></li>
-    <li><a href="../due_date/DueDateTime/add.html">add</a></li>
-    <li><a href="../due_date/DueDateTime/addMonths.html">addMonths</a></li>
-    <li><a href="../due_date/DueDateTime/addWeeks.html">addWeeks</a></li>
-    <li><a href="../due_date/DueDateTime/addYears.html">addYears</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/compareTo.html">compareTo</a></li>
-    <li><a href="../due_date/DueDateTime/copyWith.html">copyWith</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/difference.html">difference</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAfter.html">isAfter</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isAtSameMomentAs.html">isAtSameMomentAs</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/isBefore.html">isBefore</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../due_date/DueDateTime/subtract.html">subtract</a></li>
-    <li><a href="../due_date/DueDateTime/subtractMonths.html">subtractMonths</a></li>
-    <li><a href="../due_date/DueDateTime/subtractWeeks.html">subtractWeeks</a></li>
-    <li><a href="../due_date/DueDateTime/subtractYears.html">subtractYears</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/DateTime/toIso8601String.html">toIso8601String</a></li>
-    <li><a href="../due_date/DueDateTime/toLocal.html">toLocal</a></li>
-    <li><a href="../due_date/DueDateTime/toString.html">toString</a></li>
-    <li><a href="../due_date/DueDateTime/toUtc.html">toUtc</a></li>
-
-    <li class="section-title"><a href="../due_date/DueDateTime-class.html#operators">Operators</a></li>
-    <li><a href="../due_date/DueDateTime/operator_equals.html">operator ==</a></li>
-
-
-
-        <li class="section-title"><a href="../due_date/DueDateTime-class.html#static-methods">Static methods</a></li>
-          <li><a href="../due_date/DueDateTime/fromMicrosecondsSinceEpoch.html">fromMicrosecondsSinceEpoch</a></li>
-          <li><a href="../due_date/DueDateTime/fromMillisecondsSinceEpoch.html">fromMillisecondsSinceEpoch</a></li>
-          <li><a href="../due_date/DueDateTime/parse.html">parse</a></li>
-          <li><a href="../due_date/DueDateTime/tryParse.html">tryParse</a></li>
-
-</ol>
-
   </div><!--/.sidebar-offcanvas-->
 
 </main>
@@ -845,7 +767,7 @@ with the given <code>millisecondsSinceEpoch</code>.
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.0.0
   </span>
 
   
@@ -854,7 +776,7 @@ with the given <code>millisecondsSinceEpoch</code>.
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 
