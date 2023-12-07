@@ -8,10 +8,6 @@
 
 [![popularity](https://badges.bar/due_date/popularity)](https://pub.dev/packages/due_date/score)
 
-[![Build](https://github.com/fmorschel/due_date/actions/workflows/build.yml/badge.svg)](https://github.com/fmorschel/due_date/actions/workflows/build.yml)
-
-[![codecov](https://codecov.io/gh/fmorschel/due_date/branch/main/graph/badge.svg)](https://codecov.io/gh/fmorschel/due_date)
-
 A package for working with repeating `DateTime` patterns.
 
 Ever wanted to create a new `DateTime` with, let's say, the same day in month? But the day is 31 and next month only has 30, so you go to 30 and the next day is lost because then you have no variable to save the original's month day? With `DueDateTime` this managing is done for you without any headaches.
