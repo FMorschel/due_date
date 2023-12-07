@@ -58,9 +58,8 @@ abstract class LimitedEvery extends Every {
   /// Abstract class that forces the implementation of [Every] to have a
   /// limit parameter for the [startDate], [next] and [previous] methods.
   ///
-  /// See [EveryDateValidatorDifference], [EveryDateValidatorIntersection],
-  /// [EveryDateValidatorUnion], [EverySkipCountWrapper], [EveryOverrideWrapper]
-  /// and [EverySkipInvalidModifier] for complete base implementations.
+  /// See [EveryDateValidatorDifference], [EveryDateValidatorIntersection] and
+  /// [EveryDateValidatorUnion] for complete base implementations.
   ///
   /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
   const LimitedEvery();
