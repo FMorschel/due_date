@@ -133,7 +133,7 @@ extension PreviousNext on Iterable<Weekday> {
   }
 }
 
-/// Extension methods related to [DateValidator]s. Simpply wrappers around
+/// Extension methods related to [DateValidator]s. Simply wrappers around
 /// creating [DateValidatorIntersection], [DateValidatorUnion] or
 /// [DateValidatorDifference].
 extension DateValidatorListExt on List<DateValidator> {
@@ -147,7 +147,7 @@ extension DateValidatorListExt on List<DateValidator> {
   DateValidatorUnion get union => DateValidatorUnion(this);
 }
 
-/// Extension methods related to [EveryDateValidator]s. Simpply wrappers around
+/// Extension methods related to [EveryDateValidator]s. Simply wrappers around
 /// creating [EveryDateValidatorIntersection], [EveryDateValidatorUnion] or
 /// [EveryDateValidatorDifference].
 extension EveryDateValidatorListExt on List<EveryDateValidator> {

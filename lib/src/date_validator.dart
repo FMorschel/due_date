@@ -10,16 +10,46 @@ abstract class DateValidator {
   const DateValidator();
 
   /// Returns true if the [date] is valid for this [DateValidator].
+  ///
+  /// This is the opposite of [valid].
+  /// Implementations that return true for invalid should also return false for
+  /// valid.
   bool valid(DateTime date);
 
+  /// Returns true if the [date] is invalid for this [DateValidator].
+  ///
+  /// This is the opposite of [valid].
+  /// Implementations that return true for invalid should also return false for
+  /// valid.
+  ///
+  /// Usually, this will be implemented as `!valid(date)` by
+  /// [DateValidatorMixin]. However, if there is a simpler way to check
+  /// for invalid dates, it can be implemented here.
+  bool invalid(DateTime date);
+
+  @Deprecated("Use 'DateValidator.filterValidDates' instead.")
+
   /// Returns the valid dates for this [DateValidator] in [dates].
-  Iterable<DateTime> validsIn(List<DateTime> dates);
+  Iterable<DateTime> validsIn(Iterable<DateTime> dates);
+
+  /// Returns the valid dates for this [DateValidator] in [dates].
+  Iterable<DateTime> filterValidDates(Iterable<DateTime> dates);
 }
 
-/// Mixin to easily implement the [DateValidator.validsIn] method.
+/// Mixin to easily implement the [DateValidator.invalid],
+/// [DateValidator.filterValidDates] and [DateValidator.filterValidDates] 
+/// methods.
 mixin DateValidatorMixin implements DateValidator {
   @override
-  Iterable<DateTime> validsIn(List<DateTime> dates) sync* {
+  bool invalid(DateTime date) => !valid(date);
+
+  @override
+  @Deprecated("Use 'DateValidator.filterValidDates' instead.")
+  Iterable<DateTime> validsIn(Iterable<DateTime> dates) =>
+      filterValidDates(dates);
+
+  @override
+  Iterable<DateTime> filterValidDates(Iterable<DateTime> dates) sync* {
     for (final date in dates) {
       if (valid(date)) yield date;
     }
@@ -312,19 +342,30 @@ class DateValidatorUnion<E extends DateValidator> extends DelegatingList<E>
 /// one of the [validators].
 class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
-  /// A [DateValidator] that validates a [DateTime] if the date is valid for only
-  /// one of the [validators].
+  /// A [DateValidator] that validates a [DateTime] if the date is valid for 
+  /// only one of the [validators].
   const DateValidatorDifference(super.validators);
 
   @override
   bool valid(DateTime date) {
-    int valids = 0;
+    int validCount = 0;
     for (final validator in validators) {
-      if (validator.valid(date)) valids++;
-      if (valids > 1) return false;
+      if (validator.valid(date)) validCount++;
+      if (validCount > 1) return false;
     }
-    if (valids == 0) return false;
+    if (validCount == 0) return false;
     return true;
+  }
+
+  @override
+  bool invalid(DateTime date) {
+    int validCount = 0;
+    for (final validator in validators) {
+      if (validator.valid(date)) validCount++;
+      if (validCount > 1) return true;
+    }
+    if (validCount == 0) return true;
+    return false;
   }
 
   @override

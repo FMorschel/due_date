@@ -88,54 +88,54 @@ void main() {
         });
       }
     });
-    group('occrurencesIn august 2022', () {
-      final month = DateTime.utc(2022, DateTime.august, 1);
+    group('occurrencesIn august 2022', () {
+      final month = DateTime.utc(2022, DateTime.august);
       test('monday', () {
         const monday = Weekday.monday;
         expect(
-          monday.occrurencesIn(month.year, month.month),
+          monday.occurrencesIn(month.year, month.month),
           equals(5),
         );
       });
       test('tuesday', () {
         const tuesday = Weekday.tuesday;
         expect(
-          tuesday.occrurencesIn(month.year, month.month),
+          tuesday.occurrencesIn(month.year, month.month),
           equals(5),
         );
       });
       test('wednesday', () {
         const wednesday = Weekday.wednesday;
         expect(
-          wednesday.occrurencesIn(month.year, month.month),
+          wednesday.occurrencesIn(month.year, month.month),
           equals(5),
         );
       });
       test('thursday', () {
         const thursday = Weekday.thursday;
         expect(
-          thursday.occrurencesIn(month.year, month.month),
+          thursday.occurrencesIn(month.year, month.month),
           equals(4),
         );
       });
       test('friday', () {
         const friday = Weekday.friday;
         expect(
-          friday.occrurencesIn(month.year, month.month),
+          friday.occurrencesIn(month.year, month.month),
           equals(4),
         );
       });
       test('saturday', () {
         const saturday = Weekday.saturday;
         expect(
-          saturday.occrurencesIn(month.year, month.month),
+          saturday.occurrencesIn(month.year, month.month),
           equals(4),
         );
       });
       test('sunday', () {
         const sunday = Weekday.sunday;
         expect(
-          sunday.occrurencesIn(month.year, month.month),
+          sunday.occurrencesIn(month.year, month.month),
           equals(4),
         );
       });
@@ -226,7 +226,7 @@ void main() {
       const month = Month.august;
       group('First', () {
         const matcher = Week.first;
-        final firstDayOfWeek = DateTime(year, month.dateTimeValue, 1);
+        final firstDayOfWeek = DateTime(year, month.dateTimeValue);
         final lastDayOfWeek = DateTime(year, month.dateTimeValue, 7);
         test(Weekday.fromDateTimeValue(firstDayOfWeek.weekday).name, () {
           expect(Week.from(firstDayOfWeek), equals(matcher));
@@ -333,7 +333,7 @@ void main() {
           equals(weekGenerator.of(DateTime.utc(2022, DateTime.september, -2))),
         );
       });
-      test('Starts at the previous month\'s second to last day', () {
+      test("Starts at the previous month's second to last day", () {
         expect(
           first.of(2022, Month.june.dateTimeValue),
           equals(weekGenerator.of(DateTime.utc(2022, DateTime.may, 30))),
@@ -343,7 +343,7 @@ void main() {
           equals(weekGenerator.of(DateTime.utc(2022, DateTime.june, -1))),
         );
       });
-      test('Starts at the previous month\'s last day', () {
+      test("Starts at the previous month's last day", () {
         expect(
           first.of(2022, Month.march.dateTimeValue),
           equals(weekGenerator.of(DateTime.utc(2022, DateTime.february, 28))),
@@ -559,13 +559,13 @@ void main() {
     group('Weekday Of', () {
       group('Mondays of August 2022', () {
         final mondays = [
-          DateTime.utc(2022, DateTime.august, 1),
+          DateTime.utc(2022, DateTime.august),
           DateTime.utc(2022, DateTime.august, 8),
           DateTime.utc(2022, DateTime.august, 15),
           DateTime.utc(2022, DateTime.august, 22),
           DateTime.utc(2022, DateTime.august, 29),
         ];
-        final weekValues = Week.values;
+        const weekValues = Week.values;
         for (int i = 0; i < weekValues.length; i++) {
           test('${mondays[i].year}/${mondays[i].month}/${mondays[i].day}', () {
             expect(
@@ -587,7 +587,7 @@ void main() {
           DateTime.utc(2022, DateTime.august, 26),
           DateTime.utc(2022, DateTime.august, 26),
         ];
-        final weekValues = Week.values;
+        const weekValues = Week.values;
         for (int i = 0; i < weekValues.length; i++) {
           test('${fridays[i].year}/${fridays[i].month}/${fridays[i].day}', () {
             expect(
@@ -606,13 +606,13 @@ void main() {
   group('WeekdayOccurrence', () {
     group('Equals', () {
       test('FirstMonday', () {
-        const weekdayOccurence = WeekdayOccurrence.firstMonday;
+        const weekdayOccurrence = WeekdayOccurrence.firstMonday;
         const everyWeekdayCountInMonth = EveryWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         );
         expect(
-          weekdayOccurence,
+          weekdayOccurrence,
           equals(everyWeekdayCountInMonth),
         );
       });

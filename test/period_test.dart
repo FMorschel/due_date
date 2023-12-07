@@ -6,7 +6,7 @@ void main() {
   group('Period ->', () {
     group('Constructor ->', () {
       group('Default ->', () {
-        final start = DateTime(2022, DateTime.january, 1);
+        final start = DateTime(2022);
         final end = DateTime(2022, DateTime.january, 2);
         test('Works if start is before end', () {
           expect(Period(start: start, end: end), isA<Period>());
@@ -14,7 +14,7 @@ void main() {
         test('Works if start is equal to end', () {
           expect(Period(start: start, end: start), isA<Period>());
         });
-        test('Doesn\'t work if end is before start', () {
+        test("Doesn't work if end is before start", () {
           expect(
             () => Period(start: end, end: start),
             throwsArgumentError,
@@ -35,10 +35,10 @@ void main() {
       });
     });
     group('duration ->', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final period = Period(start: start, end: end);
-      test('deve dar um dia + 1 microsecond', () {
+      test('should be 1 day + 1 microsecond', () {
         expect(
           period.duration,
           equals(const Duration(days: 1, microseconds: 1)),
@@ -46,12 +46,12 @@ void main() {
       });
     });
     group('contains ->', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final period = Period(start: start, end: end);
-      const microssecond = Duration(microseconds: 1);
+      const microsecond = Duration(microseconds: 1);
       test('before start', () {
-        expect(period.contains(start.subtract(microssecond)), isFalse);
+        expect(period.contains(start.subtract(microsecond)), isFalse);
       });
       test('start', () {
         expect(period.contains(start), isTrue);
@@ -69,11 +69,11 @@ void main() {
         expect(period.contains(end.toUtc()), isTrue);
       });
       test('after end', () {
-        expect(period.contains(end.add(microssecond)), isFalse);
+        expect(period.contains(end.add(microsecond)), isFalse);
       });
     });
     group('overlapsWith ->', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -84,7 +84,7 @@ void main() {
       });
     });
     group('doesNotOverlapWith ->', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 2, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -95,7 +95,7 @@ void main() {
       });
     });
     group('getIntersection', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -107,7 +107,7 @@ void main() {
       });
     });
     group('mergeWith', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -119,7 +119,7 @@ void main() {
       });
     });
     group('differenceBetween', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -135,7 +135,7 @@ void main() {
       });
     });
     group('sort', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -155,7 +155,7 @@ void main() {
       });
     });
     group('mergeOverlappingPeriods', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -174,7 +174,7 @@ void main() {
     });
     group('intersections', () {
       test('[day 1 (12h) - day 2, day 3 (12h) - day 4]', () {
-        final start = DateTime(2022, DateTime.january, 1);
+        final start = DateTime(2022);
         final end = DateTime(2022, DateTime.january, 2);
         final start2 = DateTime(2022, DateTime.january, 1, 12);
         final end2 = DateTime(2022, DateTime.january, 3);
@@ -190,6 +190,7 @@ void main() {
         );
       });
       test(
+          // ignore: missing_whitespace_between_adjacent_strings, it is a list
           '[Period(start: DateTime(2023, 03, 16), end: DateTime(2023, 03, 17)),'
           'Period(start: DateTime(2023, 03, 18), end: DateTime(2023, 03, 19))]',
           () {
@@ -205,10 +206,11 @@ void main() {
         expect(Period.intersections(list), orderedEquals(expected));
       });
       test(
+          // ignore: missing_whitespace_between_adjacent_strings, it is a list
           '[Period(start: DateTime(2023, 03, 16), end: DateTime(2023, 03, 17)),'
           'Period('
           '  start: DateTime(2023, 03, 18, 12), '
-          '  end: DateTime(2023, 03, 18, 13),'
+          '  end: DateTime(2023, 03, 18, 13), '
           ')]', () {
         final list = [
           Period(start: DateTime(2023, 03, 15), end: DateTime(2023, 03, 17)),
@@ -234,14 +236,14 @@ void main() {
           '['
           'Period(2023-03-15 00:00:00.000, 2023-03-17 00:00:00.000), '
           'Period(2023-03-16 00:00:00.000, 2023-03-19 00:00:00.000), '
-          'Period(2023-03-18 00:00:00.000, 2023-03-20 00:00:00.000)'
+          'Period(2023-03-18 00:00:00.000, 2023-03-20 00:00:00.000) '
           ']', () {
         final period1 = Period(
-          start: DateTime(2023, 4, 1),
+          start: DateTime(2023, 4),
           end: DateTime(2023, 4, 15),
         );
         final period2 = Period(
-          start: DateTime(2023, 4, 1),
+          start: DateTime(2023, 4),
           end: DateTime(2023, 4, 30),
         );
         final period3 = Period(
@@ -288,13 +290,12 @@ void main() {
           period4,
           period1,
           period3,
-        ];
-        list.sort();
+        ]..sort();
         expect(list, orderedEquals(expected));
       });
     });
     group('subtract', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
@@ -317,7 +318,7 @@ void main() {
       });
     });
     group('splitAt', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final split = DateTime(2022, DateTime.january, 1, 12);
       final base = Period(start: start, end: end);
@@ -342,7 +343,7 @@ void main() {
       });
     });
     group('splitIn', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final split = DateTime(2022, DateTime.january, 1, 12);
       final base = Period(start: start, end: end);
@@ -404,17 +405,17 @@ void main() {
         );
       });
       test(
-          '[Period:Period(2020-01-01 00:00:00.000, 2020-01-10 08:00:00.000),'
-          'Period:Period(2020-01-11 08:00:00.000, 2020-01-20 16:00:00.000),'
+          '[Period:Period(2020-01-01 00:00:00.000, 2020-01-10 08:00:00.000), '
+          'Period:Period(2020-01-11 08:00:00.000, 2020-01-20 16:00:00.000), '
           'Period:Period(2020-01-21 16:00:00.000, 2020-01-31 00:00:00.000)]',
           () {
         final base = Period(
-          start: DateTime(2020, 1, 1),
+          start: DateTime(2020),
           end: DateTime(2020, 1, 31),
         );
         final expected = [
           Period(
-            start: DateTime(2020, 1, 1),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 10, 8),
           ),
           Period(
@@ -427,7 +428,7 @@ void main() {
           ),
         ];
         expect(
-          base.splitIn(3, periodBetween: Duration(days: 1)),
+          base.splitIn(3, periodBetween: const Duration(days: 1)),
           orderedEquals(expected),
         );
         for (int i = 1; i < (expected.length - 1); i++) {
@@ -436,21 +437,21 @@ void main() {
       });
     });
     test('isNotEmpty', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 2);
       final period = Period(start: start, end: end);
       expect(period.isNotEmpty, isTrue);
       expect(period.isEmpty, isFalse);
     });
     test('isEmpty', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final period = Period(start: start, end: start);
       expect(period.isEmpty, isTrue);
       expect(period.isNotEmpty, isFalse);
     });
     test('equals', () {
       const dayGenerator = DayGenerator();
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
       final period2 = Period(start: start, end: end);
@@ -462,7 +463,7 @@ void main() {
       expect(period2 == period3, isTrue);
     });
     test('shift', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
       final period2 = period.shift(const Duration(days: 1));
@@ -473,7 +474,7 @@ void main() {
       expect(period3.end, end.subtract(const Duration(days: 1)));
     });
     group('containsFully', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
       test('same', () {
@@ -513,7 +514,7 @@ void main() {
         );
         expect(period.containsFully(period2), isFalse);
       });
-      test('Non overlaping', () {
+      test('Non overlapping', () {
         final period2 = Period(
           start: end.add(const Duration(days: 1)),
           end: end.add(const Duration(days: 2)),
@@ -522,7 +523,7 @@ void main() {
       });
     });
     group('containedFullyBy', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
       test('same', () {
@@ -562,7 +563,7 @@ void main() {
         );
         expect(period2.containedFullyBy(period), isFalse);
       });
-      test('Non overlaping', () {
+      test('Non overlapping', () {
         final period2 = Period(
           start: end.add(const Duration(days: 1)),
           end: end.add(const Duration(days: 2)),
@@ -571,7 +572,7 @@ void main() {
       });
     });
     group('containsPartially', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
       test('same', () {
@@ -611,7 +612,7 @@ void main() {
         );
         expect(period.containsPartially(period2), isTrue);
       });
-      test('Non overlaping', () {
+      test('Non overlapping', () {
         final period2 = Period(
           start: end.add(const Duration(days: 1)),
           end: end.add(const Duration(days: 2)),
@@ -620,7 +621,7 @@ void main() {
       });
     });
     group('containedPartiallyBy', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
       test('same', () {
@@ -660,7 +661,7 @@ void main() {
         );
         expect(period2.containedPartiallyBy(period), isTrue);
       });
-      test('Non overlaping', () {
+      test('Non overlapping', () {
         final period2 = Period(
           start: end.add(const Duration(days: 1)),
           end: end.add(const Duration(days: 2)),
@@ -669,7 +670,7 @@ void main() {
       });
     });
     group('occursBefore', () {
-      final start = DateTime(2022, DateTime.january, 1);
+      final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
       test('same', () {
@@ -699,7 +700,7 @@ void main() {
     });
   });
   group('occursAfter', () {
-    final start = DateTime(2022, DateTime.january, 1);
+    final start = DateTime(2022);
     final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
     final period = Period(start: start, end: end);
     test('same', () {
@@ -728,7 +729,7 @@ void main() {
     });
   });
   group('copyWith', () {
-    final start = DateTime(2022, DateTime.january, 1);
+    final start = DateTime(2022);
     final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
     final period = Period(start: start, end: end);
     test('start', () {
@@ -762,7 +763,7 @@ void main() {
     });
   });
   group('endsBefore', () {
-    final start = DateTime(2022, DateTime.january, 1);
+    final start = DateTime(2022);
     final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
     final period = Period(start: start, end: end);
     test('same as end', () {
@@ -776,7 +777,7 @@ void main() {
     });
   });
   group('endsAfter', () {
-    final start = DateTime(2022, DateTime.january, 1);
+    final start = DateTime(2022);
     final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
     final period = Period(start: start, end: end);
     test('same as end', () {
@@ -790,7 +791,7 @@ void main() {
     });
   });
   group('startsAfter', () {
-    final start = DateTime(2022, DateTime.january, 1);
+    final start = DateTime(2022);
     final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
     final period = Period(start: start, end: end);
     test('same as start', () {
@@ -807,7 +808,7 @@ void main() {
     });
   });
   group('startsBefore', () {
-    final start = DateTime(2022, DateTime.january, 1);
+    final start = DateTime(2022);
     final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
     final period = Period(start: start, end: end);
     test('same as start', () {
@@ -825,7 +826,7 @@ void main() {
   });
   group('getNext', () {
     const dayGenerator = DayGenerator();
-    final first = DateTime(2022, DateTime.january, 1);
+    final first = DateTime(2022);
     final period = dayGenerator.of(first);
     final second = DateTime(2022, DateTime.january, 2);
     final period2 = dayGenerator.of(second);
@@ -835,7 +836,7 @@ void main() {
   });
   group('getPrevious', () {
     const dayGenerator = DayGenerator();
-    final first = DateTime(2022, DateTime.january, 1);
+    final first = DateTime(2022);
     final period = dayGenerator.of(first);
     final second = DateTime(2022, DateTime.january, 2);
     final period2 = dayGenerator.of(second);
@@ -847,7 +848,7 @@ void main() {
     test('Seconds', () {
       const generator = MinuteGenerator();
       const oneSecond = Duration(seconds: 1);
-      final minute = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final minute = generator.of(DateTime(2020));
       final seconds = minute.seconds;
       expect(seconds, isA<List<SecondPeriod>>());
       expect(seconds, hasLength(60));
@@ -856,7 +857,7 @@ void main() {
         seconds.first,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 0, 0),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 1, 0, 0, 0, 999, 999),
           ),
         ),
@@ -876,7 +877,7 @@ void main() {
     test('Minutes', () {
       const generator = HourGenerator();
       const oneMinute = Duration(minutes: 1);
-      final hour = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final hour = generator.of(DateTime(2020));
       final minutes = hour.minutes;
       expect(minutes, isA<List<MinutePeriod>>());
       expect(minutes, hasLength(60));
@@ -885,7 +886,7 @@ void main() {
         minutes.first,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 0, 0),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 1, 0, 0, 59, 999, 999),
           ),
         ),
@@ -894,7 +895,7 @@ void main() {
         minutes.last,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 59, 0),
+            start: DateTime(2020, 1, 1, 0, 59),
             end: DateTime(2020, 1, 1, 0, 59, 59, 999, 999),
           ),
         ),
@@ -905,7 +906,7 @@ void main() {
     test('Hours', () {
       const generator = DayGenerator();
       const oneHour = Duration(hours: 1);
-      final day = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final day = generator.of(DateTime(2020));
       final hours = day.hours;
       expect(hours, isA<List<HourPeriod>>());
       expect(hours, hasLength(24));
@@ -914,7 +915,7 @@ void main() {
         hours.first,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 0, 0),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 1, 0, 59, 59, 999, 999),
           ),
         ),
@@ -925,7 +926,7 @@ void main() {
     test('Days', () {
       const generator = WeekGenerator();
       const dayGenerator = DayGenerator();
-      final week = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final week = generator.of(DateTime(2020));
       final days = week.days;
       expect(days, isA<List<DayPeriod>>());
       expect(days, hasLength(7));
@@ -934,7 +935,7 @@ void main() {
         days.first,
         equals(
           Period(
-            start: DateTime(2019, 12, 30, 0, 0, 0),
+            start: DateTime(2019, 12, 30),
             end: DateTime(2019, 12, 30, 23, 59, 59, 999, 999),
           ),
         ),
@@ -945,7 +946,7 @@ void main() {
     test('Days', () {
       const generator = FortnightGenerator();
       const dayGenerator = DayGenerator();
-      final fortnight = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final fortnight = generator.of(DateTime(2020));
       final days = fortnight.days;
       expect(days, isA<List<DayPeriod>>());
       expect(days, hasLength(15));
@@ -954,7 +955,7 @@ void main() {
         days.first,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 0, 0),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 1, 23, 59, 59, 999, 999),
           ),
         ),
@@ -963,7 +964,7 @@ void main() {
         days.last,
         equals(
           Period(
-            start: DateTime(2020, 1, 15, 0, 0, 0),
+            start: DateTime(2020, 1, 15),
             end: DateTime(2020, 1, 15, 23, 59, 59, 999, 999),
           ),
         ),
@@ -974,7 +975,7 @@ void main() {
     test('Days', () {
       const generator = MonthGenerator();
       const dayGenerator = DayGenerator();
-      final month = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final month = generator.of(DateTime(2020));
       final days = month.days;
       expect(days, isA<List<DayPeriod>>());
       expect(days, hasLength(31));
@@ -983,7 +984,7 @@ void main() {
         days.first,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 0, 0),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 1, 23, 59, 59, 999, 999),
           ),
         ),
@@ -992,7 +993,7 @@ void main() {
         days.last,
         equals(
           Period(
-            start: DateTime(2020, 1, 31, 0, 0, 0),
+            start: DateTime(2020, 1, 31),
             end: DateTime(2020, 1, 31, 23, 59, 59, 999, 999),
           ),
         ),
@@ -1003,7 +1004,7 @@ void main() {
     test('Months', () {
       const generator = TrimesterGenerator();
       const monthGenerator = MonthGenerator();
-      final trimester = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final trimester = generator.of(DateTime(2020));
       final months = trimester.months;
       expect(months, isA<List<MonthPeriod>>());
       expect(months, hasLength(3));
@@ -1015,7 +1016,7 @@ void main() {
         months.first,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 0, 0),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 31, 23, 59, 59, 999, 999),
           ),
         ),
@@ -1024,7 +1025,7 @@ void main() {
         months.last,
         equals(
           Period(
-            start: DateTime(2020, 3, 1, 0, 0, 0),
+            start: DateTime(2020, 3),
             end: DateTime(2020, 3, 31, 23, 59, 59, 999, 999),
           ),
         ),
@@ -1035,7 +1036,7 @@ void main() {
     test('Months', () {
       const generator = SemesterGenerator();
       const monthGenerator = MonthGenerator();
-      final semester = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+      final semester = generator.of(DateTime(2020));
       final months = semester.months;
       expect(months, isA<List<MonthPeriod>>());
       expect(months, hasLength(6));
@@ -1047,7 +1048,7 @@ void main() {
         months.first,
         equals(
           Period(
-            start: DateTime(2020, 1, 1, 0, 0, 0),
+            start: DateTime(2020),
             end: DateTime(2020, 1, 31, 23, 59, 59, 999, 999),
           ),
         ),
@@ -1056,7 +1057,7 @@ void main() {
         months.last,
         equals(
           Period(
-            start: DateTime(2020, 6, 1, 0, 0, 0),
+            start: DateTime(2020, 6),
             end: DateTime(2020, 6, 30, 23, 59, 59, 999, 999),
           ),
         ),
@@ -1066,7 +1067,7 @@ void main() {
       test('Months', () {
         const generator = YearGenerator();
         const monthGenerator = MonthGenerator();
-        final year = generator.of(DateTime(2020, 1, 1, 0, 0, 0));
+        final year = generator.of(DateTime(2020));
         final months = year.months;
         expect(months, isA<List<MonthPeriod>>());
         expect(months, hasLength(12));
@@ -1078,7 +1079,7 @@ void main() {
           months.first,
           equals(
             Period(
-              start: DateTime(2020, 1, 1, 0, 0, 0),
+              start: DateTime(2020),
               end: DateTime(2020, 1, 31, 23, 59, 59, 999, 999),
             ),
           ),
@@ -1087,7 +1088,7 @@ void main() {
           months.last,
           equals(
             Period(
-              start: DateTime(2020, 12, 1, 0, 0, 0),
+              start: DateTime(2020, 12),
               end: DateTime(2020, 12, 31, 23, 59, 59, 999, 999),
             ),
           ),

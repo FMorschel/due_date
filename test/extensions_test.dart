@@ -5,7 +5,7 @@ import 'package:test/scaffolding.dart';
 void main() {
   group('DayInYear on DateTime', () {
     test('January 1st', () {
-      expect(DateTime(2022, DateTime.january, 1).dayInYear, 1);
+      expect(DateTime(2022).dayInYear, 1);
     });
     test('December 31st 2022', () {
       expect(DateTime(2022, DateTime.december, 31).dayInYear, 365);
@@ -17,8 +17,8 @@ void main() {
   group('AddDays on DateTime:', () {
     group('Add/Subtract Days:', () {
       final monday = DateTime.utc(2022, DateTime.july, 18);
-      group('Throws won\'t skip all days', () {
-        final allWeek = Weekday.values;
+      group("Throws won't skip all days", () {
+        const allWeek = Weekday.values;
         test('Add ignoring all weekdays', () {
           expect(
             () => monday.addDays(1, ignoring: allWeek),
@@ -62,7 +62,7 @@ void main() {
       test('Monday', () {
         expect(
           august.nextWeekday(Weekday.monday),
-          equals(DateTime.utc(2022, DateTime.august, 1)),
+          equals(DateTime.utc(2022, DateTime.august)),
         );
       });
       test('Tuesday', () {
@@ -107,7 +107,7 @@ void main() {
       test('Monday', () {
         expect(
           august.previousWeekday(Weekday.monday),
-          equals(DateTime.utc(2022, DateTime.august, 1)),
+          equals(DateTime.utc(2022, DateTime.august)),
         );
       });
       test('Tuesday', () {
@@ -160,22 +160,21 @@ void main() {
     group('daysBefore:', () {
       group('single:', () {
         for (final weekday in Weekday.values) {
-          final macther = [weekday.previous];
+          final matcher = [weekday.previous];
           final result = [weekday].previousWeekdays;
           test(
             weekday.name,
-            () => expect(result, containsAll(macther)),
+            () => expect(result, containsAll(matcher)),
           );
         }
       });
       group('multiple:', () {
         for (final weekday in Weekday.values) {
-          final macther = {...entireWeek}..remove(weekday.previous);
-          final iterable = [...entireWeek];
-          iterable.remove(weekday);
+          final matcher = {...entireWeek}..remove(weekday.previous);
+          final iterable = [...entireWeek]..remove(weekday);
           test(
             'all but ${weekday.name}',
-            () => expect(iterable.previousWeekdays, containsAll(macther)),
+            () => expect(iterable.previousWeekdays, containsAll(matcher)),
           );
         }
       });
@@ -183,21 +182,20 @@ void main() {
     group('daysAfter:', () {
       group('single:', () {
         for (final weekday in Weekday.values) {
-          final macther = {weekday.next};
+          final matcher = {weekday.next};
           test(
             weekday.next,
-            () => expect([weekday].nextWeekdays, equals(macther)),
+            () => expect([weekday].nextWeekdays, equals(matcher)),
           );
         }
       });
       group('multiple:', () {
         for (final weekday in Weekday.values) {
-          final macther = {...entireWeek}..remove(weekday.next);
-          final iterable = [...entireWeek];
-          iterable.remove(weekday);
+          final matcher = {...entireWeek}..remove(weekday.next);
+          final iterable = [...entireWeek]..remove(weekday);
           test(
             'all but ${weekday.name}',
-            () => expect(iterable.nextWeekdays, containsAll(macther)),
+            () => expect(iterable.nextWeekdays, containsAll(matcher)),
           );
         }
       });

@@ -1,5 +1,6 @@
 import 'package:time/time.dart';
 
+import 'constants.dart';
 import 'date_validator.dart';
 import 'enums.dart';
 import 'extensions.dart';
@@ -11,7 +12,8 @@ import 'extensions.dart';
 ///
 /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
 abstract class Every {
-  /// Abstract class that, when extended, processes [DateTime] with custom logic.
+  /// Abstract class that, when extended, processes [DateTime] with custom
+  /// logic.
   ///
   /// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also
   /// [WeekdayOccurrence]) and [EveryDayInYear] for complete base
@@ -20,41 +22,67 @@ abstract class Every {
   /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
   const Every();
 
+  /// {@template startDate}
   /// Returns the next [DateTime] that matches the [Every] pattern.
+  ///
+  /// If the [date] is a [DateTime] that matches the [Every] pattern, the
+  /// [DateTime] will be returned.
+  /// {@endtemplate}
   DateTime startDate(DateTime date);
 
+  /// {@template next}
   /// Returns the next instance of the given [date] considering this [Every]
   /// base process.
+  ///
+  /// If the [date] is a [DateTime] that matches the [Every] pattern, a new
+  /// [DateTime] will be generated.
+  /// {@endtemplate}
   DateTime next(DateTime date);
 
+  /// {@template previous}
   /// Returns the previous instance of the given [date] considering this [Every]
   /// base process.
+  ///
+  /// If the [date] is a [DateTime] that matches the [Every] pattern, a new
+  /// [DateTime] will be generated.
+  /// {@endtemplate}
   DateTime previous(DateTime date);
 }
 
 /// Abstract class that forces the implementation of [Every] to have a
 /// limit parameter for the [startDate], [next] and [previous] methods.
 abstract class LimitedEvery extends Every {
-  /// Abstract class that, when extended, processes [DateTime] with custom logic.
+  /// Abstract class that, when extended, processes [DateTime] with custom
+  /// logic.
   ///
-  /// See [EveryWeekday], [EveryDueDayMonth], [EveryWeekdayCountInMonth] (also
-  /// [WeekdayOccurrence]) and [EveryDayInYear] for complete base
-  /// implementations.
+  /// Abstract class that forces the implementation of [Every] to have a
+  /// limit parameter for the [startDate], [next] and [previous] methods.
+  ///
+  /// See [EveryDateValidatorDifference], [EveryDateValidatorIntersection] and
+  /// [EveryDateValidatorUnion] for complete base implementations.
   ///
   /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
   const LimitedEvery();
 
-  /// Returns the next [DateTime] that matches the [Every] pattern.
+  /// {@macro startDate}
+  ///
+  /// {@template limit}
+  /// If the generated [DateTime] is still not able to return the first call to
+  /// this function and it has passed the [limit], it will throw a
+  /// [DateTimeLimitReachedException].
+  /// {@endtemplate}
   @override
   DateTime startDate(DateTime date, {DateTime? limit});
 
-  /// Returns the next instance of the given [date] considering this [Every]
-  /// base process.
+  /// {@macro next}
+  ///
+  /// {@macro limit}
   @override
   DateTime next(DateTime date, {DateTime? limit});
 
-  /// Returns the previous instance of the given [date] considering this [Every]
-  /// base process.
+  /// {@macro previous}
+  ///
+  /// {@macro limit}
   @override
   DateTime previous(DateTime date, {DateTime? limit});
 }
@@ -182,16 +210,35 @@ class EveryWeekday extends DateValidatorWeekday
   /// Returns the next date that fits the [weekday].
   @override
   DateTime startDate(DateTime date) {
-    final day = weekday.fromWeekOf(date);
-    if (day.toUtc().date.isBefore(date.toUtc().date)) {
-      final nextDay = day.toUtc().add(const Duration(days: 1));
-      if (date.isUtc) {
-        return nextDay.nextWeekday(weekday);
-      } else {
-        return nextDay.toLocal().nextWeekday(weekday);
-      }
+    if (valid(date)) return date;
+    return next(date);
+  }
+
+  /// Returns the previous date that fits the [weekday].
+  ///
+  /// Always returns the first [DateTime] that fits the [weekday], ignoring
+  /// the given [date] as an option.
+  @override
+  DateTime next(DateTime date) {
+    if (date.weekday < weekday.dateTimeValue) {
+      return weekday.fromWeekOf(date);
     } else {
-      return day;
+      return weekday
+          .fromWeekOf(date.lastDayOfWeek.add(const Duration(days: 1)));
+    }
+  }
+
+  /// Returns the previous date that fits the [weekday].
+  ///
+  /// Always returns the last [DateTime] that fits the [weekday], ignoring
+  /// the given [date] as an option.
+  @override
+  DateTime previous(DateTime date) {
+    if (date.weekday > weekday.dateTimeValue) {
+      return weekday.fromWeekOf(date);
+    } else {
+      return weekday
+          .fromWeekOf(date.firstDayOfWeek.subtract(const Duration(days: 1)));
     }
   }
 
@@ -200,23 +247,26 @@ class EveryWeekday extends DateValidatorWeekday
   @override
   DateTime addWeeks(DateTime date, int weeks) {
     if (weeks == 0) return date;
-    if (!valid(date)) {
-      if (weeks.isNegative) {
-        if (date.weekday < weekday.dateTimeValue) {
-          date = date.firstDayOfWeek.subtract(const Duration(days: 1));
+    int localWeeks = weeks;
+    DateTime localDate = date.copyWith();
+    if (!valid(localDate)) {
+      if (localWeeks.isNegative) {
+        if (localDate.weekday < weekday.dateTimeValue) {
+          localDate =
+              localDate.firstDayOfWeek.subtract(const Duration(days: 1));
         }
-        date = weekday.fromWeekOf(date);
-        weeks++;
+        localDate = weekday.fromWeekOf(localDate);
+        localWeeks++;
       } else {
-        if (date.weekday > weekday.dateTimeValue) {
-          date = date.lastDayOfWeek.add(const Duration(days: 1));
+        if (localDate.weekday > weekday.dateTimeValue) {
+          localDate = localDate.lastDayOfWeek.add(const Duration(days: 1));
         }
-        date = weekday.fromWeekOf(date);
-        weeks--;
+        localDate = weekday.fromWeekOf(localDate);
+        localWeeks--;
       }
     }
-    final day = date.toUtc().add(Duration(days: weeks * 7));
-    return _solveFor(date, day);
+    final day = localDate.toUtc().add(Duration(days: localWeeks * 7));
+    return _solveFor(localDate, day);
   }
 
   /// Returns a new [DateTime] where the week is the same([Week]) inside the
@@ -297,22 +347,26 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
   @override
   DateTime addMonths(DateTime date, int months) {
     if (months == 0) return date;
-    if (!valid(date)) {
-      if (months.isNegative) {
-        if (date.day < dueDay) {
-          date = date.firstDayOfMonth.subtract(const Duration(days: 1));
+    int localMonths = months;
+    DateTime localDate = date.copyWith();
+    if (!valid(localDate)) {
+      if (localMonths.isNegative) {
+        if (localDate.day < dueDay) {
+          localDate =
+              localDate.firstDayOfMonth.subtract(const Duration(days: 1));
         }
-        date = _thisMonthsDay(date);
-        months++;
+        localDate = _thisMonthsDay(localDate);
+        localMonths++;
       } else {
-        if (date.day > dueDay) {
-          date = date.lastDayOfMonth.add(const Duration(days: 1));
+        if (localDate.day > dueDay) {
+          localDate = localDate.lastDayOfMonth.add(const Duration(days: 1));
         }
-        date = _thisMonthsDay(date);
-        months--;
+        localDate = _thisMonthsDay(localDate);
+        localMonths--;
       }
     }
-    final day = date.copyWith(month: date.month + months, day: 1);
+    final day =
+        localDate.copyWith(month: localDate.month + localMonths, day: 1);
     return day.copyWith(day: dueDay).clamp(max: day.lastDayOfMonth);
   }
 
@@ -349,7 +403,7 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
 }
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
-/// next month's with the [week] occurence of the [day] ([DateTime.weekday]
+/// next month's with the [week] occurrence of the [day] ([DateTime.weekday]
 /// is the [day]'s [Weekday.dateTimeValue]).
 ///
 /// E.g.
@@ -381,15 +435,34 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
   /// - If the current [date] - [DateTime.day] is less than the [DateTime.month]
   /// [week], it's returned the same month with the [DateTime.day] being the
   /// [day] of the [week].
-  /// - If the current [date] - [DateTime.day] is greater than the [DateTime.month]
-  /// [week], it's returned the next month with the [DateTime.day] being the
-  /// [day] of the [week].
+  /// - If the current [date] - [DateTime.day] is greater than the
+  /// [DateTime.month], [week], it's returned the next month with the
+  /// [DateTime.day] being the [day] of the [week].
   @override
   DateTime startDate(DateTime date) {
     if (valid(date)) return date;
     final thisMonthDay = week.weekdayOf(
       year: date.year,
-      month: date.day,
+      month: date.month,
+      day: day,
+      utc: date.isUtc,
+    );
+    if (date.day < thisMonthDay.day) return thisMonthDay;
+    return next(date);
+  }
+
+  /// Returns the next date that fits the [day] and the [week].
+  /// - If the current [date] - [DateTime.day] is less than the [DateTime.month]
+  /// [week], it's returned the same month with the [DateTime.day] being the
+  /// [day] of the [week].
+  /// - If the current [date] - [DateTime.day] is greater than the
+  /// [DateTime.month], [week], it's returned the next month with the
+  /// [DateTime.day] being the [day] of the [week].
+  @override
+  DateTime next(DateTime date) {
+    final thisMonthDay = week.weekdayOf(
+      year: date.year,
+      month: date.month,
       day: day,
       utc: date.isUtc,
     );
@@ -402,41 +475,52 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
     );
   }
 
-  /// Returns the [date] - [DateTime.month] + [months] with the [week] occurence
-  /// of the [day].
+  /// Returns the previous date that fits the [day] and the [week].
+  /// - If the current [date] - [DateTime.day] is less than the [DateTime.month]
+  /// [week], it's returned the same month with the [DateTime.day] being the
+  /// [day] of the [week].
+  /// - If the current [date] - [DateTime.day] is greater than the
+  /// [DateTime.month], [week], it's returned the previous month with the
+  /// [DateTime.day] being the [day] of the [week].
   @override
-  DateTime addMonths(DateTime date, int months) {
-    if (months == 0) return date;
-    if (!valid(date)) {
-      final thisMonthsDay = week.weekdayOf(
-        year: date.year,
-        month: date.month,
-        day: day,
-        utc: date.isUtc,
-      );
-      if (months.isNegative) {
-        if (date.day < thisMonthsDay.day) {
-          date = date.firstDayOfMonth.subtract(const Duration(days: 1));
-          months++;
-        }
-      } else {
-        if (date.day > thisMonthsDay.day) {
-          date = date.lastDayOfMonth.add(const Duration(days: 1));
-          months--;
-        }
-      }
-    }
-    return week
-        .weekdayOf(
-          year: date.year,
-          month: date.month + months,
-          day: day,
-          utc: date.isUtc,
-        )
-        .add(date.timeOfDay);
+  DateTime previous(DateTime date) {
+    final thisMonthDay = week.weekdayOf(
+      year: date.year,
+      month: date.month,
+      day: day,
+      utc: date.isUtc,
+    );
+    if (date.day > thisMonthDay.day) return thisMonthDay;
+    return week.weekdayOf(
+      year: date.year,
+      month: date.month - 1,
+      day: day,
+      utc: date.isUtc,
+    );
   }
 
-  /// Returns the [date] - [DateTime.year] + [years] with the [week] occurence
+  /// Returns the [date] - [DateTime.month] + [months] with the [week]
+  /// occurrence of the [day].
+  @override
+  DateTime addMonths(DateTime date, int months) {
+    if (months == 0) return startDate(date);
+    int localMonths = months;
+    DateTime localDate = startDate(date);
+    if (localMonths.isNegative) {
+      while (localMonths < 0) {
+        localDate = previous(localDate);
+        localMonths++;
+      }
+    } else {
+      while (localMonths > 0) {
+        localDate = next(localDate);
+        localMonths--;
+      }
+    }
+    return localDate;
+  }
+
+  /// Returns the [date] - [DateTime.year] + [years] with the [week] occurrence
   /// of the [day].
   ///
   /// Basically, it's the same as [addMonths] but with the months parameter
@@ -480,6 +564,14 @@ class EveryDayInYear extends DateValidatorDayInYear
   }
 
   /// Returns the next date that fits the [dayInYear].
+  /// - If the current [date] - [DayInYear.dayInYear] is equal to `zero`,
+  /// [date] is returned.
+  /// - If the current [date] - [DayInYear.dayInYear] is less than the
+  /// [dayInYear], it's returned the same year with the [DayInYear.dayInYear]
+  /// being the [dayInYear].
+  /// - If the current [date] - [DayInYear.dayInYear] is greater than the
+  /// [dayInYear], it's returned the next year with the [DayInYear.dayInYear]
+  /// being the [dayInYear].
   @override
   DateTime startDate(DateTime date) {
     if (valid(date)) return date;
@@ -487,36 +579,71 @@ class EveryDayInYear extends DateValidatorDayInYear
         .add(Duration(days: dayInYear - 1))
         .clamp(max: date.lastDayOfYear);
     if (date.dayInYear <= dayInYear) return thisYearDay;
-    return date.lastDayOfYear
-        .add(Duration(days: dayInYear))
+    return next(date);
+  }
+
+  /// Returns the next date that fits the [dayInYear].
+  /// - If the current [date] - [DayInYear.dayInYear] is less than the
+  /// [dayInYear], it's returned the same year with the [DayInYear.dayInYear]
+  /// being the [dayInYear].
+  /// - If the current [date] - [DayInYear.dayInYear] is greater than the
+  /// [dayInYear], it's returned the next year with the [DayInYear.dayInYear]
+  /// being the [dayInYear].
+  @override
+  DateTime next(DateTime date) {
+    if (!date.isLeapYear && dayInYear == 366) {
+      return date.copyWith(year: date.year + 1).lastDayOfYear;
+    }
+    final thisYearDay = date.firstDayOfYear
+        .add(Duration(days: dayInYear - 1))
+        .clamp(max: date.lastDayOfYear);
+    if (date.dayInYear < dayInYear) return thisYearDay;
+    return date
+        .copyWith(year: date.year + 1)
+        .firstDayOfYear
+        .add(Duration(days: dayInYear - 1))
         .clamp(max: date.copyWith(year: date.year + 1).lastDayOfYear);
+  }
+
+  /// Returns the previous date that fits the [dayInYear].
+  /// - If the current [date] - [DayInYear.dayInYear] is greater than the
+  /// [dayInYear], it's returned the same year with the [DayInYear.dayInYear]
+  /// being the [dayInYear].
+  /// - If the current [date] - [DayInYear.dayInYear] is less than the
+  /// [dayInYear], it's returned the previous year with the
+  /// [DayInYear.dayInYear] being the [dayInYear].
+  @override
+  DateTime previous(DateTime date) {
+    final thisYearDay = date.firstDayOfYear
+        .add(Duration(days: dayInYear - 1))
+        .clamp(max: date.lastDayOfYear);
+    if (date.dayInYear > dayInYear) return thisYearDay;
+    return date
+        .copyWith(year: date.year - 1)
+        .firstDayOfYear
+        .add(Duration(days: dayInYear - 1))
+        .clamp(max: date.copyWith(year: date.year - 1).lastDayOfYear);
   }
 
   /// Returns a new [DateTime] where the year is [years] from this year and the
   /// [DateTime.day] is equal to [dayInYear]-1 added to January 1st.
   @override
   DateTime addYears(DateTime date, int years) {
-    if (years == 0) return date;
-    if (!valid(date)) {
-      final thisYearsDay = date.firstDayOfYear
-          .add(Duration(days: dayInYear - 1))
-          .clamp(max: date.lastDayOfYear);
-      if (years.isNegative) {
-        if (date.day < thisYearsDay.day) {
-          date = date.firstDayOfYear.subtract(const Duration(days: 1));
-          years++;
-        }
-      } else {
-        if (date.day > thisYearsDay.day) {
-          date = date.lastDayOfYear.add(const Duration(days: 1));
-          years--;
-        }
+    if (years == 0) return startDate(date);
+    int localYears = years;
+    DateTime localDate = startDate(date);
+    if (localYears.isNegative) {
+      while (localYears < 0) {
+        localDate = previous(localDate);
+        localYears++;
+      }
+    } else {
+      while (localYears > 0) {
+        localDate = next(localDate);
+        localYears--;
       }
     }
-    return date.firstDayOfYear
-        .copyWith(year: date.year + years)
-        .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.copyWith(year: date.year + years).lastDayOfYear);
+    return localDate;
   }
 
   @override
@@ -548,7 +675,9 @@ class EveryDateValidatorIntersection<E extends EveryDateValidator>
     if ((limit != null) && (date.isAfter(limit) || (date == limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final startingDates = map((every) => _startDate(every, date, limit: limit));
+    final startingDates = map(
+      (every) => LimitedOrEveryHandler.startDate(every, date, limit: limit),
+    );
     final validDates = startingDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reduceFuture);
@@ -566,7 +695,8 @@ class EveryDateValidatorIntersection<E extends EveryDateValidator>
     if ((limit != null) && (date.isAfter(limit) || (date == limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final nextDates = map((every) => _next(every, date, limit: limit));
+    final nextDates =
+        map((every) => LimitedOrEveryHandler.next(every, date, limit: limit));
     final validDates = nextDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reduceFuture);
@@ -584,7 +714,9 @@ class EveryDateValidatorIntersection<E extends EveryDateValidator>
     if ((limit != null) && (date.isBefore(limit) || (date == limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final previousDates = map((every) => _previous(every, date, limit: limit));
+    final previousDates = map(
+      (every) => LimitedOrEveryHandler.previous(every, date, limit: limit),
+    );
     final validDates = previousDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reducePast);
@@ -623,7 +755,9 @@ class EveryDateValidatorUnion<E extends EveryDateValidator>
   @override
   DateTime startDate(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    final startingDates = map((every) => _startDate(every, date, limit: limit));
+    final startingDates = map(
+      (every) => LimitedOrEveryHandler.startDate(every, date, limit: limit),
+    );
     return startingDates.reduce(_reduceFuture);
   }
 
@@ -636,7 +770,8 @@ class EveryDateValidatorUnion<E extends EveryDateValidator>
   @override
   DateTime next(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    final nextDates = map((every) => _next(every, date, limit: limit));
+    final nextDates =
+        map((every) => LimitedOrEveryHandler.next(every, date, limit: limit));
     return nextDates.reduce(_reduceFuture);
   }
 
@@ -649,7 +784,9 @@ class EveryDateValidatorUnion<E extends EveryDateValidator>
   @override
   DateTime previous(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    final previousDates = map((every) => _previous(every, date, limit: limit));
+    final previousDates = map(
+      (every) => LimitedOrEveryHandler.previous(every, date, limit: limit),
+    );
     return previousDates.reduce(_reducePast);
   }
 
@@ -678,7 +815,9 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
     if ((limit != null) && (date.isAfter(limit) || (date == limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final startingDates = map((every) => _startDate(every, date, limit: limit));
+    final startingDates = map(
+      (every) => LimitedOrEveryHandler.startDate(every, date, limit: limit),
+    );
     final validDates = startingDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reduceFuture);
@@ -696,7 +835,8 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
     if ((limit != null) && (date.isAfter(limit) || (date == limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final nextDates = map((every) => _next(every, date, limit: limit));
+    final nextDates =
+        map((every) => LimitedOrEveryHandler.next(every, date, limit: limit));
     final validDates = nextDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reduceFuture);
@@ -714,7 +854,9 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
     if ((limit != null) && (date.isBefore(limit) || (date == limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final previousDates = map((every) => _previous(every, date, limit: limit));
+    final previousDates = map(
+      (every) => LimitedOrEveryHandler.previous(every, date, limit: limit),
+    );
     final validDates = previousDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(_reducePast);
@@ -735,48 +877,19 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
   }
 }
 
-DateTime _startDate<T extends Every>(
-  T every,
-  DateTime date, {
-  required DateTime? limit,
-}) {
-  if (every is! LimitedEvery) return every.startDate(date);
-  return every.startDate(date, limit: limit);
-}
-
-DateTime _next<T extends Every>(
-  T every,
-  DateTime date, {
-  required DateTime? limit,
-}) {
-  if (every is! LimitedEvery) return every.next(date);
-  return every.next(date, limit: limit);
-}
-
-DateTime _previous<T extends Every>(
-  T every,
-  DateTime date, {
-  required DateTime? limit,
-}) {
-  if (every is! LimitedEvery) return every.previous(date);
-  return every.previous(date, limit: limit);
-}
-
-DateTime _reduceFuture(DateTime value, DateTime element) {
-  return value.isBefore(element) ? value : element;
-}
-
-DateTime _reducePast(DateTime value, DateTime element) {
-  return value.isAfter(element) ? value : element;
-}
-
 /// Exception thrown when a date limit is reached.
+///
+/// Thrown when a [LimitedEvery] method would return a date that is after (or
+/// before in [LimitedEvery.previous] case) the [limit] date.
+///
+/// Should **_not_** be thrown when the resulting [date] is equal to the [limit]
+/// date.
 class DateTimeLimitReachedException implements Exception {
   /// Exception thrown when a date limit is reached.
   const DateTimeLimitReachedException({
     required this.date,
     required this.limit,
-  });
+  }) : assert(date != limit, 'Invalid exception');
 
   /// Date that reached the limit.
   final DateTime date;
@@ -788,4 +901,12 @@ class DateTimeLimitReachedException implements Exception {
   String toString() {
     return 'DateTimeLimitException: $date has passed $limit';
   }
+}
+
+DateTime _reduceFuture(DateTime value, DateTime element) {
+  return value.isBefore(element) ? value : element;
+}
+
+DateTime _reducePast(DateTime value, DateTime element) {
+  return value.isAfter(element) ? value : element;
 }
