@@ -1,12 +1,17 @@
 # DueDate
 
 [![pub package](https://img.shields.io/pub/v/due_date.svg)](https://pub.dev/packages/due_date)
-
-[![likes](https://badges.bar/due_date/likes)](https://pub.dev/packages/due_date/score)
-
-[![pub points](https://badges.bar/due_date/pub%20points)](https://pub.dev/packages/due_date/score)
-
-[![popularity](https://badges.bar/due_date/popularity)](https://pub.dev/packages/due_date/score)
+[![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/FMorschel/due_date/main/LICENSE)
+<!--- Prepare for future badges when the package is more mature and has more users
+<a href="https://pub.dev/packages/due_date"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/FMorschel/due_date"></a>
+<a href="https://github.com/FMorschel/due_date/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/FMorschel/due_date"></a>
+<a href="https://githubc.com/FMorschel/due_date/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed-raw/FMorschel/due_date" alt="GitHub closed issues"></a>
+[![GitHub Forks](https://img.shields.io/github/forks/FMorschel/due_date.svg)](https://github.com/FMorschel/due_date/network)
+--->
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/FMorschel)](https://github.com/sponsors/FMorschel)
+<span class="badge-buymeacoffee">
+<a href="https://www.buymeacoffee.com/fmorschel" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a>
+</span>
 
 A package for working with repeating `DateTime` patterns.
 
@@ -102,7 +107,7 @@ Contribute to the package by creating a PR at <https://github.com/FMorschel/due_
 
 File issues at <https://github.com/FMorschel/due_date/issues>.
 
-Discuss related topics at <https://github.com/FMorschel/due_date/discussions>
+Discuss related topics at <https://github.com/FMorschel/due_date/discussions>.
 
 ## Alternatives/Inspiration
 
