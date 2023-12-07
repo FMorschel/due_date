@@ -1,3 +1,7 @@
+[![Build](https://github.com/fmorschel/due_date/actions/workflows/build.yml/badge.svg)](https://github.com/fmorschel/due_date/actions/workflows/build.yml)
+
+[![codecov](https://codecov.io/gh/fmorschel/due_date/branch/main/graph/badge.svg)](https://codecov.io/gh/fmorschel/due_date)
+
 # DueDate
 
 A package for working with repeating `DateTime` patterns.
