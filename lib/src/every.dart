@@ -3,6 +3,7 @@ import 'package:time/time.dart';
 import 'constants.dart';
 import 'date_validator.dart';
 import 'enums.dart';
+import 'every_modifier.dart';
 import 'extensions.dart';
 
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
