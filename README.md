@@ -1,5 +1,17 @@
 # DueDate
 
+[![pub package](https://img.shields.io/pub/v/due_date.svg)](https://pub.dev/packages/due_date)
+
+[![likes](https://badges.bar/due_date/likes)](https://pub.dev/packages/due_date/score)
+
+[![pub points](https://badges.bar/due_date/pub%20points)](https://pub.dev/packages/due_date/score)
+
+[![popularity](https://badges.bar/due_date/popularity)](https://pub.dev/packages/due_date/score)
+
+[![Build](https://github.com/fmorschel/due_date/actions/workflows/build.yml/badge.svg)](https://github.com/fmorschel/due_date/actions/workflows/build.yml)
+
+[![codecov](https://codecov.io/gh/fmorschel/due_date/branch/main/graph/badge.svg)](https://codecov.io/gh/fmorschel/due_date)
+
 A package for working with repeating `DateTime` patterns.
 
 Ever wanted to create a new `DateTime` with, let's say, the same day in month? But the day is 31 and next month only has 30, so you go to 30 and the next day is lost because then you have no variable to save the original's month day? With `DueDateTime` this managing is done for you without any headaches.
@@ -90,6 +102,33 @@ See the API docs [here](https://fmorschel.github.io/due_date/).
 
 Find more information at <https://github.com/FMorschel/due_date>.
 
-Contibute to the package by creating a PR at <https://github.com/FMorschel/due_date/pulls>.
+Contribute to the package by creating a PR at <https://github.com/FMorschel/due_date/pulls>.
 
 File issues at <https://github.com/FMorschel/due_date/issues>.
+
+Discuss related topics at <https://github.com/FMorschel/due_date/discussions>
+
+## Alternatives/Inspiration
+
+- [pub.dev -> time](https://pub.dev/packages/time)
+  - Made me start thinking about this package and how I could improve it with issues and discussions on the GitHub repo.
+
+- [DateUtils -> Flutter](https://api.flutter.dev/flutter/material/DateUtils-class.html)
+  - Inspired me to create the `Period` class and its methods. As well as some `Every` classes.
+
+## What makes this different
+
+This package is focused on working with `DateTime` objects and their patterns. It is not a calendar package, but it can be used to create one.
+It is also not a package to work with timezones. It is focused on the `DateTime` object itself. It does not have any timezone related methods. For that, you may want to check out the [timezone](https://pub.dev/packages/timezone) package.
+
+This is not a package to work with `Duration` objects. It is focused on `DateTime` objects and their patterns. For that, you may want to check out the [time](https://pub.dev/packages/time) package.
+
+This package is not a package to work with `DateTime` objects and their formatting. It is focused on `DateTime` objects and their patterns. For that, you may want to check out the [intl](https://pub.dev/packages/intl) package.
+
+This package is not intended to be a replacement for the `DateTime` class. It is intended to be a complement to it.
+
+The [time](https://pub.dev/packages/time) package is a great package to work with `Duration` and `DateTime` objects. It uses extension methods to add functionality to the `DateTime` class. This package is not intended to be a replacement for the `time` package. It is intended to be a complement to it.
+
+## License
+
+This package is licensed under the MIT license. See the [LICENSE](<https://pub.dev/packages/due_date/license>) file for details.
