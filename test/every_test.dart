@@ -5,6 +5,71 @@ void main() {
   group('EveryWeekday:', () {
     final august12th2022 = DateTime(2022, DateTime.august, 12);
     final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+
+    group('Test base methods logic', () {
+      group('startDate', () {
+        final august13th = DateTime(2022, DateTime.august, 13);
+        test('If the given date would be generated, return it', () {
+          expect(
+            Weekday.saturday.every.startDate(august13th),
+            equals(august13th),
+          );
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            Weekday.saturday.every.startDate(august12th2022),
+            equals(Weekday.saturday.every.next(august12th2022)),
+          );
+        });
+      });
+      group('next', () {
+        final august13th = DateTime(2022, DateTime.august, 13);
+        final august20th = DateTime(2022, DateTime.august, 20);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () {
+            expect(
+              Weekday.saturday.every.next(august13th),
+              equals(august20th),
+            );
+          },
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () {
+            expect(
+              Weekday.saturday.every.next(august12th2022),
+              equals(august13th),
+            );
+          },
+        );
+      });
+      group('previous', () {
+        final august13th = DateTime(2022, DateTime.august, 13);
+        final august6th = DateTime(2022, DateTime.august, 6);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () {
+            expect(
+              Weekday.saturday.every.previous(august13th),
+              equals(august6th),
+            );
+          },
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () {
+            expect(
+              Weekday.saturday.every.previous(august12th2022),
+              equals(august6th),
+            );
+          },
+        );
+      });
+    });
+
     group('Every Saturday', () {
       const everySaturday = EveryWeekday(Weekday.saturday);
       group('Local', () {
@@ -69,11 +134,52 @@ void main() {
   group('EveryWeekdayCountInMonth:', () {
     final august12th2022 = DateTime(2022, DateTime.august, 12);
     final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
-    test('Right day', () {
-      final date = DateTime(2022, DateTime.august, 12);
-      final every = EveryWeekdayCountInMonth.from(date);
-      expect(every.startDate(august12th2022), equals(date));
+
+    group('Test base methods logic', () {
+      const every = EveryWeekdayCountInMonth(
+        day: Weekday.saturday,
+        week: Week.second,
+      );
+      group('startDate', () {
+        final august13th = DateTime(2022, DateTime.august, 13);
+        test('If the given date would be generated, return it', () {
+          expect(every.startDate(august13th), equals(august13th));
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            every.startDate(DateTime(2022, DateTime.august, 14)),
+            equals(every.next(DateTime(2022, DateTime.august, 14))),
+          );
+        });
+      });
+      group('next', () {
+        final august13th = DateTime(2022, DateTime.august, 13);
+        final september10th = DateTime(2022, DateTime.september, 10);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(every.next(august13th), equals(september10th)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(every.next(august12th2022), equals(august13th)),
+        );
+      });
+      group('previous', () {
+        final august13th = DateTime(2022, DateTime.august, 13);
+        final july9th = DateTime(2022, DateTime.july, 9);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(every.previous(august13th), equals(july9th)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(every.previous(august12th2022), equals(july9th)),
+        );
+      });
     });
+
     group('First Monday', () {
       const firstMondayOfMonth = EveryWeekdayCountInMonth(
         week: Week.first,
@@ -88,7 +194,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
             equals(matcher),
           );
         });
@@ -100,7 +206,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
             equals(matcher),
           );
         });
@@ -112,7 +218,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
             equals(matcher),
           );
         });
@@ -124,7 +230,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
             equals(matcher),
           );
         });
@@ -132,7 +238,7 @@ void main() {
           final matcher = DateTime(2022, DateTime.september, 5);
           expect(firstMondayOfMonth.startDate(august12th2022), equals(matcher));
           expect(
-            firstMondayOfMonth.addMonths(august12th2022, 1),
+            firstMondayOfMonth.addMonths(august12th2022, 0),
             equals(matcher),
           );
         });
@@ -144,7 +250,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
             equals(matcher),
           );
         });
@@ -156,7 +262,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
             equals(matcher),
           );
         });
@@ -174,7 +280,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
             equals(matcher),
           );
         });
@@ -190,7 +296,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
             equals(matcher),
           );
         });
@@ -206,7 +312,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
             equals(matcher),
           );
         });
@@ -222,7 +328,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
             equals(matcher),
           );
         });
@@ -233,7 +339,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(august12th2022Utc, 1),
+            firstMondayOfMonth.addMonths(august12th2022Utc, 0),
             equals(matcher),
           );
         });
@@ -249,7 +355,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
             equals(matcher),
           );
         });
@@ -265,7 +371,7 @@ void main() {
             equals(matcher),
           );
           expect(
-            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 1),
+            firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
             equals(matcher),
           );
         });
@@ -313,6 +419,54 @@ void main() {
     });
   });
   group('EveryDueDayMonth:', () {
+    group('Test base methods logic', () {
+      const every = EveryDueDayMonth(15);
+      group('startDate', () {
+        final august15th = DateTime(2022, DateTime.august, 15);
+        test('If the given date would be generated, return it', () {
+          expect(every.startDate(august15th), equals(august15th));
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            every.startDate(DateTime(2022, DateTime.august, 14)),
+            equals(every.next(DateTime(2022, DateTime.august, 14))),
+          );
+        });
+      });
+      group('next', () {
+        final august15th = DateTime(2022, DateTime.august, 15);
+        final september15th = DateTime(2022, DateTime.september, 15);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(every.next(august15th), equals(september15th)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(
+            every.next(DateTime(2022, DateTime.august, 14)),
+            equals(august15th),
+          ),
+        );
+      });
+      group('previous', () {
+        final august15th = DateTime(2022, DateTime.august, 15);
+        final july15th = DateTime(2022, DateTime.july, 15);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(every.previous(august15th), equals(july15th)),
+        );
+        test(
+          'If the given date would not be generated, generate the previous '
+          'valid date',
+          () => expect(
+            every.previous(DateTime(2022, DateTime.august, 16)),
+            equals(august15th),
+          ),
+        );
+      });
+    });
+
     group('Every day 31', () {
       const everyDay31 = EveryDueDayMonth(31);
       group('Local', () {
@@ -381,6 +535,60 @@ void main() {
   group('EveryDayInYear:', () {
     final august12th2022 = DateTime(2022, DateTime.august, 12);
     final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+
+    group('Test base methods logic', () {
+      const every = EveryDayInYear(15);
+      group('startDate', () {
+        final january15th = DateTime(2022, DateTime.january, 15);
+        test('If the given date would be generated, return it', () {
+          expect(
+            every.startDate(january15th),
+            equals(january15th),
+          );
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            every.startDate(DateTime(2022, DateTime.january, 14)),
+            equals(every.next(DateTime(2022, DateTime.january, 14))),
+          );
+        });
+      });
+      group('next', () {
+        final january15th2022 = DateTime(2022, DateTime.january, 15);
+        final january15th2023 = DateTime(2023, DateTime.january, 15);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(every.next(january15th2022), equals(january15th2023)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(
+            every.next(DateTime(2022, DateTime.january, 14)),
+            equals(january15th2022),
+          ),
+        );
+      });
+      group('previous', () {
+        final january15th2022 = DateTime(2022, DateTime.january, 15);
+        final january15th2021 = DateTime(2021, DateTime.january, 15);
+
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () =>
+              expect(every.previous(january15th2022), equals(january15th2021)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(
+            every.previous(DateTime(2022, DateTime.january, 14)),
+            equals(january15th2021),
+          ),
+        );
+      });
+    });
+
     group('Every Day 1', () {
       const everyDay1 = EveryDayInYear(1);
       group('Local', () {
@@ -389,7 +597,7 @@ void main() {
           expect(everyDay1.startDate(august12th2022), equals(nextYearsDayOne));
         });
         test('Previous Year', () {
-          final previousYearsDay1 = DateTime(2021);
+          final previousYearsDay1 = DateTime(2022);
           expect(
             everyDay1.addYears(august12th2022, -1),
             equals(previousYearsDay1),
@@ -412,7 +620,7 @@ void main() {
           );
         });
         test('Previous Year', () {
-          final previousYearsDay1Utc = DateTime.utc(2021);
+          final previousYearsDay1Utc = DateTime.utc(2022);
           expect(
             everyDay1.addYears(august12th2022Utc, -1),
             equals(previousYearsDay1Utc),
@@ -427,7 +635,7 @@ void main() {
         });
       });
     });
-    group('Every Programmer\'s Day', () {
+    group("Every Programmer's Day", () {
       const programmersDay = EveryDayInYear(256);
       group('Local', () {
         test('This year', () {
@@ -557,10 +765,60 @@ void main() {
     });
   });
   group('EveryDateValidatorIntersection', () {
-    final everies = EveryDateValidatorIntersection([
+    const everies = EveryDateValidatorIntersection([
       EveryDueDayMonth(24),
       EveryDateValidatorDifference([EveryWeekday(Weekday.saturday)]),
     ]);
+
+    group('Test base methods logic', () {
+      final date = DateTime(2021, DateTime.july, 25);
+      final expected = DateTime(2022, DateTime.september, 24);
+      group('startDate', () {
+        test('If the given date would be generated, return it', () {
+          expect(
+            everies.startDate(expected),
+            equals(expected),
+          );
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            everies.startDate(date),
+            equals(everies.next(date)),
+          );
+        });
+      });
+      group('next', () {
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(
+            everies.next(expected),
+            equals(DateTime(2022, DateTime.december, 24)),
+          ),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(everies.next(date), equals(expected)),
+        );
+      });
+      group('previous', () {
+        final expectedPrevious = DateTime(2021, DateTime.july, 24);
+
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(
+            everies.previous(expected),
+            equals(expectedPrevious),
+          ),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(everies.previous(date), equals(expectedPrevious)),
+        );
+      });
+    });
+
     group('Start Date', () {
       test('September 24th 2022', () {
         final date = DateTime(2021, DateTime.july, 25);
@@ -577,13 +835,6 @@ void main() {
         final throwsDateTimeLimitReachedException = throwsA(
           isA<DateTimeLimitReachedException>(),
         );
-        test('Self', () {
-          final limit = DateTime(2021, DateTime.july, 22);
-          expect(
-            () => everies.startDate(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
         test('Inner every', () {
           final limit = DateTime(2021, DateTime.july, 23);
           expect(
@@ -591,6 +842,12 @@ void main() {
             throwsDateTimeLimitReachedException,
           );
         });
+      });
+      test('The limit is the expected date', () {
+        final date = DateTime(2021, DateTime.july, 23);
+        final expected = DateTime(2021, DateTime.july, 24);
+
+        expect(everies.startDate(date, limit: expected), equals(expected));
       });
     });
     group('Next', () {
@@ -609,13 +866,6 @@ void main() {
         final throwsDateTimeLimitReachedException = throwsA(
           isA<DateTimeLimitReachedException>(),
         );
-        test('Self', () {
-          final limit = DateTime(2021, DateTime.july, 22);
-          expect(
-            () => everies.next(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
         test('Inner every', () {
           final limit = DateTime(2021, DateTime.july, 23);
           expect(
@@ -623,6 +873,12 @@ void main() {
             throwsDateTimeLimitReachedException,
           );
         });
+      });
+      test('The limit is the expected date', () {
+        final date = DateTime(2021, DateTime.july, 23);
+        final expected = DateTime(2021, DateTime.july, 24);
+
+        expect(everies.next(date, limit: expected), equals(expected));
       });
     });
     group('Previous', () {
@@ -641,13 +897,6 @@ void main() {
         final throwsDateTimeLimitReachedException = throwsA(
           isA<DateTimeLimitReachedException>(),
         );
-        test('Self', () {
-          final limit = DateTime(2022, DateTime.september, 26);
-          expect(
-            () => everies.previous(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
         test('Inner every', () {
           final limit = DateTime(2022, DateTime.september, 25);
           expect(
@@ -656,13 +905,69 @@ void main() {
           );
         });
       });
+      test('The limit is the expected date', () {
+        final date = DateTime(2021, DateTime.september, 26);
+        final expected = DateTime(2021, DateTime.july, 24);
+
+        expect(everies.previous(date, limit: expected), equals(expected));
+      });
     });
   });
   group('DateValidatorUnion', () {
-    final everies = EveryDateValidatorUnion([
+    const everies = EveryDateValidatorUnion([
       EveryDueDayMonth(24),
       EveryDateValidatorDifference([EveryWeekday(Weekday.saturday)]),
     ]);
+
+    group('Test base methods logic', () {
+      final date = DateTime(2022, DateTime.september, 23);
+      final expected = DateTime(2022, DateTime.september, 24);
+      group('startDate', () {
+        test('If the given date would be generated, return it', () {
+          expect(
+            everies.startDate(expected),
+            equals(expected),
+          );
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            everies.startDate(date),
+            equals(everies.next(date)),
+          );
+        });
+      });
+      group('next', () {
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(
+            everies.next(expected),
+            equals(DateTime(2022, DateTime.october)),
+          ),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(
+            everies.next(DateTime(2022, DateTime.september, 17)),
+            equals(expected),
+          ),
+        );
+      });
+      group('previous', () {
+        final expectedPrevious = DateTime(2022, DateTime.september, 17);
+
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(everies.previous(expected), equals(expectedPrevious)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(everies.previous(date), equals(expectedPrevious)),
+        );
+      });
+    });
+
     group('Start Date', () {
       test('All valid', () {
         final date = DateTime(2022, DateTime.september, 23);
@@ -691,6 +996,12 @@ void main() {
             throwsDateTimeLimitReachedException,
           );
         });
+      });
+      test('The limit is the expected date', () {
+        final date = DateTime(2021, DateTime.july, 23);
+        final expected = DateTime(2021, DateTime.july, 24);
+
+        expect(everies.startDate(date, limit: expected), equals(expected));
       });
     });
     group('Next', () {
@@ -722,6 +1033,12 @@ void main() {
           );
         });
       });
+      test('The limit is the expected date', () {
+        final date = DateTime(2021, DateTime.july, 23);
+        final expected = DateTime(2021, DateTime.july, 24);
+
+        expect(everies.next(date, limit: expected), equals(expected));
+      });
     });
     group('Previous', () {
       test('All valid', () {
@@ -752,17 +1069,70 @@ void main() {
           );
         });
       });
+      test('The limit is the expected date', () {
+        final date = DateTime(2022, DateTime.september, 25);
+        final expected = DateTime(2022, DateTime.september, 24);
+
+        expect(everies.previous(date, limit: expected), equals(expected));
+      });
     });
   });
   group('DateValidatorDifference', () {
-    final everies = EveryDateValidatorDifference([
+    const everies = EveryDateValidatorDifference([
       EveryDueDayMonth(24),
       EveryDateValidatorIntersection([EveryWeekday(Weekday.saturday)]),
     ]);
+
+    group('Test base methods logic', () {
+      final date = DateTime(2022, DateTime.september, 23);
+      final expected = DateTime(2022, DateTime.october);
+      group('startDate', () {
+        test('If the given date would be generated, return it', () {
+          expect(
+            everies.startDate(expected),
+            equals(expected),
+          );
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            everies.startDate(date),
+            equals(everies.next(date)),
+          );
+        });
+      });
+      group('next', () {
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(
+            everies.next(expected),
+            equals(DateTime(2022, DateTime.october, 8)),
+          ),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(everies.next(date), equals(expected)),
+        );
+      });
+      group('previous', () {
+        final expectedPrevious = DateTime(2022, DateTime.september, 17);
+
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(everies.previous(expected), equals(expectedPrevious)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(everies.previous(date), equals(expectedPrevious)),
+        );
+      });
+    });
+
     group('Start Date', () {
       test('All valid', () {
         final date = DateTime(2022, DateTime.september, 24);
-        final expected = DateTime(2022, DateTime.october, 1);
+        final expected = DateTime(2022, DateTime.october);
         expect(everies.startDate(date), equals(expected));
       });
       test('Wrong day', () {
@@ -780,13 +1150,6 @@ void main() {
         final throwsDateTimeLimitReachedException = throwsA(
           isA<DateTimeLimitReachedException>(),
         );
-        test('Self', () {
-          final limit = DateTime(2022, DateTime.september, 24);
-          expect(
-            () => everies.startDate(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
         test('Inner every', () {
           final limit = DateTime(2022, DateTime.september, 25);
           expect(
@@ -794,12 +1157,18 @@ void main() {
             throwsDateTimeLimitReachedException,
           );
         });
+      });
+      test('The limit is the expected date', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final expected = DateTime(2022, DateTime.october);
+
+        expect(everies.startDate(date, limit: expected), equals(expected));
       });
     });
     group('Next', () {
       test('All valid', () {
         final date = DateTime(2022, DateTime.september, 24);
-        final expected = DateTime(2022, DateTime.october, 1);
+        final expected = DateTime(2022, DateTime.october);
         expect(everies.next(date), equals(expected));
       });
       test('Wrong day', () {
@@ -817,13 +1186,6 @@ void main() {
         final throwsDateTimeLimitReachedException = throwsA(
           isA<DateTimeLimitReachedException>(),
         );
-        test('Self', () {
-          final limit = DateTime(2022, DateTime.september, 24);
-          expect(
-            () => everies.next(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
         test('Inner every', () {
           final limit = DateTime(2022, DateTime.september, 25);
           expect(
@@ -831,6 +1193,12 @@ void main() {
             throwsDateTimeLimitReachedException,
           );
         });
+      });
+      test('The limit is the expected date', () {
+        final date = DateTime(2022, DateTime.september, 24);
+        final expected = DateTime(2022, DateTime.october);
+
+        expect(everies.next(date, limit: expected), equals(expected));
       });
     });
     group('Previous', () {
@@ -854,13 +1222,6 @@ void main() {
         final throwsDateTimeLimitReachedException = throwsA(
           isA<DateTimeLimitReachedException>(),
         );
-        test('Self', () {
-          final limit = DateTime(2022, DateTime.september, 26);
-          expect(
-            () => everies.previous(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
         test('Inner every', () {
           final limit = DateTime(2022, DateTime.september, 25);
           expect(
@@ -868,6 +1229,12 @@ void main() {
             throwsDateTimeLimitReachedException,
           );
         });
+      });
+      test('The limit is the expected date', () {
+        final date = DateTime(2022, DateTime.september, 26);
+        final expected = DateTime(2022, DateTime.september, 17);
+
+        expect(everies.previous(date, limit: expected), equals(expected));
       });
     });
   });

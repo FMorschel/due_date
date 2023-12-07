@@ -52,8 +52,9 @@ class Period with EquatableMixin implements Comparable<Period> {
       } else {
         final last = merged.last;
         if (last.overlapsWith(current)) {
-          merged.removeLast();
-          merged.add(last.mergeWith(current)!);
+          merged
+            ..removeLast()
+            ..add(last.mergeWith(current)!);
         } else {
           merged.add(current);
         }
@@ -80,8 +81,9 @@ class Period with EquatableMixin implements Comparable<Period> {
       final previous = localPeriods[i - 1];
       final lastMerged = merged.last;
       if (lastMerged.overlapsWith(current)) {
-        merged.removeLast();
-        merged.add(lastMerged.getIntersection(current)!);
+        merged
+          ..removeLast()
+          ..add(lastMerged.getIntersection(current)!);
       } else if (previous.overlapsWith(current)) {
         merged.add(previous.getIntersection(current)!);
       } else {
@@ -630,12 +632,13 @@ class Period with EquatableMixin implements Comparable<Period> {
 
   @override
   String toString({DateFormat? dateFormat}) {
+    // ignore: no_runtimetype_tostring, simply to print the class
     return '$runtimeType(${dateFormat?.format(start) ?? start}, '
         '${dateFormat?.format(end) ?? end})';
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is Period) && (other.start == start) && (other.end == end));
@@ -649,8 +652,9 @@ class Period with EquatableMixin implements Comparable<Period> {
       if (period.doesNotOverlapWith(this)) {
         localPeriods.remove(period);
       } else if (containsPartially(period)) {
-        localPeriods.remove(period);
-        localPeriods.add(getIntersection(period)!);
+        localPeriods
+          ..remove(period)
+          ..add(getIntersection(period)!);
       }
     }
     return localPeriods;
@@ -685,6 +689,8 @@ class SecondPeriod extends Period {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 999 milliseconds and '
+          '999 microseconds',
         ) {
     const microsecond = Duration(microseconds: 1);
     if ((duration != const Duration(seconds: 1)) ||
@@ -711,6 +717,8 @@ class MinutePeriod extends Period {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 59 seconds, 999 '
+          'milliseconds and 999 microseconds',
         ) {
     const microsecond = Duration(microseconds: 1);
     if (duration != const Duration(minutes: 1) ||
@@ -750,6 +758,8 @@ class HourPeriod extends Period {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 59 minutes, 59 '
+          'seconds, 999 milliseconds and 999 microseconds',
         ) {
     const microsecond = Duration(microseconds: 1);
     if (duration != const Duration(hours: 1) ||
@@ -790,6 +800,8 @@ class DayPeriod extends Period {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 23 hours, 59 minutes, '
+          '59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     const microsecond = Duration(microseconds: 1);
     if (!start.isAtSameDayAs(end) ||
@@ -816,8 +828,11 @@ class DayPeriod extends Period {
   }
 }
 
+/// {@template dayPeriodBundle}
 /// A base class that represents a bundle of days.
+/// {@endtemplate}
 abstract class DayPeriodBundle extends Period {
+  /// {@macro dayPeriodBundle}
   DayPeriodBundle({required super.start, required super.end});
 
   /// Returns the list of days in this bundle.
@@ -832,12 +847,13 @@ class WeekPeriod extends Period implements DayPeriodBundle {
           end.difference(start) <=
               const Duration(
                 days: 7,
-                hours: 0,
                 minutes: 59,
                 seconds: 59,
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 7 days, 0 hours, '
+          '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     if ((duration > const Duration(days: 7, hours: 1)) ||
         (duration <
@@ -855,8 +871,8 @@ class WeekPeriod extends Period implements DayPeriodBundle {
       throw ArgumentError.value(
         end,
         'end',
-        'End must be at the same week as start and must be the last microsecond '
-            'of the week',
+        'End must be at the same week as start and must be the last '
+            'microsecond of the week',
       );
     }
   }
@@ -888,6 +904,8 @@ class FortnightPeriod extends Period implements DayPeriodBundle {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 15 days, 23 hours, '
+          '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     if ((duration > const Duration(days: 16, hours: 1)) ||
         (duration <
@@ -942,6 +960,8 @@ class MonthPeriod extends Period implements DayPeriodBundle {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 30 days, 23 hours, '
+          '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     const microsecond = Duration(microseconds: 1);
     if (!start.isAtSameMonthAs(end) ||
@@ -953,8 +973,8 @@ class MonthPeriod extends Period implements DayPeriodBundle {
       throw ArgumentError.value(
         end,
         'end',
-        'End must be at the same month as start and must be the last microsecond '
-            'of the month',
+        'End must be at the same month as start and must be the last '
+            'microsecond of the month',
       );
     }
   }
@@ -972,8 +992,11 @@ class MonthPeriod extends Period implements DayPeriodBundle {
   }
 }
 
+/// {@template monthPeriodBundle}
 /// A base class that represents a bundle of months.
+/// {@endtemplate}
 abstract class MonthPeriodBundle extends Period {
+  /// {@macro monthPeriodBundle}
   MonthPeriodBundle({required super.start, required super.end});
 
   /// Returns the list of months in this bundle.
@@ -994,6 +1017,8 @@ class TrimesterPeriod extends Period implements MonthPeriodBundle {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 91 days, 23 hours, '
+          '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     if ((start.timeOfDay != Duration.zero) ||
         (end.timeOfDay != end.endOfDay.timeOfDay) ||
@@ -1037,6 +1062,8 @@ class SemesterPeriod extends Period implements MonthPeriodBundle {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 183 days, 23 hours, '
+          '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     if ((start.timeOfDay != Duration.zero) ||
         (end.timeOfDay != end.endOfDay.timeOfDay) ||
@@ -1080,6 +1107,8 @@ class YearPeriod extends Period implements MonthPeriodBundle {
                 milliseconds: 999,
                 microseconds: 999,
               ),
+          'The difference between start and end must be 365 days, 23 hours, '
+          '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     const microsecond = Duration(microseconds: 1);
     if (!start.isAtSameYearAs(end) ||
@@ -1093,8 +1122,8 @@ class YearPeriod extends Period implements MonthPeriodBundle {
       throw ArgumentError.value(
         end,
         'end',
-        'End must be at the same year as start and must be the last microsecond '
-            'of the year',
+        'End must be at the same year as start and must be the last '
+            'microsecond of the year',
       );
     }
   }

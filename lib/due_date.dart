@@ -10,7 +10,7 @@
 /// [WeekdayOccurrence]s constants) and [EveryDayInYear].
 ///
 /// The [Every] class is a base class that processes all the base operations for
-/// [DueDateTime]. You can mix in one of the folowing mixins:
+/// [DueDateTime]. You can mix in one of the following mixins:
 /// - [EveryWeek];
 /// - [EveryMonth];
 /// - [EveryYear];
@@ -23,16 +23,20 @@
 /// class.
 library due_date;
 
+import 'src/due_date.dart';
+import 'src/enums.dart' show WeekdayOccurrence;
+import 'src/every.dart';
+
 export 'src/date_validator.dart';
 export 'src/due_date.dart';
-export 'src/enums.dart' show Weekday, Month, Week, WeekdayOccurrence;
+export 'src/enums.dart' show Month, Week, Weekday, WeekdayOccurrence;
 export 'src/every.dart';
 export 'src/extensions.dart'
     show
-        DayInYear,
         AddDays,
-        WeekCalc,
         ClampInMonth,
-        PreviousNext,
         DateValidatorListExt,
-        EveryDateValidatorListExt;
+        DayInYear,
+        EveryDateValidatorListExt,
+        PreviousNext,
+        WeekCalc;

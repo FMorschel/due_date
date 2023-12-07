@@ -21,7 +21,7 @@ void main() {
           equals(matcherFitted),
         );
       });
-      test('Midlle of the month', () {
+      test('Middle of the month', () {
         expect(
           DueDateTime(every: dueDay30, year: year, month: 2, day: 15),
           equals(matcher),
@@ -29,7 +29,7 @@ void main() {
       });
       test('Previous month end', () {
         expect(
-          DueDateTime(every: dueDay30, year: year, month: 1, day: 31),
+          DueDateTime(every: dueDay30, year: year, day: 31),
           equals(matcher),
         );
       });
@@ -55,7 +55,7 @@ void main() {
           equals(matcherFitted),
         );
       });
-      test('Midlle of the month', () {
+      test('Middle of the month', () {
         expect(
           DueDateTime.utc(every: dueDay30, year: year, month: 2, day: 15),
           equals(matcher),
@@ -63,7 +63,7 @@ void main() {
       });
       test('Previous month end', () {
         expect(
-          DueDateTime.utc(every: dueDay30, year: year, month: 1, day: 31),
+          DueDateTime.utc(every: dueDay30, year: year, day: 31),
           equals(matcher),
         );
       });
@@ -194,7 +194,7 @@ void main() {
     test('Different day', () {
       expect(
         dueDate.copyWith(day: 2),
-        equals(DateTime(2022, 2, 1)),
+        equals(DateTime(2022, 2)),
       );
     });
     test('Different hour', () {
@@ -230,7 +230,7 @@ void main() {
   });
   test('toUtc', () {
     final dueDate =
-        DueDateTime(every: EveryDueDayMonth(30), year: 2022).toUtc();
+        DueDateTime(every: const EveryDueDayMonth(30), year: 2022).toUtc();
     expect(
       dueDate.isUtc,
       isTrue,
@@ -238,36 +238,37 @@ void main() {
   });
   test('toLocal', () {
     final dueDate =
-        DueDateTime.utc(every: EveryDueDayMonth(30), year: 2022).toLocal();
+        DueDateTime.utc(every: const EveryDueDayMonth(30), year: 2022)
+            .toLocal();
     expect(
       dueDate.isUtc,
       isFalse,
     );
   });
   group('Add:', () {
-    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
+    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
     test('2 days', () {
       expect(
         dueDate.add(const Duration(days: 2)),
         equals(DateTime(2022, 2, 28)),
       );
     });
-    test('2 days, don\'t keep every', () {
+    test("2 days, don't keep every", () {
       expect(
         dueDate.add(const Duration(days: 2), sameEvery: false),
-        equals(DateTime(2022, 2, 1)),
+        equals(DateTime(2022, 2)),
       );
     });
   });
   group('Subtract:', () {
-    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
+    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
     test('2 days', () {
       expect(
         dueDate.subtract(const Duration(days: 2)),
         equals(DateTime(2022, 1, 30)),
       );
     });
-    test('2 days, don\'t keep every', () {
+    test("2 days, don't keep every", () {
       expect(
         dueDate.subtract(const Duration(days: 2), sameEvery: false),
         equals(DateTime(2022, 1, 28)),
@@ -275,7 +276,7 @@ void main() {
     });
   });
   group('AddWeeks:', () {
-    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
+    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
     test('1 week', () {
       expect(
         dueDate.addWeeks(1),
@@ -288,7 +289,7 @@ void main() {
         equals(DateTime(2022, 2, 28)),
       );
     });
-    test('2 weeks, don\'t keep every', () {
+    test("2 weeks, don't keep every", () {
       expect(
         dueDate.addWeeks(2, sameEvery: false),
         equals(DateTime(2022, 2, 13)),
@@ -296,7 +297,7 @@ void main() {
     });
   });
   group('SubtractWeeks:', () {
-    final dueDate = DueDateTime(every: EveryDueDayMonth(30), year: 2022);
+    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
     test('1 week', () {
       expect(
         dueDate.subtractWeeks(1),
@@ -309,7 +310,7 @@ void main() {
         equals(dueDate),
       );
     });
-    test('2 weeks, don\'t keep every', () {
+    test("2 weeks, don't keep every", () {
       expect(
         dueDate.subtractWeeks(2, sameEvery: false),
         equals(DateTime(2022, 1, 16)),
@@ -318,7 +319,7 @@ void main() {
   });
   group('AddMonths', () {
     final dueDate = DueDateTime(
-      every: EveryWeekdayCountInMonth(
+      every: const EveryWeekdayCountInMonth(
         day: Weekday.sunday,
         week: Week.last,
       ),
@@ -336,7 +337,7 @@ void main() {
         equals(DateTime(2022, 4, 24)),
       );
     });
-    test('Add 3 month don\'t keep every', () {
+    test("Add 3 month don't keep every", () {
       final newDueDate = DueDateTime.fromDate(dueDate.addMonths(3));
       final actual = dueDate.addMonths(3, sameEvery: false);
       expect(actual, equals(newDueDate));
@@ -349,7 +350,7 @@ void main() {
   });
   group('SubtractMonths', () {
     final dueDate = DueDateTime(
-      every: EveryWeekdayCountInMonth(
+      every: const EveryWeekdayCountInMonth(
         day: Weekday.sunday,
         week: Week.last,
       ),
@@ -379,7 +380,7 @@ void main() {
     });
   });
   test('Subtract 1 year', () {
-    final dueDate = DueDateTime(every: EveryDayInYear(30), year: 2022);
+    final dueDate = DueDateTime(every: const EveryDayInYear(30), year: 2022);
     final newDueDate = DueDateTime.fromDate(dueDate.subtractYears(1));
     expect(
       dueDate.subtractYears(1),
@@ -395,7 +396,7 @@ void main() {
     );
   });
   test('Add 1 year', () {
-    final dueDate = DueDateTime(every: EveryDayInYear(30), year: 2022);
+    final dueDate = DueDateTime(every: const EveryDayInYear(30), year: 2022);
     final newDueDate = DueDateTime.fromDate(dueDate.addYears(1));
     expect(
       dueDate.addYears(1),
@@ -414,7 +415,7 @@ void main() {
     group('Local', () {
       test('EveryWeek', () {
         final everyWeekday = DueDateTime(
-          every: EveryWeekday(Weekday.monday),
+          every: const EveryWeekday(Weekday.monday),
           year: 2022,
           month: DateTime.august,
           day: 22,
@@ -426,7 +427,7 @@ void main() {
       });
       test('EveryDueDayMonth', () {
         final everyWeekday = DueDateTime(
-          every: EveryDueDayMonth(22),
+          every: const EveryDueDayMonth(22),
           year: 2022,
           month: DateTime.august,
           day: 22,
@@ -440,7 +441,7 @@ void main() {
         final day = DateTime(2022, DateTime.august, 22);
         final everyWeekday = DueDateTime.fromDate(
           day,
-          every: EveryWeekdayCountInMonth(
+          every: const EveryWeekdayCountInMonth(
             day: Weekday.monday,
             week: Week.fourth,
           ),
@@ -468,7 +469,7 @@ void main() {
     group('UTC', () {
       test('EveryWeek', () {
         final everyWeekday = DueDateTime.utc(
-          every: EveryWeekday(Weekday.monday),
+          every: const EveryWeekday(Weekday.monday),
           year: 2022,
           month: DateTime.august,
           day: 22,
@@ -480,7 +481,7 @@ void main() {
       });
       test('EveryDueDayMonth', () {
         final everyWeekday = DueDateTime.utc(
-          every: EveryDueDayMonth(22),
+          every: const EveryDueDayMonth(22),
           year: 2022,
           month: DateTime.august,
           day: 22,
@@ -494,7 +495,7 @@ void main() {
         final day = DateTime.utc(2022, DateTime.august, 22);
         final everyWeekday = DueDateTime.fromDate(
           day,
-          every: EveryWeekdayCountInMonth(
+          every: const EveryWeekdayCountInMonth(
             day: Weekday.monday,
             week: Week.fourth,
           ),

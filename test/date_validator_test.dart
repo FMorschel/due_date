@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('DateValidatorWeekday:', () {
     group('Monday', () {
-      final validator = DateValidatorWeekday(Weekday.monday);
+      const validator = DateValidatorWeekday(Weekday.monday);
       test('Monday is valid', () {
         expect(validator.valid(DateTime(2022, DateTime.september, 26)), isTrue);
       });
@@ -19,7 +19,7 @@ void main() {
   });
   group('DateValidatorDueDayMonth:', () {
     group('Day 2', () {
-      final validator = DateValidatorDueDayMonth(2);
+      const validator = DateValidatorDueDayMonth(2);
       test('Is valid', () {
         expect(validator.valid(DateTime(2022, DateTime.september, 2)), isTrue);
       });
@@ -32,7 +32,7 @@ void main() {
       });
     });
     group('Day 31 not exact', () {
-      final validator = DateValidatorDueDayMonth(31);
+      const validator = DateValidatorDueDayMonth(31);
       group('Is valid', () {
         test('February', () {
           expect(
@@ -55,7 +55,7 @@ void main() {
       });
     });
     group('Day 31 exact', () {
-      final validator = DateValidatorDueDayMonth(31, exact: true);
+      const validator = DateValidatorDueDayMonth(31, exact: true);
       test('Is valid', () {
         expect(
           validator.valid(DateTime(2022, DateTime.october, 31)),
@@ -80,7 +80,7 @@ void main() {
   });
   group('DateValidatorWeekdayCountInMonth', () {
     group('First Monday', () {
-      final validator = DateValidatorWeekdayCountInMonth(
+      const validator = DateValidatorWeekdayCountInMonth(
         week: Week.first,
         day: Weekday.monday,
       );
@@ -98,7 +98,7 @@ void main() {
       });
     });
     group('Second Tuesday', () {
-      final validator = DateValidatorWeekdayCountInMonth(
+      const validator = DateValidatorWeekdayCountInMonth(
         day: Weekday.tuesday,
         week: Week.second,
       );
@@ -116,7 +116,7 @@ void main() {
       });
     });
     group('Third Wednesday', () {
-      final validator = DateValidatorWeekdayCountInMonth(
+      const validator = DateValidatorWeekdayCountInMonth(
         day: Weekday.wednesday,
         week: Week.third,
       );
@@ -134,7 +134,7 @@ void main() {
       });
     });
     group('Fourth Thursday', () {
-      final validator = DateValidatorWeekdayCountInMonth(
+      const validator = DateValidatorWeekdayCountInMonth(
         day: Weekday.thursday,
         week: Week.fourth,
       );
@@ -152,7 +152,7 @@ void main() {
       });
     });
     group('Last Friday', () {
-      final validator = DateValidatorWeekdayCountInMonth(
+      const validator = DateValidatorWeekdayCountInMonth(
         day: Weekday.friday,
         week: Week.last,
       );
@@ -172,10 +172,10 @@ void main() {
   });
   group('DateValidatorDayInYear', () {
     group('Day 1', () {
-      final validator = DateValidatorDayInYear(1);
+      const validator = DateValidatorDayInYear(1);
       test('Is valid', () {
         expect(
-          validator.valid(DateTime(2022, DateTime.january, 1)),
+          validator.valid(DateTime(2022)),
           isTrue,
         );
       });
@@ -187,7 +187,7 @@ void main() {
       });
     });
     group('Day 365', () {
-      final validator = DateValidatorDayInYear(365);
+      const validator = DateValidatorDayInYear(365);
       test('Is valid', () {
         expect(
           validator.valid(DateTime(2022, DateTime.december, 31)),
@@ -202,7 +202,7 @@ void main() {
       });
     });
     group('Day 366 not exact', () {
-      final validator = DateValidatorDayInYear(366);
+      const validator = DateValidatorDayInYear(366);
       test('Is not valid', () {
         expect(
           validator.valid(DateTime(2022, DateTime.january, 31)),
@@ -225,7 +225,7 @@ void main() {
       });
     });
     group('Day 366 exact', () {
-      final validator = DateValidatorDayInYear(366, exact: true);
+      const validator = DateValidatorDayInYear(366, exact: true);
       test('Is valid', () {
         expect(
           validator.valid(DateTime(2020, DateTime.december, 31)),
@@ -249,7 +249,7 @@ void main() {
     });
   });
   group('DateValidatorIntersection', () {
-    final validator = DateValidatorIntersection([
+    const validator = DateValidatorIntersection([
       DateValidatorDueDayMonth(24),
       DateValidatorWeekday(Weekday.saturday),
     ]);
@@ -269,7 +269,7 @@ void main() {
     });
   });
   group('DateValidatorUnion', () {
-    final validator = DateValidatorUnion([
+    const validator = DateValidatorUnion([
       DateValidatorDueDayMonth(24),
       DateValidatorWeekday(Weekday.saturday),
     ]);
@@ -293,7 +293,7 @@ void main() {
     });
   });
   group('DateValidatorDifference', () {
-    final validator = DateValidatorDifference([
+    const validator = DateValidatorDifference([
       DateValidatorDueDayMonth(24),
       DateValidatorWeekday(Weekday.saturday),
     ]);

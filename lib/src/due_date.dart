@@ -459,7 +459,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   /// Returns this DueDateTime value in the UTC time zone.
   ///
-  /// Returns [this] if it is already in UTC.
+  /// Returns `this` if it is already in UTC.
   /// Otherwise this method is equivalent to:
   ///
   /// ```dart template:expression
@@ -474,7 +474,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   /// Returns this DueDateTime value in the local time zone.
   ///
-  /// Returns [this] if it is already in the local time zone.
+  /// Returns `this` if it is already in the local time zone.
   /// Otherwise this method is equivalent to:
   ///
   /// ```dart template:expression
@@ -487,7 +487,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         date: super.toLocal(),
       );
 
-  /// Returns a new [DueDateTime] instance with [duration] added to [this].
+  /// Returns a new [DueDateTime] instance with [duration] added to `this`.
   ///
   /// If [sameEvery] is true, keeps the current one.
   /// If is false, the [every] will change to the [day] of the generated date.
@@ -501,9 +501,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```
   ///
   /// Notice that the duration being added is actually 50 * 24 * 60 * 60
-  /// seconds. If the resulting `DueDateTime` has a different daylight saving offset
-  /// than `this`, then the result won't have the same time-of-day as `this`, and
-  /// may not even hit the calendar date 50 days later.
+  /// seconds. If the resulting `DueDateTime` has a different daylight saving 
+  /// offset than `this`, then the result won't have the same time-of-day as 
+  /// `this`, and may not even hit the calendar date 50 days later.
   ///
   /// Be careful when working with dates in local time.
   @override
@@ -515,7 +515,8 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     return DueDateTime.fromDate(date, every: sameEvery ? every : null);
   }
 
-  /// Returns a new [DueDateTime] instance with [duration] subtracted from [this].
+  /// Returns a new [DueDateTime] instance with [duration] subtracted from 
+  /// `this`.
   ///
   /// If [sameEvery] is true, keeps the current one.
   /// If is false, the [every] will change to the [day] of the generated date.
@@ -529,9 +530,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// ```
   ///
   /// Notice that the duration being subtracted is actually 50 * 24 * 60 * 60
-  /// seconds. If the resulting `DueDateTime` has a different daylight saving offset
-  /// than `this`, then the result won't have the same time-of-day as `this`, and
-  /// may not even hit the calendar date 50 days earlier.
+  /// seconds. If the resulting `DueDateTime` has a different daylight saving 
+  /// offset than `this`, then the result won't have the same time-of-day as 
+  /// `this`, and may not even hit the calendar date 50 days earlier.
   ///
   /// Be careful when working with dates in local time.
   @override

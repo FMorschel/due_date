@@ -5,7 +5,8 @@ import '../period.dart';
 
 /// A mixin for period types.
 ///
-/// If you are looking for implementations, see [PeriodGenerator] and its values:
+/// If you are looking for implementations, see [PeriodGenerator] and its
+/// values:
 /// [SecondGenerator], [MinuteGenerator], [HourGenerator], [DayGenerator],
 /// [WeekGenerator], [FortnightGenerator], [MonthGenerator],
 /// [TrimesterGenerator], [SemesterGenerator] and [YearGenerator].
@@ -32,6 +33,7 @@ mixin PeriodGeneratorMixin<T extends Period> {
   }) =>
       of(of(period.start).start.subtract(duration));
 
+  /// Returns true if the given [period] fits the generator.
   bool fitsGenerator(Period period) {
     final newPeriod = of(period.start);
     return newPeriod == period;
@@ -58,7 +60,7 @@ class SecondGenerator with PeriodGeneratorMixin<SecondPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is SecondGenerator);
   }
@@ -89,7 +91,7 @@ class MinuteGenerator with PeriodGeneratorMixin<MinutePeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is MinuteGenerator);
   }
@@ -122,7 +124,7 @@ class HourGenerator with PeriodGeneratorMixin<HourPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is HourGenerator);
   }
@@ -144,7 +146,7 @@ class DayGenerator with PeriodGeneratorMixin<DayPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is DayGenerator);
   }
@@ -156,9 +158,9 @@ class DayGenerator with PeriodGeneratorMixin<DayPeriod>, EquatableMixin {
 /// A class that implements a generator of a period type of a week.
 class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
   /// A class that implements a generator of a period type of a week.
-  const WeekGenerator({this.weekStart = DateTime.monday})
-      : assert(weekStart >= DateTime.monday && weekStart <= DateTime.sunday);
+  const WeekGenerator({this.weekStart = DateTime.monday});
 
+  /// The first day of the week.
   final int weekStart;
 
   @override
@@ -167,12 +169,13 @@ class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
     if (difference > 0) difference -= DateTime.daysPerWeek;
     final day = date.day + difference;
     final start = date.copyWith(day: day).date;
-    final end = start.add(Duration(days: DateTime.daysPerWeek - 1)).endOfDay;
+    final end =
+        start.add(const Duration(days: DateTime.daysPerWeek - 1)).endOfDay;
     return WeekPeriod(start: start, end: end);
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is WeekGenerator);
   }
@@ -203,7 +206,7 @@ class FortnightGenerator
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is FortnightGenerator);
   }
@@ -226,7 +229,7 @@ class MonthGenerator with PeriodGeneratorMixin<MonthPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is MonthGenerator);
   }
@@ -271,7 +274,7 @@ class TrimesterGenerator
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is TrimesterGenerator);
   }
@@ -302,7 +305,7 @@ class SemesterGenerator
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is SemesterGenerator);
   }
@@ -325,7 +328,7 @@ class YearGenerator with PeriodGeneratorMixin<YearPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overriden in EquatableMixin
+  // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) || (other is YearGenerator);
   }

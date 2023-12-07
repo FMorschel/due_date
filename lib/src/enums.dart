@@ -5,28 +5,35 @@ import '../period.dart';
 
 /// Weekday constants that are returned by [DateTime.weekday] method.
 enum Weekday implements Comparable<Weekday> {
+  /// Monday.
   monday(DateTime.monday, generator: WeekGenerator()),
+  /// Tuesday.
   tuesday(
     DateTime.tuesday,
     generator: WeekGenerator(weekStart: DateTime.tuesday),
   ),
+  /// Wednesday.
   wednesday(
     DateTime.wednesday,
     generator: WeekGenerator(weekStart: DateTime.wednesday),
   ),
+  /// Thursday.
   thursday(
     DateTime.thursday,
     generator: WeekGenerator(weekStart: DateTime.thursday),
   ),
+  /// Friday.
   friday(
     DateTime.friday,
     generator: WeekGenerator(weekStart: DateTime.friday),
   ),
+  /// Saturday.
   saturday(
     DateTime.saturday,
     isWeekend: true,
     generator: WeekGenerator(weekStart: DateTime.saturday),
   ),
+  /// Sunday.
   sunday(
     DateTime.sunday,
     isWeekend: true,
@@ -77,16 +84,21 @@ enum Weekday implements Comparable<Weekday> {
   /// Whether this weekday is a workday.
   bool get isWorkday => !isWeekend;
 
-  /// Returns the ammount of weekdays correspondent to this on the given [month]
+  /// Returns the amount of weekdays correspondent to this on the given [month]
   /// of [year].
-  int occrurencesIn(int year, int month) {
-    DateTime date = DateTime.utc(year, month, 1);
+  @Deprecated("Use 'Weekday.occurrencesIn' instead")
+  int occrurencesIn(int year, int month) => occurrencesIn(year, month);
+
+  /// Returns the amount of weekdays correspondent to this on the given [month]
+  /// of [year].
+  int occurrencesIn(int year, int month) {
+    DateTime date = DateTime.utc(year, month);
     int count = 0;
     do {
       if (date.weekday == dateTimeValue) {
         count++;
       }
-      date = date.add(Duration(days: 1));
+      date = date.add(const Duration(days: 1));
     } while (date.month == month);
     return count;
   }
@@ -146,8 +158,6 @@ enum Weekday implements Comparable<Weekday> {
         return const EveryWeekday(saturday);
       case sunday:
         return const EveryWeekday(sunday);
-      default:
-        return EveryWeekday(this);
     }
   }
 
@@ -168,8 +178,6 @@ enum Weekday implements Comparable<Weekday> {
         return const DateValidatorWeekday(saturday);
       case sunday:
         return const DateValidatorWeekday(sunday);
-      default:
-        return DateValidatorWeekday(this);
     }
   }
 
@@ -204,17 +212,29 @@ enum Weekday implements Comparable<Weekday> {
 
 /// Month constants that are returned by [DateTime.month] method.
 enum Month implements Comparable<Month> {
+  /// January month constant.
   january(DateTime.january),
+  /// February month constant.
   february(DateTime.february),
+  /// March month constant.
   march(DateTime.march),
+  /// April month constant.
   april(DateTime.april),
+  /// May month constant.
   may(DateTime.may),
+  /// June month constant.
   june(DateTime.june),
+  /// July month constant.
   july(DateTime.july),
+  /// August month constant.
   august(DateTime.august),
+  /// September month constant.
   september(DateTime.september),
+  /// October month constant.
   october(DateTime.october),
+  /// November month constant.
   november(DateTime.november),
+  /// December month constant.
   december(DateTime.december);
 
   /// Month constants that are returned by [DateTime.month] method.
@@ -313,16 +333,21 @@ enum Month implements Comparable<Month> {
   }
 }
 
-/// Week occurences inside a month.
+/// Week occurrences inside a month.
 ///
 /// The first week of the month is the one that contains the first day of the
 /// month.
 /// Sometimes the last week can be the same as the fourth.
 enum Week implements Comparable<Week> {
+  /// First week.
   first,
+  /// Second week.
   second,
+  /// Third week.
   third,
+  /// Fourth week.
   fourth,
+  /// Last week.
   last;
 
   /// Returns the [Week] constant that corresponds to the given [date].
@@ -416,7 +441,7 @@ enum Week implements Comparable<Week> {
   @override
   int compareTo(Week other) => index.compareTo(other.index);
 
-  /// Returns true if this is afrer [other].
+  /// Returns true if this is after [other].
   bool operator >(Week other) => index > other.index;
 
   /// Returns true if this is after or equal to [other].
@@ -466,210 +491,245 @@ enum Week implements Comparable<Week> {
 enum WeekdayOccurrence
     with DateValidatorMixin
     implements EveryWeekdayCountInMonth {
+  /// The first Monday of the month.
   firstMonday(
     EveryWeekdayCountInMonth(
       day: Weekday.monday,
       week: Week.first,
     ),
   ),
+  /// The first Tuesday of the month.
   firstTuesday(
     EveryWeekdayCountInMonth(
       day: Weekday.tuesday,
       week: Week.first,
     ),
   ),
+  /// The first Wednesday of the month.
   firstWednesday(
     EveryWeekdayCountInMonth(
       day: Weekday.wednesday,
       week: Week.first,
     ),
   ),
+  /// The first Thursday of the month.
   firstThursday(
     EveryWeekdayCountInMonth(
       day: Weekday.thursday,
       week: Week.first,
     ),
   ),
+  /// The first Friday of the month.
   firstFriday(
     EveryWeekdayCountInMonth(
       day: Weekday.friday,
       week: Week.first,
     ),
   ),
+  /// The first Saturday of the month.
   firstSaturday(
     EveryWeekdayCountInMonth(
       day: Weekday.saturday,
       week: Week.first,
     ),
   ),
+  /// The first Sunday of the month.
   firstSunday(
     EveryWeekdayCountInMonth(
       day: Weekday.sunday,
       week: Week.first,
     ),
   ),
+  /// The second Monday of the month.
   secondMonday(
     EveryWeekdayCountInMonth(
       day: Weekday.monday,
       week: Week.second,
     ),
   ),
+  /// The second Tuesday of the month.
   secondTuesday(
     EveryWeekdayCountInMonth(
       day: Weekday.tuesday,
       week: Week.second,
     ),
   ),
+  /// The second Wednesday of the month.
   secondWednesday(
     EveryWeekdayCountInMonth(
       day: Weekday.wednesday,
       week: Week.second,
     ),
   ),
+  /// The second Thursday of the month.
   secondThursday(
     EveryWeekdayCountInMonth(
       day: Weekday.thursday,
       week: Week.second,
     ),
   ),
+  /// The second Friday of the month.
   secondFriday(
     EveryWeekdayCountInMonth(
       day: Weekday.friday,
       week: Week.second,
     ),
   ),
+  /// The second Saturday of the month.
   secondSaturday(
     EveryWeekdayCountInMonth(
       day: Weekday.saturday,
       week: Week.second,
     ),
   ),
+  /// The second Sunday of the month.
   secondSunday(
     EveryWeekdayCountInMonth(
       day: Weekday.sunday,
       week: Week.second,
     ),
   ),
+  /// The third Monday of the month.
   thirdMonday(
     EveryWeekdayCountInMonth(
       day: Weekday.monday,
       week: Week.third,
     ),
   ),
+  /// The third Tuesday of the month.
   thirdTuesday(
     EveryWeekdayCountInMonth(
       day: Weekday.tuesday,
       week: Week.third,
     ),
   ),
+  /// The third Wednesday of the month.
   thirdWednesday(
     EveryWeekdayCountInMonth(
       day: Weekday.wednesday,
       week: Week.third,
     ),
   ),
+  /// The third Thursday of the month.
   thirdThursday(
     EveryWeekdayCountInMonth(
       day: Weekday.thursday,
       week: Week.third,
     ),
   ),
+  /// The third Friday of the month.
   thirdFriday(
     EveryWeekdayCountInMonth(
       day: Weekday.friday,
       week: Week.third,
     ),
   ),
+  /// The third Saturday of the month.
   thirdSaturday(
     EveryWeekdayCountInMonth(
       day: Weekday.saturday,
       week: Week.third,
     ),
   ),
+  /// The third Sunday of the month.
   thirdSunday(
     EveryWeekdayCountInMonth(
       day: Weekday.sunday,
       week: Week.third,
     ),
   ),
+  /// The fourth Monday of the month.
   fourthMonday(
     EveryWeekdayCountInMonth(
       day: Weekday.monday,
       week: Week.fourth,
     ),
   ),
+  /// The fourth Tuesday of the month.
   fourthTuesday(
     EveryWeekdayCountInMonth(
       day: Weekday.tuesday,
       week: Week.fourth,
     ),
   ),
+  /// The fourth Wednesday of the month.
   fourthWednesday(
     EveryWeekdayCountInMonth(
       day: Weekday.wednesday,
       week: Week.fourth,
     ),
   ),
+  /// The fourth Thursday of the month.
   fourthThursday(
     EveryWeekdayCountInMonth(
       day: Weekday.thursday,
       week: Week.fourth,
     ),
   ),
+  /// The fourth Friday of the month.
   fourthFriday(
     EveryWeekdayCountInMonth(
       day: Weekday.friday,
       week: Week.fourth,
     ),
   ),
+  /// The fourth Saturday of the month.
   fourthSaturday(
     EveryWeekdayCountInMonth(
       day: Weekday.saturday,
       week: Week.fourth,
     ),
   ),
+  /// The fourth Sunday of the month.
   fourthSunday(
     EveryWeekdayCountInMonth(
       day: Weekday.sunday,
       week: Week.fourth,
     ),
   ),
+  /// The last Monday of the month.
   lastMonday(
     EveryWeekdayCountInMonth(
       day: Weekday.monday,
       week: Week.last,
     ),
   ),
+  /// The last Tuesday of the month.
   lastTuesday(
     EveryWeekdayCountInMonth(
       day: Weekday.tuesday,
       week: Week.last,
     ),
   ),
+  /// The last Wednesday of the month.
   lastWednesday(
     EveryWeekdayCountInMonth(
       day: Weekday.wednesday,
       week: Week.last,
     ),
   ),
+  /// The last Thursday of the month.
   lastThursday(
     EveryWeekdayCountInMonth(
       day: Weekday.thursday,
       week: Week.last,
     ),
   ),
+  /// The last Friday of the month.
   lastFriday(
     EveryWeekdayCountInMonth(
       day: Weekday.friday,
       week: Week.last,
     ),
   ),
+  /// The last Saturday of the month.
   lastSaturday(
     EveryWeekdayCountInMonth(
       day: Weekday.saturday,
       week: Week.last,
     ),
   ),
+  /// The last Sunday of the month.
   lastSunday(
     EveryWeekdayCountInMonth(
       day: Weekday.sunday,
