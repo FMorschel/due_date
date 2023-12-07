@@ -1,0 +1,68 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: main
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Check format
+        run: dart format --output=none --set-exit-if-changed -l 80 lib
+
+      - name: Analyze
+        run: dart analyze lib
+
+      - name: Run tests
+        run: dart test --coverage coverage --reporter=github
+
+      - name: Coverage
+        run: dart run coverage:format_coverage -l -i ./coverage/test/due_date_test.dart.vm.json -o ./coverage/lcov.info
+
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: main
+      - name: Generate docs
+        run: dart doc
+      - name: Checkout gh-pages branch
+        run: |
+          git fetch
+          git checkout gh-pages
+      - name: Clear base folder
+        run: |
+          rm -rf *
+      - name: Copy docs to base folder
+        run: |
+          cp -r ../doc/api/* .
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Update documentation" -a
+          git push
