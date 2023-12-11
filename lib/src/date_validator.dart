@@ -37,7 +37,7 @@ abstract class DateValidator {
 }
 
 /// Mixin to easily implement the [DateValidator.invalid],
-/// [DateValidator.filterValidDates] and [DateValidator.filterValidDates] 
+/// [DateValidator.filterValidDates] and [DateValidator.filterValidDates]
 /// methods.
 mixin DateValidatorMixin implements DateValidator {
   @override
@@ -342,7 +342,7 @@ class DateValidatorUnion<E extends DateValidator> extends DelegatingList<E>
 /// one of the [validators].
 class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
-  /// A [DateValidator] that validates a [DateTime] if the date is valid for 
+  /// A [DateValidator] that validates a [DateTime] if the date is valid for
   /// only one of the [validators].
   const DateValidatorDifference(super.validators);
 

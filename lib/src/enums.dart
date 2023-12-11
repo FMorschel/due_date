@@ -7,32 +7,38 @@ import '../period.dart';
 enum Weekday implements Comparable<Weekday> {
   /// Monday.
   monday(DateTime.monday, generator: WeekGenerator()),
+
   /// Tuesday.
   tuesday(
     DateTime.tuesday,
     generator: WeekGenerator(weekStart: DateTime.tuesday),
   ),
+
   /// Wednesday.
   wednesday(
     DateTime.wednesday,
     generator: WeekGenerator(weekStart: DateTime.wednesday),
   ),
+
   /// Thursday.
   thursday(
     DateTime.thursday,
     generator: WeekGenerator(weekStart: DateTime.thursday),
   ),
+
   /// Friday.
   friday(
     DateTime.friday,
     generator: WeekGenerator(weekStart: DateTime.friday),
   ),
+
   /// Saturday.
   saturday(
     DateTime.saturday,
     isWeekend: true,
     generator: WeekGenerator(weekStart: DateTime.saturday),
   ),
+
   /// Sunday.
   sunday(
     DateTime.sunday,
@@ -214,26 +220,37 @@ enum Weekday implements Comparable<Weekday> {
 enum Month implements Comparable<Month> {
   /// January month constant.
   january(DateTime.january),
+
   /// February month constant.
   february(DateTime.february),
+
   /// March month constant.
   march(DateTime.march),
+
   /// April month constant.
   april(DateTime.april),
+
   /// May month constant.
   may(DateTime.may),
+
   /// June month constant.
   june(DateTime.june),
+
   /// July month constant.
   july(DateTime.july),
+
   /// August month constant.
   august(DateTime.august),
+
   /// September month constant.
   september(DateTime.september),
+
   /// October month constant.
   october(DateTime.october),
+
   /// November month constant.
   november(DateTime.november),
+
   /// December month constant.
   december(DateTime.december);
 
@@ -341,12 +358,16 @@ enum Month implements Comparable<Month> {
 enum Week implements Comparable<Week> {
   /// First week.
   first,
+
   /// Second week.
   second,
+
   /// Third week.
   third,
+
   /// Fourth week.
   fourth,
+
   /// Last week.
   last;
 
@@ -498,6 +519,7 @@ enum WeekdayOccurrence
       week: Week.first,
     ),
   ),
+
   /// The first Tuesday of the month.
   firstTuesday(
     EveryWeekdayCountInMonth(
@@ -505,6 +527,7 @@ enum WeekdayOccurrence
       week: Week.first,
     ),
   ),
+
   /// The first Wednesday of the month.
   firstWednesday(
     EveryWeekdayCountInMonth(
@@ -512,6 +535,7 @@ enum WeekdayOccurrence
       week: Week.first,
     ),
   ),
+
   /// The first Thursday of the month.
   firstThursday(
     EveryWeekdayCountInMonth(
@@ -519,6 +543,7 @@ enum WeekdayOccurrence
       week: Week.first,
     ),
   ),
+
   /// The first Friday of the month.
   firstFriday(
     EveryWeekdayCountInMonth(
@@ -526,6 +551,7 @@ enum WeekdayOccurrence
       week: Week.first,
     ),
   ),
+
   /// The first Saturday of the month.
   firstSaturday(
     EveryWeekdayCountInMonth(
@@ -533,6 +559,7 @@ enum WeekdayOccurrence
       week: Week.first,
     ),
   ),
+
   /// The first Sunday of the month.
   firstSunday(
     EveryWeekdayCountInMonth(
@@ -540,6 +567,7 @@ enum WeekdayOccurrence
       week: Week.first,
     ),
   ),
+
   /// The second Monday of the month.
   secondMonday(
     EveryWeekdayCountInMonth(
@@ -547,6 +575,7 @@ enum WeekdayOccurrence
       week: Week.second,
     ),
   ),
+
   /// The second Tuesday of the month.
   secondTuesday(
     EveryWeekdayCountInMonth(
@@ -554,6 +583,7 @@ enum WeekdayOccurrence
       week: Week.second,
     ),
   ),
+
   /// The second Wednesday of the month.
   secondWednesday(
     EveryWeekdayCountInMonth(
@@ -561,6 +591,7 @@ enum WeekdayOccurrence
       week: Week.second,
     ),
   ),
+
   /// The second Thursday of the month.
   secondThursday(
     EveryWeekdayCountInMonth(
@@ -568,6 +599,7 @@ enum WeekdayOccurrence
       week: Week.second,
     ),
   ),
+
   /// The second Friday of the month.
   secondFriday(
     EveryWeekdayCountInMonth(
@@ -575,6 +607,7 @@ enum WeekdayOccurrence
       week: Week.second,
     ),
   ),
+
   /// The second Saturday of the month.
   secondSaturday(
     EveryWeekdayCountInMonth(
@@ -582,6 +615,7 @@ enum WeekdayOccurrence
       week: Week.second,
     ),
   ),
+
   /// The second Sunday of the month.
   secondSunday(
     EveryWeekdayCountInMonth(
@@ -589,6 +623,7 @@ enum WeekdayOccurrence
       week: Week.second,
     ),
   ),
+
   /// The third Monday of the month.
   thirdMonday(
     EveryWeekdayCountInMonth(
@@ -596,6 +631,7 @@ enum WeekdayOccurrence
       week: Week.third,
     ),
   ),
+
   /// The third Tuesday of the month.
   thirdTuesday(
     EveryWeekdayCountInMonth(
@@ -603,6 +639,7 @@ enum WeekdayOccurrence
       week: Week.third,
     ),
   ),
+
   /// The third Wednesday of the month.
   thirdWednesday(
     EveryWeekdayCountInMonth(
@@ -610,6 +647,7 @@ enum WeekdayOccurrence
       week: Week.third,
     ),
   ),
+
   /// The third Thursday of the month.
   thirdThursday(
     EveryWeekdayCountInMonth(
@@ -617,6 +655,7 @@ enum WeekdayOccurrence
       week: Week.third,
     ),
   ),
+
   /// The third Friday of the month.
   thirdFriday(
     EveryWeekdayCountInMonth(
@@ -624,6 +663,7 @@ enum WeekdayOccurrence
       week: Week.third,
     ),
   ),
+
   /// The third Saturday of the month.
   thirdSaturday(
     EveryWeekdayCountInMonth(
@@ -631,6 +671,7 @@ enum WeekdayOccurrence
       week: Week.third,
     ),
   ),
+
   /// The third Sunday of the month.
   thirdSunday(
     EveryWeekdayCountInMonth(
@@ -638,6 +679,7 @@ enum WeekdayOccurrence
       week: Week.third,
     ),
   ),
+
   /// The fourth Monday of the month.
   fourthMonday(
     EveryWeekdayCountInMonth(
@@ -645,6 +687,7 @@ enum WeekdayOccurrence
       week: Week.fourth,
     ),
   ),
+
   /// The fourth Tuesday of the month.
   fourthTuesday(
     EveryWeekdayCountInMonth(
@@ -652,6 +695,7 @@ enum WeekdayOccurrence
       week: Week.fourth,
     ),
   ),
+
   /// The fourth Wednesday of the month.
   fourthWednesday(
     EveryWeekdayCountInMonth(
@@ -659,6 +703,7 @@ enum WeekdayOccurrence
       week: Week.fourth,
     ),
   ),
+
   /// The fourth Thursday of the month.
   fourthThursday(
     EveryWeekdayCountInMonth(
@@ -666,6 +711,7 @@ enum WeekdayOccurrence
       week: Week.fourth,
     ),
   ),
+
   /// The fourth Friday of the month.
   fourthFriday(
     EveryWeekdayCountInMonth(
@@ -673,6 +719,7 @@ enum WeekdayOccurrence
       week: Week.fourth,
     ),
   ),
+
   /// The fourth Saturday of the month.
   fourthSaturday(
     EveryWeekdayCountInMonth(
@@ -680,6 +727,7 @@ enum WeekdayOccurrence
       week: Week.fourth,
     ),
   ),
+
   /// The fourth Sunday of the month.
   fourthSunday(
     EveryWeekdayCountInMonth(
@@ -687,6 +735,7 @@ enum WeekdayOccurrence
       week: Week.fourth,
     ),
   ),
+
   /// The last Monday of the month.
   lastMonday(
     EveryWeekdayCountInMonth(
@@ -694,6 +743,7 @@ enum WeekdayOccurrence
       week: Week.last,
     ),
   ),
+
   /// The last Tuesday of the month.
   lastTuesday(
     EveryWeekdayCountInMonth(
@@ -701,6 +751,7 @@ enum WeekdayOccurrence
       week: Week.last,
     ),
   ),
+
   /// The last Wednesday of the month.
   lastWednesday(
     EveryWeekdayCountInMonth(
@@ -708,6 +759,7 @@ enum WeekdayOccurrence
       week: Week.last,
     ),
   ),
+
   /// The last Thursday of the month.
   lastThursday(
     EveryWeekdayCountInMonth(
@@ -715,6 +767,7 @@ enum WeekdayOccurrence
       week: Week.last,
     ),
   ),
+
   /// The last Friday of the month.
   lastFriday(
     EveryWeekdayCountInMonth(
@@ -722,6 +775,7 @@ enum WeekdayOccurrence
       week: Week.last,
     ),
   ),
+
   /// The last Saturday of the month.
   lastSaturday(
     EveryWeekdayCountInMonth(
@@ -729,6 +783,7 @@ enum WeekdayOccurrence
       week: Week.last,
     ),
   ),
+
   /// The last Sunday of the month.
   lastSunday(
     EveryWeekdayCountInMonth(

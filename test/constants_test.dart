@@ -150,7 +150,7 @@ void main() {
             throwsA(isA<DateTimeLimitReachedException>()),
           );
         });
-        
+
         test('and limit is the expected date', () {
           final result = LimitedOrEveryHandler.next(
             limited,
