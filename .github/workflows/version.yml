@@ -1,0 +1,120 @@
+name: Update Version
+
+on:
+  push:
+    branches:
+      - stable
+  pull_request:
+    branches:
+      - stable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Dart
+      uses: dart-lang/setup-dart@v1
+
+    - name: Validate files
+      run: |
+        # Extract version from pubspec.yaml
+        version=$(grep 'version:' pubspec.yaml | cut -d ' ' -f 2)
+
+        # Get the version from the last commit on stable (if it exists)
+        git fetch origin stable:stable
+        last_version=$(git show stable:pubspec.yaml | grep 'version:' | cut -d ' ' -f 2)
+
+        # Check if the versions are different
+        if [ "$version" != "$last_version" ]; then
+          echo "Version has been updated to $version"
+        else
+          echo "Version has not been updated"
+          exit 1
+        fi
+
+        # Check if README.md and CHANGELOG.md contain the new version number
+        if grep -q "$version" README.md && grep -q "$version" CHANGELOG.md; then
+          echo "Version number found in README.md and CHANGELOG.md"
+        else
+          echo "Version number not found in README.md or CHANGELOG.md"
+          exit 1
+        fi
+
+    - name: Delete docs directory
+      run: rm -rf docs/*
+
+    - name: Generate docs
+      run: dart doc
+
+    - name: Commit changes
+      run: |
+        git add .
+        git commit -m "Update docs" || echo "No changes to commit"
+
+    - name: Push changes
+      run: git push
+
+    - name: Setup reviewdog
+      uses: reviewdog/action-setup@v1
+      with:
+        reviewdog_version: latest
+
+    - name: Generate tag message
+      id: generate_tag_message
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        VERSION_NUMBER=$(grep 'version:' pubspec.yaml | sed 's/version: //g')
+        LAST_VERSION=$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
+        COMMITS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ github.repository }}/compare/$LAST_VERSION...$VERSION_NUMBER)
+
+        WHATS_CHANGED=""
+        NEW_CONTRIBUTORS=""
+        CONTRIBUTORS=()
+
+        for row in $(echo "${COMMITS}" | jq -r '.commits[] | @base64'); do
+          _jq() {
+            echo ${row} | base64 --decode | jq -r ${1}
+          }
+
+          COMMIT_SHA=$(_jq '.sha')
+          COMMIT_MESSAGE=$(_jq '.commit.message')
+          AUTHOR_USERNAME=$(_jq '.author.login')
+          PR_NUMBER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ github.repository }}/commits/$COMMIT_SHA/pulls | jq -r '.[0].number')
+
+          WHATS_CHANGED+="$COMMIT_MESSAGE by @$AUTHOR_USERNAME in #$PR_NUMBER\n"
+
+          if [[ ! " ${CONTRIBUTORS[@]} " =~ " ${AUTHOR_USERNAME} " ]]; then
+            CONTRIBUTORS+=("$AUTHOR_USERNAME")
+            NEW_CONTRIBUTORS+="@$AUTHOR_USERNAME made their first contribution in #$PR_NUMBER\n"
+          fi
+        done
+
+        DESCRIPTION="What's Changed\n$WHATS_CHANGED\nNew Contributors\n$NEW_CONTRIBUTORS\nFull Changelog: $LAST_VERSION...$VERSION_NUMBER"
+        echo "::set-output name=description::$DESCRIPTION"
+
+    - name: Review tag message
+      run: |
+        echo "${{ steps.generate_tag_message.outputs.description }}" | reviewdog -f=diff -diff="git diff" -reporter=github-pr-review
+
+    - name: Create tag with version number
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git tag -a $VERSION_NUMBER -m "${{ steps.generate_tag_message.outputs.description }}"
+        git push origin $VERSION_NUMBER
+
+    - name: Create draft release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.generate_tag_message.outputs.version_number }}
+        release_name: Release ${{ steps.generate_tag_message.outputs.version_number }}
+        body: ${{ steps.generate_tag_message.outputs.description }}
+        draft: true
