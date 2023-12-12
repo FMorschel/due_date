@@ -1,4 +1,4 @@
-name: Build
+name: Dart CI
 
 on:
   push:
@@ -39,30 +39,3 @@ jobs:
           verbose: true # optional (default = false)
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-  update-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: main
-      - name: Generate docs
-        run: dart doc
-      - name: Checkout gh-pages branch
-        run: |
-          git fetch
-          git checkout gh-pages
-      - name: Clear base folder
-        run: |
-          rm -rf *
-      - name: Copy docs to base folder
-        run: |
-          cp -r ../doc/api/* .
-      - name: Commit and push
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "Update documentation" -a
-          git push
