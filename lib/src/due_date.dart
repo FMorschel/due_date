@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import 'every.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
+@immutable
 class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// Constructs a [DueDateTime] instance.
   ///
@@ -224,7 +226,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   static const _week = Duration(days: DateTime.daysPerWeek);
 
   /// The handler for processing the next dates.
-  T every;
+  final T every;
 
   // ignore: format-comment, false positive
   /// Constructs a new [DueDateTime] instance based on [formattedString].

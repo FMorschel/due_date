@@ -1,15 +1,17 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import '../period.dart';
 
-/// A mixin for period types.
+/// A mixin for generating period types.
 ///
 /// If you are looking for implementations, see [PeriodGenerator] and its
 /// values:
 /// [SecondGenerator], [MinuteGenerator], [HourGenerator], [DayGenerator],
 /// [WeekGenerator], [FortnightGenerator], [MonthGenerator],
 /// [TrimesterGenerator], [SemesterGenerator] and [YearGenerator].
+@immutable
 mixin PeriodGeneratorMixin<T extends Period> {
   /// Returns the period of the given [date] considering the generator type.
   T of(DateTime date);

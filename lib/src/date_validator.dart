@@ -1,10 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import '../due_date.dart';
 
 /// A class to save a specific validation for a [DateTime].
+@immutable
 abstract class DateValidator {
   /// A class to save a specific validation for a [DateTime].
   const DateValidator();

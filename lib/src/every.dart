@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import 'constants.dart';
@@ -11,6 +12,7 @@ import 'extensions.dart';
 /// [WeekdayOccurrence]) and [EveryDayInYear] for complete base implementations.
 ///
 /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
+@immutable
 abstract class Every {
   /// Abstract class that, when extended, processes [DateTime] with custom
   /// logic.

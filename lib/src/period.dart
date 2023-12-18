@@ -1,10 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
+import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import '../period.dart';
 
 /// A period of time between two [DateTime]s.
+@immutable
 class Period with EquatableMixin implements Comparable<Period> {
   /// Creates a period of time between two [DateTime]s.
   Period({
