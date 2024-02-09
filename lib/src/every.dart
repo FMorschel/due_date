@@ -5,6 +5,44 @@ import 'constants.dart';
 import 'date_validator.dart';
 import 'enums.dart';
 import 'extensions.dart';
+import 'shared_private.dart';
+
+/// An enum that represents the direction of the [EveryDueWorkdayMonth.from]
+/// constructor.
+enum WorkdayDirection {
+  /// An enum that represents the direction of the [EveryDueWorkdayMonth.from]
+  /// constructor.
+  ///
+  /// Represents no direction.
+  /// If this is passed to the [EveryDueWorkdayMonth.from] constructor, and the
+  /// given date is not a workday, it will throw an [ArgumentError].
+  none,
+
+  /// An enum that represents the direction of the [EveryDueWorkdayMonth.from]
+  /// constructor.
+  ///
+  /// Represents a forward direction.
+  /// If this is passed to the [EveryDueWorkdayMonth.from] constructor, and the
+  /// given date is not a workday, it will return the next workday.
+  forward,
+
+  /// An enum that represents the direction of the [EveryDueWorkdayMonth.from]
+  /// constructor.
+  ///
+  /// Represents a backward direction.
+  /// If this is passed to the [EveryDueWorkdayMonth.from] constructor, and the
+  /// given date is not a workday, it will return the previous workday.
+  backward;
+
+  /// Returns true if `this` is [WorkdayDirection.none].
+  bool get isNone => this == WorkdayDirection.none;
+
+  /// Returns true if `this` is [WorkdayDirection.forward].
+  bool get isForward => this == WorkdayDirection.forward;
+
+  /// Returns true if `this` is [WorkdayDirection.backward].
+  bool get isBackward => this == WorkdayDirection.backward;
+}
 
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
 ///
@@ -27,8 +65,11 @@ abstract class Every {
   /// {@template startDate}
   /// Returns the next [DateTime] that matches the [Every] pattern.
   ///
-  /// If the [date] is a [DateTime] that matches the [Every] pattern, the
-  /// [DateTime] will be returned.
+  /// If the [date] is a [DateTime] that matches the [Every] pattern, it will
+  /// be returned.
+  ///
+  /// If the [date] is not a [DateTime] that matches the [Every] pattern, [next]
+  /// will be called to generate a new one.
   /// {@endtemplate}
   DateTime startDate(DateTime date);
 
@@ -70,8 +111,9 @@ abstract class LimitedEvery extends Every {
   ///
   /// {@template limit}
   /// If the generated [DateTime] is still not able to return the first call to
-  /// this function and it has passed the [limit], it will throw a
-  /// [DateTimeLimitReachedException].
+  /// this function it will be called recursively.
+  /// If [limit] is not null and the generated [DateTime] is past [limit], a
+  /// [DateTimeLimitReachedException] will be thrown.
   /// {@endtemplate}
   @override
   DateTime startDate(DateTime date, {DateTime? limit});
@@ -208,6 +250,16 @@ class EveryWeekday extends DateValidatorWeekday
   factory EveryWeekday.from(DateTime date) {
     return EveryWeekday(Weekday.fromDateTimeValue(date.weekday));
   }
+
+  /// An [EveryDateValidator] that generates a [DateTime] that is a workday.
+  static const workdays = EveryDateValidatorUnion(
+    DateValidatorWeekday.workdays,
+  );
+
+  /// An [EveryDateValidator] that generates a [DateTime] that is a weekend.
+  static const weekend = EveryDateValidatorUnion(
+    DateValidatorWeekday.weekend,
+  );
 
   /// Returns the next date that fits the [weekday].
   @override
@@ -401,6 +453,159 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
 
   DateTime _thisMonthsDay(DateTime date) {
     return date.copyWith(day: dueDay).clamp(max: date.lastDayOfMonth);
+  }
+}
+
+/// Class that processes [DateTime] so that the [addMonths] always returns the
+/// next month's with the [DateTime.day] being the [dueWorkday] workday of the
+/// month clamped to fit in the length of the next month.
+class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
+    with EveryMonth
+    implements EveryYear, EveryDateValidator {
+  /// Returns a [EveryDueWorkdayMonth] with the given [dueWorkday].
+  /// When you call [next] or [previous] on this [EveryDueWorkdayMonth], it will
+  /// return the [dueWorkday] workday of the next or previous month.
+  const EveryDueWorkdayMonth(super.dueWorkday)
+      : assert(
+          (dueWorkday >= 1) && (dueWorkday <= 23),
+          'Due workday must be between 1 and 23',
+        ),
+        super(exact: false);
+
+  /// Returns a [EveryDueWorkdayMonth] with the [dueWorkday] being the
+  /// workday (monday, tuesday, wednesday, thursday or friday) of the given
+  /// month.
+  /// When you call [next] or [previous] on this [EveryDueWorkdayMonth], it will
+  /// return the [dueWorkday] workday of the next or previous month.
+  ///
+  /// The [direction] parameter determines that when the given date is not a
+  /// workday, whether the next or previous workday should be returned or if it
+  /// should throw an [ArgumentError].
+  ///
+  /// If [direction] is [WorkdayDirection.forward], it will return the next
+  /// workday if the given date is not a workday (monday).
+  ///
+  /// If [direction] is [WorkdayDirection.backward], it will return the previous
+  /// workday if the given date is not a workday (friday).
+  factory EveryDueWorkdayMonth.from(
+    DateTime date, {
+    WorkdayDirection direction = WorkdayDirection.forward,
+  }) {
+    var local = date.copyWith();
+    if (_workdays.invalid(local)) {
+      if (direction.isForward) {
+        local = _workdays.next(local);
+      } else if (direction.isBackward) {
+        local = _workdays.previous(local);
+      }
+    }
+    return EveryDueWorkdayMonth(
+      getWorkdayNumberInMonth(
+        local,
+        shouldThrow: direction.isNone,
+      ),
+    );
+  }
+
+  static const _monthFirst = EveryDueDayMonth(1);
+  static const _monthLast = EveryDueDayMonth(31);
+  static const _workdays = EveryWeekday.workdays;
+  static final _workdaysInWeek = _workdays.length;
+
+  @override
+  DateTime startDate(DateTime date) {
+    if (valid(date)) return date;
+    return next(date);
+  }
+
+  @override
+  DateTime next(DateTime date) {
+    return _calculate(
+      valid(date) ? _workdays.next(date) : date,
+      dateGeneratorFunction: (date) {
+        final measuredWorkday = getWorkdayNumberInMonth(date);
+        if (measuredWorkday < dueWorkday) {
+          if ((dueWorkday - measuredWorkday) >= _workdaysInWeek) {
+            final currentEvery = Weekday.from(date).every;
+            return currentEvery.next(date);
+          }
+          return _workdays.next(date);
+        }
+        return _workdays.startDate(_monthFirst.next(date));
+      },
+      isNext: true,
+    );
+  }
+
+  @override
+  DateTime previous(DateTime date) {
+    return _calculate(
+      date,
+      dateGeneratorFunction: (date) {
+        final measuredWorkday = getWorkdayNumberInMonth(date);
+        if (measuredWorkday > dueWorkday) {
+          if ((measuredWorkday - dueWorkday) >= _workdaysInWeek) {
+            final currentEvery = Weekday.from(date).every;
+            return currentEvery.previous(date);
+          }
+          return _workdays.previous(date);
+        }
+        date = _monthLast.previous(date);
+        if (_workdays.valid(date)) return date;
+        return _workdays.previous(date);
+      },
+      isNext: false,
+    );
+  }
+
+  @override
+  DateTime addMonths(DateTime date, int months) {
+    if (months == 0) return startDate(date);
+    if (months.isNegative) {
+      if (months == -1) return previous(date);
+      return previous(addMonths(date, months + 1));
+    }
+    return next(addMonths(date, months - 1));
+  }
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
+
+  @override
+  String toString() {
+    return 'EveryDueWorkdayMonth<$dueWorkday>';
+  }
+
+  DateTime _calculate(
+    DateTime date, {
+    required DateTime Function(DateTime date) dateGeneratorFunction,
+    required bool isNext,
+  }) {
+    var local = date.copyWith();
+    if (_workdays.invalid(date)) {
+      if (isNext) {
+        local = _workdays.next(local);
+      } else {
+        local = _workdays.previous(local);
+      }
+    }
+    final measuredWorkday = getWorkdayNumberInMonth(local);
+    if ((isNext && (measuredWorkday >= dueWorkday)) ||
+        (!isNext && (measuredWorkday <= dueWorkday))) {
+      local = local.copyWith(month: local.month + (isNext ? 1 : -1), day: 1);
+    }
+    if (isNext) {
+      local = _workdays.startDate(local.firstDayOfMonth);
+    } else {
+      local = local.lastDayOfMonth.when(
+        _workdays.valid,
+        orElse: _workdays.previous,
+      )!;
+    }
+    while (invalid(local)) {
+      local = dateGeneratorFunction(local);
+    }
+    return local;
   }
 }
 
@@ -891,7 +1096,10 @@ class DateTimeLimitReachedException implements Exception {
   const DateTimeLimitReachedException({
     required this.date,
     required this.limit,
-  }) : assert(date != limit, 'Invalid exception');
+  }) : assert(
+          date != limit,
+          'Invalid exception. Date cannot be equal to limit.',
+        );
 
   /// Date that reached the limit.
   final DateTime date;
