@@ -19,4 +19,6 @@ A clear and concise description of what you expected to happen.
 **Additional context**
 Add any other context about the problem here. Other related issues could be mentioned here.
 
+---
+
 - [ ] **Search for Existing Issues**: I have searched for existing issues related to this bug and found none.
