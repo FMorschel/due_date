@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
@@ -633,10 +632,10 @@ class Period with EquatableMixin implements Comparable<Period> {
   }
 
   @override
-  String toString({DateFormat? dateFormat}) {
+  String toString({String Function(DateTime date)? dateFormat}) {
     // ignore: no_runtimetype_tostring, simply to print the class
-    return '$runtimeType(${dateFormat?.format(start) ?? start}, '
-        '${dateFormat?.format(end) ?? end})';
+    return '$runtimeType(${dateFormat?.call(start) ?? start}, '
+        '${dateFormat?.call(end) ?? end})';
   }
 
   @override
