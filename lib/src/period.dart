@@ -417,7 +417,7 @@ class Period with EquatableMixin implements Comparable<Period> {
     final result = <Period>[];
     final difference = calculateStartDifference(merged.first, this);
     if (difference != null) result.add(difference);
-    for (int i = 0, j = 1; j < merged.length; i++, j++) {
+    for (var i = 0, j = 1; j < merged.length; i++, j++) {
       result.add(Period.inBetween(merged[i], merged[j])!);
     }
     if (merged.length > 1) {
