@@ -78,6 +78,63 @@ void main() {
       });
     });
   });
+  group('DateValidatorDueWorkdayMonth:', () {
+    group('Second Workday', () {
+      const secondWorkday = DateValidatorDueWorkdayMonth(2);
+      group('Is valid', () {
+        test('Day 2', () {
+          expect(
+            secondWorkday.valid(DateTime(2024, DateTime.january, 2)),
+            isTrue,
+          );
+        });
+        test('Day 4', () {
+          expect(secondWorkday.valid(DateTime(2024, DateTime.june, 4)), isTrue);
+        });
+      });
+      group('Is invalid', () {
+        test('March second', () {
+          expect(
+            secondWorkday.invalid(DateTime(2024, DateTime.march, 2)),
+            isTrue,
+          );
+        });
+        test('June second', () {
+          expect(
+            secondWorkday.invalid(DateTime(2024, DateTime.june, 2)),
+            isTrue,
+          );
+        });
+      });
+    });
+    group('Twenty Third Workday', () {
+      test('Exact', () {
+        const twentyThirdWorkday = DateValidatorDueWorkdayMonth(
+          23,
+          exact: true,
+        );
+        expect(
+          twentyThirdWorkday.valid(DateTime(2024, DateTime.january, 31)),
+          isTrue,
+        );
+        expect(
+          twentyThirdWorkday.valid(DateTime(2024, DateTime.april, 30)),
+          isFalse,
+        );
+      });
+      test('Not Exact', () {
+        const twentyThirdWorkday = DateValidatorDueWorkdayMonth(23);
+        expect(
+          twentyThirdWorkday.valid(DateTime(2024, DateTime.january, 31)),
+          isTrue,
+        );
+        expect(
+          twentyThirdWorkday.valid(DateTime(2024, DateTime.april, 30)),
+          isTrue,
+        );
+      });
+    });
+  });
   group('DateValidatorWeekdayCountInMonth', () {
     group('First Monday', () {
       const validator = DateValidatorWeekdayCountInMonth(

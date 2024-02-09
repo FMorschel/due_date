@@ -131,6 +131,359 @@ void main() {
       });
     });
   });
+  group('EveryDueDayMonth:', () {
+    group('Test base methods logic', () {
+      const every = EveryDueDayMonth(15);
+      group('startDate', () {
+        final august15th = DateTime(2022, DateTime.august, 15);
+        test('If the given date would be generated, return it', () {
+          expect(every.startDate(august15th), equals(august15th));
+        });
+        test('If the given date would not be generated, use next', () {
+          expect(
+            every.startDate(DateTime(2022, DateTime.august, 14)),
+            equals(every.next(DateTime(2022, DateTime.august, 14))),
+          );
+        });
+      });
+      group('next', () {
+        final august15th = DateTime(2022, DateTime.august, 15);
+        final september15th = DateTime(2022, DateTime.september, 15);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(every.next(august15th), equals(september15th)),
+        );
+        test(
+          'If the given date would not be generated, generate the next valid '
+          'date',
+          () => expect(
+            every.next(DateTime(2022, DateTime.august, 14)),
+            equals(august15th),
+          ),
+        );
+      });
+      group('previous', () {
+        final august15th = DateTime(2022, DateTime.august, 15);
+        final july15th = DateTime(2022, DateTime.july, 15);
+        test(
+          'If the given date would be generated, generate a new one anyway',
+          () => expect(every.previous(august15th), equals(july15th)),
+        );
+        test(
+          'If the given date would not be generated, generate the previous '
+          'valid date',
+          () => expect(
+            every.previous(DateTime(2022, DateTime.august, 16)),
+            equals(august15th),
+          ),
+        );
+      });
+    });
+
+    group('Every day 31', () {
+      const everyDay31 = EveryDueDayMonth(31);
+      group('Local', () {
+        test('Month ending in 31', () {
+          final august12th2022 = DateTime(2022, DateTime.august, 12);
+          final matcher = DateTime(2022, DateTime.august, 31);
+          expect(everyDay31.startDate(august12th2022), equals(matcher));
+        });
+        test('Month ending in 30', () {
+          final endOfAugust = DateTime(2022, DateTime.august, 31);
+          final matcher = DateTime(2022, DateTime.september, 30);
+          expect(everyDay31.addMonths(endOfAugust, 1), equals(matcher));
+        });
+        test('Month ending in 29', () {
+          final previousMonth = DateTime(2024, DateTime.january, 31);
+          final matcher = DateTime(2024, DateTime.february, 29);
+          expect(everyDay31.addMonths(previousMonth, 1), equals(matcher));
+        });
+        test('Month ending in 28', () {
+          final previousMonth = DateTime(2022, DateTime.january, 31);
+          final nextMonth = DateTime(2022, DateTime.march, 31);
+          final matcher = DateTime(2022, DateTime.february, 28);
+          expect(everyDay31.addMonths(previousMonth, 1), equals(matcher));
+          expect(everyDay31.addMonths(nextMonth, -1), equals(matcher));
+        });
+      });
+      group('UTC', () {
+        test('Month ending in 31', () {
+          final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+          final matcher = DateTime.utc(2022, DateTime.august, 31);
+          expect(everyDay31.startDate(august12th2022Utc), equals(matcher));
+        });
+        test('Month ending in 30', () {
+          final endOfAugustUtc = DateTime.utc(2022, DateTime.august, 31);
+          final matcher = DateTime.utc(2022, DateTime.september, 30);
+          expect(everyDay31.addMonths(endOfAugustUtc, 1), equals(matcher));
+        });
+        test('Month ending in 29', () {
+          final previousMonthUtc = DateTime.utc(2024, DateTime.january, 31);
+          final matcher = DateTime.utc(2024, DateTime.february, 29);
+          expect(everyDay31.addMonths(previousMonthUtc, 1), equals(matcher));
+        });
+        test('Month ending in 28', () {
+          final previousMonthUtc = DateTime.utc(2022, DateTime.january, 31);
+          final nextMonthUtc = DateTime.utc(2022, DateTime.march, 31);
+          final matcher = DateTime.utc(2022, DateTime.february, 28);
+          expect(everyDay31.addMonths(previousMonthUtc, 1), equals(matcher));
+          expect(everyDay31.addMonths(nextMonthUtc, -1), equals(matcher));
+        });
+      });
+    });
+    group('Every day 15', () {
+      const everyDay15 = EveryDueDayMonth(15);
+      test('Local', () {
+        final august12th2022 = DateTime(2022, DateTime.august, 12);
+        final matcher = DateTime(2022, DateTime.august, 15);
+        expect(everyDay15.startDate(august12th2022), equals(matcher));
+      });
+      test('UTC', () {
+        final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
+        final matcher = DateTime.utc(2022, DateTime.august, 15);
+        expect(everyDay15.startDate(august12th2022Utc), equals(matcher));
+      });
+    });
+  });
+  group('EveryDueWorkdayMonth', () {
+    group('constructors', () {
+      group('unnamed', () {
+        group('Creates the object', () {
+          for (var i = 1; i < 24; i++) {
+            test('For $i', () {
+              expect(EveryDueWorkdayMonth(i), isNotNull);
+            });
+          }
+        });
+        group('asserts limits', () {
+          test('Less than 1', () {
+            expect(
+              () => EveryDueWorkdayMonth(0),
+              throwsA(isA<AssertionError>()),
+            );
+          });
+          test('More than 23', () {
+            expect(
+              () => EveryDueWorkdayMonth(24),
+              throwsA(isA<AssertionError>()),
+            );
+          });
+        });
+      });
+      group('from', () {
+        group('Creates the object', () {
+          group('Direction none', () {
+            test('4th day', () {
+              expect(
+                EveryDueWorkdayMonth.from(
+                  DateTime(2024, 6, 4),
+                  direction: WorkdayDirection.none,
+                ),
+                isNotNull,
+              );
+            });
+            test('First day', () {
+              expect(
+                EveryDueWorkdayMonth.from(
+                  DateTime(2024),
+                  direction: WorkdayDirection.none,
+                ),
+                isNotNull,
+              );
+            });
+            test('24th day', () {
+              expect(
+                EveryDueWorkdayMonth.from(
+                  DateTime(2024, 1, 31),
+                  direction: WorkdayDirection.none,
+                ),
+                isNotNull,
+              );
+            });
+          });
+          test('Direction forward', () {
+            expect(EveryDueWorkdayMonth.from(DateTime(2024, 6, 2)), isNotNull);
+          });
+          test('Direction backward', () {
+            expect(
+              EveryDueWorkdayMonth.from(
+                DateTime(2024, 6),
+                direction: WorkdayDirection.backward,
+              ),
+              isNotNull,
+            );
+          });
+        });
+        test('Throws an error for `WorkdayDirection.none` and weekend', () {
+          expect(
+            () => EveryDueWorkdayMonth.from(
+              DateTime(2024, 6, 2),
+              direction: WorkdayDirection.none,
+            ),
+            throwsA(isA<ArgumentError>()),
+          );
+        });
+      });
+    });
+    group('Second Workday', () {
+      const secondWorkday = EveryDueWorkdayMonth(2);
+      group('startDate', () {
+        group('If the given date would be generated, return it', () {
+          test('January second', () {
+            final january2nd = DateTime(2024, 1, 2);
+            expect(secondWorkday.startDate(january2nd), january2nd);
+          });
+          test('June fourth', () {
+            final june4th = DateTime(2024, 6, 4);
+            expect(secondWorkday.startDate(june4th), june4th);
+          });
+        });
+        group('If the given date would not be generated, generate the next',
+            () {
+          test('January', () {
+            final january2nd = DateTime(2024, 1, 2);
+            expect(secondWorkday.startDate(DateTime(2024)), january2nd);
+            expect(secondWorkday.startDate(DateTime(2023, 12, 31)), january2nd);
+            expect(secondWorkday.startDate(DateTime(2023, 12, 5)), january2nd);
+            expect(
+              secondWorkday.startDate(DateTime(2024)),
+              secondWorkday.next(DateTime(2024)),
+            );
+          });
+          test('June fourth', () {
+            final june4th = DateTime(2024, 6, 4);
+            expect(secondWorkday.startDate(DateTime(2024, 5, 3)), june4th);
+            expect(
+              secondWorkday.startDate(DateTime(2024, 5, 3)),
+              secondWorkday.next(DateTime(2024, 5, 3)),
+            );
+          });
+        });
+      });
+      group('next', () {
+        group('If the given date is valid, generate the next', () {
+          test('January second', () {
+            final january2nd = DateTime(2024, 1, 2);
+            expect(secondWorkday.next(january2nd), DateTime(2024, 2, 2));
+          });
+          test('June fourth', () {
+            final june4th = DateTime(2024, 6, 4);
+            expect(secondWorkday.next(june4th), DateTime(2024, 7, 2));
+          });
+        });
+        group('If the given date is not valid, generate the next', () {
+          test('January', () {
+            final january2nd = DateTime(2024, 1, 2);
+            expect(secondWorkday.next(DateTime(2024)), january2nd);
+          });
+          test('June fourth', () {
+            final june4th = DateTime(2024, 6, 4);
+            expect(secondWorkday.next(DateTime(2024, 5, 3)), june4th);
+          });
+        });
+      });
+      group('previous', () {
+        group('If the given date is valid, generate the previous', () {
+          test('January second', () {
+            final january2nd = DateTime(2024, 1, 2);
+            expect(secondWorkday.previous(DateTime(2024, 2, 2)), january2nd);
+          });
+          test('June fourth', () {
+            final june4th = DateTime(2024, 6, 4);
+            expect(secondWorkday.previous(DateTime(2024, 7, 2)), june4th);
+          });
+        });
+        group('If the given date is not valid, generate the previous', () {
+          test('January', () {
+            final january2nd = DateTime(2024, 1, 2);
+            expect(secondWorkday.previous(DateTime(2024, 2)), january2nd);
+          });
+          test('June fourth', () {
+            final june4th = DateTime(2024, 6, 4);
+            expect(secondWorkday.previous(DateTime(2024, 6, 5)), june4th);
+          });
+        });
+      });
+    });
+    group('Last workday of the month', () {
+      const lastWorkday = EveryDueWorkdayMonth(23);
+      group('startDate', () {
+        group('If the given date would be generated, return it', () {
+          test('January', () {
+            final january31st = DateTime(2024, 1, 31);
+            expect(lastWorkday.startDate(january31st), january31st);
+          });
+          test('March', () {
+            final march29th = DateTime(2024, 3, 29);
+            expect(lastWorkday.startDate(march29th), march29th);
+          });
+        });
+        group('If the given date is not valid, generate the next', () {
+          test('January', () {
+            final january31st = DateTime(2024, 1, 31);
+            expect(lastWorkday.startDate(DateTime(2024)), january31st);
+            expect(lastWorkday.startDate(DateTime(2023, 12, 30)), january31st);
+            expect(
+              lastWorkday.startDate(DateTime(2024)),
+              lastWorkday.next(DateTime(2024)),
+            );
+          });
+          test('March', () {
+            final march29th = DateTime(2024, 3, 29);
+            expect(lastWorkday.startDate(DateTime(2024, 3)), march29th);
+            expect(
+              lastWorkday.startDate(DateTime(2024, 3)),
+              lastWorkday.next(DateTime(2024, 3)),
+            );
+          });
+        });
+      });
+      group('next', () {
+        group('If the given date is valid, generate the next', () {
+          test('January', () {
+            final january31st = DateTime(2024, 1, 31);
+            expect(lastWorkday.next(DateTime(2023, 12, 29)), january31st);
+          });
+          test('March', () {
+            final march29th = DateTime(2024, 3, 29);
+            expect(lastWorkday.next(DateTime(2024, 2, 29)), march29th);
+          });
+        });
+        group('If the given date is not valid, generate the next', () {
+          test('January', () {
+            final january31st = DateTime(2024, 1, 31);
+            expect(lastWorkday.next(DateTime(2024)), january31st);
+          });
+          test('March', () {
+            final march29th = DateTime(2024, 3, 29);
+            expect(lastWorkday.next(DateTime(2024, 3)), march29th);
+          });
+        });
+      });
+      group('previous', () {
+        group('If the given date is valid, generate the next', () {
+          test('January', () {
+            final january31st = DateTime(2024, 1, 31);
+            expect(lastWorkday.previous(january31st), DateTime(2023, 12, 29));
+          });
+          test('March', () {
+            final march29th = DateTime(2024, 3, 29);
+            expect(lastWorkday.previous(march29th), DateTime(2024, 2, 29));
+          });
+        });
+        group('If the given date is not valid, generate the next', () {
+          test('January', () {
+            final january31st = DateTime(2024, 1, 31);
+            expect(lastWorkday.previous(DateTime(2024, 2, 15)), january31st);
+          });
+          test('March', () {
+            final march29th = DateTime(2024, 3, 29);
+            expect(lastWorkday.previous(DateTime(2024, 4, 29)), march29th);
+          });
+        });
+      });
+    });
+  });
   group('EveryWeekdayCountInMonth:', () {
     final august12th2022 = DateTime(2022, DateTime.august, 12);
     final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
@@ -415,120 +768,6 @@ void main() {
             equals(matcher),
           );
         });
-      });
-    });
-  });
-  group('EveryDueDayMonth:', () {
-    group('Test base methods logic', () {
-      const every = EveryDueDayMonth(15);
-      group('startDate', () {
-        final august15th = DateTime(2022, DateTime.august, 15);
-        test('If the given date would be generated, return it', () {
-          expect(every.startDate(august15th), equals(august15th));
-        });
-        test('If the given date would not be generated, use next', () {
-          expect(
-            every.startDate(DateTime(2022, DateTime.august, 14)),
-            equals(every.next(DateTime(2022, DateTime.august, 14))),
-          );
-        });
-      });
-      group('next', () {
-        final august15th = DateTime(2022, DateTime.august, 15);
-        final september15th = DateTime(2022, DateTime.september, 15);
-        test(
-          'If the given date would be generated, generate a new one anyway',
-          () => expect(every.next(august15th), equals(september15th)),
-        );
-        test(
-          'If the given date would not be generated, generate the next valid '
-          'date',
-          () => expect(
-            every.next(DateTime(2022, DateTime.august, 14)),
-            equals(august15th),
-          ),
-        );
-      });
-      group('previous', () {
-        final august15th = DateTime(2022, DateTime.august, 15);
-        final july15th = DateTime(2022, DateTime.july, 15);
-        test(
-          'If the given date would be generated, generate a new one anyway',
-          () => expect(every.previous(august15th), equals(july15th)),
-        );
-        test(
-          'If the given date would not be generated, generate the previous '
-          'valid date',
-          () => expect(
-            every.previous(DateTime(2022, DateTime.august, 16)),
-            equals(august15th),
-          ),
-        );
-      });
-    });
-
-    group('Every day 31', () {
-      const everyDay31 = EveryDueDayMonth(31);
-      group('Local', () {
-        test('Month ending in 31', () {
-          final august12th2022 = DateTime(2022, DateTime.august, 12);
-          final matcher = DateTime(2022, DateTime.august, 31);
-          expect(everyDay31.startDate(august12th2022), equals(matcher));
-        });
-        test('Month ending in 30', () {
-          final endOfAugust = DateTime(2022, DateTime.august, 31);
-          final matcher = DateTime(2022, DateTime.september, 30);
-          expect(everyDay31.addMonths(endOfAugust, 1), equals(matcher));
-        });
-        test('Month ending in 29', () {
-          final previousMonth = DateTime(2024, DateTime.january, 31);
-          final matcher = DateTime(2024, DateTime.february, 29);
-          expect(everyDay31.addMonths(previousMonth, 1), equals(matcher));
-        });
-        test('Month ending in 28', () {
-          final previousMonth = DateTime(2022, DateTime.january, 31);
-          final nextMonth = DateTime(2022, DateTime.march, 31);
-          final matcher = DateTime(2022, DateTime.february, 28);
-          expect(everyDay31.addMonths(previousMonth, 1), equals(matcher));
-          expect(everyDay31.addMonths(nextMonth, -1), equals(matcher));
-        });
-      });
-      group('UTC', () {
-        test('Month ending in 31', () {
-          final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
-          final matcher = DateTime.utc(2022, DateTime.august, 31);
-          expect(everyDay31.startDate(august12th2022Utc), equals(matcher));
-        });
-        test('Month ending in 30', () {
-          final endOfAugustUtc = DateTime.utc(2022, DateTime.august, 31);
-          final matcher = DateTime.utc(2022, DateTime.september, 30);
-          expect(everyDay31.addMonths(endOfAugustUtc, 1), equals(matcher));
-        });
-        test('Month ending in 29', () {
-          final previousMonthUtc = DateTime.utc(2024, DateTime.january, 31);
-          final matcher = DateTime.utc(2024, DateTime.february, 29);
-          expect(everyDay31.addMonths(previousMonthUtc, 1), equals(matcher));
-        });
-        test('Month ending in 28', () {
-          final previousMonthUtc = DateTime.utc(2022, DateTime.january, 31);
-          final nextMonthUtc = DateTime.utc(2022, DateTime.march, 31);
-          final matcher = DateTime.utc(2022, DateTime.february, 28);
-          expect(everyDay31.addMonths(previousMonthUtc, 1), equals(matcher));
-          expect(everyDay31.addMonths(nextMonthUtc, -1), equals(matcher));
-        });
-      });
-    });
-    group('Every day 15', () {
-      const everyDay15 = EveryDueDayMonth(15);
-      test('Local', () {
-        final august12th2022 = DateTime(2022, DateTime.august, 12);
-        final matcher = DateTime(2022, DateTime.august, 15);
-        expect(everyDay15.startDate(august12th2022), equals(matcher));
-      });
-      test('UTC', () {
-        final august12th2022Utc = DateTime.utc(2022, DateTime.august, 12);
-        final matcher = DateTime.utc(2022, DateTime.august, 15);
-        expect(everyDay15.startDate(august12th2022Utc), equals(matcher));
       });
     });
   });
