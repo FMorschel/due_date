@@ -249,8 +249,8 @@ class EveryWeekday extends DateValidatorWeekday
   @override
   DateTime addWeeks(DateTime date, int weeks) {
     if (weeks == 0) return date;
-    int localWeeks = weeks;
-    DateTime localDate = date.copyWith();
+    var localWeeks = weeks;
+    var localDate = date.copyWith();
     if (!valid(localDate)) {
       if (localWeeks.isNegative) {
         if (localDate.weekday < weekday.dateTimeValue) {
@@ -349,8 +349,8 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
   @override
   DateTime addMonths(DateTime date, int months) {
     if (months == 0) return date;
-    int localMonths = months;
-    DateTime localDate = date.copyWith();
+    var localMonths = months;
+    var localDate = date.copyWith();
     if (!valid(localDate)) {
       if (localMonths.isNegative) {
         if (localDate.day < dueDay) {
@@ -506,8 +506,8 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
   @override
   DateTime addMonths(DateTime date, int months) {
     if (months == 0) return startDate(date);
-    int localMonths = months;
-    DateTime localDate = startDate(date);
+    var localMonths = months;
+    var localDate = startDate(date);
     if (localMonths.isNegative) {
       while (localMonths < 0) {
         localDate = previous(localDate);
@@ -632,8 +632,8 @@ class EveryDayInYear extends DateValidatorDayInYear
   @override
   DateTime addYears(DateTime date, int years) {
     if (years == 0) return startDate(date);
-    int localYears = years;
-    DateTime localDate = startDate(date);
+    var localYears = years;
+    var localDate = startDate(date);
     if (localYears.isNegative) {
       while (localYears < 0) {
         localDate = previous(localDate);

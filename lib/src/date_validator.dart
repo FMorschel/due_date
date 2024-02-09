@@ -350,7 +350,7 @@ class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
 
   @override
   bool valid(DateTime date) {
-    int validCount = 0;
+    var validCount = 0;
     for (final validator in validators) {
       if (validator.valid(date)) validCount++;
       if (validCount > 1) return false;
@@ -361,7 +361,7 @@ class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
 
   @override
   bool invalid(DateTime date) {
-    int validCount = 0;
+    var validCount = 0;
     for (final validator in validators) {
       if (validator.valid(date)) validCount++;
       if (validCount > 1) return true;

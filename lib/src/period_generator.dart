@@ -167,7 +167,7 @@ class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
 
   @override
   WeekPeriod of(DateTime date) {
-    int difference = weekStart - date.weekday;
+    var difference = weekStart - date.weekday;
     if (difference > 0) difference -= DateTime.daysPerWeek;
     final day = date.day + difference;
     final start = date.copyWith(day: day).date;

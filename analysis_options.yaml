@@ -68,7 +68,7 @@ dart_code_metrics:
 
 linter:
   rules:
-    omit_local_variable_types: false
+    omit_local_variable_types: true
     always_use_package_imports: false
     public_member_api_docs: true
     always_declare_return_types: true

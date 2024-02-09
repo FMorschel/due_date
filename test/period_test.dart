@@ -431,7 +431,7 @@ void main() {
           base.splitIn(3, periodBetween: const Duration(days: 1)),
           orderedEquals(expected),
         );
-        for (int i = 1; i < (expected.length - 1); i++) {
+        for (var i = 1; i < (expected.length - 1); i++) {
           expect(expected[i].duration, equals(expected[i - 1].duration));
         }
       });

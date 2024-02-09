@@ -674,7 +674,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   @override
   String toString() {
-    final DateTime date = this.date.add(timeOfDay);
+    final date = this.date.add(timeOfDay);
     return '$date - $every';
   }
 
