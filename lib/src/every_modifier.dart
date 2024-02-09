@@ -261,7 +261,7 @@ class EveryOverrideWrapper<T extends Every> extends EveryModifierInvalidator<T>
     final validForEveryValidator =
         (every is DateValidator) && ((every as DateValidator).valid(date));
     if (!validForEveryValidator && (every.startDate(date) != date)) {
-      DateTime previous = LimitedOrEveryHandler.previous(
+      var previous = LimitedOrEveryHandler.previous(
         overrider,
         date,
         limit: limit,

@@ -98,8 +98,8 @@ enum Weekday implements Comparable<Weekday> {
   /// Returns the amount of weekdays correspondent to this on the given [month]
   /// of [year].
   int occurrencesIn(int year, int month) {
-    DateTime date = DateTime.utc(year, month);
-    int count = 0;
+    var date = DateTime.utc(year, month);
+    var count = 0;
     do {
       if (date.weekday == dateTimeValue) {
         count++;
@@ -444,7 +444,7 @@ enum Week implements Comparable<Week> {
     } else {
       firstDayOfMonth = DateTime(year, month);
     }
-    DateTime weekDay = firstDayOfMonth.nextWeekday(day);
+    var weekDay = firstDayOfMonth.nextWeekday(day);
     for (final week in [first, second, third, fourth]) {
       if (week == this) {
         return weekDay;

@@ -78,7 +78,7 @@ class Period with EquatableMixin implements Comparable<Period> {
     if (sort) localPeriods.sort();
     if (localPeriods.isEmpty) return [];
     final merged = <Period>[localPeriods.first];
-    for (int i = 1; i < localPeriods.length; i++) {
+    for (var i = 1; i < localPeriods.length; i++) {
       final current = localPeriods[i];
       final previous = localPeriods[i - 1];
       final lastMerged = merged.last;
@@ -240,18 +240,18 @@ class Period with EquatableMixin implements Comparable<Period> {
     }
     final periods = <Period>[];
     final finalBetween = periodBetween * (times - 1);
-    Duration fullPeriodDuration = duration - finalBetween;
-    int rest = fullPeriodDuration.inMicroseconds % times;
+    var fullPeriodDuration = duration - finalBetween;
+    var rest = fullPeriodDuration.inMicroseconds % times;
     while (rest != 0) {
       fullPeriodDuration -= const Duration(microseconds: 1);
       rest = fullPeriodDuration.inMicroseconds % times;
     }
     final periodDuration = fullPeriodDuration ~/ times;
-    for (int i = 0; i < times; i++) {
+    for (var i = 0; i < times; i++) {
       final start = this.start.add(
             (periodDuration * i) + periodBetween * i,
           );
-      DateTime end = this.start.add(
+      var end = this.start.add(
             periodDuration * (i + 1) + periodBetween * i,
           );
       if (i == (times - 1)) end = this.end;
@@ -594,7 +594,7 @@ class Period with EquatableMixin implements Comparable<Period> {
   /// When the [next] function returns `null`, the iteration stops.
   List<DateTime> getDateTimeValues(DateTime? Function(DateTime last) next) {
     final dates = <DateTime>[];
-    DateTime last = start;
+    var last = start;
     while (endsAfter(last)) {
       final nextDate = next(last);
       if (nextDate == null) break;
@@ -739,7 +739,7 @@ class MinutePeriod extends Period {
   List<SecondPeriod> get seconds {
     const generator = SecondGenerator();
     final seconds = <SecondPeriod>[];
-    SecondPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       seconds.add(last);
       last = generator.after(last);
@@ -780,7 +780,7 @@ class HourPeriod extends Period {
   List<MinutePeriod> get minutes {
     const generator = MinuteGenerator();
     final minutes = <MinutePeriod>[];
-    MinutePeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       minutes.add(last);
       last = generator.after(last);
@@ -821,7 +821,7 @@ class DayPeriod extends Period {
   List<HourPeriod> get hours {
     const generator = HourGenerator();
     final hours = <HourPeriod>[];
-    HourPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       hours.add(last);
       last = generator.after(last);
@@ -883,7 +883,7 @@ class WeekPeriod extends Period implements DayPeriodBundle {
   List<DayPeriod> get days {
     const generator = DayGenerator();
     final days = <DayPeriod>[];
-    DayPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       days.add(last);
       last = generator.after(last);
@@ -939,7 +939,7 @@ class FortnightPeriod extends Period implements DayPeriodBundle {
   List<DayPeriod> get days {
     const generator = DayGenerator();
     final days = <DayPeriod>[];
-    DayPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       days.add(last);
       last = generator.after(last);
@@ -985,7 +985,7 @@ class MonthPeriod extends Period implements DayPeriodBundle {
   List<DayPeriod> get days {
     const generator = DayGenerator();
     final days = <DayPeriod>[];
-    DayPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       days.add(last);
       last = generator.after(last);
@@ -1041,7 +1041,7 @@ class TrimesterPeriod extends Period implements MonthPeriodBundle {
   List<MonthPeriod> get months {
     const generator = MonthGenerator();
     final months = <MonthPeriod>[];
-    MonthPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       months.add(last);
       last = generator.after(last);
@@ -1086,7 +1086,7 @@ class SemesterPeriod extends Period implements MonthPeriodBundle {
   List<MonthPeriod> get months {
     const generator = MonthGenerator();
     final months = <MonthPeriod>[];
-    MonthPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       months.add(last);
       last = generator.after(last);
@@ -1134,7 +1134,7 @@ class YearPeriod extends Period implements MonthPeriodBundle {
   List<MonthPeriod> get months {
     const generator = MonthGenerator();
     final months = <MonthPeriod>[];
-    MonthPeriod last = generator.of(start);
+    var last = generator.of(start);
     while (last.start.isBefore(end)) {
       months.add(last);
       last = generator.after(last);

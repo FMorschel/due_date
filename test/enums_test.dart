@@ -566,7 +566,7 @@ void main() {
           DateTime.utc(2022, DateTime.august, 29),
         ];
         const weekValues = Week.values;
-        for (int i = 0; i < weekValues.length; i++) {
+        for (var i = 0; i < weekValues.length; i++) {
           test('${mondays[i].year}/${mondays[i].month}/${mondays[i].day}', () {
             expect(
               weekValues[i].weekdayOf(
@@ -588,7 +588,7 @@ void main() {
           DateTime.utc(2022, DateTime.august, 26),
         ];
         const weekValues = Week.values;
-        for (int i = 0; i < weekValues.length; i++) {
+        for (var i = 0; i < weekValues.length; i++) {
           test('${fridays[i].year}/${fridays[i].month}/${fridays[i].day}', () {
             expect(
               weekValues[i].weekdayOf(
