@@ -174,9 +174,12 @@ mixin EveryWeek implements Every {
 ///
 /// Try to only implement the two that are not the main focus of your [Every]
 /// class.
-mixin EveryMonth implements Every {
+mixin EveryMonth implements EveryYear {
   /// This mixin's implementation of [Every.next] and [Every.previous].
   DateTime addMonths(DateTime date, int months);
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
   /// Returns the next month of the given [date] considering this [EveryMonth]
   /// implementation.
@@ -280,7 +283,7 @@ class EveryDueTimeOfDay extends DateValidatorTimeOfDay
 /// next week's with the [DateTime.weekday] equals to the [weekday].
 class EveryWeekday extends DateValidatorWeekday
     with EveryWeek
-    implements EveryMonth, EveryYear, EveryDateValidator {
+    implements EveryMonth, EveryDateValidator {
   /// Returns a [EveryWeekday] with the given [weekday].
   /// When you call [next] or [previous] on this [EveryWeekday], it will return
   /// the [weekday] of the next or previous week.
@@ -404,7 +407,7 @@ class EveryWeekday extends DateValidatorWeekday
 /// [DateTime.day] as 15.
 class EveryDueDayMonth extends DateValidatorDueDayMonth
     with EveryMonth
-    implements EveryYear, EveryDateValidator {
+    implements EveryDateValidator {
   /// Returns a [EveryDueDayMonth] with the given [dueDay].
   /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
   /// return the [dueDay] of the next or previous month.
@@ -467,14 +470,6 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
     return day.copyWith(day: dueDay).clamp(max: day.lastDayOfMonth);
   }
 
-  /// Returns the [date] - [DateTime.year] + [years] with the [DateTime.day] as
-  /// the [dueDay], clamped to the months length.
-  ///
-  /// Basically, it's the same as [addMonths] but with the months parameter
-  /// multiplied by 12.
-  @override
-  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
-
   @override
   String toString() {
     return 'EveryDueDayMonth<$dueDay>';
@@ -504,7 +499,7 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
 /// month clamped to fit in the length of the next month.
 class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     with EveryMonth
-    implements EveryYear, EveryDateValidator {
+    implements EveryDateValidator {
   /// Returns a [EveryDueWorkdayMonth] with the given [dueWorkday].
   ///
   /// A month can have at most 23 workdays.
@@ -585,9 +580,6 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     }
     return next(addMonths(date, months - 1));
   }
-
-  @override
-  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
   @override
   String toString() {
@@ -700,7 +692,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
 /// ```
 class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
     with EveryMonth
-    implements EveryYear, EveryDateValidator {
+    implements EveryDateValidator {
   /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week].
   const EveryWeekdayCountInMonth({
     required super.week,
@@ -804,14 +796,6 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
     }
     return localDate;
   }
-
-  /// Returns the [date] - [DateTime.year] + [years] with the [week] occurrence
-  /// of the [day].
-  ///
-  /// Basically, it's the same as [addMonths] but with the months parameter
-  /// multiplied by 12.
-  @override
-  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 
   @override
   String toString() {
