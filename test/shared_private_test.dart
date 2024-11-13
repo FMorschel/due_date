@@ -6,7 +6,7 @@ void main() {
   group('getWorkdayNumberInMonth', () {
     test('should throw when date is a weekend', () {
       expect(
-        () => getWorkdayNumberInMonth(
+        () => WeekdayHelper.getWorkdayNumberInMonth(
           DateTime(2022),
           shouldThrow: true,
         ),
@@ -16,17 +16,20 @@ void main() {
     test(
         'should not throw when date shouldThrow is false and date is a weekend',
         () {
-      expect(getWorkdayNumberInMonth(DateTime(2022)), 0);
+      expect(WeekdayHelper.getWorkdayNumberInMonth(DateTime(2022)), 0);
     });
     test('should not throw when date is a workday', () {
-      expect(getWorkdayNumberInMonth(DateTime(2022, DateTime.june, 7)), 5);
+      expect(
+        WeekdayHelper.getWorkdayNumberInMonth(DateTime(2022, DateTime.june, 7)),
+        5,
+      );
     });
     test('If weekend, should always return 0', () {
       const every = EveryWeekday.weekend;
       for (var date = every.next(DateTime(2021, 12, 31));
           date.month < 2;
           date = every.next(date)) {
-        expect(getWorkdayNumberInMonth(date), 0);
+        expect(WeekdayHelper.getWorkdayNumberInMonth(date), 0);
       }
     });
     test('If workday, should never return 0', () {
@@ -34,12 +37,12 @@ void main() {
       for (var date = every.next(DateTime(2021, 12, 31));
           date.month < 2;
           date = every.next(date)) {
-        expect(getWorkdayNumberInMonth(date), isNot(0));
+        expect(WeekdayHelper.getWorkdayNumberInMonth(date), isNot(0));
       }
       for (var date = every.next(DateTime(2023, 12, 31));
           date.month < 2;
           date = every.next(date)) {
-        expect(getWorkdayNumberInMonth(date), isNot(0));
+        expect(WeekdayHelper.getWorkdayNumberInMonth(date), isNot(0));
       }
     });
   });
