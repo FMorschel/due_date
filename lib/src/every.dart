@@ -539,17 +539,17 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   }) {
     var local = date.copyWith();
     if (!direction.isNone) {
-      local = WeekdayHelper.adjustToWorkday(date, isNext: direction.isForward);
+      local = WorkdayHelper.adjustToWorkday(date, isNext: direction.isForward);
     }
     return EveryDueWorkdayMonth(
-      WeekdayHelper.getWorkdayNumberInMonth(
+      WorkdayHelper.getWorkdayNumberInMonth(
         local,
         shouldThrow: direction.isNone,
       ),
     );
   }
 
-  static const _workdays = WeekdayHelper.every;
+  static const _workdays = WorkdayHelper.every;
   static final _workdaysInWeek = _workdays.length;
 
   @override
@@ -600,7 +600,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     required bool isNext,
   }) {
     var local = date.copyWith();
-    local = WeekdayHelper.adjustToWorkday(local, isNext: isNext);
+    local = WorkdayHelper.adjustToWorkday(local, isNext: isNext);
     if (local != date && valid(local)) return local;
     if (_shouldChangeMonth(date, isNext: isNext)) {
       local = local.copyWith(month: local.month + (isNext ? 1 : -1), day: 1);
@@ -633,7 +633,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     required bool isNext,
     required bool Function(int measuredWorkday) condition,
   }) {
-    final measuredWorkday = WeekdayHelper.getWorkdayNumberInMonth(date);
+    final measuredWorkday = WorkdayHelper.getWorkdayNumberInMonth(date);
     if (condition(measuredWorkday)) {
       return _skipWeekIfPossible(
         date,
@@ -657,7 +657,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     required bool isNext,
     int? measuredWorkday,
   }) {
-    measuredWorkday ??= WeekdayHelper.getWorkdayNumberInMonth(date);
+    measuredWorkday ??= WorkdayHelper.getWorkdayNumberInMonth(date);
     if (_isDifferenceGreaterOrEqualToWeekSize(
       measuredWorkday,
       isNext: isNext,
@@ -677,8 +677,8 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   }
 
   bool _shouldChangeMonth(DateTime date, {required bool isNext}) {
-    final measuredWorkday = WeekdayHelper.getWorkdayNumberInMonth(
-      WeekdayHelper.adjustToWorkday(date, isNext: isNext),
+    final measuredWorkday = WorkdayHelper.getWorkdayNumberInMonth(
+      WorkdayHelper.adjustToWorkday(date, isNext: isNext),
     );
     return (isNext
         ? ((measuredWorkday >= dueWorkday) ||

@@ -382,10 +382,10 @@ void main() {
           final lastDayOfMonth =
               DateTime(month.year, month.month).lastDayOfMonth;
           late final DateTime lastWorkdayInMonth;
-          if (WeekdayHelper.every.valid(lastDayOfMonth)) {
+          if (WorkdayHelper.every.valid(lastDayOfMonth)) {
             lastWorkdayInMonth = lastDayOfMonth;
           } else {
-            lastWorkdayInMonth = WeekdayHelper.every.previous(lastDayOfMonth);
+            lastWorkdayInMonth = WorkdayHelper.every.previous(lastDayOfMonth);
           }
           group('startDate', () {
             test('same day', () {
@@ -405,10 +405,10 @@ void main() {
             final lastDayOfNextMonth =
                 DateTime(month.year, month.month + 1).lastDayOfMonth;
             late final DateTime lastWorkdayInNextMonth;
-            if (WeekdayHelper.every.valid(lastDayOfNextMonth)) {
+            if (WorkdayHelper.every.valid(lastDayOfNextMonth)) {
               lastWorkdayInNextMonth = lastDayOfNextMonth;
             } else {
-              lastWorkdayInNextMonth = WeekdayHelper.every.previous(
+              lastWorkdayInNextMonth = WorkdayHelper.every.previous(
                 lastDayOfNextMonth,
               );
             }
@@ -429,10 +429,10 @@ void main() {
             final lastDayOfPreviousMonth =
                 DateTime(month.year, month.month - 1).lastDayOfMonth;
             late final DateTime lastWorkdayInPreviousMonth;
-            if (WeekdayHelper.every.valid(lastDayOfPreviousMonth)) {
+            if (WorkdayHelper.every.valid(lastDayOfPreviousMonth)) {
               lastWorkdayInPreviousMonth = lastDayOfPreviousMonth;
             } else {
-              lastWorkdayInPreviousMonth = WeekdayHelper.every.previous(
+              lastWorkdayInPreviousMonth = WorkdayHelper.every.previous(
                 lastDayOfPreviousMonth,
               );
             }

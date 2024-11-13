@@ -304,10 +304,10 @@ class DateValidatorDueWorkdayMonth extends ExactDateValidator
   }) {
     var local = date.copyWith();
     if (!direction.isNone) {
-      local = WeekdayHelper.adjustToWorkday(date, isNext: direction.isForward);
+      local = WorkdayHelper.adjustToWorkday(date, isNext: direction.isForward);
     }
     return DateValidatorDueWorkdayMonth(
-      WeekdayHelper.getWorkdayNumberInMonth(
+      WorkdayHelper.getWorkdayNumberInMonth(
         local,
         shouldThrow: direction.isNone,
       ),
@@ -315,7 +315,7 @@ class DateValidatorDueWorkdayMonth extends ExactDateValidator
     );
   }
 
-  static const _workdays = WeekdayHelper.every;
+  static const _workdays = WorkdayHelper.every;
 
   /// The expected workday of the month.
   final int dueWorkday;
@@ -332,7 +332,7 @@ class DateValidatorDueWorkdayMonth extends ExactDateValidator
   @override
   bool valid(DateTime date) {
     if (_workdays.invalid(date)) return false;
-    final count = WeekdayHelper.getWorkdayNumberInMonth(date);
+    final count = WorkdayHelper.getWorkdayNumberInMonth(date);
     if (count == dueWorkday) return true;
     if (exact) return false;
     var local = date.copyWith();

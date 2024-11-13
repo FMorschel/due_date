@@ -249,24 +249,24 @@ void main() {
               final lastDayOfMonth =
                   DateTime(month.year, month.month).lastDayOfMonth;
               DateTime lastWorkdayInMonth;
-              if (WeekdayHelper.every.valid(lastDayOfMonth)) {
+              if (WorkdayHelper.every.valid(lastDayOfMonth)) {
                 lastWorkdayInMonth = lastDayOfMonth;
               } else {
                 lastWorkdayInMonth =
-                    WeekdayHelper.every.previous(lastDayOfMonth);
+                    WorkdayHelper.every.previous(lastDayOfMonth);
               }
-              final maxWorkdayInMonth = WeekdayHelper.getWorkdayNumberInMonth(
+              final maxWorkdayInMonth = WorkdayHelper.getWorkdayNumberInMonth(
                 lastWorkdayInMonth,
               );
               group('$validator', () {
                 for (var day = 1; day <= lastDayOfMonth.day; day++) {
                   final date = month.date(day);
-                  if (WeekdayHelper.getWorkdayNumberInMonth(date) ==
+                  if (WorkdayHelper.getWorkdayNumberInMonth(date) ==
                       validator.dueWorkday) {
                     test('Day $day is valid', () {
                       expect(validator.valid(date), isTrue);
                     });
-                  } else if (!WeekdayHelper.every.valid(date)) {
+                  } else if (!WorkdayHelper.every.valid(date)) {
                     test('Day $day is not valid', () {
                       expect(validator.valid(date), isFalse);
                     });
