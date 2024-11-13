@@ -55,21 +55,13 @@ extension AddDays on DateTime {
   }
 }
 
-/// Extension methods to calculate the end of a day.
+/// Extension methods to calculate the end of a day for DateTime.
 extension EndOfDay on DateTime {
   /// Returns a new [DateTime] with the same day, month and year, with the time
   /// set to the end of the day.
   DateTime get endOfDay {
-    late DateTime date;
-    if (isUtc) {
-      date = DateTime.utc(year, month, day + 1);
-    } else {
-      date = DateTime(year, month, day + 1);
-    }
-    while (!isAtSameDayAs(date)) {
-      date = date.subtract(const Duration(microseconds: 1));
-    }
-    return date;
+    final nextDay = date.addDays(1);
+    return nextDay.subtract(const Duration(microseconds: 1));
   }
 }
 
