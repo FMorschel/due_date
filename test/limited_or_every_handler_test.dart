@@ -1,4 +1,6 @@
 import 'package:due_date/due_date.dart';
+// ignore: deprecated_member_use_from_same_package, only testing
+import 'package:due_date/helpers.dart';
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 

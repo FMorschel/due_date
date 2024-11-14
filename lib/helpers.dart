@@ -8,4 +8,5 @@
 @Deprecated('This library is not meant to be used by the end user.')
 library helpers;
 
+export 'src/limited_or_every_handler.dart';
 export 'src/shared_private.dart';
