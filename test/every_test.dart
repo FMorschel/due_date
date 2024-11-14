@@ -1,5 +1,5 @@
 import 'package:due_date/due_date.dart';
-import 'package:due_date/src/shared_private.dart';
+import 'package:due_date/src/helpers/helpers.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 

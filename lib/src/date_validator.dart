@@ -3,8 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
-import '../due_date.dart';
-import 'shared_private.dart';
+import 'enums.dart';
+import 'every.dart';
+import 'extensions.dart';
+import 'helpers/helpers.dart';
 
 /// A class to save a specific validation for a [DateTime].
 ///

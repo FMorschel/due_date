@@ -1,4 +1,4 @@
-import '../due_date.dart';
+import '../every.dart';
 
 /// Simple class to delegate the work to a given [Every] base process.
 /// For every one one of the everies that is a [LimitedEvery], the limit

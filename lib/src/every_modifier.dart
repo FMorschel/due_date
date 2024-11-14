@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-import '../due_date.dart';
-import 'limited_or_every_handler.dart';
+import 'date_validator.dart';
+import 'every.dart';
+import 'helpers/helpers.dart';
 
 /// An enum that represents the direction of the process inside [EveryModifier].
 /// Used on [EveryModifier.processDate].
