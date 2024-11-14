@@ -4,8 +4,11 @@ import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import '../due_date.dart';
+import 'shared_private.dart';
 
 /// A class to save a specific validation for a [DateTime].
+///
+/// See also [ExactDateValidator].
 @immutable
 abstract class DateValidator {
   /// A class to save a specific validation for a [DateTime].
@@ -29,13 +32,44 @@ abstract class DateValidator {
   /// for invalid dates, it can be implemented here.
   bool invalid(DateTime date);
 
-  @Deprecated("Use 'DateValidator.filterValidDates' instead.")
-
   /// Returns the valid dates for this [DateValidator] in [dates].
+  @Deprecated("Use 'DateValidator.filterValidDates' instead.")
   Iterable<DateTime> validsIn(Iterable<DateTime> dates);
 
   /// Returns the valid dates for this [DateValidator] in [dates].
   Iterable<DateTime> filterValidDates(Iterable<DateTime> dates);
+}
+
+/// {@template exactDateValidator}
+/// A class to save a specific validation for a [DateTime].
+///
+/// This version of [DateValidator] is used to validate a [DateTime] if it is
+/// exactly the same as the [DateTime] passed to [valid] or [invalid].
+///
+/// {@template inexactDates}
+/// There can be cases where an inexact date is valid. For example, if the
+/// validator is testing for a day in a period with an specific property, there
+/// can be an exception for the last day(s) of the period with this property.
+/// {@endtemplate}
+/// {@endtemplate}
+@immutable
+abstract class ExactDateValidator extends DateValidator {
+  /// {@macro exactDateValidator}
+  const ExactDateValidator({this.exact = true});
+
+  /// Returns whether the [DateTime] passed to [valid] or [invalid] can be
+  /// inexact.
+  ///
+  /// If [exact] is true, this will return false.
+  ///
+  /// {@macro inexactDates}
+  bool get inexact => !exact;
+
+  /// Returns whether the [DateTime] passed to [valid] or [invalid] needs to fit
+  /// exactly a specific date.
+  ///
+  /// {@macro inexactDates}
+  final bool exact;
 }
 
 /// Mixin to easily implement the [DateValidator.invalid],
@@ -121,6 +155,21 @@ class DateValidatorWeekday
     return DateValidatorWeekday(Weekday.from(date));
   }
 
+  /// A [DateValidator] that validates a [DateTime] if it is a workday.
+  static const workdays = DateValidatorUnion([
+    EveryWeekday(Weekday.monday),
+    EveryWeekday(Weekday.tuesday),
+    EveryWeekday(Weekday.wednesday),
+    EveryWeekday(Weekday.thursday),
+    EveryWeekday(Weekday.friday),
+  ]);
+
+  /// A [DateValidator] that validates a [DateTime] if it is a weekend.
+  static const weekend = DateValidatorUnion([
+    EveryWeekday(Weekday.saturday),
+    EveryWeekday(Weekday.sunday),
+  ]);
+
   /// The expected weekday.
   final Weekday weekday;
 
@@ -146,7 +195,7 @@ class DateValidatorWeekday
 /// If [exact] is false, and the [dueDay] is greater than the days in month,
 /// the [DateTime] will be valid if the [DateTime.day] is the last day of the
 /// month.
-class DateValidatorDueDayMonth extends DateValidator
+class DateValidatorDueDayMonth extends ExactDateValidator
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorDueDayMonth> {
   /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
@@ -156,7 +205,7 @@ class DateValidatorDueDayMonth extends DateValidator
   /// month.
   const DateValidatorDueDayMonth(
     this.dueDay, {
-    this.exact = false,
+    super.exact = false,
   }) : assert(
           (dueDay >= 1) && (dueDay <= 31),
           'Due day must be between 1 and 31',
@@ -176,12 +225,6 @@ class DateValidatorDueDayMonth extends DateValidator
 
   /// The expected day of the month.
   final int dueDay;
-
-  /// If true, the day of the month must be exactly this [dueDay].
-  /// If false, and the [dueDay] is greater than the days in month, the
-  /// [DateTime] will be valid if the [DateTime.day] is the last day of the
-  /// month.
-  final bool exact;
 
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
@@ -206,8 +249,121 @@ class DateValidatorDueDayMonth extends DateValidator
   int compareTo(DateValidatorDueDayMonth other) =>
       dueDay.compareTo(other.dueDay);
 
+  /// If true, the day of the month must be exactly this [dueDay].
+  ///
+  /// If false, and the [dueDay] is greater than the days in month, the
+  /// [DateTime] will be valid if the [DateTime.day] is the last day of the
+  /// month.
+  @override
+  bool get exact => super.exact;
+
+  /// Returns whether the [DateTime] passed to [valid] or [invalid] can be
+  /// inexact.
+  ///
+  /// If [exact] is true, this will return false.
+  ///
+  /// If this is false, and the month has less than [dueDay] days, the last day
+  /// will be considered valid.
+  @override
+  bool get inexact => super.inexact;
+
   @override
   List<Object> get props => [dueDay, exact];
+}
+
+/// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
+/// same value as [dueWorkday].
+/// If [exact] is false, and the [dueWorkday] is greater than the days in month,
+/// the [DateTime] will be valid if the [DateTime.day] is the last day of the
+/// month.
+class DateValidatorDueWorkdayMonth extends ExactDateValidator
+    with EquatableMixin, DateValidatorMixin
+    implements Comparable<DateValidatorDueWorkdayMonth> {
+  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
+  /// same value as [dueWorkday].
+  /// If [exact] is false, and the [dueWorkday] is greater than the days in
+  /// month, the [DateTime] will be valid if the [DateTime.day] is the last day
+  /// of the month.
+  const DateValidatorDueWorkdayMonth(
+    this.dueWorkday, {
+    super.exact = false,
+  }) : assert(
+          (dueWorkday >= 1) && (dueWorkday <= 23),
+          'Due workday must be between 1 and 23',
+        );
+
+  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
+  /// same value as [dueWorkday].
+  /// If [exact] is false, and the [dueWorkday] is greater than the days in
+  /// month, the [DateTime] will be valid if the [DateTime.day] is the last day
+  /// of the month.
+  factory DateValidatorDueWorkdayMonth.from(
+    DateTime date, {
+    WorkdayDirection direction = WorkdayDirection.forward,
+    bool exact = false,
+  }) {
+    var local = date.copyWith();
+    if (!direction.isNone) {
+      local = WorkdayHelper.adjustToWorkday(date, isNext: direction.isForward);
+    }
+    return DateValidatorDueWorkdayMonth(
+      WorkdayHelper.getWorkdayNumberInMonth(
+        local,
+        shouldThrow: direction.isNone,
+      ),
+      exact: exact,
+    );
+  }
+
+  static const _workdays = WorkdayHelper.every;
+
+  /// The expected workday of the month.
+  final int dueWorkday;
+
+  @override
+  // ignore: hash_and_equals, already implemented by EquatableMixin
+  bool operator ==(Object other) {
+    return (super == other) ||
+        ((other is DateValidatorDueWorkdayMonth) &&
+            (dueWorkday == other.dueWorkday) &&
+            (exact == other.exact));
+  }
+
+  @override
+  bool valid(DateTime date) {
+    if (_workdays.invalid(date)) return false;
+    final count = WorkdayHelper.getWorkdayNumberInMonth(date);
+    if (count == dueWorkday) return true;
+    if (exact) return false;
+    var local = date.copyWith();
+    local = _workdays.next(date);
+    if (!local.isAtSameMonthAs(date) && count < dueWorkday) return true;
+    return false;
+  }
+
+  @override
+  int compareTo(DateValidatorDueWorkdayMonth other) =>
+      dueWorkday.compareTo(other.dueWorkday);
+
+  /// Returns whether the [DateTime] passed to [valid] or [invalid] can be
+  /// inexact.
+  ///
+  /// If [exact] is true, this will return false.
+  ///
+  /// If this is false, and the month has less than [dueWorkday] workdays, the
+  /// last workday will be considered valid.
+  @override
+  bool get inexact => super.inexact;
+
+  /// If true, the workday of the month must be exactly this [dueWorkday].
+  /// If false, and the [dueWorkday] is greater than the workdays in month, the
+  /// [DateTime] will be valid if the [DateTime.day] is the last workday of the
+  /// month.
+  @override
+  bool get exact => super.exact;
+
+  @override
+  List<Object> get props => [dueWorkday, exact];
 }
 
 /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
