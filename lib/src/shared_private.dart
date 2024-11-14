@@ -2,8 +2,10 @@ import 'package:time/time.dart';
 
 import '../due_date.dart';
 
-/// Helper class to work with weekdays.
+/// Helper class to work with workdays.
 class WorkdayHelper {
+  const WorkdayHelper._();
+
   /// An every that generates workdays (monday to friday).
   static const every = EveryWeekday.workdays;
 
