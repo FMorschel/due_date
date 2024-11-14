@@ -87,6 +87,22 @@ linter:
 
 dart_code_metrics:
   rules:
+    - prefer-commenting-analyzer-ignores
+    - prefer-first
+    - prefer-immediate-return
+    - prefer-last
+
+    - always-remove-listener
+    - avoid-border-all
+    - avoid-returning-widgets:
+        ignored-names:
+          - testFunction
+        ignored-annotations:
+          - allowedAnnotation
+    - avoid-unnecessary-setstate
+    - avoid-wrapping-in-padding
+    - prefer-const-border-radius
+
     - double-literal-format
     - format-comment
     - member-ordering-extended:
@@ -123,18 +139,3 @@ dart_code_metrics:
           - public-methods
           - private-methods
           - getters-setters
-    - prefer-commenting-analyzer-ignores
-    - prefer-first
-    - prefer-immediate-return
-    - prefer-last
-
-    - always-remove-listener
-    - avoid-border-all
-    - avoid-returning-widgets:
-        ignored-names:
-          - testFunction
-        ignored-annotations:
-          - allowedAnnotation
-    - avoid-unnecessary-setstate
-    - avoid-wrapping-in-padding
-    - prefer-const-border-radius
