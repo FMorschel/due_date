@@ -5,5 +5,6 @@
     "everies",
     "overrider"
   ],
-  "dart.lineLength": 80
+  "dart.lineLength": 80,
+  "dart.sdkPath": "C:/Users/felip_0vh5fa/dart"
 }

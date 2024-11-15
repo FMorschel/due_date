@@ -1,33 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-import 'date_validator.dart';
-import 'every.dart';
-import 'helpers/helpers.dart';
-
-/// An enum that represents the direction of the process inside [EveryModifier].
-/// Used on [EveryModifier.processDate].
-enum DateDirection {
-  /// An enum that represents the start direction of the process inside
-  /// [EveryModifier].
-  start,
-
-  /// An enum that represents the next direction of the process inside
-  /// [EveryModifier].
-  next,
-
-  /// An enum that represents the previous direction of the process inside
-  /// [EveryModifier].
-  previous;
-
-  /// Returns true if the [DateDirection] is [DateDirection.start].
-  bool get isStart => this == DateDirection.start;
-
-  /// Returns true if the [DateDirection] is [DateDirection.next].
-  bool get isNext => this == DateDirection.next;
-
-  /// Returns true if the [DateDirection] is [DateDirection.previous].
-  bool get isPrevious => this == DateDirection.previous;
-}
+import '../../date_validator.dart';
+import '../../every.dart';
+import '../../helpers/helpers.dart';
+import 'date_direction.dart';
+import 'every_modifier_invalidator.dart';
 
 /// {@template everyModifier}
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
@@ -43,39 +20,6 @@ abstract class EveryModifier<T extends Every> implements Every {
 
   /// A method that processes [date] with custom logic.
   DateTime processDate(DateTime date, DateDirection direction);
-}
-
-/// {@template everyModifierMixin}
-/// Mixin that, when used, passes the calls the specific method on the
-/// underlying [every].
-///
-/// If the [every] is a [LimitedEvery], the [LimitedEveryModifierMixin] should
-/// be used instead.
-/// {@endtemplate}
-mixin EveryModifierMixin<T extends Every> on EveryModifier<T> {
-  @override
-  DateTime startDate(DateTime date) {
-    return processDate(
-      LimitedOrEveryHandler.startDate(every, date, limit: null),
-      DateDirection.start,
-    );
-  }
-
-  @override
-  DateTime next(DateTime date) {
-    return processDate(
-      LimitedOrEveryHandler.next(every, date, limit: null),
-      DateDirection.next,
-    );
-  }
-
-  @override
-  DateTime previous(DateTime date) {
-    return processDate(
-      LimitedOrEveryHandler.previous(every, date, limit: null),
-      DateDirection.previous,
-    );
-  }
 }
 
 /// {@macro everyModifierMixin}
@@ -118,22 +62,6 @@ mixin LimitedEveryModifierMixin<T extends Every> on EveryModifier<T>
     DateDirection direction, {
     DateTime? limit,
   });
-}
-
-/// {@template everyModifierInvalidator}
-/// Class that wraps an [every] generator and adds an [invalidator] that will
-/// be used to invalidate the generated dates.
-/// {@endtemplate}
-abstract class EveryModifierInvalidator<T extends Every>
-    extends EveryModifier<T> with EveryModifierMixin<T> {
-  /// {@macro everyModifierInvalidator}
-  const EveryModifierInvalidator({
-    required super.every,
-    required this.invalidator,
-  });
-
-  /// The [DateValidator] that will be used to invalidate the generated dates.
-  final DateValidator invalidator;
 }
 
 /// {@template everySkipInvalidModifier}
