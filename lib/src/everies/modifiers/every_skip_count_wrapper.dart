@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../date_validator.dart';
+import '../../date_validators/date_validators.dart';
 import '../../helpers/helpers.dart';
 import '../date_time_limit_reached_exception.dart';
 import '../every.dart';

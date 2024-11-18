@@ -1,4 +1,4 @@
-import '../date_validator.dart';
+import '../date_validators/date_validators.dart';
 import 'every_date_validator.dart';
 
 /// Mixin that represents a list of [EveryDateValidator].

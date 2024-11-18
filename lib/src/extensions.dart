@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import 'date_validator.dart';
+import 'date_validators/date_validators.dart';
 import 'due_date.dart';
 import 'enums.dart';
 import 'everies/everies.dart';

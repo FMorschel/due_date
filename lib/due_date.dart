@@ -27,7 +27,7 @@ import 'src/due_date.dart';
 import 'src/enums.dart' show WeekdayOccurrence;
 import 'src/everies/everies.dart';
 
-export 'src/date_validator.dart';
+export 'src/date_validators/date_validators.dart';
 export 'src/due_date.dart';
 export 'src/enums.dart' show Month, Week, Weekday, WeekdayOccurrence;
 export 'src/everies/everies.dart';

@@ -3,7 +3,7 @@ import 'package:due_date/src/helpers/helpers.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
-import '../date_validator_test.dart';
+import '../date_validators/date_validator_due_workday_month_test.dart';
 
 void main() {
   group('EveryDueWorkdayMonth:', () {
