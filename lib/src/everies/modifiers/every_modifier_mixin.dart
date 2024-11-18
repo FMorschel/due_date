@@ -1,5 +1,6 @@
-import '../../every.dart';
 import '../../helpers/helpers.dart';
+import '../every.dart';
+import '../limited_every.dart';
 import 'modifiers.dart';
 
 /// {@template everyModifierMixin}

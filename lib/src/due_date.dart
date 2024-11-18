@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
-import 'every.dart';
+import 'everies/everies.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
 @immutable

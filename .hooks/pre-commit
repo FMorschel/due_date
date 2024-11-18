@@ -40,6 +40,12 @@ EOF
 	exit 1
 fi
 
+# Do dart checks only if ./lib or ./test directories were changed
+if [ -z "$(git diff --cached --name-only --diff-filter=ACMRTUXB $against | grep -E '^(lib/|test/)')" ]; then
+	echo "No Dart files were changed. Skipping Dart checks."
+	exit 0
+fi
+
 # Fetch packages
 echo "Running dart pub get..."
 dart pub get >/dev/null

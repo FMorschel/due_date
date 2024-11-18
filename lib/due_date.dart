@@ -25,12 +25,12 @@ library due_date;
 
 import 'src/due_date.dart';
 import 'src/enums.dart' show WeekdayOccurrence;
-import 'src/every.dart';
+import 'src/everies/everies.dart';
 
 export 'src/date_validator.dart';
 export 'src/due_date.dart';
 export 'src/enums.dart' show Month, Week, Weekday, WeekdayOccurrence;
-export 'src/every.dart';
+export 'src/everies/everies.dart';
 export 'src/extensions.dart'
     show
         AddDays,

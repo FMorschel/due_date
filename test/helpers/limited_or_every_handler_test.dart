@@ -1,6 +1,5 @@
 import 'package:due_date/due_date.dart';
-import 'package:due_date/period.dart';
-import 'package:due_date/src/helpers/limited_or_every_handler.dart';
+import 'package:due_date/src/helpers/helpers.dart';
 import 'package:test/test.dart';
 
 void main() {

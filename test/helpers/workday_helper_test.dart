@@ -1,5 +1,5 @@
-import 'package:due_date/src/every.dart';
-import 'package:due_date/src/helpers/workday_helper.dart';
+import 'package:due_date/due_date.dart';
+import 'package:due_date/src/helpers/helpers.dart';
 import 'package:test/test.dart';
 
 void main() {

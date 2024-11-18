@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import '../every.dart';
+import '../everies/everies.dart';
 
 /// Helper class to work with workdays.
 class WorkdayHelper {

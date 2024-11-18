@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import 'enums.dart';
-import 'every.dart';
+import 'everies/everies.dart';
 import 'extensions.dart';
 import 'helpers/helpers.dart';
 

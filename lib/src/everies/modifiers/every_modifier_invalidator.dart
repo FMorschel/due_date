@@ -1,5 +1,5 @@
 import '../../date_validator.dart';
-import '../../every.dart';
+import '../every.dart';
 import 'every_modifier.dart';
 import 'every_modifier_mixin.dart';
 
