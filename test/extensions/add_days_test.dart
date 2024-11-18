@@ -1,7 +1,7 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
-void main () {
+void main() {
   group('AddDays on DateTime:', () {
     group('Add/Subtract Days:', () {
       final monday = DateTime.utc(2022, DateTime.july, 18);

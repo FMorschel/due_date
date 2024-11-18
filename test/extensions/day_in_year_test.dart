@@ -1,7 +1,7 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
-void main () {
+void main() {
   group('DayInYear on DateTime', () {
     test('January 1st', () {
       expect(DateTime(2022).dayInYear, 1);
