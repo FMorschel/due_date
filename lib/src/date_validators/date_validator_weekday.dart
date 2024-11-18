@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../enums.dart';
+import '../enums/enums.dart';
+import '../enums/weekday.dart';
 import '../everies/everies.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';

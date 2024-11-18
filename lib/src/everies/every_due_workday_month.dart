@@ -1,7 +1,8 @@
 import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
-import '../enums.dart';
+import '../enums/enums.dart';
+import '../enums/weekday.dart';
 import '../helpers/helpers.dart';
 import 'every_date_validator.dart';
 import 'every_month.dart';

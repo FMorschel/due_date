@@ -16,11 +16,11 @@
 /// [SemesterGenerator] and [YearGenerator].
 library period;
 
-import 'src/enums.dart' show PeriodGenerator;
+import 'src/enums/enums.dart' show PeriodGenerator;
 import 'src/period.dart';
 import 'src/period_generator.dart';
 
-export 'src/enums.dart' show Month, PeriodGenerator, Week, Weekday;
+export 'src/enums/enums.dart' show Month, PeriodGenerator, Week, Weekday;
 export 'src/everies/everies.dart';
 export 'src/extensions.dart' show EndOfDay;
 export 'src/period.dart';

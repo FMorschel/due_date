@@ -2,7 +2,8 @@ import 'package:time/time.dart';
 
 import 'date_validators/date_validators.dart';
 import 'due_date.dart';
-import 'enums.dart';
+import 'enums/enums.dart';
+import 'enums/weekday.dart';
 import 'everies/everies.dart';
 
 /// Extension methods to get the day of the year of a [DateTime].
