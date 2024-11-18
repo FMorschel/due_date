@@ -1,5 +1,5 @@
-import '../period.dart';
 import '../period_generator.dart';
+import '../periods/periods.dart';
 
 /// Month constants that are returned by [DateTime.month] method.
 enum Month implements Comparable<Month> {

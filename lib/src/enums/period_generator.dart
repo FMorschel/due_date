@@ -1,5 +1,5 @@
-import '../period.dart';
 import '../period_generator.dart';
+import '../periods/periods.dart';
 
 /// An enumeration of the different period generators implemented in this
 /// package.

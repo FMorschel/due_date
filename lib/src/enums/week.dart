@@ -1,7 +1,7 @@
 import 'package:time/time.dart';
 
 import '../extensions/extensions.dart';
-import '../period.dart';
+import '../periods/periods.dart';
 import 'weekday.dart';
 
 /// Week occurrences inside a month.

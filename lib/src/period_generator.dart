@@ -2,7 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
-import '../period.dart';
+import 'enums/enums.dart';
+import 'extensions/extensions.dart';
+import 'periods/periods.dart';
 
 /// A mixin for generating period types.
 ///

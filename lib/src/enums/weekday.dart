@@ -1,8 +1,8 @@
 import 'package:time/time.dart';
 import '../date_validators/date_validators.dart';
 import '../everies/everies.dart';
-import '../period.dart';
 import '../period_generator.dart';
+import '../periods/periods.dart';
 
 /// Weekday constants that are returned by [DateTime.weekday] method.
 enum Weekday implements Comparable<Weekday> {

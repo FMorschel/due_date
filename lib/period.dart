@@ -17,11 +17,11 @@
 library period;
 
 import 'src/enums/enums.dart' show PeriodGenerator;
-import 'src/period.dart';
 import 'src/period_generator.dart';
+import 'src/periods/periods.dart';
 
 export 'src/enums/enums.dart' show Month, PeriodGenerator, Week, Weekday;
 export 'src/everies/everies.dart';
 export 'src/extensions/extensions.dart' show EndOfDay;
-export 'src/period.dart';
 export 'src/period_generator.dart';
+export 'src/periods/periods.dart';
