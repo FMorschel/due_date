@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import '../extensions.dart';
+import '../extensions/extensions.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';
 

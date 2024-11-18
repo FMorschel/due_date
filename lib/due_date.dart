@@ -31,7 +31,7 @@ export 'src/date_validators/date_validators.dart';
 export 'src/due_date.dart';
 export 'src/enums/enums.dart' show Month, Week, Weekday, WeekdayOccurrence;
 export 'src/everies/everies.dart';
-export 'src/extensions.dart'
+export 'src/extensions/extensions.dart'
     show
         AddDays,
         ClampInMonth,

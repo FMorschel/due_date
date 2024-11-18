@@ -1,7 +1,7 @@
 import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
-import '../extensions.dart';
+import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 
 /// {@template everyDay}

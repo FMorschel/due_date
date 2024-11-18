@@ -1,5 +1,6 @@
 import 'package:time/time.dart';
-import '../extensions.dart';
+
+import '../extensions/extensions.dart';
 import '../period.dart';
 import 'weekday.dart';
 

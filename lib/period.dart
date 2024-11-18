@@ -22,6 +22,6 @@ import 'src/period_generator.dart';
 
 export 'src/enums/enums.dart' show Month, PeriodGenerator, Week, Weekday;
 export 'src/everies/everies.dart';
-export 'src/extensions.dart' show EndOfDay;
+export 'src/extensions/extensions.dart' show EndOfDay;
 export 'src/period.dart';
 export 'src/period_generator.dart';
