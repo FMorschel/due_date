@@ -10,5 +10,5 @@ build/
 pubspec.lock
 
 # Ignores for editors and IDEs.
-.idea
-.vscode
+/.vscode/*
+/.idea/*
