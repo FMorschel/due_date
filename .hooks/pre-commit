@@ -26,7 +26,7 @@ if [ "$allownonascii" != "true" ] &&
 	test $(git diff --cached --name-only --diff-filter=A -z $against |
 		LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
 then
-	cat <<\EOF
+	cat <<EOF
 Error: Attempt to add a non-ASCII file name.
 
 This can cause problems if you want to work with people on other platforms.
@@ -38,6 +38,12 @@ If you know what you are doing you can disable this check using:
   git config hooks.allownonascii true
 EOF
 	exit 1
+fi
+
+# Do dart checks only if ./lib, ./test or ./example directories were changed
+if [ -z "$(git diff --cached --name-only --diff-filter=ACMRTUXB $against | grep -E '^(lib/|test/|example/)')" ]; then
+	echo "No Dart files were changed. Skipping Dart checks."
+	exit 0
 fi
 
 # Fetch packages
