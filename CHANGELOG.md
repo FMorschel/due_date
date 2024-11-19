@@ -1,3 +1,7 @@
+# 2.2.0 - 2024.11.19
+
+- Added [EveryDueTimeOfDay] and [EveryDueWorkdayInMonth] and their respective implementations for [DateValidator].
+
 # 2.0.0 - 2023.03.28
 
 - Added [DateValidator] and some implementations.
