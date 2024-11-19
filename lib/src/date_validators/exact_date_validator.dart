@@ -19,17 +19,17 @@ abstract class ExactDateValidator extends DateValidator {
   /// {@macro exactDateValidator}
   const ExactDateValidator({this.exact = true});
 
+  /// {@template inexactDates}
   /// Returns whether the [DateTime] passed to [valid] or [invalid] can be
   /// inexact.
   ///
   /// If [exact] is true, this will return false.
-  ///
-  /// {@macro inexactDates}
+  /// {@endtemplate}
   bool get inexact => !exact;
 
+  /// {@template exactDates}
   /// Returns whether the [DateTime] passed to [valid] or [invalid] needs to fit
   /// exactly a specific date.
-  ///
-  /// {@macro inexactDates}
+  /// {@endtemplate}
   final bool exact;
 }

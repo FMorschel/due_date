@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 7.0.0-dev">
   <meta name="description" content="due_date API docs, for the Dart programming language.">
   <title>due_date - Dart API docs</title>
 
@@ -12,20 +11,16 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="static-assets/github.css?v1">
   <link rel="stylesheet" href="static-assets/styles.css?v1">
   <link rel="icon" href="static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
@@ -35,24 +30,35 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
+  <div class="toggle" id="theme-button" title="Toggle brightness">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
       <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
+        dark_mode
       </span>
       <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
+        light_mode
       </span>
     </label>
   </div>
 </header>
 <main>
-
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
   <h1 id="duedate">DueDate</h1>
+<p><a href="https://pub.dev/packages/due_date"><img src="https://img.shields.io/pub/v/due_date.svg" alt="pub package"></a>
+<a href="https://raw.githubusercontent.com/FMorschel/due_date/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="GitHub License"></a></p>
+<!--- Prepare for future badges when the package is more mature and has more users
+<a href="https://pub.dev/packages/due_date"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/FMorschel/due_date"></a>
+<a href="https://github.com/FMorschel/due_date/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/FMorschel/due_date"></a>
+<a href="https://githubc.com/FMorschel/due_date/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed-raw/FMorschel/due_date" alt="GitHub closed issues"></a>
+[![GitHub Forks](https://img.shields.io/github/forks/FMorschel/due_date.svg)](https://github.com/FMorschel/due_date/network)
+--->
+<p><a href="https://github.com/sponsors/FMorschel"><img src="https://img.shields.io/github/sponsors/FMorschel" alt="GitHub Sponsors"></a>
+<span class="badge-buymeacoffee">
+<a href="https://www.buymeacoffee.com/fmorschel" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button"></a>
+</span></p>
 <p>A package for working with repeating <code>DateTime</code> patterns.</p>
 <p>Ever wanted to create a new <code>DateTime</code> with, let's say, the same day in month? But the day is 31 and next month only has 30, so you go to 30 and the next day is lost because then you have no variable to save the original's month day? With <code>DueDateTime</code> this managing is done for you without any headaches.</p>
 <p>Or maybe you have to check if some <code>DateTime</code> is inside a certain period of time and always have to manually get, let's say, the start and end of the week and process it yourself. Now you can use <code>PeriodGenerator</code>s and <code>Period</code> methods to work it out for you.</p>
@@ -99,7 +105,7 @@ print('The previous second is $previousSecond.');
 <h2 id="getting-started">Getting started</h2>
 <p>On your <code>pubspec.yaml</code> file, add this package to your dependencies:</p>
 <pre class="language-yaml"><code class="language-yaml">  dependencies:
-    due_date: ^2.0.0
+    due_date: ^2.2.0
 </code></pre>
 <p>Import one of the, or both, package libraries on your code:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:due_date/due_date.dart';
@@ -115,8 +121,33 @@ dueDate = dueDate.next; // 2022-03-31
 <h2 id="additional-information">Additional information</h2>
 <p>See the API docs <a href="https://fmorschel.github.io/due_date/">here</a>.</p>
 <p>Find more information at <a href="https://github.com/FMorschel/due_date">github.com/FMorschel/due_date</a>.</p>
-<p>Contibute to the package by creating a PR at <a href="https://github.com/FMorschel/due_date/pulls">github.com/FMorschel/due_date/pulls</a>.</p>
+<p>Contribute to the package by creating a PR at <a href="https://github.com/FMorschel/due_date/pulls">github.com/FMorschel/due_date/pulls</a>.</p>
 <p>File issues at <a href="https://github.com/FMorschel/due_date/issues">github.com/FMorschel/due_date/issues</a>.</p>
+<p>Discuss related topics at <a href="https://github.com/FMorschel/due_date/discussions">github.com/FMorschel/due_date/discussions</a>.</p>
+<h2 id="alternativesinspiration">Alternatives/Inspiration</h2>
+<ul>
+<li>
+<p><a href="https://pub.dev/packages/time">pub.dev -&gt; time</a></p>
+<ul>
+<li>Made me start thinking about this package and how I could improve it with issues and discussions on the GitHub repo.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://api.flutter.dev/flutter/material/DateUtils-class.html">DateUtils -&gt; Flutter</a></p>
+<ul>
+<li>Inspired me to create the <code>Period</code> class and its methods. As well as some <code>Every</code> classes.</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-makes-this-different">What makes this different</h2>
+<p>This package is focused on working with <code>DateTime</code> objects and their patterns. It is not a calendar package, but it can be used to create one.
+It is also not a package to work with timezones. It is focused on the <code>DateTime</code> object itself. It does not have any timezone related methods. For that, you may want to check out the <a href="https://pub.dev/packages/timezone">timezone</a> package.</p>
+<p>This is not a package to work with <code>Duration</code> objects. It is focused on <code>DateTime</code> objects and their patterns. For that, you may want to check out the <a href="https://pub.dev/packages/time">time</a> package.</p>
+<p>This package is not a package to work with <code>DateTime</code> objects and their formatting. It is focused on <code>DateTime</code> objects and their patterns. For that, you may want to check out the <a href="https://pub.dev/packages/intl">intl</a> package.</p>
+<p>This package is not intended to be a replacement for the <code>DateTime</code> class. It is intended to be a complement to it.</p>
+<p>The <a href="https://pub.dev/packages/time">time</a> package is a great package to work with <code>Duration</code> and <code>DateTime</code> objects. It uses extension methods to add functionality to the <code>DateTime</code> class. This package is not intended to be a replacement for the <code>time</code> package. It is intended to be a complement to it.</p>
+<h2 id="license">License</h2>
+<p>This package is licensed under the MIT license. See the <a href="https://pub.dev/packages/due_date/license">LICENSE</a> file for details.</p>
 </section>
 
 
@@ -124,14 +155,21 @@ dueDate = dueDate.next; // 2022-03-31
           <h2>Libraries</h2>
         <dl>
           <dt id="due_date">
-  <span class="name"><a href="due_date/due_date-library.html">due_date</a></span> 
+  <span class="name"><a href="due_date">due_date</a></span> 
 
 </dt>
 <dd>Support for creating your own custom due dates.
 </dd>
 
+          <dt id="helpers">
+  <span class="name"><a class="deprecated" href="helpers">helpers</a></span> 
+
+</dt>
+<dd>This library contains helper declarations for this package.
+</dd>
+
           <dt id="period">
-  <span class="name"><a href="period/period-library.html">period</a></span> 
+  <span class="name"><a href="period">period</a></span> 
 
 </dt>
 <dd>Support for creating your own custom periods.
@@ -139,9 +177,7 @@ dueDate = dueDate.next; // 2022-03-31
 
         </dl>
       </section>
-
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -149,43 +185,34 @@ dueDate = dueDate.next; // 2022-03-31
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="https://fmorschel.github.io/due_date/">due_date package</a></li>
 </ol>
 
-
     <h5 class="hidden-xs"><span class="package-name">due_date</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="due_date/due_date-library.html">due_date</a></li>
-      <li><a href="period/period-library.html">period</a></li>
+      <li><a href="due_date">due_date</a></li>
+      <li><a class="deprecated" href="helpers">helpers</a></li>
+      <li><a href="period">period</a></li>
 </ol>
 
   </div>
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div>
-
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      2.0.0
+      2.2.0
   </span>
-
   
 </footer>
-
 
 
 <script src="static-assets/highlight.pack.js?v1"></script>
 <script src="static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 

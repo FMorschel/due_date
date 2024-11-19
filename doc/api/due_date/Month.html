@@ -11,372 +11,374 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
-
   
 </head>
 
-
-<body data-base-href="../"
-      data-using-base-href="false">
-
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">due_date</a></li>
-    <li><a href="../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../due_date">due_date.dart</a></li>
     <li class="self-crumb">Month enum</li>
   </ol>
   <div class="self-name">Month</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="due_date&#47;due_date-library-sidebar.html"
+    data-below-sidebar="due_date&#47;Month-enum-sidebar.html">
+    <div>
 
-
-  <div id="dartdoc-main-content" class="main-content">
-      <div>
-
-        <h1>
-          <span class="kind-enum">Month</span>
-          enum 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+      <h1>
+        <span class="kind-enum">Month</span>
+        enum 
  
 
-        </h1>
-      </div>
+      </h1>
+    </div>
 
     
 <section class="desc markdown">
-  <p>Month constants that are returned by <a href="https://api.flutter.dev/flutter/dart-core/DateTime/month.html">DateTime.month</a> method.</p>
+  <p>Month constants that are returned by <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/month.html">DateTime.month</a> method.</p>
 </section>
 
 
-    <section>
-      <dl class="dl-horizontal">
-        
+      <section>
+        <dl class="dl-horizontal">
+          
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark eNum-relationships">
-      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
-        <li><a href="https://api.flutter.dev/flutter/dart-core/Enum-class.html">Enum</a></li>
+      <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></li>
+        <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Enum-class.html">Enum</a></li>
       <li>Month</li>
     </ul>
   </dd>
 
-        
+          
   <dt>Implemented types</dt>
   <dd>
     <ul class="comma-separated eNum-relationships">
-        <li><a href="https://api.flutter.dev/flutter/dart-core/Comparable-class.html">Comparable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Month.html">Month</a></span>&gt;</span></li>
+        <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Comparable-class.html">Comparable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Month.html">Month</a></span>&gt;</span></li>
     </ul>
   </dd>
-        
-        
-      </dl>
-    </section>
-
-    
-  <section class="summary offset-anchor" id="constructors">
-    <h2>Constructors</h2>
-
-    <dl class="constructor-summary-list">
-        <dt id="Month" class="callable">
-          <span class="name"><a href="../due_date/Month/Month.html">Month</a></span><span class="signature">(<span class="parameter" id="-param-dateTimeValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">dateTimeValue</span></span>)</span>
-        </dt>
-        <dd>
           
-            <div class="constructor-modifier features">const</div>
-        </dd>
-        <dt id="Month.from" class="callable">
-          <span class="name"><a href="../due_date/Month/Month.from.html">Month.from</a></span><span class="signature">(<span class="parameter" id="from-param-date"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)</span>
-        </dt>
-        <dd>
-          Returns the <a href="../due_date/Month.html">Month</a> constant that corresponds to the given <code>date</code>.
-            <div class="constructor-modifier features">factory</div>
-        </dd>
-        <dt id="Month.fromDateTimeValue" class="callable">
-          <span class="name"><a href="../due_date/Month/Month.fromDateTimeValue.html">Month.fromDateTimeValue</a></span><span class="signature">(<span class="parameter" id="fromDateTimeValue-param-month"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span></span>)</span>
-        </dt>
-        <dd>
-          Returns the <a href="../due_date/Month.html">Month</a> constant that corresponds to the given <code>month</code> on
-<a href="../due_date/Month/dateTimeValue.html">dateTimeValue</a>.
-            <div class="constructor-modifier features">factory</div>
-        </dd>
-    </dl>
-  </section>
+          
+  <dt>Available extensions</dt>
+  <dd><ul class="comma-separated clazz-relationships">
+      <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/EnumName.html">EnumName</a></li>
+  </ul></dd>
+          
 
-    <section class="summary offset-anchor" id="values">
-      <h2>Values</h2>
 
-      <dl class="properties">
-          <dt id="january" class="constant">
+        </dl>
+      </section>
+
+      <section class="summary offset-anchor" id="values">
+        <h2>Values</h2>
+        <dl class="properties">
+            <dt id="january" class="constant">
     <span class="name ">january</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>January month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.january)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.january)</code></span>
+    </div>
 </dd>
 
-          <dt id="february" class="constant">
+            <dt id="february" class="constant">
     <span class="name ">february</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>February month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.february)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.february)</code></span>
+    </div>
 </dd>
 
-          <dt id="march" class="constant">
+            <dt id="march" class="constant">
     <span class="name ">march</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>March month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.march)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.march)</code></span>
+    </div>
 </dd>
 
-          <dt id="april" class="constant">
+            <dt id="april" class="constant">
     <span class="name ">april</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>April month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.april)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.april)</code></span>
+    </div>
 </dd>
 
-          <dt id="may" class="constant">
+            <dt id="may" class="constant">
     <span class="name ">may</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>May month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.may)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.may)</code></span>
+    </div>
 </dd>
 
-          <dt id="june" class="constant">
+            <dt id="june" class="constant">
     <span class="name ">june</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>June month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.june)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.june)</code></span>
+    </div>
 </dd>
 
-          <dt id="july" class="constant">
+            <dt id="july" class="constant">
     <span class="name ">july</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>July month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.july)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.july)</code></span>
+    </div>
 </dd>
 
-          <dt id="august" class="constant">
+            <dt id="august" class="constant">
     <span class="name ">august</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>August month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.august)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.august)</code></span>
+    </div>
 </dd>
 
-          <dt id="september" class="constant">
+            <dt id="september" class="constant">
     <span class="name ">september</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>September month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.september)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.september)</code></span>
+    </div>
 </dd>
 
-          <dt id="october" class="constant">
+            <dt id="october" class="constant">
     <span class="name ">october</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>October month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.october)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.october)</code></span>
+    </div>
 </dd>
 
-          <dt id="november" class="constant">
+            <dt id="november" class="constant">
     <span class="name ">november</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>November month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.november)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.november)</code></span>
+    </div>
 </dd>
 
-          <dt id="december" class="constant">
+            <dt id="december" class="constant">
     <span class="name ">december</span>
   <span class="signature">&#8594; const <a href="../due_date/Month.html">Month</a></span>
   
 
 </dt>
 <dd>
-  
+  <p>December month constant.</p>
   
 
-  <div>
-    <span class="signature"><code>Month(DateTime.december)</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>const Month(DateTime.december)</code></span>
+    </div>
 </dd>
 
-      </dl>
-    </section>
+        </dl>
+      </section>
 
-    <section
-        class="
-          summary
-          offset-anchor"
-        id="instance-properties">
-      <h2>Properties</h2>
-
-      <dl class="properties">
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
         <dt id="dateTimeValue" class="property">
   <span class="name"><a href="../due_date/Month/dateTimeValue.html">dateTimeValue</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
-  The value of the month in <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> class.
-  <div class="features">final</div>
+  The value of the month in <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> class.
+  <div class="features"><span class="feature">final</span></div>
 
 </dd>
 
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="index" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Enum/index.html">index</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd class="inherited">
   A numeric identifier for the enumerated value.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="name" class="property">
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/EnumName/name.html">name</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Enum-class.html">Enum</a>,
+        provided by the <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/EnumName.html">EnumName</a> extension</span>
+      </p>
+  The name of the enum value.
+  <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
 
         <dt id="next" class="property">
   <span class="name"><a href="../due_date/Month/next.html">next</a></span>
-  <span class="signature">&#8594; <a href="../due_date/Month.html">Month</a></span> 
+  <span class="signature">&#8594; <a href="../due_date/Month.html">Month</a></span>
+  
 
 </dt>
 <dd>
   Returns the <a href="../due_date/Month.html">Month</a> next to this.
-  <div class="features">read-only</div>
+  <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
 
         <dt id="previous" class="property">
   <span class="name"><a href="../due_date/Month/previous.html">previous</a></span>
-  <span class="signature">&#8594; <a href="../due_date/Month.html">Month</a></span> 
+  <span class="signature">&#8594; <a href="../due_date/Month.html">Month</a></span>
+  
 
 </dt>
 <dd>
   Returns the <a href="../due_date/Month.html">Month</a> previous to this.
-  <div class="features">read-only</div>
+  <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Type-class.html">Type</a></span>
+  
 
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     
   <section
@@ -386,66 +388,53 @@
     <dl class="callables">
         <dt id="compareTo" class="callable">
   <span class="name"><a href="../due_date/Month/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="../due_date/Month.html">Month</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
   </span>
   
 
 </dt>
 <dd>
   Compares this object to another object.
-  <div class="features">override</div>
-
-</dd>
-
-        <dt id="lastDayOfAt" class="callable">
-  <span class="name"><a href="../due_date/Month/lastDayOfAt.html">lastDayOfAt</a></span><span class="signature">(<wbr><span class="parameter" id="lastDayOfAt-param-year"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  Returns the last day of the month on the given <code>year</code> (utc).
-  
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="of" class="callable">
-  <span class="name"><a href="../due_date/Month/of.html">of</a></span><span class="signature">(<wbr><span class="parameter" id="of-param-year"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/Month/of.html">of</a></span><span class="signature">(<wbr><span class="parameter" id="of-param-year"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, {</span><span class="parameter" id="of-param-utc"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="../period/MonthPeriod-class.html">MonthPeriod</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns the first day of the month on the given <code>year</code> (utc).
+  Returns the period of the month on the given <code>year</code>.
   
 
 </dd>
 
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -457,67 +446,95 @@
       id="operators">
     <h2>Operators</h2>
     <dl class="callables">
-        <dt id="operator &lt;" class="callable">
-  <span class="name"><a href="../due_date/Month/operator_less.html">operator <</a></span><span class="signature">(<wbr><span class="parameter" id="<-param-other"><span class="type-annotation"><a href="../due_date/Month.html">Month</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+        <dt id="operator +" class="callable">
+  <span class="name"><a href="../due_date/Month/operator_plus.html">operator +</a></span><span class="signature">(<wbr><span class="parameter" id="+-param-months"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../due_date/Month.html">Month</a></span>
   </span>
   
 
 </dt>
 <dd>
+  Returns the <a href="../due_date/Month.html">Month</a> that corresponds to this added <code>months</code>.
+Eg.:
   
+
+</dd>
+
+        <dt id="operator -" class="callable">
+  <span class="name"><a href="../due_date/Month/operator_minus.html">operator -</a></span><span class="signature">(<wbr><span class="parameter" id="--param-months"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../due_date/Month.html">Month</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns the <a href="../due_date/Month.html">Month</a> that corresponds to this subtracted <code>months</code>.
+Eg.:
+  
+
+</dd>
+
+        <dt id="operator &lt;" class="callable">
+  <span class="name"><a href="../due_date/Month/operator_less.html">operator <</a></span><span class="signature">(<wbr><span class="parameter" id="<-param-other"><span class="type-annotation"><a href="../due_date/Month.html">Month</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns true if this month is before than other.
   
 
 </dd>
 
         <dt id="operator &lt;=" class="callable">
   <span class="name"><a href="../due_date/Month/operator_less_equal.html">operator <=</a></span><span class="signature">(<wbr><span class="parameter" id="<=-param-other"><span class="type-annotation"><a href="../due_date/Month.html">Month</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Returns true if this month is before or equal to other.
   
 
 </dd>
 
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   The equality operator.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="operator &gt;" class="callable">
   <span class="name"><a href="../due_date/Month/operator_greater.html">operator ></a></span><span class="signature">(<wbr><span class="parameter" id=">-param-other"><span class="type-annotation"><a href="../due_date/Month.html">Month</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Returns true if this month is after other.
   
 
 </dd>
 
         <dt id="operator &gt;=" class="callable">
   <span class="name"><a href="../due_date/Month/operator_greater_equal.html">operator >=</a></span><span class="signature">(<wbr><span class="parameter" id=">=-param-other"><span class="type-annotation"><a href="../due_date/Month.html">Month</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Returns true if this month is after or equal to other.
   
 
 </dd>
@@ -530,11 +547,22 @@
 
   <section class="summary offset-anchor" id="constants">
     <h2>Constants</h2>
-
     <dl class="properties">
+        <dt id="generator" class="constant">
+    <span class="name "><a href="../due_date/Month/generator-constant.html">generator</a></span>
+  <span class="signature">&#8594; const <a href="../period/MonthGenerator-class.html">MonthGenerator</a></span>
+  
+
+</dt>
+<dd>
+  Returns a constant <a href="../period/MonthGenerator-class.html">MonthGenerator</a>.
+  
+
+</dd>
+
         <dt id="values" class="constant">
     <span class="name "><a href="../due_date/Month/values-constant.html">values</a></span>
-  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Month.html">Month</a></span>&gt;</span></span>
+  <span class="signature">&#8594; const <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Month.html">Month</a></span>&gt;</span></span>
   
 
 </dt>
@@ -542,138 +570,42 @@
   A constant List of the values in this enum, in order of their declaration.
   
 
-  <div>
-    <span class="signature"><code>[january, february, march, april, may, june, july, august, september, october, november, december]</code></span>
-  </div>
 </dd>
 
     </dl>
   </section>
-  </div><!-- /.main-content -->
-
-  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+</div><!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">due_date</a></li>
-  <li><a href="../due_date/due_date-library.html">due_date</a></li>
-  <li class="self-crumb">Month enum</li>
+    <li><a href="../index.html">due_date</a></li>
+    <li><a href="../due_date">due_date</a></li>
+    <li class="self-crumb">Month enum</li>
 </ol>
 
-
-    <h5>due_date library</h5>
-    <ol>
-  <li class="section-title"><a href="../due_date/due_date-library.html#classes">Classes</a></li>
-  <li><a href="../due_date/DueDateTime-class.html">DueDateTime</a></li>
-  <li><a href="../due_date/Every-class.html">Every</a></li>
-  <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
-  <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
-  <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
-  <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#extensions">Extensions</a></li>
-  <li><a href="../due_date/AddDays.html">AddDays</a></li>
-  <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
-  <li><a href="../due_date/PreviousNext.html">PreviousNext</a></li>
-  <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#mixins">Mixins</a></li>
-  <li><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></li>
-  <li><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></li>
-  <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a></li>
-
-
-
-
-  <li class="section-title"><a href="../due_date/due_date-library.html#enums">Enums</a></li>
-  <li><a href="../due_date/Month.html">Month</a></li>
-  <li><a href="../due_date/Week.html">Week</a></li>
-  <li><a href="../due_date/Weekday.html">Weekday</a></li>
-  <li><a href="../due_date/WeekdayOccurrence.html">WeekdayOccurrence</a></li>
-
-
-</ol>
-
-  </div>
-
-  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-    <ol>
-
-        <li class="section-title"><a href="../due_date/Month.html#constructors">Constructors</a></li>
-          <li><a href="../due_date/Month/Month.html">Month</a></li>
-          <li><a href="../due_date/Month/Month.from.html">from</a></li>
-          <li><a href="../due_date/Month/Month.fromDateTimeValue.html">fromDateTimeValue</a></li>
-
-    <li class="section-title"><a href="../due_date/Month.html#values">Values</a></li>
-    <li><a href="../due_date/Month.html#january">january</a></li>
-    <li><a href="../due_date/Month.html#february">february</a></li>
-    <li><a href="../due_date/Month.html#march">march</a></li>
-    <li><a href="../due_date/Month.html#april">april</a></li>
-    <li><a href="../due_date/Month.html#may">may</a></li>
-    <li><a href="../due_date/Month.html#june">june</a></li>
-    <li><a href="../due_date/Month.html#july">july</a></li>
-    <li><a href="../due_date/Month.html#august">august</a></li>
-    <li><a href="../due_date/Month.html#september">september</a></li>
-    <li><a href="../due_date/Month.html#october">october</a></li>
-    <li><a href="../due_date/Month.html#november">november</a></li>
-    <li><a href="../due_date/Month.html#december">december</a></li>
-
-    <li class="section-title">
-      <a href="../due_date/Month.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../due_date/Month/dateTimeValue.html">dateTimeValue</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></li>
-    <li><a href="../due_date/Month/next.html">next</a></li>
-    <li><a href="../due_date/Month/previous.html">previous</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-
-    <li class="section-title"><a href="../due_date/Month.html#instance-methods">Methods</a></li>
-    <li><a href="../due_date/Month/compareTo.html">compareTo</a></li>
-    <li><a href="../due_date/Month/lastDayOfAt.html">lastDayOfAt</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../due_date/Month/of.html">of</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
-
-    <li class="section-title"><a href="../due_date/Month.html#operators">Operators</a></li>
-    <li><a href="../due_date/Month/operator_less.html">operator <</a></li>
-    <li><a href="../due_date/Month/operator_less_equal.html">operator <=</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
-    <li><a href="../due_date/Month/operator_greater.html">operator ></a></li>
-    <li><a href="../due_date/Month/operator_greater_equal.html">operator >=</a></li>
-
-
-
-
-        <li class="section-title"><a href="../due_date/Month.html#constants">Constants</a></li>
-          <li><a href="../due_date/Month/values-constant.html">values</a></li>
-</ol>
-
-  </div><!-- /.sidebar-offcanvas -->
-
+  <h5>due_date library</h5>
+  <div id="dartdoc-sidebar-left-content"></div>
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!-- /.sidebar-offcanvas -->
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.2.0
   </span>
-
   
 </footer>
 
 
-
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
-
-
+<script src="../static-assets/docs.dart.js"></script>
 
 </body>
-
 </html>
 

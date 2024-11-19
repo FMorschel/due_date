@@ -11,25 +11,21 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../period/period-library.html">period</a></li>
+    <li><a href="../../period">period.dart</a></li>
     <li><a href="../../period/MonthPeriod-class.html">MonthPeriod</a></li>
     <li class="self-crumb">days property</li>
   </ol>
@@ -37,59 +33,59 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
+  <div class="toggle" id="theme-button" title="Toggle brightness">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
       <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
+        dark_mode
       </span>
       <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
+        light_mode
       </span>
     </label>
   </div>
 </header>
 <main>
-
-  <div
-      id="dartdoc-main-content"
-      class="main-content"
-      data-above-sidebar="period&#47;MonthPeriod-class-sidebar.html"
-      data-below-sidebar="">
-      <div>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="period&#47;MonthPeriod-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
 <h1><span class="kind-property">days</span> property 
 </h1></div>
 
+    
 
+    
         
-<section id="getter">
-
-<section class="multi-line-signature">
-  
+  <section id="getter">
+    <section class="multi-line-signature">
+      
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.1.3/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-  <span class="returntype"><a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../period/DayPeriod-class.html">DayPeriod</a></span>&gt;</span></span>
-  <span class="name ">days</span>
-  <div class="features"><span class="feature">override</span></div>
+      <span class="returntype"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../period/DayPeriod-class.html">DayPeriod</a></span>&gt;</span></span>
+      get
+      <span class="name ">days</span>
+      <div class="features"><span class="feature">override</span></div>
 
-</section>
-
-
+    </section>
+    
 <section class="desc markdown">
   <p>Returns the list of days in this bundle.</p>
 </section>
 
-
+    
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 List&lt;DayPeriod&gt; get days {
   const generator = DayGenerator();
   final days = &lt;DayPeriod&gt;[];
-  DayPeriod last = generator.of(start);
+  var last = generator.of(start);
   while (last.start.isBefore(end)) {
     days.add(last);
     last = generator.after(last);
@@ -98,52 +94,42 @@ List&lt;DayPeriod&gt; get days {
 }</code></pre>
 </section>
 
-</section>
+  </section>
 
 
-  </div> <!-- /.main-content -->
-
-  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../period/period-library.html">period</a></li>
+    <li><a href="../../period">period</a></li>
     <li><a href="../../period/MonthPeriod-class.html">MonthPeriod</a></li>
     <li class="self-crumb">days property</li>
 </ol>
 
-
-    <h5>MonthPeriod class</h5>
-  </div><!--/.sidebar-offcanvas-->
-
-  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-  </div><!--/.sidebar-offcanvas-->
-
+  <h5>MonthPeriod class</h5>
+  <div id="dartdoc-sidebar-left-content"></div>
+</div><!--/.sidebar-offcanvas-->
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      2.0.0
+      2.2.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 

@@ -11,59 +11,54 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">due_date</a></li>
-    <li><a href="../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../due_date">due_date.dart</a></li>
     <li class="self-crumb">EveryWeekday class</li>
   </ol>
   <div class="self-name">EveryWeekday</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
+  <div class="toggle" id="theme-button" title="Toggle brightness">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
       <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
+        dark_mode
       </span>
       <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
+        light_mode
       </span>
     </label>
   </div>
 </header>
 <main>
-
-  <div
-      id="dartdoc-main-content"
-      class="main-content"
-      data-above-sidebar="due_date&#47;due_date-library-sidebar.html"
-      data-below-sidebar="due_date&#47;EveryWeekday-class-sidebar.html">
-      <div>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="due_date&#47;due_date-library-sidebar.html"
+    data-below-sidebar="due_date&#47;EveryWeekday-class-sidebar.html">
+    <div>
 <h1><span class="kind-class">EveryWeekday</span> class 
  
 </h1></div>
 
     
 <section class="desc markdown">
-  <p>Class that processes <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a> always returns the
-next week's with the <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/weekday.html">DateTime.weekday</a> equals to the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.</p>
+  <p>Class that processes <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a> always returns the
+next week's with the <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/weekday.html">DateTime.weekday</a> equals to the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.</p>
 </section>
 
 
@@ -73,7 +68,7 @@ next week's with the <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTi
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark clazz-relationships">
-      <li><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></li>
+      <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></li>
         <li><a href="../due_date/DateValidatorWeekday-class.html">DateValidatorWeekday</a></li>
       <li>EveryWeekday</li>
     </ul>
@@ -84,12 +79,11 @@ next week's with the <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTi
   <dd>
     <ul class="comma-separated clazz-relationships">
         <li><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></li>
-        <li><a href="../due_date/EveryYear-mixin.html">EveryYear</a></li>
         <li><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></li>
     </ul>
   </dd>
         
-  <dt>Mixed in types</dt>
+  <dt>Mixed-in types</dt>
   <dd>
     <ul class="comma-separated clazz-relationships">
         <li><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></li>
@@ -97,7 +91,7 @@ next week's with the <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTi
   </dd>
 
 
-
+        
         
 
 
@@ -107,83 +101,88 @@ next week's with the <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTi
     
   <section class="summary offset-anchor" id="constructors">
     <h2>Constructors</h2>
-
     <dl class="constructor-summary-list">
         <dt id="EveryWeekday" class="callable">
-          <span class="name"><a href="../due_date/EveryWeekday/EveryWeekday.html">EveryWeekday</a></span><span class="signature">(<span class="parameter" id="-param-weekday"><span class="type-annotation"><a href="../period/Weekday.html">Weekday</a></span> <span class="parameter-name">weekday</span></span>)</span>
+          <span class="name"><a href="../due_date/EveryWeekday/EveryWeekday.html">EveryWeekday</a></span><span class="signature">(<span class="parameter" id="-param-weekday"><span class="type-annotation"><a href="../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">weekday</span></span>)</span>
         </dt>
         <dd>
-          Returns a <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a> with the given <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
-When you call <a href="../due_date/EveryWeek/next.html">next</a> or <a href="../due_date/EveryWeek/previous.html">previous</a> on this <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, it will return
-the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a> of the next or previous week.
+          Returns a <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a> with the given <code>weekday</code>.
+When you call <a href="../due_date/EveryWeekday/next.html">next</a> or <a href="../due_date/EveryWeekday/previous.html">previous</a> on this <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, it will return
+the <code>weekday</code> of the next or previous week.
             <div class="constructor-modifier features">const</div>
         </dd>
         <dt id="EveryWeekday.from" class="callable">
-          <span class="name"><a href="../due_date/EveryWeekday/EveryWeekday.from.html">EveryWeekday.from</a></span><span class="signature">(<span class="parameter" id="from-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)</span>
+          <span class="name"><a href="../due_date/EveryWeekday/EveryWeekday.from.html">EveryWeekday.from</a></span><span class="signature">(<span class="parameter" id="from-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)</span>
         </dt>
         <dd>
           Returns a <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a> with the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a> being the weekday of
 the given <code>date</code>.
-When you call <a href="../due_date/EveryWeek/next.html">next</a> or <a href="../due_date/EveryWeek/previous.html">previous</a> on this <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, it will return
+When you call <a href="../due_date/EveryWeekday/next.html">next</a> or <a href="../due_date/EveryWeekday/previous.html">previous</a> on this <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, it will return
 the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a> of the next or previous week.
             <div class="constructor-modifier features">factory</div>
         </dd>
     </dl>
   </section>
-
-    <section class="summary offset-anchor inherited" id="instance-properties">
-      <h2>Properties</h2>
-
-      <dl class="properties">
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="props" class="property inherited">
   <span class="name"><a href="../due_date/DateValidatorWeekday/props.html">props</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></span>&gt;</span></span>
+  
 
 </dt>
 <dd class="inherited">
   The list of properties that will be used to determine whether
 two instances are equal.
-  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Type-class.html">Type</a></span> 
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Type-class.html">Type</a></span>
+  
 
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="stringify" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/stringify.html">stringify</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a>?</span> 
+  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a>?</span>
+  
 
 </dt>
 <dd class="inherited">
   If set to <code>true</code>, the <a href="../due_date/EveryWeekday/toString.html">toString</a> method will be overridden to output
 this instance's <a href="../due_date/DateValidatorWeekday/props.html">props</a>.
-  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="weekday" class="property inherited">
   <span class="name"><a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a></span>
-  <span class="signature">&#8594; <a href="../period/Weekday.html">Weekday</a></span> 
+  <span class="signature">&#8594; <a href="../due_date/Weekday.html">Weekday</a></span>
+  
 
 </dt>
 <dd class="inherited">
@@ -192,8 +191,8 @@ this instance's <a href="../due_date/DateValidatorWeekday/props.html">props</a>.
 
 </dd>
 
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     
   <section
@@ -202,44 +201,44 @@ this instance's <a href="../due_date/DateValidatorWeekday/props.html">props</a>.
     <h2>Methods</h2>
     <dl class="callables">
         <dt id="addMonths" class="callable">
-  <span class="name"><a href="../due_date/EveryWeekday/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/EveryWeekday/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns a new <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a> where the week is the same(<a href="../period/Week.html">Week</a>) inside the
-month and is <code>months</code> months from this week and the <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/weekday.html">DateTime.weekday</a> is
+  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> where the week is the same(<a href="../due_date/Week.html">Week</a>) inside the
+month and is <code>months</code> months from this week and the <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/weekday.html">DateTime.weekday</a> is
 equal to <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
   <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="addWeeks" class="callable">
-  <span class="name"><a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="addWeeks-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="addWeeks-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns a new <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a> where the week is <code>weeks</code> from this week and the
-<a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/weekday.html">DateTime.weekday</a> is equal to <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
+  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> where the week is <code>weeks</code> from this week and the
+<a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/weekday.html">DateTime.weekday</a> is equal to <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
   <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="addYears" class="callable">
-  <span class="name"><a href="../due_date/EveryWeekday/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/EveryWeekday/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Returns a new <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a> where the week is the same inside the month and
-is <code>years</code> years from this week and the <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime/weekday.html">DateTime.weekday</a> is equal to
+  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> where the week is the same inside the month and
+is <code>years</code> years from this week and the <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/weekday.html">DateTime.weekday</a> is equal to
 <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
   <div class="features"><span class="feature">override</span></div>
 
@@ -247,7 +246,7 @@ is <code>years</code> years from this week and the <a href="https://api.dart.dev
 
         <dt id="compareTo" class="callable inherited">
   <span class="name"><a href="../due_date/DateValidatorWeekday/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="../due_date/DateValidatorWeekday-class.html">DateValidatorWeekday</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/int-class.html">int</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
   </span>
   
 
@@ -258,22 +257,47 @@ is <code>years</code> years from this week and the <a href="https://api.dart.dev
 
 </dd>
 
-        <dt id="next" class="callable inherited">
-  <span class="name"><a href="../due_date/EveryWeek/next.html">next</a></span><span class="signature">(<wbr><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
+        <dt id="filterValidDates" class="callable inherited">
+  <span class="name"><a href="../due_date/DateValidatorMixin/filterValidDates.html">filterValidDates</a></span><span class="signature">(<wbr><span class="parameter" id="filterValidDates-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Returns the next week of the given <code>date</code> considering this <a href="../due_date/EveryWeek-mixin.html">EveryWeek</a>
-implementation.
+  Returns the valid dates for this <a href="../due_date/DateValidator-class.html">DateValidator</a> in <code>dates</code>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
+        <dt id="invalid" class="callable inherited">
+  <span class="name"><a href="../due_date/DateValidatorMixin/invalid.html">invalid</a></span><span class="signature">(<wbr><span class="parameter" id="invalid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns true if the <code>date</code> is invalid for this <a href="../due_date/DateValidator-class.html">DateValidator</a>.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="next" class="callable">
+  <span class="name"><a href="../due_date/EveryWeekday/next.html">next</a></span><span class="signature">(<wbr><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns the previous date that fits the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
+  <div class="features"><span class="feature">override</span></div>
+
+</dd>
+
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
@@ -285,23 +309,22 @@ implementation.
 
 </dd>
 
-        <dt id="previous" class="callable inherited">
-  <span class="name"><a href="../due_date/EveryWeek/previous.html">previous</a></span><span class="signature">(<wbr><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
+        <dt id="previous" class="callable">
+  <span class="name"><a href="../due_date/EveryWeekday/previous.html">previous</a></span><span class="signature">(<wbr><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
-<dd class="inherited">
-  Returns the previous week of the given <code>date</code> considering this <a href="../due_date/EveryWeek-mixin.html">EveryWeek</a>
-implementation.
-  <div class="features"><span class="feature">inherited</span></div>
+<dd>
+  Returns the previous date that fits the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
         <dt id="startDate" class="callable">
-  <span class="name"><a href="../due_date/EveryWeekday/startDate.html">startDate</a></span><span class="signature">(<wbr><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/EveryWeekday/startDate.html">startDate</a></span><span class="signature">(<wbr><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
@@ -314,7 +337,7 @@ implementation.
 
         <dt id="toString" class="callable">
   <span class="name"><a href="../due_date/EveryWeekday/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/String-class.html">String</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -326,8 +349,8 @@ implementation.
 </dd>
 
         <dt id="valid" class="callable inherited">
-  <span class="name"><a href="../due_date/DateValidatorWeekday/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DateValidatorWeekday/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -339,8 +362,8 @@ implementation.
 </dd>
 
         <dt id="validsIn" class="callable inherited">
-  <span class="name"><a href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></span><span class="signature">(<wbr><span class="parameter" id="validsIn-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.1.3/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  <span class="name deprecated"><a class="deprecated" href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></span><span class="signature">(<wbr><span class="parameter" id="validsIn-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
   </span>
   
 
@@ -360,8 +383,8 @@ implementation.
     <h2>Operators</h2>
     <dl class="callables">
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="../due_date/DateValidatorWeekday/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.1.3/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DateValidatorWeekday/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -378,9 +401,36 @@ implementation.
     
     
 
+  <section class="summary offset-anchor" id="constants">
+    <h2>Constants</h2>
+    <dl class="properties">
+        <dt id="weekend" class="constant">
+    <span class="name "><a href="../due_date/EveryWeekday/weekend-constant.html">weekend</a></span>
+  <span class="signature">&#8594; const <a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></span>&gt;</span></span>
+  
 
+</dt>
+<dd>
+  An <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a> that generates a <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> that is a weekend.
+  
+
+</dd>
+
+        <dt id="workdays" class="constant">
+    <span class="name "><a href="../due_date/EveryWeekday/workdays-constant.html">workdays</a></span>
+  <span class="signature">&#8594; const <a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  An <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a> that generates a <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> that is a workday.
+  
+
+</dd>
+
+    </dl>
+  </section>
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -388,40 +438,30 @@ implementation.
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">due_date</a></li>
-    <li><a href="../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../due_date">due_date</a></li>
     <li class="self-crumb">EveryWeekday class</li>
 </ol>
 
-
-    <!--<h5>due_date library</h5>-->
+    <h5>due_date library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div>
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      2.0.0
+      2.2.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 
