@@ -16,16 +16,20 @@
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">due_date</a></li>
-    <li><a href="../due_date">due_date.dart</a></li>
+    <li><a href="../due_date/due_date-library.html">due_date.dart</a></li>
     <li class="self-crumb">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span> class</li>
   </ol>
   <div class="self-name">DueDateTime</div>
@@ -45,6 +49,7 @@
   </div>
 </header>
 <main>
+
 <div
     id="dartdoc-main-content"
     class="main-content"
@@ -57,7 +62,7 @@
 
     
 <section class="desc markdown">
-  <p>Wrapper for <a href="../due_date/Every-class.html">Every</a> and <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> to represent a due date.</p>
+  <p>Wrapper for <a href="../due_date/Every-class.html">Every</a> and <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> to represent a due date.</p>
 </section>
 
 
@@ -67,15 +72,15 @@
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark clazz-relationships">
-      <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></li>
-        <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></li>
+      <li><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a></li>
+        <li><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></li>
       <li>DueDateTime</li>
     </ul>
   </dd>
 
         
         
-  <dt>Mixed-in types</dt>
+  <dt>Mixed in types</dt>
   <dd>
     <ul class="comma-separated clazz-relationships">
         <li><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin-mixin.html">EquatableMixin</a></li>
@@ -83,18 +88,18 @@
   </dd>
 
 
-        
-  <dt>Available extensions</dt>
-  <dd><ul class="comma-separated clazz-relationships">
-      <li><a href="../due_date/AddDays.html">AddDays</a></li>
-      <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
-      <li><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTimeCopyWith.html">DateTimeCopyWith</a></li>
-      <li><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a></li>
-      <li><a href="../due_date/DayInYear.html">DayInYear</a></li>
-      <li><a href="../due_date/ExactTimeOfDay.html">ExactTimeOfDay</a></li>
-      <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
-      <li><a href="../due_date/WorkdayInMonth.html">WorkdayInMonth</a></li>
-  </ul></dd>
+          <dt>Available Extensions</dt>
+          <dd><ul class="comma-separated clazz-relationships">
+              <li><a href="../due_date/AddDays.html">AddDays</a></li>
+              <li><a href="../due_date/ClampInMonth.html">ClampInMonth</a></li>
+              <li><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTimeCopyWith.html">DateTimeCopyWith</a></li>
+              <li><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a></li>
+              <li><a href="../due_date/DayInYear.html">DayInYear</a></li>
+              <li><a href="../due_date/ExactTimeOfDay.html">ExactTimeOfDay</a></li>
+              <li><a href="../due_date/WeekCalc.html">WeekCalc</a></li>
+              <li><a href="../due_date/WorkdayInMonth.html">WorkdayInMonth</a></li>
+          </ul></dd>
+
         
   <dt>Annotations</dt>
   <dd>
@@ -110,31 +115,32 @@
     
   <section class="summary offset-anchor" id="constructors">
     <h2>Constructors</h2>
+
     <dl class="constructor-summary-list">
         <dt id="DueDateTime" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.html">DueDateTime</a></span><span class="signature">({<span class="parameter" id="-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="-param-month"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-day"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-second"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-utc"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.html">DueDateTime</a></span><span class="signature">({<span class="parameter" id="-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="-param-utc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
         </dt>
         <dd>
           Constructs a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance.
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="DueDateTime.fromDate" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.fromDate.html">DueDateTime.fromDate</a></span><span class="signature">(<span class="parameter" id="fromDate-param-reference"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">reference</span>, {</span><span class="parameter" id="fromDate-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromDate-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.fromDate.html">DueDateTime.fromDate</a></span><span class="signature">(<span class="parameter" id="fromDate-param-reference"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">reference</span>, {</span><span class="parameter" id="fromDate-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromDate-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
         </dt>
         <dd>
           Creates a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> from the <code>reference</code>.
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="DueDateTime.now" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.now.html">DueDateTime.now</a></span><span class="signature">({<span class="parameter" id="now-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.now.html">DueDateTime.now</a></span><span class="signature">({<span class="parameter" id="now-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
         </dt>
         <dd>
           Constructs a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance with current date and time in the
-local time zone. The <a href="../due_date/DueDateTime/every.html">DueDateTime.every</a> property will be:
+local time zone. The <code>DueDateTime.every</code> property will be:
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="DueDateTime.utc" class="callable">
-          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.utc.html">DueDateTime.utc</a></span><span class="signature">({<span class="parameter" id="utc-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="utc-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="utc-param-month"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-day"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-second"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
+          <span class="name"><a href="../due_date/DueDateTime/DueDateTime.utc.html">DueDateTime.utc</a></span><span class="signature">({<span class="parameter" id="utc-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span><span class="parameter" id="utc-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="utc-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span><span class="parameter" id="utc-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span><span class="parameter" id="utc-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})</span>
         </dt>
         <dd>
           Constructs a <a href="../due_date/DueDateTime-class.html">DueDateTime</a> instance specified in the UTC time zone.
@@ -148,96 +154,15 @@ local time zone. The <a href="../due_date/DueDateTime/every.html">DueDateTime.ev
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
-        <dt id="date" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/date.html">date</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns only year, month and day
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
         <dt id="day" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/day.html">day</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/day.html">day</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
 <dd class="inherited">
   The day of the month <code>[1..31]</code>.
   <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="dayInYear" class="property">
-  <span class="name"><a href="../due_date/DayInYear/dayInYear.html">dayInYear</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/DayInYear.html">DayInYear</a> extension</span>
-      </p>
-  Returns the number of this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> in the year.
-The first day of the year is 1.
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="daysInMonth" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/daysInMonth.html">daysInMonth</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the amount of days that are in this month.
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="dueDateTime" class="property">
-  <span class="name"><a href="../due_date/ClampInMonth/dueDateTime.html">dueDateTime</a></span>
-  <span class="signature">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/ClampInMonth.html">ClampInMonth</a> extension</span>
-      </p>
-  Returns a new <a href="../due_date/DueDateTime-class.html">DueDateTime</a> with a <a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a> based on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/day.html">day</a>.
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="endOfDay" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/endOfDay.html">endOfDay</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the last microsecond of the day (23:59:59.999999)
-  <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
 
@@ -253,73 +178,9 @@ The first day of the year is 1.
 
 </dd>
 
-        <dt id="exactTimeOfDay" class="property">
-  <span class="name"><a href="../due_date/ExactTimeOfDay/exactTimeOfDay.html">exactTimeOfDay</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/ExactTimeOfDay.html">ExactTimeOfDay</a> extension</span>
-      </p>
-  Returns the exact time of the day.
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="firstDayOfMonth" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/firstDayOfMonth.html">firstDayOfMonth</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the first day of this month
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="firstDayOfWeek" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/firstDayOfWeek.html">firstDayOfWeek</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the Monday of this week
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="firstDayOfYear" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/firstDayOfYear.html">firstDayOfYear</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the first day of this year
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -330,8 +191,8 @@ The first day of the year is 1.
 </dd>
 
         <dt id="hour" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/hour.html">hour</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/hour.html">hour</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -341,166 +202,21 @@ The first day of the year is 1.
 
 </dd>
 
-        <dt id="isLeapYear" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isLeapYear.html">isLeapYear</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if this year is a leap year.
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="isToday" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isToday.html">isToday</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns if today, true
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="isTomorrow" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isTomorrow.html">isTomorrow</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns if tomorrow, true
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
         <dt id="isUtc" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/isUtc.html">isUtc</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/isUtc.html">isUtc</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
   
 
 </dt>
 <dd class="inherited">
-  True if this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> is set to UTC time.
+  True if this <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> is set to UTC time.
   <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
 
 </dd>
 
-        <dt id="isWeekend" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isWeekend.html">isWeekend</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="isWorkday" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isWorkday.html">isWorkday</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="isWorkday" class="property">
-  <span class="name"><a href="../due_date/WorkdayInMonth/isWorkday.html">isWorkday</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/WorkdayInMonth.html">WorkdayInMonth</a> extension</span>
-      </p>
-  Returns <code>true</code> if the <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> is a workday (weekdays: monday to
-friday).
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="lastDayOfMonth" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/lastDayOfMonth.html">lastDayOfMonth</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the last day of this month (considers leap years)
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="lastDayOfWeek" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/lastDayOfWeek.html">lastDayOfWeek</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the Sunday of this week
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
-        <dt id="lastDayOfYear" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/lastDayOfYear.html">lastDayOfYear</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns the last day of this year
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
         <dt id="microsecond" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/microsecond.html">microsecond</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/microsecond.html">microsecond</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -511,8 +227,8 @@ friday).
 </dd>
 
         <dt id="microsecondsSinceEpoch" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/microsecondsSinceEpoch.html">microsecondsSinceEpoch</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/microsecondsSinceEpoch.html">microsecondsSinceEpoch</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -524,8 +240,8 @@ the "Unix epoch" 1970-01-01T00:00:00Z (UTC).
 </dd>
 
         <dt id="millisecond" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/millisecond.html">millisecond</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/millisecond.html">millisecond</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -536,8 +252,8 @@ the "Unix epoch" 1970-01-01T00:00:00Z (UTC).
 </dd>
 
         <dt id="millisecondsSinceEpoch" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/millisecondsSinceEpoch.html">millisecondsSinceEpoch</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/millisecondsSinceEpoch.html">millisecondsSinceEpoch</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -549,8 +265,8 @@ the "Unix epoch" 1970-01-01T00:00:00Z (UTC).
 </dd>
 
         <dt id="minute" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/minute.html">minute</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/minute.html">minute</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -561,8 +277,8 @@ the "Unix epoch" 1970-01-01T00:00:00Z (UTC).
 </dd>
 
         <dt id="month" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/month.html">month</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/month.html">month</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -574,7 +290,7 @@ the "Unix epoch" 1970-01-01T00:00:00Z (UTC).
 
         <dt id="props" class="property">
   <span class="name"><a href="../due_date/DueDateTime/props.html">props</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></span>&gt;</span></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a></span>&gt;</span></span>
   
 
 </dt>
@@ -586,8 +302,8 @@ two instances are equal.
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Type-class.html">Type</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Type-class.html">Type</a></span>
   
 
 </dt>
@@ -598,8 +314,8 @@ two instances are equal.
 </dd>
 
         <dt id="second" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/second.html">second</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/second.html">second</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -611,7 +327,7 @@ two instances are equal.
 
         <dt id="stringify" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/stringify.html">stringify</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a>?</span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a>?</span>
   
 
 </dt>
@@ -622,25 +338,9 @@ this instance's <a href="../due_date/DueDateTime/props.html">props</a>.
 
 </dd>
 
-        <dt id="timeOfDay" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/timeOfDay.html">timeOfDay</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns only the time
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
         <dt id="timeZoneName" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/timeZoneName.html">timeZoneName</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/timeZoneName.html">timeZoneName</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span>
   
 
 </dt>
@@ -651,8 +351,8 @@ this instance's <a href="../due_date/DueDateTime/props.html">props</a>.
 </dd>
 
         <dt id="timeZoneOffset" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/timeZoneOffset.html">timeZoneOffset</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/timeZoneOffset.html">timeZoneOffset</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Duration-class.html">Duration</a></span>
   
 
 </dt>
@@ -663,53 +363,21 @@ is the difference between local time and UTC.
 
 </dd>
 
-        <dt id="wasYesterday" class="property">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/wasYesterday.html">wasYesterday</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns if yesterday, true
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
         <dt id="weekday" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/weekday.html">weekday</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/weekday.html">weekday</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
 <dd class="inherited">
-  The day of the week <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/monday-constant.html">monday</a>..<a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/sunday-constant.html">sunday</a>.
+  The day of the week <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/monday-constant.html">monday</a>..<a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/sunday-constant.html">sunday</a>.
   <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
-        <dt id="workdayInMonth" class="property">
-  <span class="name"><a href="../due_date/WorkdayInMonth/workdayInMonth.html">workdayInMonth</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/WorkdayInMonth.html">WorkdayInMonth</a> extension</span>
-      </p>
-  Returns the workday number in the month of this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>.
-  <div class="features"><span class="feature">no setter</span></div>
-
-</dd>
-
         <dt id="year" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/year.html">year</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/year.html">year</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -721,7 +389,6 @@ is the difference between local time and UTC.
 
     </dl>
   </section>
-
     
   <section
       class="summary offset-anchor"
@@ -729,7 +396,7 @@ is the difference between local time and UTC.
     <h2>Methods</h2>
     <dl class="callables">
         <dt id="add" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/add.html">add</a></span><span class="signature">(<wbr><span class="parameter" id="add-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, {</span><span class="parameter" id="add-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/add.html">add</a></span><span class="signature">(<wbr><span class="parameter" id="add-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, {</span><span class="parameter" id="add-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -741,26 +408,8 @@ is the difference between local time and UTC.
 
 </dd>
 
-        <dt id="addDays" class="callable">
-  <span class="name"><a href="../due_date/AddDays/addDays.html">addDays</a></span><span class="signature">(<wbr><span class="parameter" id="addDays-param-days"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span>, {</span><span class="parameter" id="addDays-param-ignoring"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Weekday.html">Weekday</a></span>&gt;</span></span> <span class="parameter-name">ignoring</span> = <span class="default-value">const []</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/AddDays.html">AddDays</a> extension</span>
-      </p>
-  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> with the given <code>days</code> added to this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>.
-Ignoring the <a href="../due_date/Weekday.html">Weekday</a>s on <code>ignoring</code>.
-  
-
-</dd>
-
         <dt id="addMonths" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, {</span><span class="parameter" id="addMonths-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/addMonths.html">addMonths</a></span><span class="signature">(<wbr><span class="parameter" id="addMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, {</span><span class="parameter" id="addMonths-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -773,7 +422,7 @@ Ignoring the <a href="../due_date/Weekday.html">Weekday</a>s on <code>ignoring</
 </dd>
 
         <dt id="addWeeks" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/addWeeks.html">addWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, {</span><span class="parameter" id="addWeeks-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/addWeeks.html">addWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, {</span><span class="parameter" id="addWeeks-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -785,26 +434,8 @@ Ignoring the <a href="../due_date/Weekday.html">Weekday</a>s on <code>ignoring</
 
 </dd>
 
-        <dt id="addWorkDays" class="callable">
-  <span class="name"><a href="../due_date/AddDays/addWorkDays.html">addWorkDays</a></span><span class="signature">(<wbr><span class="parameter" id="addWorkDays-param-days"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/AddDays.html">AddDays</a> extension</span>
-      </p>
-  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> with the given <code>days</code> added to this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>.
-Skipping the weekend.
-  
-
-</dd>
-
         <dt id="addYears" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, {</span><span class="parameter" id="addYears-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/addYears.html">addYears</a></span><span class="signature">(<wbr><span class="parameter" id="addYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, {</span><span class="parameter" id="addYears-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -816,43 +447,9 @@ Skipping the weekend.
 
 </dd>
 
-        <dt id="clamp" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/clamp.html">clamp</a></span><span class="signature">(<wbr>{<span class="parameter" id="clamp-param-min"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">min</span>, </span><span class="parameter" id="clamp-param-max"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">max</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> clamped to be in the range <code>min</code>-<code>max</code>.
-  
-
-</dd>
-
-        <dt id="clampInMonth" class="callable">
-  <span class="name"><a href="../due_date/ClampInMonth/clampInMonth.html">clampInMonth</a></span><span class="signature">(<wbr><span class="parameter" id="clampInMonth-param-month"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">month</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/ClampInMonth.html">ClampInMonth</a> extension</span>
-      </p>
-  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> clamped to the given <code>month</code>.
-  
-
-</dd>
-
         <dt id="compareTo" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
   </span>
   
 
@@ -865,41 +462,7 @@ returning zero if the values are equal.
 </dd>
 
         <dt id="copyWith" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/copyWith.html">copyWith</a></span><span class="signature">(<wbr>{<span class="parameter" id="copyWith-param-year"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">year</span>, </span><span class="parameter" id="copyWith-param-month"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">month</span>, </span><span class="parameter" id="copyWith-param-day"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">day</span>, </span><span class="parameter" id="copyWith-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">hour</span>, </span><span class="parameter" id="copyWith-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">minute</span>, </span><span class="parameter" id="copyWith-param-second"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">second</span>, </span><span class="parameter" id="copyWith-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">millisecond</span>, </span><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  
-  
-
-</dd>
-
-        <dt id="copyWith" class="callable">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTimeCopyWith/copyWith.html">copyWith</a></span><span class="signature">(<wbr>{<span class="parameter" id="copyWith-param-year"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">year</span>, </span><span class="parameter" id="copyWith-param-month"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">month</span>, </span><span class="parameter" id="copyWith-param-day"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">day</span>, </span><span class="parameter" id="copyWith-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">hour</span>, </span><span class="parameter" id="copyWith-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">minute</span>, </span><span class="parameter" id="copyWith-param-second"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">second</span>, </span><span class="parameter" id="copyWith-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">millisecond</span>, </span><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span>, </span><span class="parameter" id="copyWith-param-isUtc"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">isUtc</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTimeCopyWith.html">DateTimeCopyWith</a> extension</span>
-      </p>
-  Creates a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> from this one by updating individual properties.
-  
-
-</dd>
-
-        <dt id="copyWith" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/copyWith.html">copyWith</a></span><span class="signature">(<wbr>{<span class="parameter" id="copyWith-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="copyWith-param-year"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">year</span>, </span><span class="parameter" id="copyWith-param-month"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">month</span>, </span><span class="parameter" id="copyWith-param-day"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">day</span>, </span><span class="parameter" id="copyWith-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">hour</span>, </span><span class="parameter" id="copyWith-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">minute</span>, </span><span class="parameter" id="copyWith-param-second"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">second</span>, </span><span class="parameter" id="copyWith-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">millisecond</span>, </span><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span>, </span><span class="parameter" id="copyWith-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/copyWith.html">copyWith</a></span><span class="signature">(<wbr>{<span class="parameter" id="copyWith-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="copyWith-param-year"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">year</span>, </span><span class="parameter" id="copyWith-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">month</span>, </span><span class="parameter" id="copyWith-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">day</span>, </span><span class="parameter" id="copyWith-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">hour</span>, </span><span class="parameter" id="copyWith-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">minute</span>, </span><span class="parameter" id="copyWith-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">second</span>, </span><span class="parameter" id="copyWith-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">millisecond</span>, </span><span class="parameter" id="copyWith-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">microsecond</span>, </span><span class="parameter" id="copyWith-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -913,196 +476,60 @@ with the new values.
 </dd>
 
         <dt id="difference" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/difference.html">difference</a></span><span class="signature">(<wbr><span class="parameter" id="difference-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/difference.html">difference</a></span><span class="signature">(<wbr><span class="parameter" id="difference-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Duration-class.html">Duration</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Returns a <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a> with the difference when subtracting <code>other</code> from
-this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>.
+  Returns a <a href="https://api.dart.dev/stable/3.5.4/dart-core/Duration-class.html">Duration</a> with the difference when subtracting <code>other</code> from
+this <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="isAfter" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/isAfter.html">isAfter</a></span><span class="signature">(<wbr><span class="parameter" id="isAfter-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/isAfter.html">isAfter</a></span><span class="signature">(<wbr><span class="parameter" id="isAfter-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Whether this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> occurs after <code>other</code>.
+  Whether this <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> occurs after <code>other</code>.
   <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="isAtSameDayAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameDayAs.html">isAtSameDayAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameDayAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is on the same day as <code>this</code>.
-  
-
-</dd>
-
-        <dt id="isAtSameHourAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameHourAs.html">isAtSameHourAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameHourAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is at the same hour as <code>this</code>.
-  
-
-</dd>
-
-        <dt id="isAtSameMicrosecondAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameMicrosecondAs.html">isAtSameMicrosecondAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMicrosecondAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is at the same microsecond as <code>this</code>.
-  
-
-</dd>
-
-        <dt id="isAtSameMillisecondAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameMillisecondAs.html">isAtSameMillisecondAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMillisecondAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is at the same millisecond as <code>this</code>.
-  
-
-</dd>
-
-        <dt id="isAtSameMinuteAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameMinuteAs.html">isAtSameMinuteAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMinuteAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is at the same minute as <code>this</code>.
-  
 
 </dd>
 
         <dt id="isAtSameMomentAs" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/isAtSameMomentAs.html">isAtSameMomentAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMomentAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/isAtSameMomentAs.html">isAtSameMomentAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMomentAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Whether this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> occurs at the same moment as <code>other</code>.
+  Whether this <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> occurs at the same moment as <code>other</code>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
-        <dt id="isAtSameMonthAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameMonthAs.html">isAtSameMonthAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameMonthAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is in the same month as <code>this</code>.
-  
-
-</dd>
-
-        <dt id="isAtSameSecondAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameSecondAs.html">isAtSameSecondAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameSecondAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is at the same second as <code>this</code>.
-  
-
-</dd>
-
-        <dt id="isAtSameYearAs" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/isAtSameYearAs.html">isAtSameYearAs</a></span><span class="signature">(<wbr><span class="parameter" id="isAtSameYearAs-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns true if <code>other</code> is in the same year as <code>this</code>.
-  
-
-</dd>
-
         <dt id="isBefore" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/isBefore.html">isBefore</a></span><span class="signature">(<wbr><span class="parameter" id="isBefore-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/isBefore.html">isBefore</a></span><span class="signature">(<wbr><span class="parameter" id="isBefore-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Whether this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> occurs before <code>other</code>.
+  Whether this <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> occurs before <code>other</code>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="next" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/next.html">next</a></span><span class="signature">(<wbr>{<span class="parameter" id="next-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/next.html">next</a></span><span class="signature">(<wbr>{<span class="parameter" id="next-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1115,25 +542,8 @@ this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a8904386013246
 
 </dd>
 
-        <dt id="nextWeekday" class="callable">
-  <span class="name"><a href="../due_date/WeekCalc/nextWeekday.html">nextWeekday</a></span><span class="signature">(<wbr><span class="parameter" id="nextWeekday-param-weekday"><span class="type-annotation"><a href="../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">weekday</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/WeekCalc.html">WeekCalc</a> extension</span>
-      </p>
-  Returns the next <code>weekday</code> after this.
-  
-
-</dd>
-
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
@@ -1146,7 +556,7 @@ this <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a8904386013246
 </dd>
 
         <dt id="previous" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/previous.html">previous</a></span><span class="signature">(<wbr>{<span class="parameter" id="previous-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/previous.html">previous</a></span><span class="signature">(<wbr>{<span class="parameter" id="previous-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1159,42 +569,8 @@ the <a href="../due_date/DueDateTime/every.html">every</a> main pattern.
 
 </dd>
 
-        <dt id="previousWeekday" class="callable">
-  <span class="name"><a href="../due_date/WeekCalc/previousWeekday.html">previousWeekday</a></span><span class="signature">(<wbr><span class="parameter" id="previousWeekday-param-weekday"><span class="type-annotation"><a href="../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">weekday</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/WeekCalc.html">WeekCalc</a> extension</span>
-      </p>
-  Returns the previous <code>weekday</code> before this.
-  
-
-</dd>
-
-        <dt id="shift" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/shift.html">shift</a></span><span class="signature">(<wbr>{<span class="parameter" id="shift-param-years"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span> = <span class="default-value">0</span>, </span><span class="parameter" id="shift-param-months"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span> = <span class="default-value">0</span>, </span><span class="parameter" id="shift-param-days"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span> = <span class="default-value">0</span>, </span><span class="parameter" id="shift-param-hours"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">hours</span> = <span class="default-value">0</span>, </span><span class="parameter" id="shift-param-minutes"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">minutes</span> = <span class="default-value">0</span>, </span><span class="parameter" id="shift-param-seconds"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">seconds</span> = <span class="default-value">0</span>, </span><span class="parameter" id="shift-param-milliseconds"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">milliseconds</span> = <span class="default-value">0</span>, </span><span class="parameter" id="shift-param-microseconds"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">microseconds</span> = <span class="default-value">0</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Adds time units to the calendar date and/or clock time.
-  
-
-</dd>
-
         <dt id="subtract" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtract.html">subtract</a></span><span class="signature">(<wbr><span class="parameter" id="subtract-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, {</span><span class="parameter" id="subtract-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/subtract.html">subtract</a></span><span class="signature">(<wbr><span class="parameter" id="subtract-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span>, {</span><span class="parameter" id="subtract-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1207,26 +583,8 @@ the <a href="../due_date/DueDateTime/every.html">every</a> main pattern.
 
 </dd>
 
-        <dt id="subtractDays" class="callable">
-  <span class="name"><a href="../due_date/AddDays/subtractDays.html">subtractDays</a></span><span class="signature">(<wbr><span class="parameter" id="subtractDays-param-days"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span>, {</span><span class="parameter" id="subtractDays-param-ignoring"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Weekday.html">Weekday</a></span>&gt;</span></span> <span class="parameter-name">ignoring</span> = <span class="default-value">const []</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/AddDays.html">AddDays</a> extension</span>
-      </p>
-  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> with the given <code>days</code> subtracted from this
-<a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>. Ignoring the <a href="../due_date/Weekday.html">Weekday</a>s on <code>ignoring</code>.
-  
-
-</dd>
-
         <dt id="subtractMonths" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtractMonths.html">subtractMonths</a></span><span class="signature">(<wbr><span class="parameter" id="subtractMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, {</span><span class="parameter" id="subtractMonths-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/subtractMonths.html">subtractMonths</a></span><span class="signature">(<wbr><span class="parameter" id="subtractMonths-param-months"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">months</span>, {</span><span class="parameter" id="subtractMonths-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1240,7 +598,7 @@ this.
 </dd>
 
         <dt id="subtractWeeks" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtractWeeks.html">subtractWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="subtractWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, {</span><span class="parameter" id="subtractWeeks-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/subtractWeeks.html">subtractWeeks</a></span><span class="signature">(<wbr><span class="parameter" id="subtractWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, {</span><span class="parameter" id="subtractWeeks-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1253,26 +611,8 @@ this.
 
 </dd>
 
-        <dt id="subtractWorkDays" class="callable">
-  <span class="name"><a href="../due_date/AddDays/subtractWorkDays.html">subtractWorkDays</a></span><span class="signature">(<wbr><span class="parameter" id="subtractWorkDays-param-days"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="../due_date/AddDays.html">AddDays</a> extension</span>
-      </p>
-  Returns a new <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> with the given <code>days</code> subtracted from this
-<a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>. Skipping the weekend.
-  
-
-</dd>
-
         <dt id="subtractYears" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/subtractYears.html">subtractYears</a></span><span class="signature">(<wbr><span class="parameter" id="subtractYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, {</span><span class="parameter" id="subtractYears-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/subtractYears.html">subtractYears</a></span><span class="signature">(<wbr><span class="parameter" id="subtractYears-param-years"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">years</span>, {</span><span class="parameter" id="subtractYears-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1285,26 +625,9 @@ this.
 
 </dd>
 
-        <dt id="to" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/to.html">to</a></span><span class="signature">(<wbr><span class="parameter" id="to-param-to"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">to</span>, {</span><span class="parameter" id="to-param-by"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">by</span> = <span class="default-value">const Duration(days: 1)</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Returns a range of dates to <code>to</code>, exclusive start, inclusive end
-  
-
-</dd>
-
         <dt id="toIso8601String" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime/toIso8601String.html">toIso8601String</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/toIso8601String.html">toIso8601String</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -1330,7 +653,7 @@ this.
 
         <dt id="toString" class="callable">
   <span class="name"><a href="../due_date/DueDateTime/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -1362,49 +685,15 @@ this.
       id="operators">
     <h2>Operators</h2>
     <dl class="callables">
-        <dt id="operator +" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/operator_plus.html">operator +</a></span><span class="signature">(<wbr><span class="parameter" id="+-param-duration"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Adds this DateTime and Duration and returns the sum as a new DateTime object.
-  
-
-</dd>
-
-        <dt id="operator -" class="callable">
-  <span class="name"><a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension/operator_minus.html">operator -</a></span><span class="signature">(<wbr><span class="parameter" id="--param-duration"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">duration</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-      <p class="from-extension">
-        <span>Available on <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>,
-        provided by the <a href="https://pub.dev/documentation/time/2.1.5/time/DateTimeTimeExtension.html">DateTimeTimeExtension</a> extension</span>
-      </p>
-  Subtracts the Duration from this DateTime returns the difference as a new DateTime object.
-  
-
-</dd>
-
         <dt id="operator ==" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DueDateTime/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Whether <code>other</code> is a <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a> at the same moment and in the
+  Whether <code>other</code> is a <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> at the same moment and in the
 same time zone (UTC or local).
   <div class="features"><span class="feature">override</span></div>
 
@@ -1418,7 +707,7 @@ same time zone (UTC or local).
     <h2>Static Methods</h2>
     <dl class="callables">
         <dt id="fromMicrosecondsSinceEpoch" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/fromMicrosecondsSinceEpoch.html">fromMicrosecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMicrosecondsSinceEpoch-param-microsecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecondsSinceEpoch</span>, {</span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/fromMicrosecondsSinceEpoch.html">fromMicrosecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMicrosecondsSinceEpoch-param-microsecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecondsSinceEpoch</span>, {</span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMicrosecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1432,7 +721,7 @@ with the given <code>microsecondsSinceEpoch</code>.
 </dd>
 
         <dt id="fromMillisecondsSinceEpoch" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/fromMillisecondsSinceEpoch.html">fromMillisecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMillisecondsSinceEpoch-param-millisecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecondsSinceEpoch</span>, {</span><span class="parameter" id="fromMillisecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/fromMillisecondsSinceEpoch.html">fromMillisecondsSinceEpoch</a></span><span class="signature">(<wbr><span class="parameter" id="fromMillisecondsSinceEpoch-param-millisecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecondsSinceEpoch</span>, {</span><span class="parameter" id="fromMillisecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="fromMillisecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1446,7 +735,7 @@ with the given <code>millisecondsSinceEpoch</code>.
 </dd>
 
         <dt id="parse" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/parse.html">parse</a></span><span class="signature">(<wbr><span class="parameter" id="parse-param-formattedString"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, {</span><span class="parameter" id="parse-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="parse-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/parse.html">parse</a></span><span class="signature">(<wbr><span class="parameter" id="parse-param-formattedString"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, {</span><span class="parameter" id="parse-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="parse-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span>
   </span>
   
@@ -1459,7 +748,7 @@ with the given <code>millisecondsSinceEpoch</code>.
 </dd>
 
         <dt id="tryParse" class="callable">
-  <span class="name"><a href="../due_date/DueDateTime/tryParse.html">tryParse</a></span><span class="signature">(<wbr><span class="parameter" id="tryParse-param-formattedString"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, {</span><span class="parameter" id="tryParse-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="tryParse-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
+  <span class="name"><a href="../due_date/DueDateTime/tryParse.html">tryParse</a></span><span class="signature">(<wbr><span class="parameter" id="tryParse-param-formattedString"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">formattedString</span>, {</span><span class="parameter" id="tryParse-param-every"><span class="type-annotation"><a href="../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="tryParse-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span></span>})
     <span class="returntype parameter">&#8594; <a href="../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/Every-class.html">Every</a></span>&gt;</span>?</span>
   </span>
   
@@ -1475,7 +764,9 @@ with the given <code>millisecondsSinceEpoch</code>.
   </section>
     
 
+
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -1483,30 +774,40 @@ with the given <code>millisecondsSinceEpoch</code>.
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">due_date</a></li>
-    <li><a href="../due_date">due_date</a></li>
+    <li><a href="../due_date/due_date-library.html">due_date</a></li>
     <li class="self-crumb">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span> class</li>
 </ol>
+
 
     <h5>due_date library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div>
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     due_date
-      2.2.0
+      2.2.1
   </span>
+
   
 </footer>
+
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

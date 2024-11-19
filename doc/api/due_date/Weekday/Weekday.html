@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,16 +21,15 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../../due_date/due_date-library.html">due_date.dart</a></li>
     <li><a href="../../due_date/Weekday.html">Weekday</a></li>
     <li class="self-crumb">Weekday const constructor</li>
   </ol>
@@ -38,103 +37,74 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
 
-
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="due_date&#47;Weekday-enum-sidebar.html"
+      data-below-sidebar="">
       <div>
 <h1><span class="kind-constructor">Weekday</span> constructor 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
-    <section class="multi-line-signature">const
-      <span class="name ">Weekday</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-dateTimeValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">dateTimeValue</span>, </span></li>
-<li><span class="parameter" id="-param-isWeekend">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isWeekend</span> = <span class="default-value">false</span>}</span></li>
-</ol>)
+    <section class="multi-line-signature">
+      const
+      <span class="name ">Weekday</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="-param-dateTimeValue"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">dateTimeValue</span>, {</span></li>
+<li><span class="parameter" id="-param-generator"><span>required</span> <span class="type-annotation"><a href="../../period/WeekGenerator-class.html">WeekGenerator</a></span> <span class="parameter-name">generator</span>, </span></li>
+<li><span class="parameter" id="-param-isWeekend"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isWeekend</span> = <span class="default-value">false</span>, </span></li>
+</ol>})
     </section>
 
     
+<section class="desc markdown">
+  <p>Weekday constants that are returned by <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime/weekday.html">DateTime.weekday</a> method.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">const Weekday(this.dateTimeValue, {this.isWeekend = false});</code></pre>
+  <pre class="language-dart"><code class="language-dart">const Weekday(
+  this.dateTimeValue, {
+  required WeekGenerator generator,
+  this.isWeekend = false,
+}) : weekGenerator = generator;</code></pre>
 </section>
 
 
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../../index.html">due_date</a></li>
-  <li><a href="../../due_date/due_date-library.html">due_date</a></li>
-  <li><a href="../../due_date/Weekday.html">Weekday</a></li>
-  <li class="self-crumb">Weekday const constructor</li>
+    <li><a href="../../index.html">due_date</a></li>
+    <li><a href="../../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../../due_date/Weekday.html">Weekday</a></li>
+    <li class="self-crumb">Weekday const constructor</li>
 </ol>
 
 
     <h5>Weekday enum</h5>
-    <ol>
-
-        <li class="section-title"><a href="../../due_date/Weekday.html#constructors">Constructors</a></li>
-          <li><a href="../../due_date/Weekday/Weekday.html">Weekday</a></li>
-          <li><a href="../../due_date/Weekday/Weekday.from.html">from</a></li>
-          <li><a href="../../due_date/Weekday/Weekday.fromDateTimeValue.html">fromDateTimeValue</a></li>
-
-    <li class="section-title"><a href="../../due_date/Weekday.html#values">Values</a></li>
-    <li><a href="../../due_date/Weekday.html#monday">monday</a></li>
-    <li><a href="../../due_date/Weekday.html#tuesday">tuesday</a></li>
-    <li><a href="../../due_date/Weekday.html#wednesday">wednesday</a></li>
-    <li><a href="../../due_date/Weekday.html#thursday">thursday</a></li>
-    <li><a href="../../due_date/Weekday.html#friday">friday</a></li>
-    <li><a href="../../due_date/Weekday.html#saturday">saturday</a></li>
-    <li><a href="../../due_date/Weekday.html#sunday">sunday</a></li>
-
-    <li class="section-title">
-      <a href="../../due_date/Weekday.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../../due_date/Weekday/dateTimeValue.html">dateTimeValue</a></li>
-    <li><a href="../../due_date/Weekday/every.html">every</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Enum/index.html">index</a></li>
-    <li><a href="../../due_date/Weekday/isWeekend.html">isWeekend</a></li>
-    <li><a href="../../due_date/Weekday/isWorkday.html">isWorkday</a></li>
-    <li><a href="../../due_date/Weekday/next.html">next</a></li>
-    <li><a href="../../due_date/Weekday/previous.html">previous</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-
-    <li class="section-title"><a href="../../due_date/Weekday.html#instance-methods">Methods</a></li>
-    <li><a href="../../due_date/Weekday/compareTo.html">compareTo</a></li>
-    <li><a href="../../due_date/Weekday/fromThisWeek.html">fromThisWeek</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../../due_date/Weekday/occrurencesIn.html">occrurencesIn</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
-
-    <li class="section-title"><a href="../../due_date/Weekday.html#operators">Operators</a></li>
-    <li><a href="../../due_date/Weekday/operator_less.html">operator <</a></li>
-    <li><a href="../../due_date/Weekday/operator_less_equal.html">operator <=</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
-    <li><a href="../../due_date/Weekday/operator_greater.html">operator ></a></li>
-    <li><a href="../../due_date/Weekday/operator_greater_equal.html">operator >=</a></li>
-
-
-        <li class="section-title"><a href="../../due_date/Weekday.html#static-properties">Static properties</a></li>
-          <li><a href="../../due_date/Weekday/weekend.html">weekend</a></li>
-
-
-        <li class="section-title"><a href="../../due_date/Weekday.html#constants">Constants</a></li>
-          <li><a href="../../due_date/Weekday/values-constant.html">values</a></li>
-</ol>
-
+    <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-left-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -145,7 +115,7 @@
 <footer>
   <span class="no-break">
     due_date
-      1.0.2
+      2.2.1
   </span>
 
   
@@ -154,7 +124,7 @@
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

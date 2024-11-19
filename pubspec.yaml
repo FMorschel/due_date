@@ -1,12 +1,13 @@
 name: due_date
 description: A package for working with repeating DateTime patterns (like the same day every month).
-version: 2.2.0
+version: 2.2.1
 homepage: https://fmorschel.github.io/due_date/
 repository: https://github.com/FMorschel/due_date
-issue_tracker: https://github.com/FMorschel/due_date/issues
+
 funding:
   - https://github.com/sponsors/FMorschel
   - https://www.buymeacoffee.com/fmorschel
+
 topics:
   - date
   - datetime
@@ -22,14 +23,14 @@ environment:
 
 dependencies:
   clock: ^1.1.2
-  collection: '>=1.16.0 <2.0.0'
+  collection: ^1.19.1
   equatable: '>=2.0.5 <3.0.0'
-  meta: ^1.11.0
-  time: '>=2.1.3 <3.0.0'
+  meta: ^1.16.0
+  time: ^2.1.5
 
 dev_dependencies:
   dart_code_metrics: 5.7.4 
-  dartdoc: ^6.2.1
-  lints: ^2.0.0
-  test: ^1.24.0
+  dartdoc: ^6.3.0
+  lints: ^2.1.1
+  test: ^1.25.8
   very_good_analysis: ^5.1.0

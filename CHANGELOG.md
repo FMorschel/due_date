@@ -1,3 +1,7 @@
+# 2.2.1 - 2024.11.19
+
+- Thightened the constraints of the dependencies.
+
 # 2.2.0 - 2024.11.19
 
 - Added [EveryDueTimeOfDay] and [EveryDueWorkdayMonth] and their respective implementations for [DateValidator].
