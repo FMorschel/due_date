@@ -1,4 +1,5 @@
-import '../period_generator.dart';
+import '../period_generators/month_generator.dart';
+import '../period_generators/period_generators.dart';
 import '../periods/periods.dart';
 
 /// Month constants that are returned by [DateTime.month] method.

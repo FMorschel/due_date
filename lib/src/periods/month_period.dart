@@ -1,6 +1,5 @@
 import 'package:time/time.dart';
-import '../extensions/extensions.dart';
-import '../period_generator.dart';
+import '../period_generators/period_generators.dart';
 import 'day_period.dart';
 import 'day_period_bundle.dart';
 import 'period.dart';

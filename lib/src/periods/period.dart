@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../helpers/helpers.dart';
-import '../period_generator.dart';
+import '../period_generators/period_generators.dart';
 
 /// A period of time between two [DateTime]s.
 @immutable
