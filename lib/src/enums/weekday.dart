@@ -1,6 +1,7 @@
 import 'package:time/time.dart';
 import '../date_validators/date_validators.dart';
 import '../everies/everies.dart';
+import '../extensions/extensions.dart';
 import '../period_generators/period_generators.dart';
 import '../periods/periods.dart';
 
@@ -105,7 +106,7 @@ enum Weekday implements Comparable<Weekday> {
       if (date.weekday == dateTimeValue) {
         count++;
       }
-      date = date.add(const Duration(days: 1));
+      date = date.addDays(1);
     } while (date.month == month);
     return count;
   }
@@ -115,8 +116,8 @@ enum Weekday implements Comparable<Weekday> {
     final monday = date.firstDayOfWeek;
     final result = monday.add(Duration(days: index));
     return date.isUtc
-        ? result.toUtc().date.add(date.timeOfDay)
-        : result.date.add(date.timeOfDay);
+        ? result.toUtc().date.add(date.exactTimeOfDay)
+        : result.date.add(date.exactTimeOfDay);
   }
 
   @override

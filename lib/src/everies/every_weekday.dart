@@ -2,6 +2,7 @@ import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
 import '../enums/enums.dart';
+import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 import 'every_date_validator_union.dart';
 import 'every_month.dart';
@@ -52,8 +53,7 @@ class EveryWeekday extends DateValidatorWeekday
     if (date.weekday < weekday.dateTimeValue) {
       return weekday.fromWeekOf(date);
     } else {
-      return weekday
-          .fromWeekOf(date.lastDayOfWeek.add(const Duration(days: 1)));
+      return weekday.fromWeekOf(date.lastDayOfWeek.addDays(1));
     }
   }
 
@@ -66,8 +66,7 @@ class EveryWeekday extends DateValidatorWeekday
     if (date.weekday > weekday.dateTimeValue) {
       return weekday.fromWeekOf(date);
     } else {
-      return weekday
-          .fromWeekOf(date.firstDayOfWeek.subtract(const Duration(days: 1)));
+      return weekday.fromWeekOf(date.firstDayOfWeek.subtractDays(1));
     }
   }
 
@@ -81,20 +80,19 @@ class EveryWeekday extends DateValidatorWeekday
     if (!valid(localDate)) {
       if (localWeeks.isNegative) {
         if (localDate.weekday < weekday.dateTimeValue) {
-          localDate =
-              localDate.firstDayOfWeek.subtract(const Duration(days: 1));
+          localDate = localDate.firstDayOfWeek.subtractDays(1);
         }
         localDate = weekday.fromWeekOf(localDate);
         localWeeks++;
       } else {
         if (localDate.weekday > weekday.dateTimeValue) {
-          localDate = localDate.lastDayOfWeek.add(const Duration(days: 1));
+          localDate = localDate.lastDayOfWeek.addDays(1);
         }
         localDate = weekday.fromWeekOf(localDate);
         localWeeks--;
       }
     }
-    final day = localDate.toUtc().add(Duration(days: localWeeks * 7));
+    final day = localDate.toUtc().addDays(localWeeks * 7);
     return _solveFor(localDate, day);
   }
 
@@ -118,7 +116,9 @@ class EveryWeekday extends DateValidatorWeekday
 
   /// Solves the date for the given [date] and [day].
   DateTime _solveFor(DateTime date, DateTime day) {
-    if (date.isUtc) return weekday.fromWeekOf(day.date).add(date.timeOfDay);
-    return weekday.fromWeekOf(day.toLocal().date).add(date.timeOfDay);
+    if (date.isUtc) {
+      return weekday.fromWeekOf(day.date).add(date.exactTimeOfDay);
+    }
+    return weekday.fromWeekOf(day.toLocal().date).add(date.exactTimeOfDay);
   }
 }

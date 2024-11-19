@@ -1,4 +1,5 @@
 import 'package:time/time.dart';
+import '../extensions/extensions.dart';
 import '../period_generators/month_generator.dart';
 import '../period_generators/period_generators.dart';
 import 'month_period.dart';
@@ -22,8 +23,8 @@ class SemesterPeriod extends Period implements MonthPeriodBundle {
           'The difference between start and end must be 183 days, 23 hours, '
           '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
-    if ((start.timeOfDay != Duration.zero) ||
-        (end.timeOfDay != end.endOfDay.timeOfDay) ||
+    if ((start.exactTimeOfDay != Duration.zero) ||
+        (end.exactTimeOfDay != end.endOfDay.exactTimeOfDay) ||
         start.isAtSameMonthAs(end) ||
         (start.firstDayOfMonth != start) ||
         (end.lastDayOfMonth.endOfDay != end) ||

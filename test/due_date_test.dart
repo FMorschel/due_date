@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
@@ -75,7 +76,9 @@ void main() {
       });
     });
     test('Now', () {
-      expect(DueDateTime.now(), equals(DateTime.now()));
+      withClock(Clock.fixed(DateTime.now()), () {
+        expect(DueDateTime.now(), equals(DateTime.now()));
+      });
     });
     group('FromDate:', () {
       final matcher = DateTime.utc(year, 2, 28);

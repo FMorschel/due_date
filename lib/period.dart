@@ -22,5 +22,6 @@ import 'src/periods/periods.dart';
 
 export 'src/enums/enums.dart' show Month, PeriodGenerator, Week, Weekday;
 export 'src/everies/everies.dart';
+export 'src/extensions/extensions.dart' show ExactTimeOfDay;
 export 'src/period_generators/period_generators.dart';
 export 'src/periods/periods.dart';

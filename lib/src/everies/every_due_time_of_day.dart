@@ -16,12 +16,12 @@ class EveryDueTimeOfDay extends DateValidatorTimeOfDay
 
   /// Constructor that takes the time of day from [date].
   factory EveryDueTimeOfDay.from(DateTime date) {
-    return EveryDueTimeOfDay(date.timeOfDay);
+    return EveryDueTimeOfDay(date.exactTimeOfDay);
   }
 
   @override
   DateTime startDate(DateTime date) {
-    if (date.timeOfDay <= timeOfDay) {
+    if (date.exactTimeOfDay <= timeOfDay) {
       return date.date.add(timeOfDay);
     } else {
       return next(date);

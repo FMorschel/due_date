@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
+import '../extensions/extensions.dart';
 import '../periods/periods.dart';
 import 'period_generator_mixin.dart';
 
@@ -17,8 +18,7 @@ class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
     if (difference > 0) difference -= DateTime.daysPerWeek;
     final day = date.day + difference;
     final start = date.copyWith(day: day).date;
-    final end =
-        start.add(const Duration(days: DateTime.daysPerWeek - 1)).endOfDay;
+    final end = start.addDays(DateTime.daysPerWeek - 1).endOfDay;
     return WeekPeriod(start: start, end: end);
   }
 

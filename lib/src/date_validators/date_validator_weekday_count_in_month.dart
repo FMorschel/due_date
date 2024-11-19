@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:time/time.dart';
 
 import '../enums/enums.dart';
+import '../extensions/extensions.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';
 
@@ -49,7 +49,7 @@ class DateValidatorWeekdayCountInMonth extends DateValidator
       day: day,
       utc: date.isUtc,
     );
-    return valid.add(date.timeOfDay) == date;
+    return valid.add(date.exactTimeOfDay) == date;
   }
 
   @override

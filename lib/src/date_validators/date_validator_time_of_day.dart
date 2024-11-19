@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
+import '../extensions/extensions.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';
 
@@ -34,7 +35,7 @@ class DateValidatorTimeOfDay extends DateValidator
 
   @override
   bool valid(DateTime date) {
-    return date.timeOfDay == timeOfDay;
+    return date.exactTimeOfDay == timeOfDay;
   }
 
   @override

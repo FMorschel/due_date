@@ -1,5 +1,6 @@
 import 'package:time/time.dart';
 import '../enums/enums.dart';
+import '../extensions/extensions.dart';
 import '../period_generators/period_generators.dart';
 import 'day_period.dart';
 import 'day_period_bundle.dart';
@@ -31,8 +32,8 @@ class WeekPeriod extends Period implements DayPeriodBundle {
               milliseconds: 999,
               microseconds: 999,
             )) ||
-        (start.timeOfDay != Duration.zero) ||
-        (end.timeOfDay != end.endOfDay.timeOfDay) ||
+        (start.exactTimeOfDay != Duration.zero) ||
+        (end.exactTimeOfDay != end.endOfDay.exactTimeOfDay) ||
         (end.weekday != Weekday.from(start).previous.dateTimeValue)) {
       throw ArgumentError.value(
         end,

@@ -1,6 +1,7 @@
 import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
+import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 import 'every_month.dart';
 
@@ -62,14 +63,13 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
     if (!valid(localDate)) {
       if (localMonths.isNegative) {
         if (localDate.day < dueDay) {
-          localDate =
-              localDate.firstDayOfMonth.subtract(const Duration(days: 1));
+          localDate = localDate.firstDayOfMonth.subtractDays(1);
         }
         localDate = _thisMonthsDay(localDate);
         localMonths++;
       } else {
         if (localDate.day > dueDay) {
-          localDate = localDate.lastDayOfMonth.add(const Duration(days: 1));
+          localDate = localDate.lastDayOfMonth.addDays(1);
         }
         localDate = _thisMonthsDay(localDate);
         localMonths--;
