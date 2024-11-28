@@ -1,3 +1,7 @@
+# 2.2.2 - 2024.11.27
+
+- Loosened the constraints of the dependencies.
+
 # 2.2.1 - 2024.11.19
 
 - Thightened the constraints of the dependencies.

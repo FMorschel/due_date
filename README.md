@@ -76,7 +76,7 @@ On your `pubspec.yaml` file, add this package to your dependencies:
 
 ```yaml
   dependencies:
-    due_date: ^2.2.1
+    due_date: ^2.2.2
 ```
 
 Import one of the, or both, package libraries on your code:
