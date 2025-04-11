@@ -1,28 +1,9 @@
 import 'package:due_date/due_date.dart';
 import 'package:due_date/src/helpers/helpers.dart';
-import 'package:equatable/equatable.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
-class MonthInYear with EquatableMixin {
-  const MonthInYear(
-    this.year,
-    this.month,
-  );
-
-  final int month;
-  final int year;
-
-  DateTime date([int day = 1]) => DateTime(year, month, day);
-
-  @override
-  String toString() {
-    return 'MonthInYear{year: $year, month: $month}';
-  }
-
-  @override
-  List<Object?> get props => [year, month];
-}
+import '../src/month_in_year.dart';
 
 void main() {
   group('DateValidatorDueWorkdayMonth:', () {

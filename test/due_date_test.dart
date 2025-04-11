@@ -76,8 +76,9 @@ void main() {
       });
     });
     test('Now', () {
-      withClock(Clock.fixed(DateTime.now()), () {
-        expect(DueDateTime.now(), equals(DateTime.now()));
+      final now = DateTime.now();
+      withClock(Clock.fixed(now), () {
+        expect(DueDateTime.now(), equals(now));
       });
     });
     group('FromDate:', () {

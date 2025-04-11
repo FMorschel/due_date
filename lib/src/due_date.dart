@@ -174,7 +174,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     /// The limit for the operations.
     DateTime? limit,
   }) {
-    final now = _clock.now();
+    final now = clock.now();
     return DueDateTime.fromDate(
       now,
       every: EveryDueDayMonth(now.day) as T,
@@ -225,7 +225,6 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   }
 
   static const _week = Duration(days: DateTime.daysPerWeek);
-  static const _clock = Clock();
 
   /// The handler for processing the next dates.
   final T every;

@@ -1,81 +1,56 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
+import '../src/date_validator_match.dart';
+import '../src/extensions.dart';
+
 void main() {
   group('DateValidatorDayInYear', () {
-    group('Day 1', () {
-      const validator = DateValidatorDayInYear(1);
-      test('Is valid', () {
-        expect(
-          validator.valid(DateTime(2022)),
-          isTrue,
-        );
+    for (var day = 1; day <= 366; day++) {
+      group('Day $day', () {
+        final validator = DateValidatorDayInYear(day);
+        final date = day.dayIn(2020);
+        test('Is valid for day ${date.dateStr} ($day)', () {
+          expect(validator, isValid(date));
+        });
+        final add = day == 1 ? 1 : -1;
+        final invalidDate = date.copyWith(day: date.day + add);
+        test('Is invalid for day ${invalidDate.dateStr} ($day)', () {
+          expect(validator, isInvalid(invalidDate));
+        });
+        if (day == 366) {
+          final nonLeapYearEnd = 365.dayIn(2021);
+          test('Is valid for day ${nonLeapYearEnd.dateStr} ($day)', () {
+            expect(validator, isValid(nonLeapYearEnd));
+          });
+        }
       });
-      test('Is not valid', () {
-        expect(
-          validator.valid(DateTime(2022, DateTime.january, 2)),
-          isFalse,
-        );
-      });
-    });
-    group('Day 365', () {
-      const validator = DateValidatorDayInYear(365);
-      test('Is valid', () {
-        expect(
-          validator.valid(DateTime(2022, DateTime.december, 31)),
-          isTrue,
-        );
-      });
-      test('Is not valid', () {
-        expect(
-          validator.valid(DateTime(2022, DateTime.january, 2)),
-          isFalse,
-        );
-      });
-    });
+    }
     group('Day 366 not exact', () {
       const validator = DateValidatorDayInYear(366);
-      test('Is not valid', () {
-        expect(
-          validator.valid(DateTime(2022, DateTime.january, 31)),
-          isFalse,
-        );
-      });
       group('Is valid', () {
-        test('2022', () {
-          expect(
-            validator.valid(DateTime(2022, DateTime.december, 31)),
-            isTrue,
-          );
+        test('Leap year', () {
+          expect(validator, isValid(366.dayIn(2020)));
         });
-        test('2020', () {
-          expect(
-            validator.valid(DateTime(2020, DateTime.december, 31)),
-            isTrue,
-          );
+        test('Non-leap year', () {
+          expect(validator, isValid(365.dayIn(2021)));
         });
+      });
+      test('Is not valid', () {
+        expect(validator, isInvalid(364.dayIn(2021)));
       });
     });
     group('Day 366 exact', () {
       const validator = DateValidatorDayInYear(366, exact: true);
       test('Is valid', () {
-        expect(
-          validator.valid(DateTime(2020, DateTime.december, 31)),
-          isTrue,
-        );
+        expect(validator, isValid(366.dayIn(2020)));
       });
       group('Is not valid', () {
-        test('January 2nd', () {
-          expect(
-            validator.valid(DateTime(2022, DateTime.january, 2)),
-            isFalse,
-          );
+        test('Non-leap year', () {
+          expect(validator, isInvalid(365.dayIn(2021)));
         });
-        test('December 31st 2022', () {
-          expect(
-            validator.valid(DateTime(2022, DateTime.december, 31)),
-            isFalse,
-          );
+        test('Invalid day', () {
+          expect(validator, isInvalid(364.dayIn(2021)));
         });
       });
     });
