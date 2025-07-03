@@ -22,7 +22,7 @@ class DateValidatorDueWorkdayMonth extends ExactDateValidator
   /// of the month.
   const DateValidatorDueWorkdayMonth(
     this.dueWorkday, {
-    super.exact = false,
+    super.exact,
   }) : assert(
           (dueWorkday >= 1) && (dueWorkday <= 23),
           'Due workday must be between 1 and 23',

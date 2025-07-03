@@ -17,7 +17,7 @@ import 'date_validator.dart';
 @immutable
 abstract class ExactDateValidator extends DateValidator {
   /// {@macro exactDateValidator}
-  const ExactDateValidator({this.exact = true});
+  const ExactDateValidator({this.exact = false});
 
   /// {@template inexactDates}
   /// Returns whether the [DateTime] passed to [valid] or [invalid] can be

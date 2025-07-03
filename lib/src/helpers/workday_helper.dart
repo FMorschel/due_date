@@ -1,5 +1,6 @@
 import 'package:time/time.dart';
 
+import '../date_validators/date_validator_union.dart';
 import '../everies/everies.dart';
 
 /// Helper class to work with workdays.
@@ -8,6 +9,9 @@ class WorkdayHelper {
 
   /// An every that generates workdays (monday to friday).
   static const every = EveryWeekday.workdays;
+
+  /// A date validator that validates workdays (monday to friday).
+  static const DateValidatorUnion<EveryWeekday> dateValidator = every;
 
   // ignore: format-comment, false positive
   /// Returns the workday number in the month of the [date].

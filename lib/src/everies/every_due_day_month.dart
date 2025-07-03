@@ -4,6 +4,7 @@ import '../date_validators/date_validators.dart';
 import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 import 'every_month.dart';
+import 'exact_every.dart';
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [DateTime.day] as the [dueDay] clamped to fit in the
@@ -18,7 +19,7 @@ import 'every_month.dart';
 /// [DateTime.day] as 15.
 class EveryDueDayMonth extends DateValidatorDueDayMonth
     with EveryMonth
-    implements EveryDateValidator {
+    implements EveryDateValidator, ExactEvery {
   /// Returns a [EveryDueDayMonth] with the given [dueDay].
   /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
   /// return the [dueDay] of the next or previous month.
@@ -27,7 +28,7 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
           (dueDay >= 1) && (dueDay <= 31),
           'Due day must be between 1 and 31',
         ),
-        super(exact: false);
+        super();
 
   /// Returns a [EveryDueDayMonth] with the [dueDay] being the [DateTime.day] of
   /// the given [date].

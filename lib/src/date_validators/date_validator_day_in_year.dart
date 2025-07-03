@@ -2,19 +2,21 @@ import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
 import '../extensions/extensions.dart';
+import '../helpers/helpers.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';
+import 'exact_date_validator.dart';
 
 /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
 /// [dayInYear] of the year.
-class DateValidatorDayInYear extends DateValidator
+class DateValidatorDayInYear extends ExactDateValidator
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorDayInYear> {
   /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
   /// [dayInYear] of the year.
   const DateValidatorDayInYear(
     this.dayInYear, {
-    this.exact = false,
+    super.exact,
   }) : assert(
           dayInYear >= 1 && dayInYear <= 366,
           'Day In Year must be between 1 and 366',
@@ -34,12 +36,6 @@ class DateValidatorDayInYear extends DateValidator
   /// - The first day of the year is 1.
   /// - The last day of the year is 365/366.
   final int dayInYear;
-
-  /// If true, the day of the year must be exactly this [dayInYear].
-  /// If false, if the [dayInYear] is greater than the days in year, the
-  /// [DateTime] will be valid if the [DateTime.day] is the last day of the
-  /// year.
-  final bool exact;
 
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
@@ -61,9 +57,11 @@ class DateValidatorDayInYear extends DateValidator
   }
 
   @override
-  int compareTo(DateValidatorDayInYear other) =>
-      dayInYear.compareTo(other.dayInYear);
+  int compareTo(DateValidatorDayInYear other) => dayInYear
+      .compareTo(other.dayInYear)
+      .when2((v) => v != 0)
+      .orElse((_) => boolCompareTo(exact, other.exact));
 
   @override
-  List<Object> get props => [dayInYear];
+  List<Object> get props => [dayInYear, exact];
 }

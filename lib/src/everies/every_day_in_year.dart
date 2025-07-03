@@ -4,20 +4,21 @@ import '../date_validators/date_validators.dart';
 import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 import 'every_year.dart';
+import 'exact_every.dart';
 
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
 class EveryDayInYear extends DateValidatorDayInYear
     with EveryYear
-    implements EveryDateValidator {
+    implements EveryDateValidator, ExactEvery {
   /// Returns a [EveryDayInYear] with the given [dayInYear].
   const EveryDayInYear(super.dayInYear)
       : assert(
           dayInYear >= 1 && dayInYear <= 366,
           'Day In Year must be between 1 and 366',
         ),
-        super(exact: false);
+        super();
 
   /// Returns a [EveryDayInYear] with the [dayInYear] calculated by the given
   /// [date].

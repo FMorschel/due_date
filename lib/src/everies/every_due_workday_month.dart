@@ -6,6 +6,7 @@ import '../enums/weekday.dart';
 import '../helpers/helpers.dart';
 import 'every_date_validator.dart';
 import 'every_month.dart';
+import 'exact_every.dart';
 import 'workday_direction.dart';
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
@@ -13,7 +14,7 @@ import 'workday_direction.dart';
 /// month clamped to fit in the length of the next month.
 class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     with EveryMonth
-    implements EveryDateValidator {
+    implements EveryDateValidator, ExactEvery {
   /// Returns a [EveryDueWorkdayMonth] with the given [dueWorkday].
   ///
   /// A month can have at most 23 workdays.
@@ -25,7 +26,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
           (dueWorkday >= 1) && (dueWorkday <= 23),
           'Due workday must be between 1 and 23',
         ),
-        super(exact: false);
+        super();
 
   /// Returns a [EveryDueWorkdayMonth] with the [dueWorkday] being the
   /// workday (monday, tuesday, wednesday, thursday or friday) of the given

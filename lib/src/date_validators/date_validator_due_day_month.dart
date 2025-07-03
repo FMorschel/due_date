@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
+import '../helpers/helpers.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';
 import 'exact_date_validator.dart';
@@ -20,7 +21,7 @@ class DateValidatorDueDayMonth extends ExactDateValidator
   /// month.
   const DateValidatorDueDayMonth(
     this.dueDay, {
-    super.exact = false,
+    super.exact,
   }) : assert(
           (dueDay >= 1) && (dueDay <= 31),
           'Due day must be between 1 and 31',
@@ -62,7 +63,9 @@ class DateValidatorDueDayMonth extends ExactDateValidator
 
   @override
   int compareTo(DateValidatorDueDayMonth other) =>
-      dueDay.compareTo(other.dueDay);
+      dueDay.compareTo(other.dueDay).when2((v) => v != 0).orElse(
+            (_) => boolCompareTo(exact, other.exact),
+          );
 
   /// If true, the day of the month must be exactly this [dueDay].
   ///
