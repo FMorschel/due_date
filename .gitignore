@@ -12,3 +12,6 @@ pubspec.lock
 # Ignores for editors and IDEs.
 .idea/
 .vscode/
+.logs/
+
+.log
