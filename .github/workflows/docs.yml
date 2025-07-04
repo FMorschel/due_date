@@ -1,0 +1,38 @@
+name: Update Docs
+
+on:
+  push:
+    branches:
+      - stable
+    paths:
+      - 'docs/api/**'
+  pull_request:
+    branches:
+      - stable
+    paths:
+      - 'docs/api/**'
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install git-filter-repo
+      run: sudo apt-get install -y git-filter-repo
+
+    - name: Switch to gh-pages and replace contents
+      run: |
+        git checkout gh-pages
+        git rm -r -f .
+        git checkout HEAD -- docs/api
+        mv docs/api/* .
+        git add .
+        git commit -m "Update gh-pages" || echo "No changes to commit"
+        git push
+
+    - name: Filter repo
+      run: |
+        git filter-repo --path docs/api
