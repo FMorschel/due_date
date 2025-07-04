@@ -54,18 +54,17 @@ class EveryDayInYear extends DateValidatorDayInYear
   /// being the [dayInYear].
   @override
   DateTime next(DateTime date) {
-    if (!date.isLeapYear && dayInYear == 366) {
-      return date.copyWith(year: date.year + 1).lastDayOfYear;
-    }
     final thisYearDay = date.firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.lastDayOfYear);
+        .clamp(max: date.lastDayOfYear)
+        .add(date.exactTimeOfDay);
     if (date.dayInYear < dayInYear) return thisYearDay;
     return date
         .copyWith(year: date.year + 1)
         .firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.copyWith(year: date.year + 1).lastDayOfYear);
+        .clamp(max: date.copyWith(year: date.year + 1).lastDayOfYear)
+        .add(date.exactTimeOfDay);
   }
 
   /// Returns the previous date that fits the [dayInYear].
@@ -79,13 +78,15 @@ class EveryDayInYear extends DateValidatorDayInYear
   DateTime previous(DateTime date) {
     final thisYearDay = date.firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.lastDayOfYear);
+        .clamp(max: date.lastDayOfYear)
+        .add(date.exactTimeOfDay);
     if (date.dayInYear > dayInYear) return thisYearDay;
     return date
         .copyWith(year: date.year - 1)
         .firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.copyWith(year: date.year - 1).lastDayOfYear);
+        .clamp(max: date.copyWith(year: date.year - 1).lastDayOfYear)
+        .add(date.exactTimeOfDay);
   }
 
   /// Returns a new [DateTime] where the year is [years] from this year and the

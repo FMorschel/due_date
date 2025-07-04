@@ -14,18 +14,32 @@ When writing tests for this Dart library, follow these comprehensive guidelines 
 
 ## Import Standards
 
+Always include this comment at the top for equality tests:
 ```dart
-// Always include this comment at the top for constructor tests
 // ignore_for_file: prefer_const_constructors
+```
 
-// Standard imports order:
-import 'package:due_date/due_date.dart';           // Main library
-import 'package:due_date/src/helpers/helpers.dart'; // Internal helpers (if needed)
-import 'package:test/test.dart';                   // Test framework
-import 'package:time/time.dart';                   // External packages
+General imports for the package tests:
+```dart
+import 'package:due_date/due_date.dart';
+import 'package:due_date/period.dart';
+```
 
-// Relative imports for test utilities
+Internal helpers (if needed):
+```dart
+import 'package:due_date/src/helpers/helpers.dart';
+```
+
+Packages:
+```dart
+import 'package:test/test.dart';
+import 'package:time/time.dart';
+```
+
+Relative imports for test utilities:
+```dart
 import '../src/date_validator_match.dart';
+import '../src/every_validator_match.dart';
 import '../src/month_in_year.dart';
 ```
 
@@ -36,7 +50,7 @@ import '../src/month_in_year.dart';
 ```dart
 void main() {
   group('ClassName:', () {
-    // Group tests by major functionality
+    // Group tests by major functionality.
     group('Constructor', () { /* ... */ });
     group('Methods', () { /* ... */ });
     group('Edge Cases', () { /* ... */ });
@@ -68,7 +82,7 @@ group('Constructor', () {
     });
   });
   
-  // Test named constructors separately
+  // Test named constructors separately.
   group('namedConstructor', () {
     test('Valid case description', () {
       expect(ClassName.namedConstructor(params), isNotNull);
@@ -89,10 +103,12 @@ For validators, use comprehensive loops to test all scenarios:
 
 ```dart
 group('valid:', () {
-  // Define test data sets with descriptive comments
+  // Define test data sets with descriptive comments.
   const testCases = [
-    TestCase(params), // Description of what this tests
-    TestCase(params), // Another scenario
+    // Description of what this tests.
+    TestCase(params),
+    // Another scenario.
+    TestCase(params),
   ];
   
   for (final testCase in testCases) {
@@ -152,15 +168,23 @@ group('Equality', () {
 Use custom matchers for domain-specific assertions:
 
 ```dart
-// For date validators, use custom matchers
+// For date validators, use custom matchers.
 expect(validator, isValid(date));
 expect(validator, isInvalid(date));
 
-// For collections
+// For Every implementations, use custom matchers.
+expect(every, startsAt(expectedDate).withInput(inputDate));
+expect(every, hasNext(expectedDate).withInput(inputDate));
+expect(every, hasPrevious(expectedDate).withInput(inputDate));
+expect(every, startsAtSameDate().withInput(validDate));
+expect(every, nextIsAfter().withInput(inputDate));
+expect(every, previousIsBefore().withInput(inputDate));
+
+// For collections.
 expect(collection, containsAllInOrder(expectedItems));
 ```
 
-## Custom Matchers (REQUIRED for Validators)
+## Custom Matchers (REQUIRED for Validators and Every Implementations)
 
 **All validator assertions MUST use the custom matchers provided in `date_validator_match.dart` or other relevant matcher utility files.**
 
@@ -168,22 +192,170 @@ expect(collection, containsAllInOrder(expectedItems));
 - Instead, always use:
   - `expect(validator, isValid(date));`
   - `expect(validator, isInvalid(date));`
-- This applies to all validator types, including but not limited to:
-  - `DateValidatorDueDayMonth`
-  - `DateValidatorWeekday`
-  - `DateValidatorUnion`
-  - `DateValidatorTimeOfDay`
-  - `DateValidatorDayInYear`
-  - `DateValidatorWeekdayCountInMonth`
-  - Any custom validator implementing a `.valid(DateTime)` method
+
+**All Every implementation assertions MUST use the custom matchers provided in `every_validator_match.dart`.**
+
+- Do NOT use direct method calls like `expect(every.next(date), equals(expectedDate))`.
+- Instead, always use:
+  - `expect(every, startsAt(expectedDate).withInput(inputDate));`
+  - `expect(every, hasNext(expectedDate).withInput(inputDate));`
+  - `expect(every, hasPrevious(expectedDate).withInput(inputDate));`
+  - `expect(every, startsAtSameDate().withInput(validDate));`
+  - `expect(every, nextIsAfter().withInput(inputDate));`
+  - `expect(every, previousIsBefore().withInput(inputDate));`
+
+This applies to all validator types, including but not limited to:
+- `DateValidatorDueDayMonth`
+- `DateValidatorWeekday`
+- `DateValidatorUnion`
+- `DateValidatorTimeOfDay`
+- `DateValidatorDayInYear`
+- `DateValidatorWeekdayCountInMonth`
+- Any custom validator implementing a `.valid(DateTime)` method
+
+And all Every implementations, including but not limited to:
+- `EveryWeekday`
+- `EveryDueDayMonth`
+- `EveryWeekdayCountInMonth`
+- `EveryDayInYear`
+- Any custom implementation extending `Every`
 
 **List of required custom matchers:**
+
+**For Validators:**
 - `isValid(DateTime date)` — Asserts that the validator accepts the date.
 - `isInvalid(DateTime date)` — Asserts that the validator rejects the date.
 
+**For Every implementations:**
+- `startsAt(DateTime expectedDate).withInput(DateTime inputDate)` — Asserts that `startDate()` returns the expected date.
+- `hasNext(DateTime expectedDate).withInput(DateTime inputDate)` — Asserts that `next()` returns the expected date.
+- `hasPrevious(DateTime expectedDate).withInput(DateTime inputDate)` — Asserts that `previous()` returns the expected date.
+- `startsAtSameDate().withInput(DateTime validDate)` — Asserts that `startDate()` returns the input when it's already valid.
+- `nextIsAfter().withInput(DateTime inputDate)` — Asserts that `next()` generates a date after the input.
+- `previousIsBefore().withInput(DateTime inputDate)` — Asserts that `previous()` generates a date before the input.
+
 **Enforcement:**
 - All test files for validators must import the appropriate matcher utility (e.g., `import '../src/date_validator_match.dart';`).
-- PRs that do not use these matchers for validator assertions will be rejected.
+- All test files for Every implementations must import the Every matcher utility (e.g., `import '../src/every_validator_match.dart';`).
+- PRs that do not use these matchers for validator or Every assertions will be rejected.
+
+## Specific Testing Requirements for Every and PeriodGenerator Classes
+
+### Explicit DateTime-to-DateTime Tests
+
+**All Every and PeriodGenerator classes must include explicit datetime-to-datetime tests that verify the exact generated dates are correct.**
+
+These tests must:
+
+1. **Test specific date calculations** - Don't rely only on broad structural tests
+2. **Verify exact output dates** - Use concrete input dates and assert exact expected output dates
+3. **Cover edge cases** - Test boundary conditions, leap years, month boundaries, etc.
+
+```dart
+group('Explicit datetime tests:', () {
+  test('Specific date calculation example', () {
+    final every = EveryWeekday(Weekday.monday);
+    // Tuesday.
+    final inputDate = DateTime(2024, 1, 15);
+    // Next Monday.
+    final expected = DateTime(2024, 1, 22);
+    
+    expect(every, hasNext(expected).withInput(inputDate));
+  });
+  
+  test('Edge case: leap year February', () {
+    final every = EveryDueDayMonth(29);
+    // Leap year.
+    final inputDate = DateTime(2024, 2, 1);
+    final expected = DateTime(2024, 2, 29);
+    
+    expect(every, hasNext(expected).withInput(inputDate));
+  });
+});
+```
+
+### Time Component Preservation Tests
+
+**For classes that don't concern themselves with hour, minute, second, etc., you must test:**
+
+1. **Time preservation** - When a DateTime with time components is passed, they should be maintained
+2. **Both local and UTC DateTime cases** - Test with both `DateTime` and `DateTime.utc`
+
+```dart
+group('Time component preservation:', () {
+  test('Maintains time components in local DateTime', () {
+    final every = EveryDueDayMonth(15);
+    final inputWithTime = DateTime(2024, 1, 10, 14, 30, 45, 123, 456);
+    final result = every.next(inputWithTime);
+    
+    // Should preserve time components.
+    expect(result.hour, equals(14));
+    expect(result.minute, equals(30));
+    expect(result.second, equals(45));
+    expect(result.millisecond, equals(123));
+    expect(result.microsecond, equals(456));
+    expect(result.isUtc, isFalse);
+  });
+  
+  test('Maintains time components in UTC DateTime', () {
+    final every = EveryDueDayMonth(15);
+    final inputWithTime = DateTime.utc(2024, 1, 10, 14, 30, 45, 123, 456);
+    final result = every.next(inputWithTime);
+    
+    // Should preserve time components and UTC flag.
+    expect(result.hour, equals(14));
+    expect(result.minute, equals(30));
+    expect(result.second, equals(45));
+    expect(result.millisecond, equals(123));
+    expect(result.microsecond, equals(456));
+    expect(result.isUtc, isTrue);
+  });
+  
+  test('Normal generation with date-only input (local)', () {
+    final every = EveryDueDayMonth(15);
+    final inputDate = DateTime(2024, 1, 10);
+    final expected = DateTime(2024, 1, 15);
+    
+    expect(every, hasNext(expected).withInput(inputDate));
+  });
+  
+  test('Normal generation with date-only input (UTC)', () {
+    final every = EveryDueDayMonth(15);
+    final inputDate = DateTime.utc(2024, 1, 10);
+    final expected = DateTime.utc(2024, 1, 15);
+    
+    expect(every, hasNext(expected).withInput(inputDate));
+  });
+});
+```
+
+### Required Test Sections for Every/PeriodGenerator Classes
+
+Every test file for Every and PeriodGenerator classes must include these sections:
+
+```dart
+void main() {
+  group('ClassName:', () {
+    group('Constructor', () { /* ... */ });
+    group('Methods', () { /* ... */ });
+    
+    group('Explicit datetime tests:', () {
+      // Test specific date calculations with concrete examples.
+      // Cover edge cases like leap years, month boundaries.
+      // Verify exact output dates.
+    });
+    
+    group('Time component preservation:', () {
+      // Test time preservation with local DateTime.
+      // Test time preservation with UTC DateTime.
+      // Test normal generation with date-only inputs.
+    });
+    
+    group('Edge Cases', () { /* ... */ });
+    group('Equality', () { /* ... */ });
+  });
+}
+```
 
 ## Test Data and Helpers
 
@@ -209,15 +381,15 @@ If it makes sense, add them to `test/src/` for reuse across tests.
 ### Test Data Organization
 
 ```dart
-// Use descriptive constants for test data
+// Use descriptive constants for test data.
 const list = [
-  MonthInYear(2024, DateTime.january), // 23 workdays.
-  MonthInYear(2024, DateTime.december), // 22 workdays.
-  MonthInYear(2022, DateTime.december), // 22 workdays, ends on a weekend.
+  // 23 workdays.
+  MonthInYear(2024, DateTime.january),
+  // 22 workdays.
+  MonthInYear(2024, DateTime.december),
+  // 22 workdays, ends on a weekend.
+  MonthInYear(2022, DateTime.december),
 ];
-
-// Convert to sets when order doesn't matter
-final set = list.toSet();
 ```
 
 ## Error Testing Patterns

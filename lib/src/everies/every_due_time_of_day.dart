@@ -15,9 +15,8 @@ class EveryDueTimeOfDay extends DateValidatorTimeOfDay
   const EveryDueTimeOfDay(super.timeOfDay);
 
   /// Constructor that takes the time of day from [date].
-  factory EveryDueTimeOfDay.from(DateTime date) {
-    return EveryDueTimeOfDay(date.exactTimeOfDay);
-  }
+  factory EveryDueTimeOfDay.from(DateTime date) =>
+      EveryDueTimeOfDay(date.exactTimeOfDay);
 
   @override
   DateTime startDate(DateTime date) {

@@ -50,11 +50,10 @@ class EveryWeekday extends DateValidatorWeekday
   /// the given [date] as an option.
   @override
   DateTime next(DateTime date) {
-    if (date.weekday < weekday.dateTimeValue) {
-      return weekday.fromWeekOf(date);
-    } else {
-      return weekday.fromWeekOf(date.lastDayOfWeek.addDays(1));
-    }
+    if (date.weekday < weekday.dateTimeValue) return weekday.fromWeekOf(date);
+    return weekday.fromWeekOf(
+      date.lastDayOfWeek.addDays(1).add(date.exactTimeOfDay),
+    );
   }
 
   /// Returns the previous date that fits the [weekday].
@@ -63,11 +62,10 @@ class EveryWeekday extends DateValidatorWeekday
   /// the given [date] as an option.
   @override
   DateTime previous(DateTime date) {
-    if (date.weekday > weekday.dateTimeValue) {
-      return weekday.fromWeekOf(date);
-    } else {
-      return weekday.fromWeekOf(date.firstDayOfWeek.subtractDays(1));
-    }
+    if (date.weekday > weekday.dateTimeValue) return weekday.fromWeekOf(date);
+    return weekday.fromWeekOf(
+      date.firstDayOfWeek.subtractDays(1).add(date.exactTimeOfDay),
+    );
   }
 
   /// Returns a new [DateTime] where the week is [weeks] from this week and the

@@ -60,9 +60,9 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
     if ((limit != null) && (date.isBefore(limit) || (date == limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final previousDates = map(
-      (every) => LimitedOrEveryHandler.previous(every, date, limit: limit),
-    );
+    final previousDates = map((every) {
+      return LimitedOrEveryHandler.previous(every, date, limit: limit);
+    });
     final validDates = previousDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(DateReducer.reducePast);

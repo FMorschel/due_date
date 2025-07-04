@@ -3,6 +3,7 @@ import 'package:time/time.dart';
 import '../date_validators/date_validators.dart';
 import '../enums/enums.dart';
 import '../enums/weekday.dart';
+import '../extensions/exact_time_of_day.dart';
 import '../helpers/helpers.dart';
 import 'every_date_validator.dart';
 import 'every_month.dart';
@@ -108,7 +109,9 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   }) {
     var local = date.copyWith();
     local = WorkdayHelper.adjustToWorkday(local, isNext: isNext);
-    if (local != date && valid(local)) return local;
+    if (local != date && valid(local)) {
+      return local.date.add(date.exactTimeOfDay);
+    }
     if (_shouldChangeMonth(date, isNext: isNext)) {
       local = local.copyWith(month: local.month + (isNext ? 1 : -1), day: 1);
     }
@@ -116,7 +119,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     while (invalid(local)) {
       local = dateGeneratorFunction(local);
     }
-    return local;
+    return local.date.add(date.exactTimeOfDay);
   }
 
   DateTime _getNextDate(DateTime date) {

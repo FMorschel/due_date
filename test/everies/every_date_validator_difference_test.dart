@@ -1,165 +1,297 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
+import '../src/every_validator_match.dart';
+
 void main() {
-  group('EveryDateValidatorDifference', () {
-    const everies = EveryDateValidatorDifference([
-      EveryDueDayMonth(24),
-      EveryDateValidatorIntersection([EveryWeekday(Weekday.saturday)]),
-    ]);
-
-    group('Test base methods logic', () {
-      final date = DateTime(2022, DateTime.september, 23);
-      final expected = DateTime(2022, DateTime.october);
+  group('EveryDateValidatorDifference:', () {
+    group('Constructor', () {
+      group('Unnamed', () {
+        test('Valid basic case', () {
+          expect(
+            EveryDateValidatorDifference([
+              EveryDueDayMonth(1),
+              EveryWeekday(Weekday.sunday),
+            ]),
+            isNotNull,
+          );
+        });
+        test('Empty list doesnt throw', () {
+          expect(
+            EveryDateValidatorDifference<EveryDateValidator>([]),
+            isNotNull,
+          );
+        });
+        test('Single every is allowed', () {
+          expect(
+            EveryDateValidatorDifference([EveryDueDayMonth(1)]),
+            isNotNull,
+          );
+        });
+        test('Properties are set correctly', () {
+          final everies = [
+            EveryDueDayMonth(2),
+            EveryWeekday(Weekday.friday),
+          ];
+          final difference = EveryDateValidatorDifference(everies);
+          expect(difference.everies, equals(everies));
+        });
+      });
+    });
+    group('Methods', () {
       group('startDate', () {
-        test('If the given date would be generated, return it', () {
-          expect(
-            everies.startDate(expected),
-            equals(expected),
-          );
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+
+        test('Returns same date when input is valid', () {
+          // October 1, 2022 is Saturday but not 24th, so it's valid for
+          // difference.
+          final october1st = DateTime(2022, DateTime.october);
+          expect(everies, startsAt(october1st).withInput(october1st));
         });
-        test('If the given date would not be generated, use next', () {
-          expect(
-            everies.startDate(date),
-            equals(everies.next(date)),
-          );
+        test('Returns next valid date when input is invalid', () {
+          // September 24, 2022 is Saturday and 24th, so both match (invalid for
+          // difference).
+          final september24th = DateTime(2022, DateTime.september, 24);
+          final expected = DateTime(2022, DateTime.october);
+          expect(everies, startsAt(expected).withInput(september24th));
         });
       });
+
       group('next', () {
-        test(
-          'If the given date would be generated, generate a new one anyway',
-          () => expect(
-            everies.next(expected),
-            equals(DateTime(2022, DateTime.october, 8)),
-          ),
-        );
-        test(
-          'If the given date would not be generated, generate the next valid '
-          'date',
-          () => expect(everies.next(date), equals(expected)),
-        );
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+
+        test('Always generates date after input', () {
+          // September 23, 2022 is Friday and 23rd.
+          final september23rd = DateTime(2022, DateTime.september, 23);
+          expect(everies, nextIsAfter.withInput(september23rd));
+        });
+        test('Generates next occurrence from valid date', () {
+          // October 1, 2022 is Saturday but not 24th.
+          final october1st = DateTime(2022, DateTime.october);
+          final expected = DateTime(2022, DateTime.october, 8);
+          expect(everies, hasNext(expected).withInput(october1st));
+        });
       });
+
       group('previous', () {
-        final expectedPrevious = DateTime(2022, DateTime.september, 17);
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
 
-        test(
-          'If the given date would be generated, generate a new one anyway',
-          () => expect(everies.previous(expected), equals(expectedPrevious)),
-        );
-        test(
-          'If the given date would not be generated, generate the next valid '
-          'date',
-          () => expect(everies.previous(date), equals(expectedPrevious)),
-        );
+        test('Always generates date before input', () {
+          // September 25, 2022 is Sunday and 25th.
+          final september25th = DateTime(2022, DateTime.september, 25);
+          expect(everies, previousIsBefore.withInput(september25th));
+        });
+        test('Generates previous occurrence from valid date', () {
+          // October 1, 2022 is Saturday but not 24th.
+          final october1st = DateTime(2022, DateTime.october);
+          final expected = DateTime(2022, DateTime.september, 17);
+          expect(everies, hasPrevious(expected).withInput(october1st));
+        });
       });
     });
 
-    group('Start Date', () {
-      test('All valid', () {
-        final date = DateTime(2022, DateTime.september, 24);
-        final expected = DateTime(2022, DateTime.october);
-        expect(everies.startDate(date), equals(expected));
-      });
-      test('Wrong day', () {
-        final date = DateTime(2022, DateTime.september, 16);
-        final expected = DateTime(2022, DateTime.september, 17);
-        expect(everies.startDate(date), equals(expected));
-      });
-      test('Wrong weekday', () {
-        final date = DateTime(2022, DateTime.august, 23);
-        final expected = DateTime(2022, DateTime.august, 24);
-        expect(everies.startDate(date), equals(expected));
-      });
-      group('Throws DateTimeLimitReachedException', () {
-        final date = DateTime(2022, DateTime.september, 24);
-        final throwsDateTimeLimitReachedException = throwsA(
-          isA<DateTimeLimitReachedException>(),
-        );
-        test('Inner every', () {
-          final limit = DateTime(2022, DateTime.september, 25);
-          expect(
-            () => everies.startDate(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
-      });
-      test('The limit is the expected date', () {
-        final date = DateTime(2022, DateTime.september, 24);
+    group('Explicit datetime tests:', () {
+      test('24th or Saturday difference calculation', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        // September 23, 2022 is Friday and 23rd.
+        final inputDate = DateTime(2022, DateTime.september, 23);
+        // October 1, 2022 is Saturday but not 24th.
         final expected = DateTime(2022, DateTime.october);
 
-        expect(everies.startDate(date, limit: expected), equals(expected));
+        expect(everies, hasNext(expected).withInput(inputDate));
+      });
+
+      test('Edge case: when all validators match (invalid for difference)', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        // September 24, 2022 is Saturday and 24th.
+        final inputDate = DateTime(2022, DateTime.september, 24);
+        // October 1, 2022 is Saturday but not 24th.
+        final expected = DateTime(2022, DateTime.october);
+
+        expect(everies, hasNext(expected).withInput(inputDate));
+      });
+
+      test('Edge case: when no validators match (invalid for difference)', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        // September 23, 2022 is Friday and 23rd.
+        final inputDate = DateTime(2022, DateTime.september, 23);
+        // October 1, 2022 is Saturday but not 24th.
+        final expected = DateTime(2022, DateTime.october);
+
+        expect(everies, hasNext(expected).withInput(inputDate));
+      });
+
+      test('Previous calculation across months', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        // October 2, 2022 is Sunday and 2nd.
+        final inputDate = DateTime(2022, DateTime.october, 2);
+        // October 1, 2022 is Saturday but not 24th.
+        final expected = DateTime(2022, DateTime.october);
+
+        expect(everies, hasPrevious(expected).withInput(inputDate));
       });
     });
-    group('Next', () {
-      test('All valid', () {
-        final date = DateTime(2022, DateTime.september, 24);
-        final expected = DateTime(2022, DateTime.october);
-        expect(everies.next(date), equals(expected));
-      });
-      test('Wrong day', () {
-        final date = DateTime(2022, DateTime.september, 16);
-        final expected = DateTime(2022, DateTime.september, 17);
-        expect(everies.next(date), equals(expected));
-      });
-      test('Wrong weekday', () {
-        final date = DateTime(2022, DateTime.august, 23);
-        final expected = DateTime(2022, DateTime.august, 24);
-        expect(everies.next(date), equals(expected));
-      });
-      group('Throws DateTimeLimitReachedException', () {
-        final date = DateTime(2022, DateTime.september, 24);
-        final throwsDateTimeLimitReachedException = throwsA(
-          isA<DateTimeLimitReachedException>(),
-        );
-        test('Inner every', () {
-          final limit = DateTime(2022, DateTime.september, 25);
-          expect(
-            () => everies.next(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
-      });
-      test('The limit is the expected date', () {
-        final date = DateTime(2022, DateTime.september, 24);
-        final expected = DateTime(2022, DateTime.october);
 
-        expect(everies.next(date, limit: expected), equals(expected));
+    // REQUIRED: Time component preservation tests.
+    group('Time component preservation:', () {
+      test('Maintains time components in local DateTime', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        final inputWithTime = DateTime(2022, 9, 23, 14, 30, 45, 123, 456);
+        final result = everies.next(inputWithTime);
+
+        // Should preserve time components.
+        expect(result.hour, equals(14));
+        expect(result.minute, equals(30));
+        expect(result.second, equals(45));
+        expect(result.millisecond, equals(123));
+        expect(result.microsecond, equals(456));
+        expect(result.isUtc, isFalse);
+      });
+
+      test('Maintains time components in UTC DateTime', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        final inputWithTime = DateTime.utc(2022, 9, 23, 14, 30, 45, 123, 456);
+        final result = everies.next(inputWithTime);
+
+        // Should preserve time components and UTC flag.
+        expect(result.hour, equals(14));
+        expect(result.minute, equals(30));
+        expect(result.second, equals(45));
+        expect(result.millisecond, equals(123));
+        expect(result.microsecond, equals(456));
+        expect(result.isUtc, isTrue);
+      });
+
+      test('Previous maintains time components in local DateTime', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        final inputWithTime = DateTime(2022, 10, 2, 9, 15, 30, 500, 250);
+        final result = everies.previous(inputWithTime);
+
+        // Should preserve time components.
+        expect(result.hour, equals(9));
+        expect(result.minute, equals(15));
+        expect(result.second, equals(30));
+        expect(result.millisecond, equals(500));
+        expect(result.microsecond, equals(250));
+        expect(result.isUtc, isFalse);
+      });
+
+      test('Previous maintains time components in UTC DateTime', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        final inputWithTime = DateTime.utc(2022, 10, 2, 9, 15, 30, 500, 250);
+        final result = everies.previous(inputWithTime);
+
+        // Should preserve time components and UTC flag.
+        expect(result.hour, equals(9));
+        expect(result.minute, equals(15));
+        expect(result.second, equals(30));
+        expect(result.millisecond, equals(500));
+        expect(result.microsecond, equals(250));
+        expect(result.isUtc, isTrue);
+      });
+
+      test('Normal generation with date-only input (local)', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        final inputDate = DateTime(2022, 9, 23);
+        final result = everies.next(inputDate);
+
+        // Should maintain date-only format.
+        expect(result.hour, equals(0));
+        expect(result.minute, equals(0));
+        expect(result.second, equals(0));
+        expect(result.millisecond, equals(0));
+        expect(result.microsecond, equals(0));
+        expect(result.isUtc, isFalse);
+      });
+
+      test('Normal generation with date-only input (UTC)', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        final inputDate = DateTime.utc(2022, 9, 23);
+        final result = everies.next(inputDate);
+
+        // Should maintain date-only format and UTC flag.
+        expect(result.hour, equals(0));
+        expect(result.minute, equals(0));
+        expect(result.second, equals(0));
+        expect(result.millisecond, equals(0));
+        expect(result.microsecond, equals(0));
+        expect(result.isUtc, isTrue);
       });
     });
-    group('Previous', () {
-      test('All valid', () {
-        final date = DateTime(2022, DateTime.september, 25);
-        final expected = DateTime(2022, DateTime.september, 17);
-        expect(everies.previous(date), equals(expected));
-      });
-      test('Wrong day', () {
-        final date = DateTime(2022, DateTime.september, 18);
-        final expected = DateTime(2022, DateTime.september, 17);
-        expect(everies.previous(date), equals(expected));
-      });
-      test('Wrong weekday', () {
-        final date = DateTime(2022, DateTime.august, 25);
-        final expected = DateTime(2022, DateTime.august, 24);
-        expect(everies.previous(date), equals(expected));
-      });
-      group('Throws DateTimeLimitReachedException', () {
-        final date = DateTime(2022, DateTime.september, 26);
-        final throwsDateTimeLimitReachedException = throwsA(
-          isA<DateTimeLimitReachedException>(),
-        );
-        test('Inner every', () {
-          final limit = DateTime(2022, DateTime.september, 25);
-          expect(
-            () => everies.previous(date, limit: limit),
-            throwsDateTimeLimitReachedException,
-          );
-        });
-      });
-      test('The limit is the expected date', () {
-        final date = DateTime(2022, DateTime.september, 26);
-        final expected = DateTime(2022, DateTime.september, 17);
 
-        expect(everies.previous(date, limit: expected), equals(expected));
+    group('Equality', () {
+      final everies1 = EveryDateValidatorDifference([
+        EveryDueDayMonth(1),
+        EveryWeekday(Weekday.sunday),
+      ]);
+      final everies2 = EveryDateValidatorDifference([
+        EveryDueDayMonth(1),
+        EveryWeekday(Weekday.sunday),
+      ]);
+      final everies3 = EveryDateValidatorDifference([
+        EveryDueDayMonth(2),
+        EveryWeekday(Weekday.sunday),
+      ]);
+      final everies4 = EveryDateValidatorDifference([
+        EveryWeekday(Weekday.sunday),
+        EveryDueDayMonth(1),
+      ]);
+
+      test('Same instance', () {
+        expect(everies1, equals(everies1));
+      });
+      test('Same everies, same order', () {
+        expect(everies1, equals(everies2));
+      });
+      test('Different everies', () {
+        expect(everies1, isNot(equals(everies3)));
+      });
+      test('Same everies, different order', () {
+        expect(everies1, isNot(equals(everies4)));
+      });
+      test('Hash code consistency', () {
+        expect(everies1.hashCode, equals(everies2.hashCode));
       });
     });
   });

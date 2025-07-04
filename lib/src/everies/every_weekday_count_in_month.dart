@@ -1,5 +1,6 @@
 import '../date_validators/date_validators.dart';
 import '../enums/enums.dart';
+import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 import 'every_month.dart';
 
@@ -42,13 +43,6 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
   @override
   DateTime startDate(DateTime date) {
     if (valid(date)) return date;
-    final thisMonthDay = week.weekdayOf(
-      year: date.year,
-      month: date.month,
-      day: day,
-      utc: date.isUtc,
-    );
-    if (date.day < thisMonthDay.day) return thisMonthDay;
     return next(date);
   }
 
@@ -61,19 +55,23 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
   /// [DateTime.day] being the [day] of the [week].
   @override
   DateTime next(DateTime date) {
-    final thisMonthDay = week.weekdayOf(
-      year: date.year,
-      month: date.month,
-      day: day,
-      utc: date.isUtc,
-    );
+    final thisMonthDay = week
+        .weekdayOf(
+          year: date.year,
+          month: date.month,
+          day: day,
+          utc: date.isUtc,
+        )
+        .add(date.exactTimeOfDay);
     if (date.day < thisMonthDay.day) return thisMonthDay;
-    return week.weekdayOf(
-      year: date.year,
-      month: date.month + 1,
-      day: day,
-      utc: date.isUtc,
-    );
+    return week
+        .weekdayOf(
+          year: date.year,
+          month: date.month + 1,
+          day: day,
+          utc: date.isUtc,
+        )
+        .add(date.exactTimeOfDay);
   }
 
   /// Returns the previous date that fits the [day] and the [week].
@@ -85,19 +83,23 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
   /// [DateTime.day] being the [day] of the [week].
   @override
   DateTime previous(DateTime date) {
-    final thisMonthDay = week.weekdayOf(
-      year: date.year,
-      month: date.month,
-      day: day,
-      utc: date.isUtc,
-    );
+    final thisMonthDay = week
+        .weekdayOf(
+          year: date.year,
+          month: date.month,
+          day: day,
+          utc: date.isUtc,
+        )
+        .add(date.exactTimeOfDay);
     if (date.day > thisMonthDay.day) return thisMonthDay;
-    return week.weekdayOf(
-      year: date.year,
-      month: date.month - 1,
-      day: day,
-      utc: date.isUtc,
-    );
+    return week
+        .weekdayOf(
+          year: date.year,
+          month: date.month - 1,
+          day: day,
+          utc: date.isUtc,
+        )
+        .add(date.exactTimeOfDay);
   }
 
   /// Returns the [date] - [DateTime.month] + [months] with the [week]
