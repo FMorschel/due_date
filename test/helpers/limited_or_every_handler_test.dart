@@ -18,8 +18,11 @@ void main() {
       final expectedDate = DateTime(2023, 12, 4);
 
       test('when limit is null', () {
-        final result =
-            LimitedOrEveryHandler.startDate(every, date, limit: null);
+        final result = LimitedOrEveryHandler.startDate(
+          every,
+          date,
+          limit: null,
+        );
 
         expect(result, equals(expectedDate));
       });
