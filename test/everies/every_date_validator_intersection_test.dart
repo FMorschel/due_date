@@ -3,7 +3,7 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
-import '../src/every_validator_match.dart';
+import '../src/every_match.dart';
 
 void main() {
   group('EveryDateValidatorIntersection:', () {
@@ -167,7 +167,10 @@ void main() {
         // July 24, 2021 is Saturday and 24th, but not Saturday.
         final expected = DateTime(2021, DateTime.july, 24);
 
-        expect(everies.next(inputDate, limit: expected), equals(expected));
+        expect(
+          everies,
+          hasNext(expected).withInput(inputDate, limit: expected),
+        );
       });
     });
 

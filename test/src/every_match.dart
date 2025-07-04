@@ -1,29 +1,31 @@
 import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/limited_every.dart';
 import 'package:test/test.dart';
 
 /// Creates a matcher that verifies [Every.startDate] returns the expected date.
-Matcher startsAt(DateTime expectedDate) => _StartsAtMatcher(expectedDate);
+EveryMatcher startsAt(DateTime expectedDate) => _StartsAtMatcher(expectedDate);
 
 /// Creates a matcher that verifies [Every.next] returns the expected date.
-Matcher hasNext(DateTime expectedDate) => _HasNextMatcher(expectedDate);
+EveryMatcher hasNext(DateTime expectedDate) => _HasNextMatcher(expectedDate);
 
 /// Creates a matcher that verifies [Every.previous] returns the expected date.
-Matcher hasPrevious(DateTime expectedDate) => _HasPreviousMatcher(expectedDate);
+EveryMatcher hasPrevious(DateTime expectedDate) =>
+    _HasPreviousMatcher(expectedDate);
 
 /// Creates a matcher that verifies [Every.startDate] returns the input date
 /// when valid.
-Matcher startsAtSameDate = const _StartsAtSameDateMatcher();
+EveryMatcher startsAtSameDate = const _StartsAtSameDateMatcher();
 
 /// Creates a matcher that verifies [Every.next] generates a date after the
 /// input.
-Matcher nextIsAfter = const _NextIsAfterMatcher();
+EveryMatcher nextIsAfter = const _NextIsAfterMatcher();
 
 /// Creates a matcher that verifies [Every.previous] generates a date before the
 /// input.
-Matcher previousIsBefore = const _PreviousIsBeforeMatcher();
+EveryMatcher previousIsBefore = const _PreviousIsBeforeMatcher();
 
-abstract class _EveryMatcher extends Matcher {
-  const _EveryMatcher();
+abstract class EveryMatcher extends Matcher {
+  const EveryMatcher();
 
   @override
   bool matches(Object? item, Map<dynamic, dynamic> matchState) {
@@ -33,8 +35,15 @@ abstract class _EveryMatcher extends Matcher {
 
   bool _matchesEvery(Every every, Map<dynamic, dynamic> matchState);
 
-  /// {@macro withInputMethod}
-  Matcher withInput(DateTime input) => _WithInputMatcher<DateTime>(this, input);
+  /// {@template withInputMethod}
+  /// Adds input context for method testing.
+  /// {@endtemplate}
+  Matcher withInput(DateTime input, {DateTime? limit}) =>
+      _WithInputMatcher<DateTime?>(
+        _WithInputMatcher<DateTime>(this, input),
+        limit,
+        key: 'limit',
+      );
 
   @override
   Description describeMismatch(
@@ -56,7 +65,7 @@ abstract class _EveryMatcher extends Matcher {
   );
 }
 
-class _StartsAtMatcher extends _EveryMatcher {
+class _StartsAtMatcher extends EveryMatcher {
   const _StartsAtMatcher(this._expectedDate);
 
   final DateTime _expectedDate;
@@ -70,7 +79,10 @@ class _StartsAtMatcher extends _EveryMatcher {
     final input = matchState['input'] as DateTime?;
     if (input == null) return false;
 
-    final actualDate = every.startDate(input);
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate = every is LimitedEvery && limit != null
+        ? every.startDate(input, limit: limit)
+        : every.startDate(input);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(_expectedDate);
   }
@@ -86,7 +98,7 @@ class _StartsAtMatcher extends _EveryMatcher {
   }
 }
 
-class _HasNextMatcher extends _EveryMatcher {
+class _HasNextMatcher extends EveryMatcher {
   const _HasNextMatcher(this._expectedDate);
 
   final DateTime _expectedDate;
@@ -100,7 +112,10 @@ class _HasNextMatcher extends _EveryMatcher {
     final input = matchState['input'] as DateTime?;
     if (input == null) return false;
 
-    final actualDate = every.next(input);
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate = every is LimitedEvery && limit != null
+        ? every.next(input, limit: limit)
+        : every.next(input);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(_expectedDate);
   }
@@ -116,7 +131,7 @@ class _HasNextMatcher extends _EveryMatcher {
   }
 }
 
-class _HasPreviousMatcher extends _EveryMatcher {
+class _HasPreviousMatcher extends EveryMatcher {
   const _HasPreviousMatcher(this._expectedDate);
 
   final DateTime _expectedDate;
@@ -130,7 +145,10 @@ class _HasPreviousMatcher extends _EveryMatcher {
     final input = matchState['input'] as DateTime?;
     if (input == null) return false;
 
-    final actualDate = every.previous(input);
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate = every is LimitedEvery && limit != null
+        ? every.previous(input, limit: limit)
+        : every.previous(input);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(_expectedDate);
   }
@@ -146,7 +164,7 @@ class _HasPreviousMatcher extends _EveryMatcher {
   }
 }
 
-class _StartsAtSameDateMatcher extends _EveryMatcher {
+class _StartsAtSameDateMatcher extends EveryMatcher {
   const _StartsAtSameDateMatcher();
 
   @override
@@ -158,7 +176,10 @@ class _StartsAtSameDateMatcher extends _EveryMatcher {
     final input = matchState['input'] as DateTime?;
     if (input == null) return false;
 
-    final actualDate = every.startDate(input);
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate = every is LimitedEvery && limit != null
+        ? every.startDate(input, limit: limit)
+        : every.startDate(input);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(input);
   }
@@ -177,7 +198,7 @@ class _StartsAtSameDateMatcher extends _EveryMatcher {
   }
 }
 
-class _NextIsAfterMatcher extends _EveryMatcher {
+class _NextIsAfterMatcher extends EveryMatcher {
   const _NextIsAfterMatcher();
 
   @override
@@ -189,7 +210,10 @@ class _NextIsAfterMatcher extends _EveryMatcher {
     final input = matchState['input'] as DateTime?;
     if (input == null) return false;
 
-    final actualDate = every.next(input);
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate = every is LimitedEvery && limit != null
+        ? every.next(input, limit: limit)
+        : every.next(input);
     matchState['actualDate'] = actualDate;
     return actualDate.isAfter(input);
   }
@@ -208,7 +232,7 @@ class _NextIsAfterMatcher extends _EveryMatcher {
   }
 }
 
-class _PreviousIsBeforeMatcher extends _EveryMatcher {
+class _PreviousIsBeforeMatcher extends EveryMatcher {
   const _PreviousIsBeforeMatcher();
 
   @override
@@ -220,7 +244,10 @@ class _PreviousIsBeforeMatcher extends _EveryMatcher {
     final input = matchState['input'] as DateTime?;
     if (input == null) return false;
 
-    final actualDate = every.previous(input);
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate = every is LimitedEvery && limit != null
+        ? every.previous(input, limit: limit)
+        : every.previous(input);
     matchState['actualDate'] = actualDate;
     return actualDate.isBefore(input);
   }
@@ -239,19 +266,13 @@ class _PreviousIsBeforeMatcher extends _EveryMatcher {
   }
 }
 
-/// Extension to add input date context to matchers for better testing.
-extension MatcherExtension<T> on Matcher {
-  /// {@template withInputMethod}
-  /// Adds input context for method testing.
-  /// {@endtemplate}
-  Matcher withInput(T input) => _WithInputMatcher<T>(this, input);
-}
-
 class _WithInputMatcher<T> extends Matcher {
-  const _WithInputMatcher(this._baseMatcher, this._input);
+  const _WithInputMatcher(this._baseMatcher, this._input, {String? key})
+      : _key = key;
 
   final Matcher _baseMatcher;
   final T _input;
+  final String? _key;
 
   @override
   Description describe(Description description) =>
@@ -259,7 +280,7 @@ class _WithInputMatcher<T> extends Matcher {
 
   @override
   bool matches(Object? item, Map<dynamic, dynamic> matchState) {
-    matchState['input'] = _input;
+    matchState[_key ?? 'input'] = _input;
     return _baseMatcher.matches(item, matchState);
   }
 

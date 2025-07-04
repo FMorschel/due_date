@@ -4,7 +4,7 @@ import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
 import '../src/date_validator_match.dart';
-import '../src/every_validator_match.dart';
+import '../src/every_match.dart';
 
 void main() {
   group('EveryWeekdayCountInMonth:', () {

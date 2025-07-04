@@ -39,7 +39,7 @@ import 'package:time/time.dart';
 Relative imports for test utilities:
 ```dart
 import '../src/date_validator_match.dart';
-import '../src/every_validator_match.dart';
+import '../src/every_match.dart';
 import '../src/month_in_year.dart';
 ```
 
@@ -193,7 +193,7 @@ expect(collection, containsAllInOrder(expectedItems));
   - `expect(validator, isValid(date));`
   - `expect(validator, isInvalid(date));`
 
-**All Every implementation assertions MUST use the custom matchers provided in `every_validator_match.dart`.**
+**All Every implementation assertions MUST use the custom matchers provided in `every_match.dart`.**
 
 - Do NOT use direct method calls like `expect(every.next(date), equals(expectedDate))`.
 - Instead, always use:
@@ -236,7 +236,7 @@ And all Every implementations, including but not limited to:
 
 **Enforcement:**
 - All test files for validators must import the appropriate matcher utility (e.g., `import '../src/date_validator_match.dart';`).
-- All test files for Every implementations must import the Every matcher utility (e.g., `import '../src/every_validator_match.dart';`).
+- All test files for Every implementations must import the Every matcher utility (e.g., `import '../src/every_match.dart';`).
 - PRs that do not use these matchers for validator or Every assertions will be rejected.
 
 ## Specific Testing Requirements for Every and PeriodGenerator Classes

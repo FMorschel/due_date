@@ -3,7 +3,7 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
-import '../src/every_validator_match.dart';
+import '../src/every_match.dart';
 
 void main() {
   group('EveryDateValidatorDifference:', () {
@@ -152,6 +152,38 @@ void main() {
         final expected = DateTime(2022, DateTime.october);
 
         expect(everies, hasPrevious(expected).withInput(inputDate));
+      });
+
+      test('Limit is passed through to underlying Every implementations', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        // September 23, 2022 is Friday and 23rd.
+        final inputDate = DateTime(2022, DateTime.september, 23);
+        // October 1, 2022 is Saturday but not 24th.
+        final expectedDate = DateTime(2022, DateTime.october);
+
+        expect(
+          everies,
+          hasNext(expectedDate).withInput(inputDate, limit: expectedDate),
+        );
+      });
+
+      test('Limit constraint respected in next method', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+        // September 23, 2022 is Friday and 23rd.
+        final inputDate = DateTime(2022, DateTime.september, 23);
+        // September 30, 2022 is before expected October 1st.
+        final limitDate = DateTime(2022, DateTime.september, 30);
+
+        expect(
+          () => everies.next(inputDate, limit: limitDate),
+          throwsA(isA<DateTimeLimitReachedException>()),
+        );
       });
     });
 

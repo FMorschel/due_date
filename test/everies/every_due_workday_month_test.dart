@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 import 'package:time/time.dart';
 
 // Relative imports for test utilities.
-import '../src/every_validator_match.dart';
+import '../src/every_match.dart';
 import '../src/month_in_year.dart';
 
 void main() {

@@ -1,36 +1,34 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:due_date/due_date.dart';
+import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
 import '../../src/every_match.dart';
 
 void main() {
-  group('EveryOverrideWrapper:', () {
+  group('EverySkipCountWrapper:', () {
     final every = Weekday.monday.every;
-    const invalidator = DateValidatorWeekdayCountInMonth(
-      week: Week.first,
-      day: Weekday.monday,
-    );
-    final wrapper = EveryOverrideWrapper(
-      every: every,
-      invalidator: invalidator,
-      overrider: Weekday.tuesday.every,
-    );
+    final wrapper = EverySkipCountWrapper(every: every, count: 1);
 
     group('Constructor', () {
       group('Unnamed', () {
         test('Valid basic case', () {
-          expect(wrapper, isNotNull);
+          expect(EverySkipCountWrapper(every: every, count: 1), isNotNull);
         });
         test('Creates with correct every', () {
           expect(wrapper.every, equals(every));
         });
-        test('Creates with correct invalidator', () {
-          expect(wrapper.invalidator, equals(invalidator));
+        test('Creates with correct count', () {
+          expect(wrapper.count, equals(1));
         });
-        test('Creates with correct overrider', () {
-          expect(wrapper.overrider, equals(Weekday.tuesday.every));
+        group('asserts limits', () {
+          test('count cannot be negative', () {
+            expect(
+              () => EverySkipCountWrapper(every: every, count: -1),
+              throwsA(isA<AssertionError>()),
+            );
+          });
         });
       });
     });
@@ -38,78 +36,128 @@ void main() {
     group('Methods', () {
       group('startDate', () {
         test('Returns same date when input is valid', () {
-          // October 4, 2022 is Tuesday (overrider day).
-          final validDate = DateTime(2022, DateTime.october, 4);
+          // December 11, 2023 is Monday (valid with skip count 1).
+          final validDate = DateTime(2023, 12, 11);
           expect(wrapper, startsAtSameDate.withInput(validDate));
         });
         test('Returns next valid date when input is invalid', () {
-          // September 27, 2022 is Tuesday.
-          final invalidDate = DateTime(2022, DateTime.september, 27);
-          // October 4, 2022 is Tuesday.
-          final expected = DateTime(2022, DateTime.october, 4);
+          // December 3, 2023 is Sunday.
+          final invalidDate = DateTime(2023, 12, 3);
+          // December 11, 2023 is Monday (skip count 1).
+          final expected = DateTime(2023, 12, 11);
           expect(wrapper, startsAt(expected).withInput(invalidDate));
         });
       });
 
       group('next', () {
         test('Always generates date after input', () {
-          // October 4, 2022 is Tuesday.
-          final validDate = DateTime(2022, DateTime.october, 4);
+          // December 11, 2023 is Monday.
+          final validDate = DateTime(2023, 12, 11);
           expect(wrapper, nextIsAfter.withInput(validDate));
         });
         test('Generates next occurrence from valid date', () {
-          // October 4, 2022 is Tuesday.
-          final validDate = DateTime(2022, DateTime.october, 4);
-          // October 10, 2022 is Monday.
-          final expected = DateTime(2022, DateTime.october, 10);
+          // December 11, 2023 is Monday.
+          final validDate = DateTime(2023, 12, 11);
+          // December 25, 2023 is Monday (skip count 1).
+          final expected = DateTime(2023, 12, 25);
           expect(wrapper, hasNext(expected).withInput(validDate));
         });
         test('Generates next occurrence from invalid date', () {
-          // September 27, 2022 is Tuesday.
-          final invalidDate = DateTime(2022, DateTime.september, 27);
-          // October 4, 2022 is Tuesday.
-          final expected = DateTime(2022, DateTime.october, 4);
+          // December 3, 2023 is Sunday.
+          final invalidDate = DateTime(2023, 12, 3);
+          // December 11, 2023 is Monday (skip count 1).
+          final expected = DateTime(2023, 12, 11);
           expect(wrapper, hasNext(expected).withInput(invalidDate));
         });
       });
 
       group('previous', () {
         test('Always generates date before input', () {
-          // October 4, 2022 is Tuesday.
-          final validDate = DateTime(2022, DateTime.october, 4);
+          // December 11, 2023 is Monday.
+          final validDate = DateTime(2023, 12, 11);
           expect(wrapper, previousIsBefore.withInput(validDate));
         });
         test('Generates previous occurrence from valid date', () {
-          // October 4, 2022 is Tuesday.
-          final validDate = DateTime(2022, DateTime.october, 4);
-          // September 27, 2022 is Tuesday.
-          final expected = DateTime(2022, DateTime.september, 27);
+          // December 11, 2023 is Monday.
+          final validDate = DateTime(2023, 12, 11);
+          // November 27, 2023 is Monday (skip count 1).
+          final expected = DateTime(2023, 11, 27);
           expect(wrapper, hasPrevious(expected).withInput(validDate));
         });
         test('Generates previous occurrence from invalid date', () {
-          // September 27, 2022 is Tuesday.
-          final invalidDate = DateTime(2022, DateTime.september, 27);
-          // September 26, 2022 is Monday.
-          final expected = DateTime(2022, DateTime.september, 26);
+          // December 10, 2023 is Sunday.
+          final invalidDate = DateTime(2023, 12, 10);
+          // November 27, 2023 is Monday (skip count 1).
+          final expected = DateTime(2023, 11, 27);
           expect(wrapper, hasPrevious(expected).withInput(invalidDate));
         });
       });
     });
 
+    group('Skip count behavior:', () {
+      group('Count 0', () {
+        final wrapperCount0 = EverySkipCountWrapper(every: every, count: 0);
+
+        test('Acts like regular every with count 0', () {
+          // September 27, 2022 is Tuesday.
+          final inputDate = DateTime(2022, DateTime.september, 27);
+          // October 3, 2022 is Monday (next Monday).
+          final expected = DateTime(2022, DateTime.october, 3);
+          expect(wrapperCount0, hasNext(expected).withInput(inputDate));
+        });
+
+        test('Next from valid date with count 0', () {
+          // October 3, 2022 is Monday.
+          final validDate = DateTime(2022, DateTime.october, 3);
+          // October 10, 2022 is Monday (next Monday).
+          final expected = DateTime(2022, DateTime.october, 10);
+          expect(wrapperCount0, hasNext(expected).withInput(validDate));
+        });
+      });
+
+      group('Count 1', () {
+        final wrapperCount1 = EverySkipCountWrapper(every: every, count: 1);
+
+        test('Skips one occurrence with count 1', () {
+          // September 27, 2022 is Tuesday.
+          final inputDate = DateTime(2022, DateTime.september, 27);
+          // October 10, 2022 is Monday (skip October 3).
+          final expected = DateTime(2022, DateTime.october, 10);
+          expect(wrapperCount1, hasNext(expected).withInput(inputDate));
+        });
+
+        test('Next from valid date with count 1', () {
+          // October 3, 2022 is Monday.
+          final validDate = DateTime(2022, DateTime.october, 3);
+          // October 17, 2022 is Monday (skip October 10).
+          final expected = DateTime(2022, DateTime.october, 17);
+          expect(wrapperCount1, hasNext(expected).withInput(validDate));
+        });
+
+        test('Previous with count 1', () {
+          // October 3, 2022 is Monday.
+          final validDate = DateTime(2022, DateTime.october, 3);
+          // September 19, 2022 is Monday (skip September 26).
+          final expected = DateTime(2022, DateTime.september, 19);
+          expect(wrapperCount1, hasPrevious(expected).withInput(validDate));
+        });
+      });
+    });
+
     group('Explicit datetime tests:', () {
-      test('Override first Monday with Tuesday calculation', () {
+      test('Skip count 1 calculation', () {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);
-        // December 5, 2023 is Tuesday (overriding first Monday).
-        final expectedDate = DateTime(2023, 12, 5);
+        // December 11, 2023 is Monday (skip December 4).
+        final expectedDate = DateTime(2023, 12, 11);
         expect(wrapper, hasNext(expectedDate).withInput(inputDate));
       });
 
-      test('Previous calculation with override', () {
+      test('Previous calculation with skip count', () {
         // December 10, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 10);
-        // November 28, 2023 is Tuesday.
-        final expectedDate = DateTime(2023, 11, 28);
+        // November 27, 2023 is Monday (skip December 4).
+        final expectedDate = DateTime(2023, 11, 27);
         expect(wrapper, hasPrevious(expectedDate).withInput(inputDate));
       });
 
@@ -138,8 +186,8 @@ void main() {
       test('Limit is exactly the expected date', () {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);
-        // December 5, 2023 is Tuesday.
-        final expectedDate = DateTime(2023, 12, 5);
+        // December 11, 2023 is Monday.
+        final expectedDate = DateTime(2023, 12, 11);
         expect(
           wrapper,
           hasNext(expectedDate).withInput(inputDate, limit: expectedDate),
@@ -202,13 +250,13 @@ void main() {
 
       test('Normal generation with date-only input (local)', () {
         final inputDate = DateTime(2023, 12, 3);
-        final expected = DateTime(2023, 12, 5);
+        final expected = DateTime(2023, 12, 11);
         expect(wrapper, hasNext(expected).withInput(inputDate));
       });
 
       test('Normal generation with date-only input (UTC)', () {
         final inputDate = DateTime.utc(2023, 12, 3);
-        final expected = DateTime.utc(2023, 12, 5);
+        final expected = DateTime.utc(2023, 12, 11);
         expect(wrapper, hasNext(expected).withInput(inputDate));
       });
     });
@@ -230,7 +278,7 @@ void main() {
         final inputDate = DateTime(2023, 12, 3);
         // December 12, 2023 is after expected date.
         final limitDate = DateTime(2023, 12, 12);
-        final expectedDate = DateTime(2023, 12, 5);
+        final expectedDate = DateTime(2023, 12, 11);
         expect(
           wrapper,
           hasNext(expectedDate).withInput(inputDate, limit: limitDate),
@@ -242,58 +290,42 @@ void main() {
         final inputDate = DateTime(2023, 12, 10);
         // November 26, 2023 is before expected date.
         final limitDate = DateTime(2023, 11, 26);
-        final expectedDate = DateTime(2023, 11, 28);
+        final expectedDate = DateTime(2023, 11, 27);
         expect(
           wrapper,
           hasPrevious(expectedDate).withInput(inputDate, limit: limitDate),
         );
       });
+
+      test('Count 0 behaves like regular every', () {
+        final wrapperCount0 = EverySkipCountWrapper(every: every, count: 0);
+        // December 3, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 3);
+        // December 4, 2023 is Monday (no skip).
+        final expected = DateTime(2023, 12, 4);
+        expect(wrapperCount0, hasNext(expected).withInput(inputDate));
+      });
     });
 
     group('Equality', () {
-      final wrapper1 = EveryOverrideWrapper(
-        every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
-          week: Week.first,
-          day: Weekday.monday,
-        ),
-        overrider: Weekday.tuesday.every,
-      );
-      final wrapper2 = EveryOverrideWrapper(
-        every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
-          week: Week.second,
-          day: Weekday.monday,
-        ),
-        overrider: Weekday.tuesday.every,
-      );
-      final wrapper3 = EveryOverrideWrapper(
+      final wrapper1 = EverySkipCountWrapper(every: every, count: 1);
+      final wrapper2 = EverySkipCountWrapper(every: every, count: 2);
+      final wrapper3 = EverySkipCountWrapper(
         every: Weekday.tuesday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
-          week: Week.first,
-          day: Weekday.monday,
-        ),
-        overrider: Weekday.tuesday.every,
+        count: 1,
       );
-      final wrapper4 = EveryOverrideWrapper(
-        every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
-          week: Week.first,
-          day: Weekday.monday,
-        ),
-        overrider: Weekday.tuesday.every,
-      );
+      final wrapper4 = EverySkipCountWrapper(every: every, count: 1);
 
       test('Same instance', () {
         expect(wrapper1, equals(wrapper1));
       });
-      test('Same every, different invalidator', () {
+      test('Same every, different count', () {
         expect(wrapper1, isNot(equals(wrapper2)));
       });
-      test('Different every, same invalidator', () {
+      test('Different every, same count', () {
         expect(wrapper1, isNot(equals(wrapper3)));
       });
-      test('Same every, same invalidator, same overrider', () {
+      test('Same every, same count', () {
         expect(wrapper1, equals(wrapper4));
       });
     });
