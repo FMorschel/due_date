@@ -3,6 +3,7 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
 import '../src/every_match.dart';
 
 void main() {
@@ -236,7 +237,21 @@ void main() {
         expect(result.second, equals(45));
         expect(result.millisecond, equals(123));
         expect(result.microsecond, equals(456));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
+      });
+
+      test('Maintains time components in local DateTime when clamped', () {
+        const everyFifteenth = EveryDueDayMonth(31);
+        final inputWithTime = DateTime(2022, 9, 12, 14, 30, 45, 123, 456);
+        final result = everyFifteenth.next(inputWithTime);
+
+        // Should preserve time components.
+        expect(result.hour, equals(14));
+        expect(result.minute, equals(30));
+        expect(result.second, equals(45));
+        expect(result.millisecond, equals(123));
+        expect(result.microsecond, equals(456));
+        expect(result, isLocalDateTime);
       });
 
       test('Maintains time components in UTC DateTime', () {
@@ -250,7 +265,7 @@ void main() {
         expect(result.second, equals(45));
         expect(result.millisecond, equals(123));
         expect(result.microsecond, equals(456));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
 
       test('Previous maintains time components in local DateTime', () {
@@ -264,7 +279,7 @@ void main() {
         expect(result.second, equals(30));
         expect(result.millisecond, equals(500));
         expect(result.microsecond, equals(250));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
       });
 
       test('Previous maintains time components in UTC DateTime', () {
@@ -278,7 +293,7 @@ void main() {
         expect(result.second, equals(30));
         expect(result.millisecond, equals(500));
         expect(result.microsecond, equals(250));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
 
       test('Normal generation with date-only input (local)', () {
@@ -292,7 +307,7 @@ void main() {
         expect(result.second, equals(0));
         expect(result.millisecond, equals(0));
         expect(result.microsecond, equals(0));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
       });
 
       test('Normal generation with date-only input (UTC)', () {
@@ -306,7 +321,7 @@ void main() {
         expect(result.second, equals(0));
         expect(result.millisecond, equals(0));
         expect(result.microsecond, equals(0));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
     });
 

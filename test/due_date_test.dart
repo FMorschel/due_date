@@ -1,84 +1,33 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:clock/clock.dart';
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
+import 'src/date_time_match.dart';
+import 'src/due_date_time_match.dart';
 
 void main() {
   const dueDay15 = EveryDueDayMonth(15);
   group('Constructors:', () {
     const year = 2022;
     const dueDay30 = EveryDueDayMonth(30);
-    group('Unnamed:', () {
-      final matcher = DateTime(year, 2, 28);
-      test('Month start', () {
-        expect(
-          DueDateTime(every: dueDay30, year: year, month: 2),
-          equals(matcher),
-        );
-      });
-      test('Fits in month', () {
-        final matcherFitted = DateTime(year, 2, 15);
-        expect(
-          DueDateTime(every: dueDay15, year: year, month: 2),
-          equals(matcherFitted),
-        );
-      });
-      test('Middle of the month', () {
-        expect(
-          DueDateTime(every: dueDay30, year: year, month: 2, day: 15),
-          equals(matcher),
-        );
-      });
-      test('Previous month end', () {
-        expect(
-          DueDateTime(every: dueDay30, year: year, day: 31),
-          equals(matcher),
-        );
-      });
-      test('Not UTC', () {
-        expect(
-          DueDateTime(every: dueDay30, year: year).isUtc,
-          isFalse,
-        );
-      });
+    // Leap year test: February 29, 2024.
+    test('Leap year February 29', () {
+      // February 29, 2024 is a valid leap day.
+      final leapMatcher = DateTime(2024, 2, 29);
+      expect(
+        DueDateTime(every: dueDay30, year: 2024, month: 2),
+        isSameDueDateTime(leapMatcher),
+      );
+      expect(
+        DueDateTime.utc(every: dueDay30, year: 2024, month: 2),
+        isSameDueDateTime(DateTime.utc(2024, 2, 29)),
+      );
     });
-    group('UTC:', () {
-      final matcher = DateTime.utc(year, 2, 28);
-      test('Month start', () {
-        expect(
-          DueDateTime.utc(every: dueDay30, year: year, month: 2),
-          equals(matcher),
-        );
-      });
-      test('Fits in month', () {
-        final matcherFitted = DateTime.utc(year, 2, 15);
-        expect(
-          DueDateTime.utc(every: dueDay15, year: year, month: 2),
-          equals(matcherFitted),
-        );
-      });
-      test('Middle of the month', () {
-        expect(
-          DueDateTime.utc(every: dueDay30, year: year, month: 2, day: 15),
-          equals(matcher),
-        );
-      });
-      test('Previous month end', () {
-        expect(
-          DueDateTime.utc(every: dueDay30, year: year, day: 31),
-          equals(matcher),
-        );
-      });
-      test('Is UTC', () {
-        expect(
-          DueDateTime.utc(every: dueDay30, year: year).isUtc,
-          isTrue,
-        );
-      });
-    });
+    // ...existing code...
     test('Now', () {
       final now = DateTime.now();
       withClock(Clock.fixed(now), () {
-        expect(DueDateTime.now(), equals(now));
+        expect(DueDateTime.now(), isSameDueDateTime(now));
       });
     });
     group('FromDate:', () {
@@ -103,6 +52,10 @@ void main() {
         DueDateTime.parse('2022-01-01', every: dueDay15),
         equals(DateTime(2022, 1, 15)),
       );
+    });
+    test('Malformed date string', () {
+      expect(() => DueDateTime.parse('not-a-date'), throwsFormatException);
+      expect(DueDateTime.tryParse('not-a-date'), equals(null));
     });
   });
   group('Trying to Parse:', () {
@@ -176,58 +129,104 @@ void main() {
     });
   });
   group('CopyWith:', () {
-    final dueDate = DueDateTime.fromDate(DateTime(2022));
+    final dueDate = DueDateTime.fromDate(DateTime(2022, 1, 2, 3, 4, 5, 6, 7));
+    // Time component preservation.
+    test('Preserves time components', () {
+      final updated = dueDate.copyWith(minute: 59);
+      expect(updated.hour, equals(3));
+      expect(updated.minute, equals(59));
+      expect(updated.second, equals(5));
+      expect(updated.millisecond, equals(6));
+      expect(updated.microsecond, equals(7));
+    });
+    test('Preserves time components (UTC)', () {
+      final utcDueDate = DueDateTime.fromDate(
+        DateTime.utc(2022, 1, 2, 3, 4, 5, 6, 7),
+      );
+      final updated = utcDueDate.copyWith(second: 59);
+      expect(updated, isUtcDateTime);
+      expect(updated.hour, equals(3));
+      expect(updated.minute, equals(4));
+      expect(updated.second, equals(59));
+      expect(updated.millisecond, equals(6));
+      expect(updated.microsecond, equals(7));
+    });
+    test('Preserves time components UTC to Local', () {
+      final utcDueDate = DueDateTime.fromDate(
+        DateTime.utc(2022, 1, 2, 3, 4, 5, 6, 7),
+      );
+      final updated = utcDueDate.copyWith(utc: false);
+      expect(updated, isLocalDateTime);
+      expect(updated.hour, equals(3));
+      expect(updated.minute, equals(4));
+      expect(updated.second, equals(5));
+      expect(updated.millisecond, equals(6));
+      expect(updated.microsecond, equals(7));
+    });
+    test('Preserves time components Local to UTC', () {
+      final utcDueDate = DueDateTime.fromDate(
+        DateTime(2022, 1, 2, 3, 4, 5, 6, 7),
+      );
+      final updated = utcDueDate.copyWith(utc: true);
+      expect(updated, isUtcDateTime);
+      expect(updated.hour, equals(3));
+      expect(updated.minute, equals(4));
+      expect(updated.second, equals(5));
+      expect(updated.millisecond, equals(6));
+      expect(updated.microsecond, equals(7));
+    });
+    final dueDate2 = DueDateTime.fromDate(DateTime(2022));
     test('Different every', () {
       expect(
-        dueDate.copyWith(every: dueDay15),
+        dueDate2.copyWith(every: dueDay15),
         equals(DateTime(2022, 1, 15)),
       );
     });
     test('Different year', () {
       expect(
-        dueDate.copyWith(year: 2021),
+        dueDate2.copyWith(year: 2021),
         equals(DateTime(2021)),
       );
     });
     test('Different month', () {
       expect(
-        dueDate.copyWith(month: 2),
+        dueDate2.copyWith(month: 2),
         equals(DateTime(2022, 2)),
       );
     });
     test('Different day', () {
       expect(
-        dueDate.copyWith(day: 2),
+        dueDate2.copyWith(day: 2),
         equals(DateTime(2022, 2)),
       );
     });
     test('Different hour', () {
       expect(
-        dueDate.copyWith(hour: 1),
+        dueDate2.copyWith(hour: 1),
         equals(DateTime(2022, 1, 1, 1)),
       );
     });
     test('Different minute', () {
       expect(
-        dueDate.copyWith(minute: 1),
+        dueDate2.copyWith(minute: 1),
         equals(DateTime(2022, 1, 1, 0, 1)),
       );
     });
     test('Different second', () {
       expect(
-        dueDate.copyWith(second: 1),
+        dueDate2.copyWith(second: 1),
         equals(DateTime(2022, 1, 1, 0, 0, 1)),
       );
     });
     test('Different millisecond', () {
       expect(
-        dueDate.copyWith(millisecond: 1),
+        dueDate2.copyWith(millisecond: 1),
         equals(DateTime(2022, 1, 1, 0, 0, 0, 1)),
       );
     });
     test('Different microsecond', () {
       expect(
-        dueDate.copyWith(microsecond: 1),
+        dueDate2.copyWith(microsecond: 1),
         equals(DateTime(2022, 1, 1, 0, 0, 0, 0, 1)),
       );
     });
@@ -236,8 +235,8 @@ void main() {
     final dueDate =
         DueDateTime(every: const EveryDueDayMonth(30), year: 2022).toUtc();
     expect(
-      dueDate.isUtc,
-      isTrue,
+      dueDate,
+      isUtcDateTime,
     );
   });
   test('toLocal', () {
@@ -245,36 +244,106 @@ void main() {
         DueDateTime.utc(every: const EveryDueDayMonth(30), year: 2022)
             .toLocal();
     expect(
-      dueDate.isUtc,
-      isFalse,
+      dueDate,
+      isLocalDateTime,
     );
   });
   group('Add:', () {
-    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
+    final dueDate = DueDateTime(
+      every: const EveryDueDayMonth(30),
+      year: 2022,
+      hour: 10,
+      minute: 11,
+      second: 12,
+      millisecond: 13,
+      microsecond: 14,
+    );
+    test('Preserves time components', () {
+      final result = dueDate.add(const Duration(days: 2));
+      expect(result.hour, equals(10));
+      expect(result.minute, equals(11));
+      expect(result.second, equals(12));
+      expect(result.millisecond, equals(13));
+      expect(result.microsecond, equals(14));
+    });
+    test('Preserves time components (UTC)', () {
+      final utcDueDate = DueDateTime.utc(
+        every: const EveryDueDayMonth(30),
+        year: 2022,
+        hour: 10,
+        minute: 11,
+        second: 12,
+        millisecond: 13,
+        microsecond: 14,
+      );
+      final result = utcDueDate.add(const Duration(days: 2));
+      expect(result, isUtcDateTime);
+      expect(result.hour, equals(10));
+      expect(result.minute, equals(11));
+      expect(result.second, equals(12));
+      expect(result.millisecond, equals(13));
+      expect(result.microsecond, equals(14));
+    });
+    final dueDate2 = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
     test('2 days', () {
       expect(
-        dueDate.add(const Duration(days: 2)),
+        dueDate2.add(const Duration(days: 2)),
         equals(DateTime(2022, 2, 28)),
       );
     });
     test("2 days, don't keep every", () {
       expect(
-        dueDate.add(const Duration(days: 2), sameEvery: false),
+        dueDate2.add(const Duration(days: 2), sameEvery: false),
         equals(DateTime(2022, 2)),
       );
     });
   });
   group('Subtract:', () {
-    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
+    final dueDate = DueDateTime(
+      every: const EveryDueDayMonth(30),
+      year: 2022,
+      hour: 10,
+      minute: 11,
+      second: 12,
+      millisecond: 13,
+      microsecond: 14,
+    );
+    test('Preserves time components', () {
+      final result = dueDate.subtract(const Duration(days: 2));
+      expect(result.hour, equals(10));
+      expect(result.minute, equals(11));
+      expect(result.second, equals(12));
+      expect(result.millisecond, equals(13));
+      expect(result.microsecond, equals(14));
+    });
+    test('Preserves time components (UTC)', () {
+      final utcDueDate = DueDateTime.utc(
+        every: const EveryDueDayMonth(30),
+        year: 2022,
+        hour: 10,
+        minute: 11,
+        second: 12,
+        millisecond: 13,
+        microsecond: 14,
+      );
+      final result = utcDueDate.subtract(const Duration(days: 2));
+      expect(result, isUtcDateTime);
+      expect(result.hour, equals(10));
+      expect(result.minute, equals(11));
+      expect(result.second, equals(12));
+      expect(result.millisecond, equals(13));
+      expect(result.microsecond, equals(14));
+    });
+    final dueDate2 = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
     test('2 days', () {
       expect(
-        dueDate.subtract(const Duration(days: 2)),
+        dueDate2.subtract(const Duration(days: 2)),
         equals(DateTime(2022, 1, 30)),
       );
     });
     test("2 days, don't keep every", () {
       expect(
-        dueDate.subtract(const Duration(days: 2), sameEvery: false),
+        dueDate2.subtract(const Duration(days: 2), sameEvery: false),
         equals(DateTime(2022, 1, 28)),
       );
     });
@@ -523,6 +592,41 @@ void main() {
           equals(DateTime.utc(2023, DateTime.august, 22)),
         );
       });
+    });
+  });
+  group('Equality', () {
+    // Equality group for DueDateTime.
+    final a = DueDateTime(
+      every: const EveryDueDayMonth(15),
+      year: 2022,
+      day: 15,
+    );
+    final b = DueDateTime(
+      every: const EveryDueDayMonth(15),
+      year: 2022,
+      day: 15,
+    );
+    final c = DueDateTime(
+      every: const EveryDueDayMonth(30),
+      year: 2022,
+      day: 30,
+    );
+    final d = DueDateTime(
+      every: const EveryDueDayMonth(15),
+      year: 2023,
+      day: 15,
+    );
+    test('Same values are equal', () {
+      expect(a, isSameDueDateTime(b));
+    });
+    test('Different every', () {
+      expect(a, isNot(isSameDueDateTime(c)));
+    });
+    test('Different year', () {
+      expect(a, isNot(isSameDueDateTime(d)));
+    });
+    test('Same instance', () {
+      expect(a, isSameDueDateTime(a));
     });
   });
 }

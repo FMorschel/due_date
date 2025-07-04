@@ -3,6 +3,7 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
 import '../src/every_match.dart';
 
 void main() {
@@ -262,7 +263,7 @@ void main() {
         expect(result.second, equals(45));
         expect(result.millisecond, equals(123));
         expect(result.microsecond, equals(456));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
       });
 
       test('Maintains microsecond precision in UTC DateTime', () {
@@ -285,7 +286,7 @@ void main() {
         expect(result.second, equals(45));
         expect(result.millisecond, equals(123));
         expect(result.microsecond, equals(456));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
 
       test('Previous maintains microsecond precision in local DateTime', () {
@@ -302,7 +303,7 @@ void main() {
         expect(result.second, equals(45));
         expect(result.millisecond, equals(0));
         expect(result.microsecond, equals(0));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
       });
 
       test('Previous maintains microsecond precision in UTC DateTime', () {
@@ -319,7 +320,7 @@ void main() {
         expect(result.second, equals(45));
         expect(result.millisecond, equals(0));
         expect(result.microsecond, equals(0));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
 
       test('Normal generation preserves date components (local)', () {
@@ -335,7 +336,7 @@ void main() {
         expect(result.day, equals(1));
         expect(result.hour, equals(9));
         expect(result.minute, equals(30));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
       });
 
       test('Normal generation preserves date components (UTC)', () {
@@ -351,7 +352,7 @@ void main() {
         expect(result.day, equals(1));
         expect(result.hour, equals(9));
         expect(result.minute, equals(30));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
     });
 

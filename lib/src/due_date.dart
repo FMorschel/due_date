@@ -442,6 +442,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     int? second,
     int? millisecond,
     int? microsecond,
+    bool? utc,
 
     /// The limit for the operations.
     DateTime? limit,
@@ -456,6 +457,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
       second: second ?? this.second,
       millisecond: millisecond ?? this.millisecond,
       microsecond: microsecond ?? this.microsecond,
+      utc: utc ?? isUtc,
       limit: limit,
     );
   }

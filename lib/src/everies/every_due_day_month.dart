@@ -1,6 +1,7 @@
 import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
+import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 import 'every_month.dart';
 import 'exact_every.dart';
@@ -87,7 +88,8 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
           month: date.month + monthDelta,
           day: 1,
         )
-        .lastDayOfMonth;
+        .lastDayOfMonth
+        .add(date.exactTimeOfDay);
     return dueMonth.clamp(max: endMonth);
   }
 }

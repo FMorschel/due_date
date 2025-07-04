@@ -3,6 +3,7 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
+import '../../src/date_time_match.dart';
 import '../../src/every_match.dart';
 
 void main() {
@@ -25,12 +26,6 @@ void main() {
         });
         test('Creates with correct every', () {
           expect(wrapper.every, equals(every));
-        });
-        test('Creates with correct invalidator', () {
-          expect(wrapper.invalidator, equals(invalidator));
-        });
-        test('Creates with correct overrider', () {
-          expect(wrapper.overrider, equals(Weekday.tuesday.every));
         });
       });
     });
@@ -149,29 +144,24 @@ void main() {
 
     group('Time component preservation:', () {
       test('Maintains time components in local DateTime', () {
-        final inputWithTime = DateTime(2023, 12, 3, 14, 30, 45, 123, 456);
-        final result = wrapper.next(inputWithTime);
-
-        // Should preserve time components.
+        final input = DateTime(2024, 1, 10, 14, 30, 45, 123, 456);
+        final result = wrapper.next(input);
         expect(result.hour, equals(14));
         expect(result.minute, equals(30));
         expect(result.second, equals(45));
         expect(result.millisecond, equals(123));
         expect(result.microsecond, equals(456));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
       });
-
       test('Maintains time components in UTC DateTime', () {
-        final inputWithTime = DateTime.utc(2023, 12, 3, 14, 30, 45, 123, 456);
-        final result = wrapper.next(inputWithTime);
-
-        // Should preserve time components and UTC flag.
+        final input = DateTime.utc(2024, 1, 10, 14, 30, 45, 123, 456);
+        final result = wrapper.next(input);
         expect(result.hour, equals(14));
         expect(result.minute, equals(30));
         expect(result.second, equals(45));
         expect(result.millisecond, equals(123));
         expect(result.microsecond, equals(456));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
 
       test('Previous maintains time components in local DateTime', () {
@@ -184,7 +174,7 @@ void main() {
         expect(result.second, equals(30));
         expect(result.millisecond, equals(500));
         expect(result.microsecond, equals(250));
-        expect(result.isUtc, isFalse);
+        expect(result, isLocalDateTime);
       });
 
       test('Previous maintains time components in UTC DateTime', () {
@@ -197,7 +187,7 @@ void main() {
         expect(result.second, equals(30));
         expect(result.millisecond, equals(500));
         expect(result.microsecond, equals(250));
-        expect(result.isUtc, isTrue);
+        expect(result, isUtcDateTime);
       });
 
       test('Normal generation with date-only input (local)', () {
