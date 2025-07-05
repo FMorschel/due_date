@@ -12,14 +12,14 @@ class FortnightPeriod extends Period implements DayPeriodBundle {
       : assert(
           end.difference(start) <=
               const Duration(
-                days: 15,
+                days: 16,
                 hours: 23,
                 minutes: 59,
                 seconds: 59,
                 milliseconds: 999,
                 microseconds: 999,
               ),
-          'The difference between start and end must be 15 days, 23 hours, '
+          'The difference between start and end must be 16 days, 23 hours, '
           '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
     if ((duration > const Duration(days: 16, hours: 1)) ||

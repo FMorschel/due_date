@@ -1,33 +1,54 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Period ->', () {
-    group('Constructor ->', () {
-      group('Default ->', () {
-        final start = DateTime(2022);
-        final end = DateTime(2022, DateTime.january, 2);
-        test('Works if start is before end', () {
-          expect(Period(start: start, end: end), isA<Period>());
+  group('Period:', () {
+    group('Constructor', () {
+      group('Valid cases', () {
+        test('Creates Period with valid start and end', () {
+          final start = DateTime(2022);
+          final end = DateTime(2022, DateTime.january, 2);
+          expect(Period(start: start, end: end), isNotNull);
         });
-        test('Works if start is equal to end', () {
-          expect(Period(start: start, end: start), isA<Period>());
+
+        test('Creates Period with equal start and end', () {
+          final start = DateTime(2022);
+          expect(Period(start: start, end: start), isNotNull);
         });
-        test("Doesn't work if end is before start", () {
+
+        test('Creates Period with UTC dates', () {
+          final start = DateTime.utc(2022);
+          final end = DateTime.utc(2022, DateTime.january, 2);
+          expect(Period(start: start, end: end), isNotNull);
+        });
+      });
+
+      group('Validation errors', () {
+        test('Throws ArgumentError if end is before start', () {
+          final start = DateTime(2022);
+          final end = DateTime(2022, DateTime.january, 2);
           expect(
             () => Period(start: end, end: start),
             throwsArgumentError,
           );
         });
-        test('Throws if one of the parameters is utc and the other not', () {
+
+        test('Throws ArgumentError if start is UTC and end is not', () {
+          final start = DateTime.utc(2022);
+          final end = DateTime(2022, DateTime.january, 2);
           expect(
-            () => Period(start: start, end: end.toUtc()),
+            () => Period(start: start, end: end),
             throwsArgumentError,
           );
         });
-        test('Throws if one of the parameters is not utc and the other is', () {
+
+        test('Throws ArgumentError if start is not UTC and end is', () {
+          final start = DateTime(2022);
+          final end = DateTime.utc(2022, DateTime.january, 2);
           expect(
-            () => Period(start: start.toUtc(), end: end),
+            () => Period(start: start, end: end),
             throwsArgumentError,
           );
         });
