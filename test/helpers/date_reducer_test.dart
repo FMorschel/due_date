@@ -51,7 +51,7 @@ void main() {
         // ambiguity.
         final earlierUtc = DateTime.utc(2024, 7, 4, 8);
         final laterLocal = DateTime(2024, 7, 4, 20);
-        
+
         // Test with clearly earlier UTC time.
         expect(
           DateReducer.reduceFuture(earlierUtc, laterLocal),
@@ -61,7 +61,7 @@ void main() {
           DateReducer.reducePast(earlierUtc, laterLocal),
           equals(laterLocal),
         );
-        
+
         // Test with reversed order to ensure consistent behavior.
         expect(
           DateReducer.reduceFuture(laterLocal, earlierUtc),
