@@ -46,18 +46,30 @@ void main() {
         expect(DateReducer.reducePast(a, b), equals(b));
       });
       // Handles UTC and local DateTime.
-      // Handles UTC and local DateTime.
       test('Handles UTC and local DateTime', () {
-        final local = DateTime(2024, 7, 4, 10, 30);
-        final utc = DateTime.utc(2024, 7, 4, 10, 30);
-        // They are not equal, so the one with isUtc: false is considered after.
+        // Create clearly different UTC and local times to avoid timezone
+        // ambiguity.
+        final earlierUtc = DateTime.utc(2024, 7, 4, 8);
+        final laterLocal = DateTime(2024, 7, 4, 20);
+        
+        // Test with clearly earlier UTC time.
         expect(
-          DateReducer.reduceFuture(local, utc),
-          equals(utc.isBefore(local) ? utc : local),
+          DateReducer.reduceFuture(earlierUtc, laterLocal),
+          equals(earlierUtc),
         );
         expect(
-          DateReducer.reducePast(local, utc),
-          equals(local.isAfter(utc) ? local : utc),
+          DateReducer.reducePast(earlierUtc, laterLocal),
+          equals(laterLocal),
+        );
+        
+        // Test with reversed order to ensure consistent behavior.
+        expect(
+          DateReducer.reduceFuture(laterLocal, earlierUtc),
+          equals(earlierUtc),
+        );
+        expect(
+          DateReducer.reducePast(laterLocal, earlierUtc),
+          equals(laterLocal),
         );
       });
     });
