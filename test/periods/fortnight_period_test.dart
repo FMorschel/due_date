@@ -99,7 +99,7 @@ void main() {
     group('Days property', () {
       test('Returns correct number of DayPeriod objects', () {
         const dayGenerator = DayGenerator();
-        
+
         // First half of January: 15 days.
         final jan1To15 = FortnightPeriod(
           start: DateTime(2024),
@@ -232,7 +232,7 @@ void main() {
 
       test('Works with different months', () {
         // Test first half of different months (all should be 15 days).
-        
+
         // January: 15 days (1st-15th).
         final jan1To15 = FortnightPeriod(
           start: DateTime(2024),
