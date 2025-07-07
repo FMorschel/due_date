@@ -33,8 +33,8 @@ class YearPeriod extends Period implements MonthPeriodBundle {
         (end.lastDayOfMonth.endOfDay != end) ||
         ((end.month - start.month) != 11)) {
       throw ArgumentError.value(
-        end,
-        'end',
+        [start.toIso8601String(), end.toIso8601String()],
+        'start, end',
         'End must be at the same year as start and must be the last '
             'microsecond of the year',
       );

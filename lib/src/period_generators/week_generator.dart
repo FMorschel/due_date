@@ -25,7 +25,8 @@ class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
   @override
   // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
-    return (super == other) || (other is WeekGenerator);
+    return (super == other) ||
+        ((other is WeekGenerator) && (other.weekStart == weekStart));
   }
 
   @override

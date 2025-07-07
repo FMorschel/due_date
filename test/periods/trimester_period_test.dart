@@ -40,7 +40,7 @@ void main() {
 
       group('Validation errors', () {
         test('Throws AssertionError if duration is not exactly 3 months', () {
-          final start = DateTime(2024, 1);
+          final start = DateTime(2024);
           // 4 months.
           final end = DateTime(2024, 4, 30, 23, 59, 59, 999, 999);
           expect(
@@ -51,7 +51,7 @@ void main() {
 
         test('Throws ArgumentError if end is not last microsecond of trimester',
             () {
-          final start = DateTime(2024, 1);
+          final start = DateTime(2024);
           final end = DateTime(2024, 3, 31, 23, 59, 59, 999, 998);
           expect(
             () => TrimesterPeriod(start: start, end: end),
@@ -65,28 +65,28 @@ void main() {
       test('Duration varies by trimester due to different month lengths', () {
         // Q1: Jan(31) + Feb(29 in 2024) + Mar(31) = 91 days.
         final q1 = TrimesterPeriod(
-          start: DateTime(2024, 1, 1),
+          start: DateTime(2024),
           end: DateTime(2024, 3, 31, 23, 59, 59, 999, 999),
         );
         expect(q1.duration, equals(Duration(days: 91)));
 
         // Q2: Apr(30) + May(31) + Jun(30) = 91 days.
         final q2 = TrimesterPeriod(
-          start: DateTime(2024, 4, 1),
+          start: DateTime(2024, 4),
           end: DateTime(2024, 6, 30, 23, 59, 59, 999, 999),
         );
         expect(q2.duration, equals(Duration(days: 91)));
 
         // Q3: Jul(31) + Aug(31) + Sep(30) = 92 days.
         final q3 = TrimesterPeriod(
-          start: DateTime(2024, 7, 1),
+          start: DateTime(2024, 7),
           end: DateTime(2024, 9, 30, 23, 59, 59, 999, 999),
         );
         expect(q3.duration, equals(Duration(days: 92)));
 
         // Q4: Oct(31) + Nov(30) + Dec(31) = 92 days.
         final q4 = TrimesterPeriod(
-          start: DateTime(2024, 10, 1),
+          start: DateTime(2024, 10),
           end: DateTime(2024, 12, 31, 23, 59, 59, 999, 999),
         );
         expect(q4.duration, equals(Duration(days: 92)));
@@ -94,7 +94,7 @@ void main() {
 
       test('Start and end are properly set', () {
         final trimester = TrimesterPeriod(
-          start: DateTime(2024, 1, 1),
+          start: DateTime(2024),
           end: DateTime(2024, 3, 31, 23, 59, 59, 999, 999),
         );
         expect(trimester.start.day, equals(1));
@@ -109,7 +109,7 @@ void main() {
     group('Months property', () {
       test('Returns 3 MonthPeriod objects', () {
         final trimester = TrimesterPeriod(
-          start: DateTime(2020, 1, 1),
+          start: DateTime(2020),
           end: DateTime(2020, 3, 31, 23, 59, 59, 999, 999),
         );
         final months = trimester.months;
@@ -120,7 +120,7 @@ void main() {
 
       test('First month starts at trimester start', () {
         final trimester = TrimesterPeriod(
-          start: DateTime(2020, 1, 1),
+          start: DateTime(2020),
           end: DateTime(2020, 3, 31, 23, 59, 59, 999, 999),
         );
         final months = trimester.months;
@@ -128,7 +128,7 @@ void main() {
           months.first,
           equals(
             Period(
-              start: DateTime(2020, 1, 1),
+              start: DateTime(2020),
               end: DateTime(2020, 1, 31, 23, 59, 59, 999, 999),
             ),
           ),
@@ -137,7 +137,7 @@ void main() {
 
       test('Last month ends at trimester end', () {
         final trimester = TrimesterPeriod(
-          start: DateTime(2020, 1, 1),
+          start: DateTime(2020),
           end: DateTime(2020, 3, 31, 23, 59, 59, 999, 999),
         );
         final months = trimester.months;
@@ -145,7 +145,7 @@ void main() {
           months.last,
           equals(
             Period(
-              start: DateTime(2020, 3, 1),
+              start: DateTime(2020, 3),
               end: DateTime(2020, 3, 31, 23, 59, 59, 999, 999),
             ),
           ),
@@ -155,7 +155,7 @@ void main() {
       test('Months progress correctly through trimester', () {
         // Q1.
         final trimester = TrimesterPeriod(
-          start: DateTime(2024, 1, 1),
+          start: DateTime(2024),
           end: DateTime(2024, 3, 31, 23, 59, 59, 999, 999),
         );
         final months = trimester.months;
@@ -171,7 +171,7 @@ void main() {
       test('Months cover entire trimester with no gaps', () {
         // Q2.
         final trimester = TrimesterPeriod(
-          start: DateTime(2024, 4, 1),
+          start: DateTime(2024, 4),
           end: DateTime(2024, 6, 30, 23, 59, 59, 999, 999),
         );
         final months = trimester.months;
@@ -191,7 +191,7 @@ void main() {
     group('Trimester progression', () {
       test('Q1 contains January, February, March', () {
         final q1 = TrimesterPeriod(
-          start: DateTime(2024, 1, 1),
+          start: DateTime(2024),
           end: DateTime(2024, 3, 31, 23, 59, 59, 999, 999),
         );
         final months = q1.months;
@@ -203,7 +203,7 @@ void main() {
 
       test('Q2 contains April, May, June', () {
         final q2 = TrimesterPeriod(
-          start: DateTime(2024, 4, 1),
+          start: DateTime(2024, 4),
           end: DateTime(2024, 6, 30, 23, 59, 59, 999, 999),
         );
         final months = q2.months;
@@ -215,7 +215,7 @@ void main() {
 
       test('Q3 contains July, August, September', () {
         final q3 = TrimesterPeriod(
-          start: DateTime(2024, 7, 1),
+          start: DateTime(2024, 7),
           end: DateTime(2024, 9, 30, 23, 59, 59, 999, 999),
         );
         final months = q3.months;
@@ -227,7 +227,7 @@ void main() {
 
       test('Q4 contains October, November, December', () {
         final q4 = TrimesterPeriod(
-          start: DateTime(2024, 10, 1),
+          start: DateTime(2024, 10),
           end: DateTime(2024, 12, 31, 23, 59, 59, 999, 999),
         );
         final months = q4.months;
@@ -242,12 +242,12 @@ void main() {
       test('Handles leap year February correctly in Q1', () {
         // Leap year.
         final q1_2024 = TrimesterPeriod(
-          start: DateTime(2024, 1, 1),
+          start: DateTime(2024),
           end: DateTime(2024, 3, 31, 23, 59, 59, 999, 999),
         );
         // Non-leap year.
         final q1_2023 = TrimesterPeriod(
-          start: DateTime(2023, 1, 1),
+          start: DateTime(2023),
           end: DateTime(2023, 3, 31, 23, 59, 59, 999, 999),
         );
 
@@ -260,7 +260,7 @@ void main() {
       test('Works across year boundaries', () {
         // This tests Q4 trimester.
         final q4 = TrimesterPeriod(
-          start: DateTime(2024, 10, 1),
+          start: DateTime(2024, 10),
           end: DateTime(2024, 12, 31, 23, 59, 59, 999, 999),
         );
         final months = q4.months;
@@ -276,7 +276,7 @@ void main() {
 
       test('All months have correct year', () {
         final trimester = TrimesterPeriod(
-          start: DateTime(2024, 7, 1),
+          start: DateTime(2024, 7),
           end: DateTime(2024, 9, 30, 23, 59, 59, 999, 999),
         );
         final months = trimester.months;
