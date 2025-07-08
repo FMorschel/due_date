@@ -29,7 +29,8 @@ dependencies:
   time: ^2.1.5
 
 dev_dependencies:
-  dartdoc: ^6.3.0
+  dartdoc: ^8.0.4 # Fixes `pub downgrade` bug with `watcher`
+  frontend_server_client: ^4.0.0 # Test bug github.com/dart-lang/test/issues/2516
   intl: any
   lints: ^2.1.1
   test: any
