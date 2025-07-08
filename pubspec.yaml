@@ -29,7 +29,6 @@ dependencies:
   time: ^2.1.5
 
 dev_dependencies:
-  dart_code_metrics: 5.7.4 
   dartdoc: ^6.3.0
   intl: any
   lints: ^2.1.1
