@@ -39,14 +39,14 @@ void main() {
       });
       group('from', () {
         test('Valid basic case', () {
-          // 3rd Tuesday of September 2022 is 13th.
+          // 2nd Tuesday of September 2022 is 13th.
           final date = DateTime(2022, 9, 13);
           expect(DateValidatorWeekdayCountInMonth.from(date), isNotNull);
         });
         test('Creates validator with correct week and day', () {
           final date = DateTime(2022, 9, 13);
           final validator = DateValidatorWeekdayCountInMonth.from(date);
-          expect(validator.week, equals(Week.third));
+          expect(validator.week, equals(Week.second));
           expect(validator.day, equals(Weekday.tuesday));
         });
       });
