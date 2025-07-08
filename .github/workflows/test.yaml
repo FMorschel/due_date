@@ -29,7 +29,9 @@ jobs:
       run: dart format --output=none --set-exit-if-changed .
     
     - name: Analyze project source
-      run: dart analyze --fatal-infos
+      run: |
+        dart pub downgrade
+        dart analyze --fatal-infos
     
     - name: Run tests with coverage
       run: dart test --coverage=coverage --fail-fast
