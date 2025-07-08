@@ -26,12 +26,13 @@ extension DayInExt on int {
     if (self == 366 && isLeap) {
       return _MonthDay.yearEnd;
     }
-    for (final record in _daysInMonth.indexed) {
-      if (self <= record.$2) {
-        return _MonthDay(record.$1 + 1, self);
+    for (var i = 0; i < _daysInMonth.length; i++) {
+      final dayInMonth = _daysInMonth[i];
+      if (self <= dayInMonth) {
+        return _MonthDay(i + 1, self);
       }
-      self -= record.$2;
-      if (isLeap && record.$1 == 1) {
+      self -= dayInMonth;
+      if (isLeap && i == 1) {
         if (self == 1) {
           return _MonthDay.leapDay;
         }
