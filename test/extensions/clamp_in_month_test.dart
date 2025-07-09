@@ -5,7 +5,6 @@ import 'package:test/test.dart';
 import 'package:time/time.dart';
 
 import '../src/date_time_match.dart';
-import '../src/due_date_time_match.dart';
 
 void main() {
   group('ClampInMonth on DateTime:', () {
@@ -160,10 +159,10 @@ void main() {
       test('Works with DateTime.now()', () {
         final now = DateTime.now();
         withClock(Clock.fixed(now), () {
-          final dueDateTime = DateTime.now().dueDateTime;
+          final dueDateTime = now.dueDateTime;
 
-          expect(dueDateTime, isSameDueDateTime(DateTime.now()));
-          expect(dueDateTime.every.dueDay, equals(now.day));
+          expect(dueDateTime, isSameDateTime(DueDateTime.now()));
+          expect(dueDateTime.every.dueDay, equals(DueDateTime.now().day));
         });
       });
 

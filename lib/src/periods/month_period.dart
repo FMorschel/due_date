@@ -3,10 +3,9 @@ import '../extensions/extensions.dart';
 import '../period_generators/period_generators.dart';
 import 'day_period.dart';
 import 'day_period_bundle.dart';
-import 'period.dart';
 
 /// A class that implements a period type of a month.
-class MonthPeriod extends Period implements DayPeriodBundle {
+class MonthPeriod extends DayPeriodBundle {
   /// A class that implements a period type of a month.
   MonthPeriod({required super.start, required super.end})
       : assert(
