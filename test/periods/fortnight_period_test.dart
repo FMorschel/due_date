@@ -4,6 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('FortnightPeriod:', () {
     group('Constructor', () {
@@ -68,8 +70,8 @@ void main() {
         final start = DateTime(2024);
         final end = DateTime(2024, 1, 15, 23, 59, 59, 999, 999);
         final fortnight = FortnightPeriod(start: start, end: end);
-        expect(fortnight.start, equals(start));
-        expect(fortnight.end, equals(end));
+        expect(fortnight.start, isSameDateTime(start));
+        expect(fortnight.end, isSameDateTime(end));
       });
 
       test('Duration varies correctly for different periods', () {

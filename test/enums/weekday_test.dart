@@ -174,7 +174,10 @@ void main() {
       test('All weekdays have correct string representation', () {
         expect(Weekday.monday.toString(), equals('Weekday.monday'));
         expect(Weekday.tuesday.toString(), equals('Weekday.tuesday'));
-        expect(Weekday.wednesday.toString(), equals('Weekday.wednesday'));
+        expect(
+          Weekday.wednesday.toString(),
+          equals('Weekday.wednesday'),
+        );
         expect(Weekday.thursday.toString(), equals('Weekday.thursday'));
         expect(Weekday.friday.toString(), equals('Weekday.friday'));
         expect(Weekday.saturday.toString(), equals('Weekday.saturday'));
@@ -331,6 +334,192 @@ void main() {
             // Both should reference the same weekday
             expect(every.weekday, equals(validator.weekday));
             expect(every.weekday, equals(weekday));
+          }
+        });
+      });
+    });
+    group('Comparison operators', () {
+      test('Greater than operator', () {
+        expect(Weekday.tuesday > Weekday.monday, isTrue);
+        expect(Weekday.sunday > Weekday.saturday, isTrue);
+        expect(Weekday.friday > Weekday.wednesday, isTrue);
+        expect(Weekday.monday > Weekday.tuesday, isFalse);
+        expect(Weekday.monday > Weekday.monday, isFalse);
+      });
+
+      test('Greater than or equal operator', () {
+        expect(Weekday.tuesday >= Weekday.monday, isTrue);
+        expect(Weekday.sunday >= Weekday.saturday, isTrue);
+        expect(Weekday.friday >= Weekday.wednesday, isTrue);
+        expect(Weekday.monday >= Weekday.monday, isTrue);
+        expect(Weekday.monday >= Weekday.tuesday, isFalse);
+      });
+
+      test('Less than operator', () {
+        expect(Weekday.monday < Weekday.tuesday, isTrue);
+        expect(Weekday.saturday < Weekday.sunday, isTrue);
+        expect(Weekday.wednesday < Weekday.friday, isTrue);
+        expect(Weekday.tuesday < Weekday.monday, isFalse);
+        expect(Weekday.monday < Weekday.monday, isFalse);
+      });
+
+      test('Less than or equal operator', () {
+        expect(Weekday.monday <= Weekday.tuesday, isTrue);
+        expect(Weekday.saturday <= Weekday.sunday, isTrue);
+        expect(Weekday.wednesday <= Weekday.friday, isTrue);
+        expect(Weekday.monday <= Weekday.monday, isTrue);
+        expect(Weekday.tuesday <= Weekday.monday, isFalse);
+      });
+
+      test('All weekdays in correct order', () {
+        const weekdays = Weekday.values;
+        for (var i = 0; i < weekdays.length - 1; i++) {
+          expect(weekdays[i] < weekdays[i + 1], isTrue);
+          expect(weekdays[i] <= weekdays[i + 1], isTrue);
+          expect(weekdays[i + 1] > weekdays[i], isTrue);
+          expect(weekdays[i + 1] >= weekdays[i], isTrue);
+        }
+      });
+    });
+
+    group('Arithmetic operators', () {
+      group('Addition operator (+)', () {
+        test('Add single day', () {
+          expect(Weekday.monday + 1, equals(Weekday.tuesday));
+          expect(Weekday.tuesday + 1, equals(Weekday.wednesday));
+          expect(Weekday.wednesday + 1, equals(Weekday.thursday));
+          expect(Weekday.thursday + 1, equals(Weekday.friday));
+          expect(Weekday.friday + 1, equals(Weekday.saturday));
+          expect(Weekday.saturday + 1, equals(Weekday.sunday));
+          expect(Weekday.sunday + 1, equals(Weekday.monday));
+        });
+
+        test('Add multiple days', () {
+          expect(Weekday.monday + 3, equals(Weekday.thursday));
+          expect(Weekday.friday + 3, equals(Weekday.monday));
+          expect(Weekday.wednesday + 5, equals(Weekday.monday));
+          expect(Weekday.saturday + 2, equals(Weekday.monday));
+        });
+
+        test('Add zero days', () {
+          for (final weekday in Weekday.values) {
+            expect(weekday + 0, equals(weekday));
+          }
+        });
+
+        test('Add full week (7 days)', () {
+          for (final weekday in Weekday.values) {
+            expect(weekday + 7, equals(weekday));
+          }
+        });
+
+        test('Add multiple weeks', () {
+          for (final weekday in Weekday.values) {
+            expect(weekday + 14, equals(weekday));
+            expect(weekday + 21, equals(weekday));
+            expect(weekday + 28, equals(weekday));
+          }
+        });
+
+        test('Large numbers cycle correctly', () {
+          expect(Weekday.monday + 100, equals(Weekday.wednesday));
+          expect(Weekday.friday + 365, equals(Weekday.saturday));
+        });
+      });
+
+      group('Subtraction operator (-)', () {
+        test('Subtract single day', () {
+          expect(Weekday.tuesday - 1, equals(Weekday.monday));
+          expect(Weekday.wednesday - 1, equals(Weekday.tuesday));
+          expect(Weekday.thursday - 1, equals(Weekday.wednesday));
+          expect(Weekday.friday - 1, equals(Weekday.thursday));
+          expect(Weekday.saturday - 1, equals(Weekday.friday));
+          expect(Weekday.sunday - 1, equals(Weekday.saturday));
+          expect(Weekday.monday - 1, equals(Weekday.sunday));
+        });
+
+        test('Subtract multiple days', () {
+          expect(Weekday.thursday - 3, equals(Weekday.monday));
+          expect(Weekday.monday - 3, equals(Weekday.friday));
+          expect(Weekday.monday - 5, equals(Weekday.wednesday));
+          expect(Weekday.monday - 2, equals(Weekday.saturday));
+        });
+
+        test('Subtract zero days', () {
+          for (final weekday in Weekday.values) {
+            expect(weekday - 0, equals(weekday));
+          }
+        });
+
+        test('Subtract full week (7 days)', () {
+          for (final weekday in Weekday.values) {
+            expect(weekday - 7, equals(weekday));
+          }
+        });
+
+        test('Subtract multiple weeks', () {
+          for (final weekday in Weekday.values) {
+            expect(weekday - 14, equals(weekday));
+            expect(weekday - 21, equals(weekday));
+            expect(weekday - 28, equals(weekday));
+          }
+        });
+
+        test('Large numbers cycle correctly', () {
+          expect(Weekday.tuesday - 100, equals(Weekday.sunday));
+          expect(Weekday.saturday - 365, equals(Weekday.friday));
+        });
+      });
+
+      group('Addition and subtraction are inverse operations', () {
+        for (final weekday in Weekday.values) {
+          test('${weekday.name} addition and subtraction', () {
+            for (var days = 1; days <= 10; days++) {
+              expect((weekday + days) - days, equals(weekday));
+              expect((weekday - days) + days, equals(weekday));
+            }
+          });
+        }
+      });
+    });
+
+    group('Deprecated methods', () {
+      group('occrurencesIn (deprecated)', () {
+        test('Returns same result as occurrencesIn for August 2022', () {
+          final month = DateTime.utc(2022, DateTime.august);
+          for (final weekday in Weekday.values) {
+            // ignore: deprecated_member_use_from_same_package
+            final deprecatedResult =
+                weekday.occurrencesIn(month.year, month.month);
+            final currentResult =
+                weekday.occurrencesIn(month.year, month.month);
+            expect(deprecatedResult, equals(currentResult));
+          }
+        });
+
+        test(
+            'Returns same result as occurrencesIn for February 2024 (leap '
+            'year)', () {
+          const year = 2024;
+          const month = DateTime.february;
+          for (final weekday in Weekday.values) {
+            // ignore: deprecated_member_use_from_same_package
+            final deprecatedResult = weekday.occrurencesIn(year, month);
+            final currentResult = weekday.occurrencesIn(year, month);
+            expect(deprecatedResult, equals(currentResult));
+          }
+        });
+
+        test(
+            'Returns same result as occurrencesIn for February 2023 (non-leap '
+            'year)', () {
+          const year = 2023;
+          const month = DateTime.february;
+          for (final weekday in Weekday.values) {
+            // ignore: deprecated_member_use_from_same_package
+            final deprecatedResult = weekday.occrurencesIn(year, month);
+            final currentResult = weekday.occurrencesIn(year, month);
+            expect(deprecatedResult, equals(currentResult));
           }
         });
       });

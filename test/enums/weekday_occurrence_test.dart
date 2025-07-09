@@ -3,6 +3,8 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('WeekdayOccurrence:', () {
     group('Values', () {
@@ -97,13 +99,34 @@ void main() {
     });
     group('Name property', () {
       test('All have correct name', () {
-        expect(WeekdayOccurrence.firstMonday.name, equals('firstMonday'));
-        expect(WeekdayOccurrence.firstTuesday.name, equals('firstTuesday'));
-        expect(WeekdayOccurrence.firstWednesday.name, equals('firstWednesday'));
-        expect(WeekdayOccurrence.firstThursday.name, equals('firstThursday'));
-        expect(WeekdayOccurrence.firstFriday.name, equals('firstFriday'));
-        expect(WeekdayOccurrence.firstSaturday.name, equals('firstSaturday'));
-        expect(WeekdayOccurrence.firstSunday.name, equals('firstSunday'));
+        expect(
+          WeekdayOccurrence.firstMonday.name,
+          equals('firstMonday'),
+        );
+        expect(
+          WeekdayOccurrence.firstTuesday.name,
+          equals('firstTuesday'),
+        );
+        expect(
+          WeekdayOccurrence.firstWednesday.name,
+          equals('firstWednesday'),
+        );
+        expect(
+          WeekdayOccurrence.firstThursday.name,
+          equals('firstThursday'),
+        );
+        expect(
+          WeekdayOccurrence.firstFriday.name,
+          equals('firstFriday'),
+        );
+        expect(
+          WeekdayOccurrence.firstSaturday.name,
+          equals('firstSaturday'),
+        );
+        expect(
+          WeekdayOccurrence.firstSunday.name,
+          equals('firstSunday'),
+        );
       });
     });
     group('Index property', () {
@@ -361,11 +384,11 @@ void main() {
           final resultFromOccurrence = occurrence.addMonths(july29th, 2);
           final expectedFromHandler = every.addMonths(july29th, 2);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           // September 30, 2022 is Friday (last Friday of September).
           expect(
             resultFromOccurrence,
-            equals(DateTime(2022, DateTime.september, 30)),
+            isSameDateTime(DateTime(2022, DateTime.september, 30)),
           );
         });
 
@@ -384,11 +407,11 @@ void main() {
           final resultFromOccurrence = occurrence.addMonths(july29th, -2);
           final expectedFromHandler = every.addMonths(july29th, -2);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           // May 27, 2022 is Friday (last Friday of May).
           expect(
             resultFromOccurrence,
-            equals(DateTime(2022, DateTime.may, 27)),
+            isSameDateTime(DateTime(2022, DateTime.may, 27)),
           );
         });
 
@@ -406,8 +429,8 @@ void main() {
           final resultFromOccurrence = occurrence.addMonths(july29th, 0);
           final expectedFromHandler = every.addMonths(july29th, 0);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
-          expect(resultFromOccurrence, equals(july29th));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(july29th));
         });
 
         test('Delegates addMonths to handler correctly for first occurrence',
@@ -425,11 +448,11 @@ void main() {
           final resultFromOccurrence = occurrence.addMonths(august1st, 1);
           final expectedFromHandler = every.addMonths(august1st, 1);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           // September 5, 2022 is Monday (first Monday of September).
           expect(
             resultFromOccurrence,
-            equals(DateTime(2022, DateTime.september, 5)),
+            isSameDateTime(DateTime(2022, DateTime.september, 5)),
           );
         });
 
@@ -489,7 +512,7 @@ void main() {
           final resultFromOccurrence = occurrence.addMonths(october1stUtc, 1);
           final expectedFromHandler = every.addMonths(october1stUtc, 1);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           expect(resultFromOccurrence.isUtc, isTrue);
         });
       });
@@ -509,8 +532,8 @@ void main() {
           final resultFromOccurrence = occurrence.startDate(july4th);
           final expectedFromHandler = every.startDate(july4th);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
-          expect(resultFromOccurrence, equals(july4th));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(july4th));
         });
 
         test('Delegates startDate to handler correctly with invalid date', () {
@@ -527,9 +550,12 @@ void main() {
           final resultFromOccurrence = occurrence.startDate(july5th);
           final expectedFromHandler = every.startDate(july5th);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           // Should return the next first Monday (August 1, 2022).
-          expect(resultFromOccurrence, equals(DateTime(2022, DateTime.august)));
+          expect(
+            resultFromOccurrence,
+            isSameDateTime(DateTime(2022, DateTime.august)),
+          );
         });
       });
 
@@ -548,11 +574,11 @@ void main() {
           final resultFromOccurrence = occurrence.next(august9th);
           final expectedFromHandler = every.next(august9th);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           // Next second Tuesday should be September 13, 2022.
           expect(
             resultFromOccurrence,
-            equals(DateTime(2022, DateTime.september, 13)),
+            isSameDateTime(DateTime(2022, DateTime.september, 13)),
           );
         });
       });
@@ -572,11 +598,11 @@ void main() {
           final resultFromOccurrence = occurrence.previous(july20th);
           final expectedFromHandler = every.previous(july20th);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           // Previous third Wednesday should be June 15, 2022.
           expect(
             resultFromOccurrence,
-            equals(DateTime(2022, DateTime.june, 15)),
+            isSameDateTime(DateTime(2022, DateTime.june, 15)),
           );
         });
       });
@@ -596,11 +622,11 @@ void main() {
           final resultFromOccurrence = occurrence.addYears(july29th, 1);
           final expectedFromHandler = every.addYears(july29th, 1);
 
-          expect(resultFromOccurrence, equals(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
           // Last Friday of July 2023 should be July 28, 2023.
           expect(
             resultFromOccurrence,
-            equals(DateTime(2023, DateTime.july, 28)),
+            isSameDateTime(DateTime(2023, DateTime.july, 28)),
           );
         });
       });

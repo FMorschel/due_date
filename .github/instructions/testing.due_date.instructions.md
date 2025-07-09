@@ -96,10 +96,10 @@ group('Constructors:', () {
   
   group('FromDate:', () {
     test('No every', () {
-      expect(DueDateTime.fromDate(matcher), equals(matcher));
+      expect(DueDateTime.fromDate(matcher), isSameDateTime(matcher));
     });
     test('With every', () {
-      expect(DueDateTime.fromDate(matcher, every: dueDay30), equals(matcher));
+      expect(DueDateTime.fromDate(matcher, every: dueDay30), isSameDateTime(matcher));
     });
   });
 });
@@ -112,7 +112,7 @@ Test all string parsing methods with both valid and invalid inputs:
 ```dart
 group('Parsing:', () {
   test('January 1st, 2022', () {
-    expect(DueDateTime.parse('2022-01-01'), equals(DateTime(2022)));
+    expect(DueDateTime.parse('2022-01-01'), isSameDateTime(DateTime(2022)));
   });
   test('FormatException', () {
     expect(() => DueDateTime.parse(''), throwsFormatException);
@@ -120,7 +120,7 @@ group('Parsing:', () {
   test('With every', () {
     expect(
       DueDateTime.parse('2022-01-01', every: dueDay15),
-      equals(DateTime(2022, 1, 15)),
+      isSameDateTime(DateTime(2022, 1, 15)),
     );
   });
   test('Malformed date string', () {
@@ -182,14 +182,14 @@ group('Add:', () {
   test('2 days', () {
     expect(
       dueDate2.add(const Duration(days: 2)),
-      equals(DateTime(2022, 2, 28)),
+      isSameDateTime(DateTime(2022, 2, 28)),
     );
   });
   
   test("2 days, don't keep every", () {
     expect(
       dueDate2.add(const Duration(days: 2), sameEvery: false),
-      equals(DateTime(2022, 2)),
+      isSameDateTime(DateTime(2022, 2)),
     );
   });
 });
@@ -211,7 +211,7 @@ group('Previous/Next', () {
       );
       expect(
         everyWeekday.next(),
-        equals(DateTime(2022, DateTime.august, 29)),
+        isSameDateTime(DateTime(2022, DateTime.august, 29)),
       );
     });
     
@@ -224,7 +224,7 @@ group('Previous/Next', () {
       );
       expect(
         everyWeekday.next(),
-        equals(DateTime(2022, DateTime.september, 22)),
+        isSameDateTime(DateTime(2022, DateTime.september, 22)),
       );
     });
   });
@@ -273,7 +273,7 @@ group('FromMillisecondsSinceEpoch:', () {
   test('January 1st, 2022', () {
     expect(
       DueDateTime.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch),
-      equals(date),
+      isSameDateTime(date),
     );
   });
   
@@ -283,7 +283,7 @@ group('FromMillisecondsSinceEpoch:', () {
         date.millisecondsSinceEpoch,
         every: dueDay15,
       ),
-      equals(DateTime(2022, 1, 15)),
+      isSameDateTime(DateTime(2022, 1, 15)),
     );
   });
   
@@ -294,7 +294,7 @@ group('FromMillisecondsSinceEpoch:', () {
         every: dueDay15,
         isUtc: true,
       ),
-      equals(DateTime(2022, 1, 15).toUtc()),
+      isSameDateTime(DateTime(2022, 1, 15).toUtc()),
     );
   });
 });

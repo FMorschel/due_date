@@ -183,7 +183,7 @@ void main() {
         test('Zero weeks returns same date', () {
           expect(
             everySaturday.addWeeks(august13th, 0),
-            equals(august13th),
+            isSameDateTime(august13th),
           );
         });
         test('Positive weeks adds correct number', () {
@@ -191,7 +191,7 @@ void main() {
           final august20th = DateTime(2022, DateTime.august, 20);
           expect(
             everySaturday.addWeeks(august13th, 1),
-            equals(august20th),
+            isSameDateTime(august20th),
           );
         });
         test('Negative weeks subtracts correct number', () {
@@ -199,7 +199,7 @@ void main() {
           final august6th = DateTime(2022, DateTime.august, 6);
           expect(
             everySaturday.addWeeks(august13th, -1),
-            equals(august6th),
+            isSameDateTime(august6th),
           );
         });
         test('Works with non-matching weekday input', () {
@@ -207,7 +207,7 @@ void main() {
           final august20th = DateTime(2022, DateTime.august, 20);
           expect(
             everySaturday.addWeeks(DateTime(2022, DateTime.august, 13), 1),
-            equals(august20th),
+            isSameDateTime(august20th),
           );
         });
         test('Works with UTC dates', () {
@@ -215,7 +215,7 @@ void main() {
           final august20thUtc = DateTime.utc(2022, DateTime.august, 20);
           expect(
             everySaturday.addWeeks(august13thUtc, 1),
-            equals(august20thUtc),
+            isSameDateTime(august20thUtc),
           );
         });
       });
@@ -229,7 +229,7 @@ void main() {
           final result = everyMonday.addMonths(august8th, 1);
           final expected =
               EveryWeekdayCountInMonth.from(august8th).addMonths(august8th, 1);
-          expect(result, equals(expected));
+          expect(result, isSameDateTime(expected));
         });
       });
 
@@ -241,7 +241,7 @@ void main() {
         test('Delegates to addMonths with years * 12', () {
           final result = everyMonday.addYears(august8th, 1);
           final expected = everyMonday.addMonths(august8th, 12);
-          expect(result, equals(expected));
+          expect(result, isSameDateTime(expected));
         });
       });
     });

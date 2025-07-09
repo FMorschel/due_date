@@ -48,7 +48,7 @@ class _DueDateTimeMatcher extends Matcher {
     bool verbose,
   ) {
     if (item is! DateTime) {
-      mismatchDescription.add('was not a DateTime');
+      mismatchDescription.add('$item was not a DateTime');
       return mismatchDescription;
     }
     mismatchDescription.add('was $item');

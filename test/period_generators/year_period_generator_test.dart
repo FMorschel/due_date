@@ -4,6 +4,8 @@ import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('YearPeriodGenerator', () {
     const yearGenerator = YearGenerator();
@@ -184,7 +186,7 @@ void main() {
         // February 2020 should end on February 29
         expect(
           february.end,
-          equals(DateTime(2020, 2, 29, 23, 59, 59, 999, 999)),
+          isSameDateTime(DateTime(2020, 2, 29, 23, 59, 59, 999, 999)),
         );
       });
 
@@ -200,7 +202,7 @@ void main() {
         // February 2022 should end on February 28
         expect(
           february.end,
-          equals(DateTime(2022, 2, 28, 23, 59, 59, 999, 999)),
+          isSameDateTime(DateTime(2022, 2, 28, 23, 59, 59, 999, 999)),
         );
       });
     });

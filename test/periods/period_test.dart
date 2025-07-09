@@ -3,6 +3,8 @@
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('Period:', () {
     group('Constructor', () {
@@ -452,7 +454,10 @@ void main() {
           orderedEquals(expected),
         );
         for (var i = 1; i < (expected.length - 1); i++) {
-          expect(expected[i].duration, equals(expected[i - 1].duration));
+          expect(
+            expected[i].duration,
+            equals(expected[i - 1].duration),
+          );
         }
       });
     });
@@ -756,11 +761,11 @@ void main() {
           start: start.subtract(const Duration(days: 1)),
         );
         expect(period2.start, equals(start.subtract(const Duration(days: 1))));
-        expect(period2.end, equals(end));
+        expect(period2.end, isSameDateTime(end));
       });
       test('end', () {
         final period2 = period.copyWith(end: end.add(const Duration(days: 1)));
-        expect(period2.start, equals(start));
+        expect(period2.start, isSameDateTime(start));
         expect(period2.end, equals(end.add(const Duration(days: 1))));
       });
       test('both', () {

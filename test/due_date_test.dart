@@ -2,6 +2,7 @@
 import 'package:clock/clock.dart';
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
+
 import 'src/date_time_match.dart';
 import 'src/due_date_time_match.dart';
 
@@ -27,22 +28,25 @@ void main() {
     test('Now', () {
       final now = DateTime.now();
       withClock(Clock.fixed(now), () {
-        expect(DueDateTime.now(), isSameDueDateTime(now));
+        expect(DueDateTime.now(), isSameDateTime(now));
       });
     });
     group('FromDate:', () {
       final matcher = DateTime.utc(year, 2, 28);
       test('No every', () {
-        expect(DueDateTime.fromDate(matcher), equals(matcher));
+        expect(DueDateTime.fromDate(matcher), isSameDateTime(matcher));
       });
       test('With every', () {
-        expect(DueDateTime.fromDate(matcher, every: dueDay30), equals(matcher));
+        expect(
+          DueDateTime.fromDate(matcher, every: dueDay30),
+          isSameDateTime(matcher),
+        );
       });
     });
   });
   group('Parsing:', () {
     test('January 1st, 2022', () {
-      expect(DueDateTime.parse('2022-01-01'), equals(DateTime(2022)));
+      expect(DueDateTime.parse('2022-01-01'), isSameDateTime(DateTime(2022)));
     });
     test('FormatException', () {
       expect(() => DueDateTime.parse(''), throwsFormatException);
@@ -50,7 +54,7 @@ void main() {
     test('With every', () {
       expect(
         DueDateTime.parse('2022-01-01', every: dueDay15),
-        equals(DateTime(2022, 1, 15)),
+        isSameDateTime(DateTime(2022, 1, 15)),
       );
     });
     test('Malformed date string', () {
@@ -60,7 +64,10 @@ void main() {
   });
   group('Trying to Parse:', () {
     test('January 1st, 2022', () {
-      expect(DueDateTime.tryParse('2022-01-01'), equals(DateTime(2022)));
+      expect(
+        DueDateTime.tryParse('2022-01-01'),
+        isSameDateTime(DateTime(2022)),
+      );
     });
     test('Returns null', () {
       expect(DueDateTime.tryParse(''), equals(null));
@@ -68,7 +75,7 @@ void main() {
     test('With every', () {
       expect(
         DueDateTime.tryParse('2022-01-01', every: dueDay15),
-        equals(DateTime(2022, 1, 15)),
+        isSameDateTime(DateTime(2022, 1, 15)),
       );
     });
   });
@@ -77,7 +84,7 @@ void main() {
     test('January 1st, 2022', () {
       expect(
         DueDateTime.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch),
-        equals(date),
+        isSameDateTime(date),
       );
     });
     test('With every', () {
@@ -86,7 +93,7 @@ void main() {
           date.millisecondsSinceEpoch,
           every: dueDay15,
         ),
-        equals(DateTime(2022, 1, 15)),
+        isSameDateTime(DateTime(2022, 1, 15)),
       );
     });
     test('With every UTC', () {
@@ -96,7 +103,7 @@ void main() {
           every: dueDay15,
           isUtc: true,
         ),
-        equals(DateTime(2022, 1, 15).toUtc()),
+        isSameDateTime(DateTime(2022, 1, 15).toUtc()),
       );
     });
   });
@@ -105,7 +112,7 @@ void main() {
     test('January 1st, 2022', () {
       expect(
         DueDateTime.fromMicrosecondsSinceEpoch(date.microsecondsSinceEpoch),
-        equals(date),
+        isSameDateTime(date),
       );
     });
     test('With every', () {
@@ -114,7 +121,7 @@ void main() {
           date.microsecondsSinceEpoch,
           every: dueDay15,
         ),
-        equals(DateTime(2022, 1, 15)),
+        isSameDateTime(DateTime(2022, 1, 15)),
       );
     });
     test('With every UTC', () {
@@ -124,7 +131,7 @@ void main() {
           every: dueDay15,
           isUtc: true,
         ),
-        equals(DateTime(2022, 1, 15).toUtc()),
+        isSameDateTime(DateTime(2022, 1, 15).toUtc()),
       );
     });
   });
@@ -179,55 +186,55 @@ void main() {
     test('Different every', () {
       expect(
         dueDate2.copyWith(every: dueDay15),
-        equals(DateTime(2022, 1, 15)),
+        isSameDateTime(DateTime(2022, 1, 15)),
       );
     });
     test('Different year', () {
       expect(
         dueDate2.copyWith(year: 2021),
-        equals(DateTime(2021)),
+        isSameDateTime(DateTime(2021)),
       );
     });
     test('Different month', () {
       expect(
         dueDate2.copyWith(month: 2),
-        equals(DateTime(2022, 2)),
+        isSameDateTime(DateTime(2022, 2)),
       );
     });
     test('Different day', () {
       expect(
         dueDate2.copyWith(day: 2),
-        equals(DateTime(2022, 2)),
+        isSameDateTime(DateTime(2022, 2)),
       );
     });
     test('Different hour', () {
       expect(
         dueDate2.copyWith(hour: 1),
-        equals(DateTime(2022, 1, 1, 1)),
+        isSameDateTime(DateTime(2022, 1, 1, 1)),
       );
     });
     test('Different minute', () {
       expect(
         dueDate2.copyWith(minute: 1),
-        equals(DateTime(2022, 1, 1, 0, 1)),
+        isSameDateTime(DateTime(2022, 1, 1, 0, 1)),
       );
     });
     test('Different second', () {
       expect(
         dueDate2.copyWith(second: 1),
-        equals(DateTime(2022, 1, 1, 0, 0, 1)),
+        isSameDateTime(DateTime(2022, 1, 1, 0, 0, 1)),
       );
     });
     test('Different millisecond', () {
       expect(
         dueDate2.copyWith(millisecond: 1),
-        equals(DateTime(2022, 1, 1, 0, 0, 0, 1)),
+        isSameDateTime(DateTime(2022, 1, 1, 0, 0, 0, 1)),
       );
     });
     test('Different microsecond', () {
       expect(
         dueDate2.copyWith(microsecond: 1),
-        equals(DateTime(2022, 1, 1, 0, 0, 0, 0, 1)),
+        isSameDateTime(DateTime(2022, 1, 1, 0, 0, 0, 0, 1)),
       );
     });
   });
@@ -288,13 +295,13 @@ void main() {
     test('2 days', () {
       expect(
         dueDate2.add(const Duration(days: 2)),
-        equals(DateTime(2022, 2, 28)),
+        isSameDateTime(DateTime(2022, 2, 28)),
       );
     });
     test("2 days, don't keep every", () {
       expect(
         dueDate2.add(const Duration(days: 2), sameEvery: false),
-        equals(DateTime(2022, 2)),
+        isSameDateTime(DateTime(2022, 2)),
       );
     });
   });
@@ -338,13 +345,13 @@ void main() {
     test('2 days', () {
       expect(
         dueDate2.subtract(const Duration(days: 2)),
-        equals(DateTime(2022, 1, 30)),
+        isSameDateTime(DateTime(2022, 1, 30)),
       );
     });
     test("2 days, don't keep every", () {
       expect(
         dueDate2.subtract(const Duration(days: 2), sameEvery: false),
-        equals(DateTime(2022, 1, 28)),
+        isSameDateTime(DateTime(2022, 1, 28)),
       );
     });
   });
@@ -353,19 +360,19 @@ void main() {
     test('1 week', () {
       expect(
         dueDate.addWeeks(1),
-        equals(DateTime(2022, 2, 28)),
+        isSameDateTime(DateTime(2022, 2, 28)),
       );
     });
     test('2 weeks', () {
       expect(
         dueDate.addWeeks(2),
-        equals(DateTime(2022, 2, 28)),
+        isSameDateTime(DateTime(2022, 2, 28)),
       );
     });
     test("2 weeks, don't keep every", () {
       expect(
         dueDate.addWeeks(2, sameEvery: false),
-        equals(DateTime(2022, 2, 13)),
+        isSameDateTime(DateTime(2022, 2, 13)),
       );
     });
   });
@@ -374,19 +381,19 @@ void main() {
     test('1 week', () {
       expect(
         dueDate.subtractWeeks(1),
-        equals(dueDate),
+        isSameDateTime(dueDate),
       );
     });
     test('2 weeks', () {
       expect(
         dueDate.subtractWeeks(2),
-        equals(dueDate),
+        isSameDateTime(dueDate),
       );
     });
     test("2 weeks, don't keep every", () {
       expect(
         dueDate.subtractWeeks(2, sameEvery: false),
-        equals(DateTime(2022, 1, 16)),
+        isSameDateTime(DateTime(2022, 1, 16)),
       );
     });
   });
@@ -401,19 +408,19 @@ void main() {
     test('Add 1 month', () {
       expect(
         dueDate.addMonths(1),
-        equals(DateTime(2022, 2, 27)),
+        isSameDateTime(DateTime(2022, 2, 27)),
       );
     });
     test('Add 3 month', () {
       expect(
         dueDate.addMonths(3),
-        equals(DateTime(2022, 4, 24)),
+        isSameDateTime(DateTime(2022, 4, 24)),
       );
     });
     test("Add 3 month don't keep every", () {
       final newDueDate = DueDateTime.fromDate(dueDate.addMonths(3));
       final actual = dueDate.addMonths(3, sameEvery: false);
-      expect(actual, equals(newDueDate));
+      expect(actual, isSameDateTime(newDueDate));
       expect(actual.day, equals(24));
       expect(
         (actual.every as EveryDueDayMonth).dueDay,
@@ -432,19 +439,19 @@ void main() {
     test('Subtract 1 month', () {
       expect(
         dueDate.subtractMonths(1),
-        equals(DateTime(2021, 12, 26)),
+        isSameDateTime(DateTime(2021, 12, 26)),
       );
     });
     test('Subtract 11 month', () {
       expect(
         dueDate.subtractMonths(11),
-        equals(DateTime(2021, 2, 28)),
+        isSameDateTime(DateTime(2021, 2, 28)),
       );
     });
     test('Subtract 11 month', () {
       final newDueDate = DueDateTime.fromDate(dueDate.subtractMonths(11));
       final actual = dueDate.subtractMonths(11, sameEvery: false);
-      expect(actual, equals(newDueDate));
+      expect(actual, isSameDateTime(newDueDate));
       expect(actual.day, equals(28));
       expect(
         dueDate.subtractYears(1).every,
@@ -457,11 +464,11 @@ void main() {
     final newDueDate = DueDateTime.fromDate(dueDate.subtractYears(1));
     expect(
       dueDate.subtractYears(1),
-      equals(DateTime(2021, 1, 30)),
+      isSameDateTime(DateTime(2021, 1, 30)),
     );
     expect(
       dueDate.subtractYears(1, sameEvery: false),
-      equals(newDueDate),
+      isSameDateTime(newDueDate),
     );
     expect(
       dueDate.subtractYears(1, sameEvery: false).every,
@@ -473,11 +480,11 @@ void main() {
     final newDueDate = DueDateTime.fromDate(dueDate.addYears(1));
     expect(
       dueDate.addYears(1),
-      equals(DateTime(2023, 1, 30)),
+      isSameDateTime(DateTime(2023, 1, 30)),
     );
     expect(
       dueDate.addYears(1, sameEvery: false),
-      equals(newDueDate),
+      isSameDateTime(newDueDate),
     );
     expect(
       dueDate.addYears(1, sameEvery: false).every,
@@ -495,7 +502,7 @@ void main() {
         );
         expect(
           everyWeekday.next(),
-          equals(DateTime(2022, DateTime.august, 29)),
+          isSameDateTime(DateTime(2022, DateTime.august, 29)),
         );
       });
       test('EveryDueDayMonth', () {
@@ -507,7 +514,7 @@ void main() {
         );
         expect(
           everyWeekday.next(),
-          equals(DateTime(2022, DateTime.september, 22)),
+          isSameDateTime(DateTime(2022, DateTime.september, 22)),
         );
       });
       test('EveryWeekdayCountInMonth', () {
@@ -524,8 +531,8 @@ void main() {
           every: WeekdayOccurrence.fourthMonday,
         );
         final matcher = DateTime(2022, DateTime.september, 26);
-        expect(everyWeekday.next(), equals(matcher));
-        expect(everyWeekday2.next(), equals(matcher));
+        expect(everyWeekday.next(), isSameDateTime(matcher));
+        expect(everyWeekday2.next(), isSameDateTime(matcher));
       });
       test('EveryDayOfYear', () {
         final day = DateTime(2022, DateTime.august, 22);
@@ -535,7 +542,7 @@ void main() {
         );
         expect(
           everyWeekday.next(),
-          equals(DateTime(2023, DateTime.august, 22)),
+          isSameDateTime(DateTime(2023, DateTime.august, 22)),
         );
       });
     });
@@ -549,7 +556,7 @@ void main() {
         );
         expect(
           everyWeekday.next(),
-          equals(DateTime.utc(2022, DateTime.august, 29)),
+          isSameDateTime(DateTime.utc(2022, DateTime.august, 29)),
         );
       });
       test('EveryDueDayMonth', () {
@@ -561,7 +568,7 @@ void main() {
         );
         expect(
           everyWeekday.next(),
-          equals(DateTime.utc(2022, DateTime.september, 22)),
+          isSameDateTime(DateTime.utc(2022, DateTime.september, 22)),
         );
       });
       test('EveryWeekdayCountInMonth', () {
@@ -578,8 +585,8 @@ void main() {
           every: WeekdayOccurrence.fourthMonday,
         );
         final matcher = DateTime.utc(2022, DateTime.september, 26);
-        expect(everyWeekday.next(), equals(matcher));
-        expect(everyWeekday2.next(), equals(matcher));
+        expect(everyWeekday.next(), isSameDateTime(matcher));
+        expect(everyWeekday2.next(), isSameDateTime(matcher));
       });
       test('EveryDayOfYear', () {
         final day = DateTime.utc(2022, DateTime.august, 22);
@@ -589,7 +596,7 @@ void main() {
         );
         expect(
           everyWeekday.next(),
-          equals(DateTime.utc(2023, DateTime.august, 22)),
+          isSameDateTime(DateTime.utc(2023, DateTime.august, 22)),
         );
       });
     });

@@ -187,28 +187,28 @@ void main() {
         test('Zero months returns same date when valid', () {
           // November 7, 2024 is Thursday (5th workday of November).
           final validDate = DateTime(2024, DateTime.november, 7);
-          expect(every.addMonths(validDate, 0), equals(validDate));
+          expect(every.addMonths(validDate, 0), isSameDateTime(validDate));
         });
         test('Positive months adds correctly', () {
           // November 7, 2024 is Thursday (5th workday of November).
           final validDate = DateTime(2024, DateTime.november, 7);
           // January 7, 2025 is Thursday (5th workday of January).
           final expected = DateTime(2025, DateTime.january, 7);
-          expect(every.addMonths(validDate, 2), equals(expected));
+          expect(every.addMonths(validDate, 2), isSameDateTime(expected));
         });
         test('Negative months subtracts correctly', () {
           // November 7, 2024 is Thursday (5th workday of November).
           final validDate = DateTime(2024, DateTime.november, 7);
           // September 6, 2024 is Friday (5th workday of September).
           final expected = DateTime(2024, DateTime.september, 6);
-          expect(every.addMonths(validDate, -2), equals(expected));
+          expect(every.addMonths(validDate, -2), isSameDateTime(expected));
         });
         test('Works with UTC dates', () {
           // November 7, 2024 is Thursday (5th workday of November, UTC).
           final validDateUtc = DateTime.utc(2024, DateTime.november, 7);
           // December 6, 2024 is Friday (5th workday of December, UTC).
           final expectedUtc = DateTime.utc(2024, DateTime.december, 6);
-          expect(every.addMonths(validDateUtc, 1), equals(expectedUtc));
+          expect(every.addMonths(validDateUtc, 1), isSameDateTime(expectedUtc));
         });
       });
     });

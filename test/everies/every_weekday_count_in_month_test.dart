@@ -266,15 +266,15 @@ void main() {
         test('Adds positive months correctly', () {
           // September 30, 2022 is Friday (last Friday of September).
           final expected = DateTime(2022, DateTime.september, 30);
-          expect(every.addMonths(july29th, 2), equals(expected));
+          expect(every.addMonths(july29th, 2), isSameDateTime(expected));
         });
         test('Adds negative months correctly', () {
           // May 27, 2022 is Friday (last Friday of May).
           final expected = DateTime(2022, DateTime.may, 27);
-          expect(every.addMonths(july29th, -2), equals(expected));
+          expect(every.addMonths(july29th, -2), isSameDateTime(expected));
         });
         test('Adds zero months returns same date when valid', () {
-          expect(every.addMonths(july29th, 0), equals(july29th));
+          expect(every.addMonths(july29th, 0), isSameDateTime(july29th));
         });
       });
 
@@ -289,15 +289,18 @@ void main() {
         test('Adds positive years correctly', () {
           // August 16, 2023 is Wednesday (3rd Wednesday of August).
           final expected = DateTime(2023, DateTime.august, 16);
-          expect(every.addYears(august17th2022, 1), equals(expected));
+          expect(every.addYears(august17th2022, 1), isSameDateTime(expected));
         });
         test('Adds negative years correctly', () {
           // August 18, 2021 is Wednesday (3rd Wednesday of August).
           final expected = DateTime(2021, DateTime.august, 18);
-          expect(every.addYears(august17th2022, -1), equals(expected));
+          expect(every.addYears(august17th2022, -1), isSameDateTime(expected));
         });
         test('Adds zero years returns same date when valid', () {
-          expect(every.addYears(august17th2022, 0), equals(august17th2022));
+          expect(
+            every.addYears(august17th2022, 0),
+            isSameDateTime(august17th2022),
+          );
         });
       });
 
@@ -589,11 +592,11 @@ void main() {
           final matcher = DateTime(2022, DateTime.august);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonth),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 2', () {
@@ -601,11 +604,11 @@ void main() {
           final matcher = DateTime(2023, DateTime.january, 2);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonth),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 3', () {
@@ -613,11 +616,11 @@ void main() {
           final matcher = DateTime(2022, DateTime.october, 3);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonth),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 4', () {
@@ -625,19 +628,22 @@ void main() {
           final matcher = DateTime(2022, DateTime.july, 4);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonth),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 5', () {
           final matcher = DateTime(2022, DateTime.september, 5);
-          expect(firstMondayOfMonth.startDate(august12th2022), equals(matcher));
+          expect(
+            firstMondayOfMonth.startDate(august12th2022),
+            isSameDateTime(matcher),
+          );
           expect(
             firstMondayOfMonth.addMonths(august12th2022, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 6', () {
@@ -645,11 +651,11 @@ void main() {
           final matcher = DateTime(2023, DateTime.february, 6);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonth),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 7', () {
@@ -657,11 +663,11 @@ void main() {
           final matcher = DateTime(2022, DateTime.november, 7);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonth),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonth, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
       });
@@ -675,11 +681,11 @@ void main() {
           final matcher = DateTime.utc(2022, DateTime.august);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 2', () {
@@ -691,11 +697,11 @@ void main() {
           final matcher = DateTime.utc(2023, DateTime.january, 2);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 3', () {
@@ -707,11 +713,11 @@ void main() {
           final matcher = DateTime.utc(2022, DateTime.october, 3);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 4', () {
@@ -723,22 +729,22 @@ void main() {
           final matcher = DateTime.utc(2022, DateTime.july, 4);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 5', () {
           final matcher = DateTime.utc(2022, DateTime.september, 5);
           expect(
             firstMondayOfMonth.startDate(august12th2022Utc),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(august12th2022Utc, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 6', () {
@@ -750,11 +756,11 @@ void main() {
           final matcher = DateTime.utc(2023, DateTime.february, 6);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Day 7', () {
@@ -766,11 +772,11 @@ void main() {
           final matcher = DateTime.utc(2022, DateTime.november, 7);
           expect(
             firstMondayOfMonth.startDate(middleOfPreviousMonthUtc),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
           expect(
             firstMondayOfMonth.addMonths(middleOfPreviousMonthUtc, 0),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
       });
@@ -786,14 +792,14 @@ void main() {
           final matcher = DateTime(2023, DateTime.march, 29);
           expect(
             lastWednesdayOfMonth.addMonths(middleOfMonth, -11),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Add months so is March in leap year', () {
           final matcher = DateTime(2024, DateTime.march, 27);
           expect(
             lastWednesdayOfMonth.addMonths(middleOfMonth, 1),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
       });
@@ -803,14 +809,14 @@ void main() {
           final matcher = DateTime.utc(2023, DateTime.march, 29);
           expect(
             lastWednesdayOfMonth.addMonths(middleOfMonthUtc, -11),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
         test('Add months so is March in leap year', () {
           final matcher = DateTime.utc(2024, DateTime.march, 27);
           expect(
             lastWednesdayOfMonth.addMonths(middleOfMonthUtc, 1),
-            equals(matcher),
+            isSameDateTime(matcher),
           );
         });
       });

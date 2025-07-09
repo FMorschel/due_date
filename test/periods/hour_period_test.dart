@@ -4,6 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('HourPeriod:', () {
     group('Constructor', () {
@@ -65,8 +67,8 @@ void main() {
         final start = DateTime(2024, 1, 15, 14);
         final end = DateTime(2024, 1, 15, 14, 59, 59, 999, 999);
         final hour = HourPeriod(start: start, end: end);
-        expect(hour.start, equals(start));
-        expect(hour.end, equals(end));
+        expect(hour.start, isSameDateTime(start));
+        expect(hour.end, isSameDateTime(end));
       });
     });
 

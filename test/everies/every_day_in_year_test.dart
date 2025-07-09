@@ -61,19 +61,22 @@ void main() {
         test('Returns same date when input is valid', () {
           // January 15, 2022 is day 15 of the year.
           final january15th = DateTime(2022, DateTime.january, 15);
-          expect(every.startDate(january15th), equals(january15th));
+          expect(every.startDate(january15th), isSameDateTime(january15th));
         });
         test('Returns next valid date when input is invalid', () {
           // January 14, 2022 is day 14 of the year.
           final january14th = DateTime(2022, DateTime.january, 14);
           // January 15, 2022 is day 15 of the year.
           final january15th = DateTime(2022, DateTime.january, 15);
-          expect(every.startDate(january14th), equals(january15th));
+          expect(every.startDate(january14th), isSameDateTime(january15th));
         });
         test('Works with UTC dates', () {
           // January 15, 2022 is day 15 of the year (UTC).
           final january15thUtc = DateTime.utc(2022, DateTime.january, 15);
-          expect(every.startDate(january15thUtc), equals(january15thUtc));
+          expect(
+            every.startDate(january15thUtc),
+            isSameDateTime(january15thUtc),
+          );
         });
       });
 
@@ -91,21 +94,24 @@ void main() {
           final january15th2022 = DateTime(2022, DateTime.january, 15);
           // January 15, 2023 is day 15 of the year.
           final january15th2023 = DateTime(2023, DateTime.january, 15);
-          expect(every.next(january15th2022), equals(january15th2023));
+          expect(every.next(january15th2022), isSameDateTime(january15th2023));
         });
         test('Generates next occurrence from invalid date', () {
           // January 14, 2022 is day 14 of the year.
           final january14th2022 = DateTime(2022, DateTime.january, 14);
           // January 15, 2022 is day 15 of the year.
           final january15th2022 = DateTime(2022, DateTime.january, 15);
-          expect(every.next(january14th2022), equals(january15th2022));
+          expect(every.next(january14th2022), isSameDateTime(january15th2022));
         });
         test('Works with UTC dates', () {
           // January 15, 2022 is day 15 of the year (UTC).
           final january15th2022Utc = DateTime.utc(2022, DateTime.january, 15);
           // January 15, 2023 is day 15 of the year (UTC).
           final january15th2023Utc = DateTime.utc(2023, DateTime.january, 15);
-          expect(every.next(january15th2022Utc), equals(january15th2023Utc));
+          expect(
+            every.next(january15th2022Utc),
+            isSameDateTime(january15th2023Utc),
+          );
         });
       });
 
@@ -123,14 +129,20 @@ void main() {
           final january15th2022 = DateTime(2022, DateTime.january, 15);
           // January 15, 2021 is day 15 of the year.
           final january15th2021 = DateTime(2021, DateTime.january, 15);
-          expect(every.previous(january15th2022), equals(january15th2021));
+          expect(
+            every.previous(january15th2022),
+            isSameDateTime(january15th2021),
+          );
         });
         test('Generates previous occurrence from invalid date', () {
           // January 14, 2022 is day 14 of the year.
           final january14th2022 = DateTime(2022, DateTime.january, 14);
           // January 15, 2021 is day 15 of the year.
           final january15th2021 = DateTime(2021, DateTime.january, 15);
-          expect(every.previous(january14th2022), equals(january15th2021));
+          expect(
+            every.previous(january14th2022),
+            isSameDateTime(january15th2021),
+          );
         });
         test('Works with UTC dates', () {
           // January 15, 2022 is day 15 of the year (UTC).
@@ -139,7 +151,7 @@ void main() {
           final january15th2021Utc = DateTime.utc(2021, DateTime.january, 15);
           expect(
             every.previous(january15th2022Utc),
-            equals(january15th2021Utc),
+            isSameDateTime(january15th2021Utc),
           );
         });
       });
@@ -150,28 +162,40 @@ void main() {
         test('Zero years returns same date when valid', () {
           // April 10, 2022 is day 100 of the year.
           final april10th2022 = DateTime(2022, DateTime.april, 10);
-          expect(every.addYears(april10th2022, 0), equals(april10th2022));
+          expect(
+            every.addYears(april10th2022, 0),
+            isSameDateTime(april10th2022),
+          );
         });
         test('Positive years adds correctly', () {
           // April 10, 2022 is day 100 of the year.
           final april10th2022 = DateTime(2022, DateTime.april, 10);
           // April 9, 2024 is day 100 of the year.
           final april9th2024 = DateTime(2024, DateTime.april, 9);
-          expect(every.addYears(april10th2022, 2), equals(april9th2024));
+          expect(
+            every.addYears(april10th2022, 2),
+            isSameDateTime(april9th2024),
+          );
         });
         test('Negative years subtracts correctly', () {
           // April 10, 2022 is day 100 of the year.
           final april10th2022 = DateTime(2022, DateTime.april, 10);
           // April 9, 2020 is day 100 of the year.
           final april9th2020 = DateTime(2020, DateTime.april, 9);
-          expect(every.addYears(april10th2022, -2), equals(april9th2020));
+          expect(
+            every.addYears(april10th2022, -2),
+            isSameDateTime(april9th2020),
+          );
         });
         test('Works with UTC dates', () {
           // April 10, 2022 is day 100 of the year (UTC).
           final april10th2022Utc = DateTime.utc(2022, DateTime.april, 10);
           // April 10, 2023 is day 100 of the year (UTC).
           final april10th2023Utc = DateTime.utc(2023, DateTime.april, 10);
-          expect(every.addYears(april10th2022Utc, 1), equals(april10th2023Utc));
+          expect(
+            every.addYears(april10th2022Utc, 1),
+            isSameDateTime(april10th2023Utc),
+          );
         });
       });
     });
@@ -185,7 +209,7 @@ void main() {
         // January 15, 2022 is day 15 of the year.
         final expected = DateTime(2022, 1, 15);
 
-        expect(everyDay15.next(inputDate), equals(expected));
+        expect(everyDay15.next(inputDate), isSameDateTime(expected));
       });
 
       test("Day 256 calculation (Programmer's Day)", () {
@@ -195,7 +219,7 @@ void main() {
         // September 13, 2022 is day 256 of the year.
         final expected = DateTime(2022, 9, 13);
 
-        expect(everyDay256.next(inputDate), equals(expected));
+        expect(everyDay256.next(inputDate), isSameDateTime(expected));
       });
 
       test('Edge case: Day 366 in leap year', () {
@@ -205,7 +229,7 @@ void main() {
         // December 31, 2024 is day 366 of the leap year.
         final expected = DateTime(2024, 12, 31);
 
-        expect(everyDay366.next(inputDate), equals(expected));
+        expect(everyDay366.next(inputDate), isSameDateTime(expected));
       });
 
       test('Edge case: Day 366 in non-leap year still goes to end of the year',
@@ -216,7 +240,7 @@ void main() {
         // December 31, 2023 is day 365 of the non-leap year.
         final expected = DateTime(2023, 12, 31);
 
-        expect(everyDay366.next(inputDate), equals(expected));
+        expect(everyDay366.next(inputDate), isSameDateTime(expected));
       });
 
       test('Edge case: year boundary crossing', () {
@@ -226,7 +250,7 @@ void main() {
         // January 15, 2023 is day 15 of the year.
         final expected = DateTime(2023, 1, 15);
 
-        expect(everyDay15.next(inputDate), equals(expected));
+        expect(everyDay15.next(inputDate), isSameDateTime(expected));
       });
 
       test('Previous calculation across years', () {
@@ -236,7 +260,7 @@ void main() {
         // April 10, 2022 is day 100 of the year.
         final expected = DateTime(2022, 4, 10);
 
-        expect(everyDay100.previous(inputDate), equals(expected));
+        expect(everyDay100.previous(inputDate), isSameDateTime(expected));
       });
     });
 
@@ -394,7 +418,7 @@ void main() {
           final december31 = DateTime(2022, 12, 31);
           // January 1, 2023 is day 1 of the year.
           final expected = DateTime(2023);
-          expect(everyDay1.next(december31), equals(expected));
+          expect(everyDay1.next(december31), isSameDateTime(expected));
         });
 
         test('January to December transition (previous)', () {
@@ -403,7 +427,7 @@ void main() {
           final january1 = DateTime(2023);
           // December 31, 2022 is day 365 of the year.
           final expected = DateTime(2022, 12, 31);
-          expect(everyDay365.previous(january1), equals(expected));
+          expect(everyDay365.previous(january1), isSameDateTime(expected));
         });
       });
     });

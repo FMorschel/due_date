@@ -4,9 +4,7 @@ import '../date_validators/date_validator_union.dart';
 import '../everies/everies.dart';
 
 /// Helper class to work with workdays.
-class WorkdayHelper {
-  const WorkdayHelper._();
-
+abstract class WorkdayHelper {
   /// An every that generates workdays (monday to friday).
   static const every = EveryWeekday.workdays;
 
@@ -14,12 +12,14 @@ class WorkdayHelper {
   static const DateValidatorUnion<EveryWeekday> dateValidator = every;
 
   // ignore: format-comment, false positive
+  /// {@template getWorkdayNumberInMonth}
   /// Returns the workday number in the month of the [date].
   ///
   /// Throws if [shouldThrow] is true and [date] is not a workday (weekend:
   /// saturday or sunday).
   /// If [shouldThrow] is false and [date] is not a workday (weekend: saturday
   /// or sunday), returns 0.
+  /// {@endtemplate}
   static int getWorkdayNumberInMonth(
     DateTime date, {
     bool shouldThrow = false,
@@ -45,7 +45,9 @@ class WorkdayHelper {
     return workdaysCount;
   }
 
+  /// {@template adjustToWorkday}
   /// Adjusts a [date] to the next or previous workday.
+  /// {@endtemplate}
   static DateTime adjustToWorkday(DateTime date, {required bool isNext}) {
     const workdays = EveryWeekday.workdays;
     if (workdays.valid(date)) return date;

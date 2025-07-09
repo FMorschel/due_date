@@ -4,6 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('MinutePeriod:', () {
     group('Constructor', () {
@@ -55,8 +57,8 @@ void main() {
         final start = DateTime(2024, 1, 15, 14, 30);
         final end = DateTime(2024, 1, 15, 14, 30, 59, 999, 999);
         final minute = MinutePeriod(start: start, end: end);
-        expect(minute.start, equals(start));
-        expect(minute.end, equals(end));
+        expect(minute.start, isSameDateTime(start));
+        expect(minute.end, isSameDateTime(end));
       });
     });
 

@@ -1,4 +1,5 @@
 import 'package:time/time.dart';
+
 import '../date_validators/date_validators.dart';
 import '../everies/everies.dart';
 import '../extensions/extensions.dart';
@@ -140,14 +141,14 @@ enum Weekday implements Comparable<Weekday> {
   ///  - [monday] + `1` returns [tuesday].
   ///  - [friday] + `3` returns [monday].
   Weekday operator +(int days) =>
-      Weekday.fromDateTimeValue(dateTimeValue + days % values.length);
+      Weekday.fromDateTimeValue((dateTimeValue - 1 + days) % values.length + 1);
 
   /// Returns the [Weekday] that corresponds to this subtracted [days].
   /// Eg.:
   ///  - [tuesday] - `1` returns [monday].
   ///  - [monday] - `3` returns [friday].
   Weekday operator -(int days) =>
-      Weekday.fromDateTimeValue(dateTimeValue - days % values.length);
+      Weekday.fromDateTimeValue((dateTimeValue - 1 - days) % values.length + 1);
 
   /// Returns the [EveryWeekday] that corresponds to this weekday.
   EveryWeekday get every {

@@ -125,28 +125,28 @@ void main() {
         test('Zero months returns same date when valid', () {
           // August 31, 2022 is Wednesday.
           final validDate = DateTime(2022, DateTime.august, 31);
-          expect(every.addMonths(validDate, 0), equals(validDate));
+          expect(every.addMonths(validDate, 0), isSameDateTime(validDate));
         });
         test('Positive months adds correctly', () {
           // August 31, 2022 is Wednesday.
           final validDate = DateTime(2022, DateTime.august, 31);
           // September 30, 2022 is Friday (clamped to month end).
           final expected = DateTime(2022, DateTime.september, 30);
-          expect(every.addMonths(validDate, 1), equals(expected));
+          expect(every.addMonths(validDate, 1), isSameDateTime(expected));
         });
         test('Negative months subtracts correctly', () {
           // March 31, 2022 is Thursday.
           final validDate = DateTime(2022, DateTime.march, 31);
           // February 28, 2022 is Monday (clamped to month end).
           final expected = DateTime(2022, DateTime.february, 28);
-          expect(every.addMonths(validDate, -1), equals(expected));
+          expect(every.addMonths(validDate, -1), isSameDateTime(expected));
         });
         test('Works with UTC dates', () {
           // August 31, 2022 is Wednesday (UTC).
           final validDateUtc = DateTime.utc(2022, DateTime.august, 31);
           // September 30, 2022 is Friday (UTC, clamped to month end).
           final expectedUtc = DateTime.utc(2022, DateTime.september, 30);
-          expect(every.addMonths(validDateUtc, 1), equals(expectedUtc));
+          expect(every.addMonths(validDateUtc, 1), isSameDateTime(expectedUtc));
         });
       });
     });

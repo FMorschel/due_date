@@ -38,7 +38,7 @@ group('DateTime extensions', () {
   test('addDays works correctly', () {
     final date = DateTime(2024, 1, 15);
     final result = date.addDays(5);
-    expect(result, equals(DateTime(2024, 1, 20)));
+    expect(result, isSameDateTime(DateTime(2024, 1, 20)));
   });
   
   test('preserves time components', () {
@@ -52,7 +52,7 @@ group('DateTime extensions', () {
   test('handles month boundaries', () {
     final date = DateTime(2024, 1, 31);
     final result = date.addDays(1);
-    expect(result, equals(DateTime(2024, 2, 1)));
+    expect(result, isSameDateTime(DateTime(2024, 2, 1)));
   });
 });
 ```

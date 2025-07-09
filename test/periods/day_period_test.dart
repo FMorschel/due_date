@@ -4,6 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('DayPeriod:', () {
     group('Constructor', () {
@@ -65,8 +67,8 @@ void main() {
         final start = DateTime(2024, 1, 15);
         final end = DateTime(2024, 1, 15, 23, 59, 59, 999, 999);
         final day = DayPeriod(start: start, end: end);
-        expect(day.start, equals(start));
-        expect(day.end, equals(end));
+        expect(day.start, isSameDateTime(start));
+        expect(day.end, isSameDateTime(end));
       });
     });
 
