@@ -31,6 +31,148 @@ void main() {
           expect(every.week, equals(Week.second));
         });
       });
+      group('from', () {
+        test('Creates correct instance from first Monday of month', () {
+          // July 4, 2022 is Monday (first Monday of July).
+          final july4th2022 = DateTime(2022, DateTime.july, 4);
+          final result = EveryWeekdayCountInMonth.from(july4th2022);
+
+          expect(result.day, equals(Weekday.monday));
+          expect(result.week, equals(Week.first));
+        });
+
+        test('Creates correct instance from second Tuesday of month', () {
+          // August 9, 2022 is Tuesday (second Tuesday of August).
+          final august9th2022 = DateTime(2022, DateTime.august, 9);
+          final result = EveryWeekdayCountInMonth.from(august9th2022);
+
+          expect(result.day, equals(Weekday.tuesday));
+          expect(result.week, equals(Week.second));
+        });
+
+        test('Creates correct instance from third Wednesday of month', () {
+          // July 20, 2022 is Wednesday (third Wednesday of July).
+          final july20th2022 = DateTime(2022, DateTime.july, 20);
+          final result = EveryWeekdayCountInMonth.from(july20th2022);
+
+          expect(result.day, equals(Weekday.wednesday));
+          expect(result.week, equals(Week.third));
+        });
+
+        test('Creates correct instance from fourth Thursday of month', () {
+          // July 28, 2022 is Thursday (fourth Thursday of July).
+          final july28th2022 = DateTime(2022, DateTime.july, 28);
+          final result = EveryWeekdayCountInMonth.from(july28th2022);
+
+          expect(result.day, equals(Weekday.thursday));
+          expect(result.week, equals(Week.fourth));
+        });
+
+        test('Creates correct instance from last Friday of month', () {
+          // July 29, 2022 is Friday (last Friday of July).
+          final july29th2022 = DateTime(2022, DateTime.july, 29);
+          final result = EveryWeekdayCountInMonth.from(july29th2022);
+
+          expect(result.day, equals(Weekday.friday));
+          expect(result.week, equals(Week.last));
+        });
+
+        test('Creates correct instance from first Saturday of month', () {
+          // October 1, 2022 is Saturday (first Saturday of October).
+          final october1st2022 = DateTime(2022, DateTime.october);
+          final result = EveryWeekdayCountInMonth.from(october1st2022);
+
+          expect(result.day, equals(Weekday.saturday));
+          expect(result.week, equals(Week.first));
+        });
+
+        test('Creates correct instance from last Sunday of month', () {
+          // July 31, 2022 is Sunday (last Sunday of July).
+          final july31st2022 = DateTime(2022, DateTime.july, 31);
+          final result = EveryWeekdayCountInMonth.from(july31st2022);
+
+          expect(result.day, equals(Weekday.sunday));
+          expect(result.week, equals(Week.last));
+        });
+
+        test('Works correctly with UTC dates', () {
+          // July 4, 2022 is Monday (first Monday of July) UTC.
+          final july4th2022Utc = DateTime.utc(2022, DateTime.july, 4);
+          final result = EveryWeekdayCountInMonth.from(july4th2022Utc);
+
+          expect(result.day, equals(Weekday.monday));
+          expect(result.week, equals(Week.first));
+        });
+
+        test('Works correctly with leap year dates', () {
+          // February 29, 2020 is Saturday (last Saturday of February in leap
+          // year).
+          final feb29th2020 = DateTime(2020, DateTime.february, 29);
+          final result = EveryWeekdayCountInMonth.from(feb29th2020);
+
+          expect(result.day, equals(Weekday.saturday));
+          expect(result.week, equals(Week.last));
+        });
+
+        test('Correctly identifies week considering first day of month', () {
+          // Test edge case where month starts on different weekdays.
+          // November 1, 2022 is Tuesday, so the first Monday is November 7
+          // (second occurrence).
+          final november7th2022 = DateTime(2022, DateTime.november, 7);
+          final result = EveryWeekdayCountInMonth.from(november7th2022);
+
+          expect(result.day, equals(Weekday.monday));
+          expect(result.week, equals(Week.first));
+        });
+
+        test(
+            'Correctly identifies first occurrence when month starts on target '
+            'weekday', () {
+          // June 1, 2022 is Wednesday, so June 1 is the first Wednesday.
+          final june1st2022 = DateTime(2022, DateTime.june);
+          final result = EveryWeekdayCountInMonth.from(june1st2022);
+
+          expect(result.day, equals(Weekday.wednesday));
+          expect(result.week, equals(Week.first));
+        });
+
+        test('Created instance can regenerate same date', () {
+          // Test that the created instance can find the same date.
+          final testDates = [
+            DateTime(2022, DateTime.july, 4), // First Monday
+            DateTime(2022, DateTime.august, 9), // Second Tuesday
+            DateTime(2022, DateTime.july, 20), // Third Wednesday
+            DateTime(2022, DateTime.july, 28), // Fourth Thursday
+            DateTime(2022, DateTime.july, 29), // Last Friday
+            DateTime(2022, DateTime.october), // First Saturday
+            DateTime(2022, DateTime.july, 31), // Last Sunday
+          ];
+
+          for (final date in testDates) {
+            final every = EveryWeekdayCountInMonth.from(date);
+            expect(
+              every.valid(date),
+              isTrue,
+              reason: 'Generated EveryWeekdayCountInMonth should validate the '
+                  'source date: $date',
+            );
+          }
+        });
+
+        test('Preserves time components from input date', () {
+          // July 4, 2022 14:30:45.123456 is Monday (first Monday of July).
+          final dateWithTime =
+              DateTime(2022, DateTime.july, 4, 14, 30, 45, 123, 456);
+          final result = EveryWeekdayCountInMonth.from(dateWithTime);
+
+          // The factory should only consider the date part, not time.
+          expect(result.day, equals(Weekday.monday));
+          expect(result.week, equals(Week.first));
+
+          // Verify the instance works correctly with the time-containing date.
+          expect(result.valid(dateWithTime), isTrue);
+        });
+      });
     });
 
     group('Properties', () {

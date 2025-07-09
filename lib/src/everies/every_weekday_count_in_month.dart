@@ -1,3 +1,5 @@
+import 'package:time/time.dart';
+
 import '../date_validators/date_validators.dart';
 import '../enums/enums.dart';
 import '../extensions/extensions.dart';
@@ -26,12 +28,14 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
 
   /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week] from
   /// the given [date].
-  factory EveryWeekdayCountInMonth.from(DateTime date) {
-    return EveryWeekdayCountInMonth(
-      day: Weekday.fromDateTimeValue(date.weekday),
-      week: Week.from(date),
-    );
-  }
+  factory EveryWeekdayCountInMonth.from(DateTime date) =>
+      EveryWeekdayCountInMonth(
+        day: Weekday.from(date),
+        week: Week.from(
+          date,
+          firstDayOfWeek: Weekday.from(date.firstDayOfMonth),
+        ),
+      );
 
   /// Returns the next date that fits the [day] and the [week].
   /// - If the current [date] - [DateTime.day] is less than the [DateTime.month]

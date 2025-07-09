@@ -94,11 +94,6 @@ enum Weekday implements Comparable<Weekday> {
 
   /// Returns the amount of weekdays correspondent to this on the given [month]
   /// of [year].
-  @Deprecated("Use 'Weekday.occurrencesIn' instead")
-  int occrurencesIn(int year, int month) => occurrencesIn(year, month);
-
-  /// Returns the amount of weekdays correspondent to this on the given [month]
-  /// of [year].
   int occurrencesIn(int year, int month) {
     var date = DateTime.utc(year, month);
     var count = 0;
@@ -122,6 +117,11 @@ enum Weekday implements Comparable<Weekday> {
 
   @override
   int compareTo(Weekday other) => dateTimeValue.compareTo(other.dateTimeValue);
+
+  /// Returns the amount of weekdays correspondent to this on the given [month]
+  /// of [year].
+  @Deprecated("Use 'Weekday.occurrencesIn' instead")
+  int occrurencesIn(int year, int month) => occurrencesIn(year, month);
 
   /// Returns true if this weekday is after other.
   bool operator >(Weekday other) => index > other.index;
@@ -169,8 +169,8 @@ enum Weekday implements Comparable<Weekday> {
     }
   }
 
-  /// Returns the [DateValidator] that corresponds to this weekday.
-  DateValidator get validator {
+  /// Returns the [DateValidatorWeekday] that corresponds to this weekday.
+  DateValidatorWeekday get validator {
     switch (this) {
       case monday:
         return const DateValidatorWeekday(monday);
