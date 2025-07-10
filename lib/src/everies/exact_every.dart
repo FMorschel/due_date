@@ -15,7 +15,7 @@ import 'every_date_validator.dart';
 /// {@endtemplate}
 @immutable
 abstract class ExactEvery extends ExactDateValidator
-    implements Every, EveryDateValidator {
+    implements EveryDateValidator {
   /// {@macro exactEvery}
   const ExactEvery({super.exact});
 }

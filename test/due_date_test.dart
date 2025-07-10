@@ -962,6 +962,274 @@ void main() {
         );
       });
     });
+
+    group('LimitedEvery', () {
+      group('next', () {
+        test('EverySkipInvalidModifier Local', () {
+          // February 28, 2022 is Monday.
+          final limitedEvery = EverySkipInvalidModifier(
+            every: const EveryWeekday(Weekday.monday),
+            invalidator: const DateValidatorWeekday(Weekday.sunday),
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime(2022, 2, 28),
+            every: limitedEvery,
+          );
+          // Next Monday is March 7, 2022.
+          expect(
+            dueDate.next(),
+            isSameDateTime(DateTime(2022, 3, 7)),
+          );
+        });
+
+        test('EverySkipInvalidModifier UTC', () {
+          // February 28, 2022 is Monday.
+          final limitedEvery = EverySkipInvalidModifier(
+            every: const EveryWeekday(Weekday.monday),
+            invalidator: const DateValidatorWeekday(Weekday.sunday),
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime.utc(2022, 2, 28),
+            every: limitedEvery,
+          );
+          // Next Monday is March 7, 2022.
+          expect(
+            dueDate.next(),
+            isSameDateTime(DateTime.utc(2022, 3, 7)),
+          );
+        });
+
+        test('EverySkipCountWrapper Local', () {
+          // August 22, 2022 is Monday.
+          final limitedEvery = EverySkipCountWrapper(
+            every: const EveryWeekday(Weekday.monday),
+            count: 1,
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime(2022, DateTime.august, 22),
+            every: limitedEvery,
+          );
+          // Skip one Monday, next is September 5, 2022.
+          expect(
+            dueDate.next(),
+            isSameDateTime(DateTime(2022, DateTime.september, 5)),
+          );
+        });
+
+        test('EverySkipCountWrapper UTC', () {
+          // August 22, 2022 is Monday.
+          final limitedEvery = EverySkipCountWrapper(
+            every: const EveryWeekday(Weekday.monday),
+            count: 1,
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime.utc(2022, DateTime.august, 22),
+            every: limitedEvery,
+          );
+          // Skip one Monday, next is September 5, 2022.
+          expect(
+            dueDate.next(),
+            isSameDateTime(DateTime.utc(2022, DateTime.september, 5)),
+          );
+        });
+      });
+    });
+
+    group('previous', () {
+      group('Local', () {
+        test('EveryWeek', () {
+          final everyWeekday = DueDateTime(
+            every: const EveryWeekday(Weekday.monday),
+            year: 2022,
+            month: DateTime.august,
+            day: 29,
+          );
+          // Previous Monday is August 22, 2022.
+          expect(
+            everyWeekday.previous(),
+            isSameDateTime(DateTime(2022, DateTime.august, 22)),
+          );
+        });
+
+        test('EveryDueDayMonth', () {
+          final everyDueDay = DueDateTime(
+            every: const EveryDueDayMonth(22),
+            year: 2022,
+            month: DateTime.september,
+            day: 22,
+          );
+          // Previous 22nd is August 22, 2022.
+          expect(
+            everyDueDay.previous(),
+            isSameDateTime(DateTime(2022, DateTime.august, 22)),
+          );
+        });
+
+        test('EveryWeekdayCountInMonth', () {
+          final day = DateTime(2022, DateTime.september, 26);
+          final everyWeekday = DueDateTime.fromDate(
+            day,
+            every: const EveryWeekdayCountInMonth(
+              day: Weekday.monday,
+              week: Week.fourth,
+            ),
+          );
+          final everyWeekday2 = DueDateTime.fromDate(
+            day,
+            every: WeekdayOccurrence.fourthMonday,
+          );
+          // Previous fourth Monday is August 22, 2022.
+          final matcher = DateTime(2022, DateTime.august, 22);
+          expect(everyWeekday.previous(), isSameDateTime(matcher));
+          expect(everyWeekday2.previous(), isSameDateTime(matcher));
+        });
+
+        test('EveryDayOfYear', () {
+          final day = DateTime(2023, DateTime.august, 22);
+          final everyYearDay = DueDateTime.fromDate(
+            day,
+            every: EveryDayInYear.from(day),
+          );
+          // Previous year's same day is August 22, 2022.
+          expect(
+            everyYearDay.previous(),
+            isSameDateTime(DateTime(2022, DateTime.august, 22)),
+          );
+        });
+      });
+
+      group('UTC', () {
+        test('EveryWeek', () {
+          final everyWeekday = DueDateTime.utc(
+            every: const EveryWeekday(Weekday.monday),
+            year: 2022,
+            month: DateTime.august,
+            day: 29,
+          );
+          // Previous Monday is August 22, 2022.
+          expect(
+            everyWeekday.previous(),
+            isSameDateTime(DateTime.utc(2022, DateTime.august, 22)),
+          );
+        });
+
+        test('EveryDueDayMonth', () {
+          final everyDueDay = DueDateTime.utc(
+            every: const EveryDueDayMonth(22),
+            year: 2022,
+            month: DateTime.september,
+            day: 22,
+          );
+          // Previous 22nd is August 22, 2022.
+          expect(
+            everyDueDay.previous(),
+            isSameDateTime(DateTime.utc(2022, DateTime.august, 22)),
+          );
+        });
+
+        test('EveryWeekdayCountInMonth', () {
+          final day = DateTime.utc(2022, DateTime.september, 26);
+          final everyWeekday = DueDateTime.fromDate(
+            day,
+            every: const EveryWeekdayCountInMonth(
+              day: Weekday.monday,
+              week: Week.fourth,
+            ),
+          );
+          final everyWeekday2 = DueDateTime.fromDate(
+            day,
+            every: WeekdayOccurrence.fourthMonday,
+          );
+          // Previous fourth Monday is August 22, 2022.
+          final matcher = DateTime.utc(2022, DateTime.august, 22);
+          expect(everyWeekday.previous(), isSameDateTime(matcher));
+          expect(everyWeekday2.previous(), isSameDateTime(matcher));
+        });
+
+        test('EveryDayOfYear', () {
+          final day = DateTime.utc(2023, DateTime.august, 22);
+          final everyYearDay = DueDateTime.fromDate(
+            day,
+            every: EveryDayInYear.from(day),
+          );
+          // Previous year's same day is August 22, 2022.
+          expect(
+            everyYearDay.previous(),
+            isSameDateTime(DateTime.utc(2022, DateTime.august, 22)),
+          );
+        });
+      });
+
+      group('LimitedEvery', () {
+        test('EverySkipInvalidModifier Local', () {
+          // March 7, 2022 is Monday.
+          final limitedEvery = EverySkipInvalidModifier(
+            every: const EveryWeekday(Weekday.monday),
+            invalidator: const DateValidatorWeekday(Weekday.sunday),
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime(2022, 3, 7),
+            every: limitedEvery,
+          );
+          // Previous Monday is February 28, 2022.
+          expect(
+            dueDate.previous(),
+            isSameDateTime(DateTime(2022, 2, 28)),
+          );
+        });
+
+        test('EverySkipInvalidModifier UTC', () {
+          // March 7, 2022 is Monday.
+          final limitedEvery = EverySkipInvalidModifier(
+            every: const EveryWeekday(Weekday.monday),
+            invalidator: const DateValidatorWeekday(Weekday.sunday),
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime.utc(2022, 3, 7),
+            every: limitedEvery,
+          );
+          // Previous Monday is February 28, 2022.
+          expect(
+            dueDate.previous(),
+            isSameDateTime(DateTime.utc(2022, 2, 28)),
+          );
+        });
+
+        test('EverySkipCountWrapper Local', () {
+          // September 5, 2022 is Monday.
+          final limitedEvery = EverySkipCountWrapper(
+            every: const EveryWeekday(Weekday.monday),
+            count: 1,
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime(2022, DateTime.september, 5),
+            every: limitedEvery,
+          );
+          // Skip one Monday back, previous is August 22, 2022.
+          expect(
+            dueDate.previous(),
+            isSameDateTime(DateTime(2022, DateTime.august, 22)),
+          );
+        });
+
+        test('EverySkipCountWrapper UTC', () {
+          // September 5, 2022 is Monday.
+          final limitedEvery = EverySkipCountWrapper(
+            every: const EveryWeekday(Weekday.monday),
+            count: 1,
+          );
+          final dueDate = DueDateTime.fromDate(
+            DateTime.utc(2022, DateTime.september, 5),
+            every: limitedEvery,
+          );
+          // Skip one Monday back, previous is August 22, 2022.
+          expect(
+            dueDate.previous(),
+            isSameDateTime(DateTime.utc(2022, DateTime.august, 22)),
+          );
+        });
+      });
+    });
   });
   group('Equality', () {
     // Base instance for comparison.
@@ -1314,6 +1582,75 @@ void main() {
           isNot(equals(baseInstance.hashCode)),
         );
       });
+    });
+  });
+  group('toString:', () {
+    test('Shows date and every', () {
+      final dueDate = DueDateTime(
+        every: const EveryDueDayMonth(15),
+        year: 2022,
+        month: 6,
+        day: 15,
+        hour: 14,
+        minute: 30,
+        second: 45,
+        millisecond: 123,
+        microsecond: 456,
+      );
+      // The toString method formats: date.add(timeOfDay) - every
+      const expectedString =
+          '2022-06-15 14:30:45.123456 - EveryDueDayMonth<15>';
+      expect(dueDate.toString(), equals(expectedString));
+    });
+
+    test('Shows UTC date and every', () {
+      final dueDate = DueDateTime.utc(
+        every: const EveryWeekday(Weekday.monday),
+        year: 2022,
+        month: 8,
+        day: 22,
+        hour: 9,
+        minute: 15,
+      );
+      // UTC dates should show Z suffix
+      const expectedString =
+          '2022-08-22 09:15:00.000Z - EveryWeekday<Weekday.monday>';
+      expect(dueDate.toString(), equals(expectedString));
+    });
+
+    test('Shows different Every types correctly', () {
+      final dueDateWorkday = DueDateTime(
+        every: const EveryDueWorkdayMonth(5),
+        year: 2022,
+        month: 3,
+        day: 7, // 5th workday in March 2022
+      );
+      expect(
+        dueDateWorkday.toString(),
+        contains('EveryDueWorkdayMonth<5>'),
+      );
+
+      final dueDateDayInYear = DueDateTime(
+        every: const EveryDayInYear(100),
+        year: 2022,
+        month: 4,
+        day: 10, // 100th day of 2022
+      );
+      expect(
+        dueDateDayInYear.toString(),
+        contains('EveryDayInYear<100>'),
+      );
+    });
+
+    test('Shows midnight time correctly', () {
+      final dueDateMidnight = DueDateTime(
+        every: const EveryDueDayMonth(1),
+        year: 2022,
+      );
+      expect(
+        dueDateMidnight.toString(),
+        contains('2022-01-01 00:00:00.000'),
+      );
     });
   });
 }

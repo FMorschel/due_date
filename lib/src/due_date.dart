@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import 'everies/everies.dart';
+import 'extensions/extensions.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
 @immutable
@@ -678,7 +679,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   @override
   String toString() {
-    final date = this.date.add(timeOfDay);
+    final date = this.date.add(exactTimeOfDay);
     return '$date - $every';
   }
 
@@ -714,20 +715,16 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// Returns a new [DueDateTime] instance with the previous date that matches
   /// the [every] main pattern.
   ///
-  /// The [limit] parameter is used to limit the search for the next date when
-  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
-  /// is ignored.
-  ///
-  /// The [limit] parameter is used to limit the search for the next date when
-  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
-  /// is ignored.
+  /// The [limit] parameter is used to limit the search for the previous date
+  /// when [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the
+  /// [limit] is ignored.
   DueDateTime previous({
     /// The limit to search for the previous date.
     DateTime? limit,
   }) =>
       DueDateTime.fromDate(
         every is LimitedEvery
-            ? (every as LimitedEvery).next(this, limit: limit)
+            ? (every as LimitedEvery).previous(this, limit: limit)
             : every.previous(this),
         every: every,
       );

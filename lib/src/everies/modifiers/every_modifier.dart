@@ -4,7 +4,7 @@ import 'date_direction.dart';
 /// {@template everyModifier}
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
 /// {@endtemplate}
-abstract class EveryModifier<T extends Every> implements Every {
+abstract class EveryModifier<T extends Every> extends Every {
   /// {@macro everyModifier}
   const EveryModifier({
     required this.every,
