@@ -20,13 +20,6 @@ class Period with EquatableMixin implements Comparable<Period> {
         'End must be after or equals to start.',
       );
     }
-    if (start.isUtc ^ end.isUtc) {
-      throw ArgumentError.value(
-        end,
-        'end',
-        'Start and end must be both UTC or both local.',
-      );
-    }
   }
 
   /// The start of the period. It is included in the period.
@@ -334,16 +327,10 @@ class Period with EquatableMixin implements Comparable<Period> {
       );
     }
     if (sortedValidDates.isNotEmpty) {
-      periods.add(Period(start: start, end: sortedValidDates.first));
-      sortedValidDates
-        ..removeAt(0)
-        ..add(end);
-    }
-    for (final date in sortedValidDates) {
-      final last = periods.last;
-      if (last.end.add(periodBetween).isBefore(date)) {
-        periods.add(Period(start: last.end.add(periodBetween), end: date));
-      } else {
+      sortedValidDates.add(end);
+      if (sortedValidDates
+          .mapPairs((a, b) => b.difference(a))
+          .any((difference) => difference < periodBetween)) {
         throw ArgumentError.value(
           periodBetween,
           'periodBetween',
@@ -351,6 +338,13 @@ class Period with EquatableMixin implements Comparable<Period> {
               'equal to $periodBetween',
         );
       }
+      periods.add(Period(start: start, end: sortedValidDates.first));
+      sortedValidDates.removeAt(0);
+    }
+    for (final date in sortedValidDates) {
+      periods.add(
+        Period(start: periods.last.end.add(periodBetween), end: date),
+      );
     }
     if (!periods.isNotEmpty) {
       periods.add(this);
@@ -634,17 +628,16 @@ class Period with EquatableMixin implements Comparable<Period> {
   }
 
   @override
-  String toString({String Function(DateTime date)? dateFormat}) {
-    // ignore: no_runtimetype_tostring, simply to print the class
-    return '$runtimeType(${dateFormat?.call(start) ?? start}, '
-        '${dateFormat?.call(end) ?? end})';
-  }
-
-  @override
   // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is Period) && (other.start == start) && (other.end == end));
+  }
+
+  @override
+  String toString({String Function(DateTime date)? dateFormat}) {
+    return '${dateFormat?.call(start) ?? start}, '
+        '${dateFormat?.call(end) ?? end}';
   }
 
   /// Removes periods that do not overlap with this period and trims the ones
@@ -655,9 +648,10 @@ class Period with EquatableMixin implements Comparable<Period> {
       if (period.doesNotOverlapWith(this)) {
         localPeriods.remove(period);
       } else if (containsPartially(period)) {
+        final index = localPeriods.indexOf(period);
         localPeriods
-          ..remove(period)
-          ..add(getIntersection(period)!);
+          ..removeAt(index)
+          ..insert(index, getIntersection(period)!);
       }
     }
     return localPeriods;
@@ -682,6 +676,56 @@ class Period with EquatableMixin implements Comparable<Period> {
   /// If the [duration] is not `Duration(microseconds: 1)`.
   bool get isNotEmpty => start != end;
 
+  /// If the [start] and [end] are both in UTC.
+  ///
+  /// Is `null` if one is in UTC and the other is not.
+  bool? get isUtc => start.isUtc == end.isUtc
+      ? start.isUtc
+      : null;
+
+  /// If the [start] and [end] are both in local time.
+  ///
+  /// Is `null` if one is in local time and the other is not.
+  bool? get isLocal => start.isUtc == end.isUtc
+      ? !start.isUtc
+      : null;
+
+  /// Returns a [Period] with the [start] and [end] in UTC.
+  ///
+  /// If `this` [isUtc], it will be returned.
+  /// If eiher [start] or [end] is not in UTC, a new [Period] will be created
+  /// with the [start] and [end] converted to UTC.
+  Period toUtc() {
+    if (isUtc ?? false) return this;
+    return Period(
+      start: start.toUtc(),
+      end: end.toUtc(),
+    );
+  }
+
+  /// Returns a [Period] with the [start] and [end] in local time.
+  ///
+  /// If `this` [isLocal], it will be returned.
+  /// If eiher [start] or [end] is not in local time, a new [Period] will be
+  /// created with the [start] and [end] converted to local time.
+  Period toLocal() {
+    if (isLocal ?? false) return this;
+    return Period(
+      start: start.toLocal(),
+      end: end.toLocal(),
+    );
+  }
+
   @override
   List<Object?> get props => [start, end];
+}
+
+extension<T> on List<T> {
+  List<O> mapPairs<O>(O Function(T a, T b) map) {
+    final result = <O>[];
+    for (var i = 0, j = 1; j < length; i++, j++) {
+      result.add(map(this[i], this[j]));
+    }
+    return result;
+  }
 }

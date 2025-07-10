@@ -34,24 +34,6 @@ void main() {
             throwsArgumentError,
           );
         });
-
-        test('Throws ArgumentError if start is UTC and end is not', () {
-          final start = DateTime.utc(2022);
-          final end = DateTime(2022, DateTime.january, 2);
-          expect(
-            () => Period(start: start, end: end),
-            throwsArgumentError,
-          );
-        });
-
-        test('Throws ArgumentError if start is not UTC and end is', () {
-          final start = DateTime(2022);
-          final end = DateTime.utc(2022, DateTime.january, 2);
-          expect(
-            () => Period(start: start, end: end),
-            throwsArgumentError,
-          );
-        });
       });
     });
     group('duration ->', () {
@@ -530,6 +512,40 @@ void main() {
           );
         });
 
+        test(
+            'throws ArgumentError when period between dates is less than '
+            'periodBetween', () {
+          // Create a period from Jan 1 to Jan 5
+          final period = Period(
+            start: DateTime(2022),
+            end: DateTime(2022, 1, 5),
+          );
+
+          // Split dates that are only 12 hours apart
+          final split1 = DateTime(2022, 1, 2);
+          final split2 = DateTime(2022, 1, 2, 12);
+
+          // But require at least 24 hours between periods
+          const periodBetween = Duration(hours: 24);
+
+          expect(
+            () => period.splitAt(
+              {split1, split2},
+              periodBetween: periodBetween,
+            ),
+            throwsA(
+              isA<ArgumentError>().having(
+                (e) => e.message,
+                'message',
+                contains(
+                  'The period between the provided dates must be greater than '
+                  'or equal to',
+                ),
+              ),
+            ),
+          );
+        });
+
         test('handles edge case with many small gaps', () {
           // Create a scenario where many small gaps add up to exceed duration
           final period = Period(
@@ -868,6 +884,38 @@ void main() {
       expect(period3.start, start.subtract(const Duration(days: 1)));
       expect(period3.end, end.subtract(const Duration(days: 1)));
     });
+    test('>> operator (shift forward)', () {
+      // January 1, 2022 is Saturday
+      final start = DateTime(2022);
+      final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
+      final period = Period(start: start, end: end);
+
+      final shiftedPeriod = period >> const Duration(days: 1);
+      expect(shiftedPeriod.start, start.add(const Duration(days: 1)));
+      expect(shiftedPeriod.end, end.add(const Duration(days: 1)));
+
+      // Test with hours
+      final shiftedByHours = period >> const Duration(hours: 5);
+      expect(shiftedByHours.start, start.add(const Duration(hours: 5)));
+      expect(shiftedByHours.end, end.add(const Duration(hours: 5)));
+    });
+
+    test('<< operator (shift backward)', () {
+      // January 1, 2022 is Saturday
+      final start = DateTime(2022);
+      final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
+      final period = Period(start: start, end: end);
+
+      final shiftedPeriod = period << const Duration(days: 1);
+      expect(shiftedPeriod.start, start.subtract(const Duration(days: 1)));
+      expect(shiftedPeriod.end, end.subtract(const Duration(days: 1)));
+
+      // Test with hours
+      final shiftedByHours = period << const Duration(hours: 3);
+      expect(shiftedByHours.start, start.subtract(const Duration(hours: 3)));
+      expect(shiftedByHours.end, end.subtract(const Duration(hours: 3)));
+    });
+
     group('containsFully', () {
       final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
@@ -1638,7 +1686,6 @@ void main() {
 
       test('returns null when periods are adjacent but do not overlap', () {
         // January 1-2 and January 2-3 are adjacent but overlap at the boundary
-        // Since contains() includes boundary dates, these actually overlap
         final adjacent1 = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -2114,6 +2161,283 @@ void main() {
             start.add(const Duration(microseconds: 4)),
           ]),
         );
+      });
+    });
+    group('toString', () {
+      test('Returns formatted string with default formatting', () {
+        // July 1, 2024 is Monday
+        final start = DateTime(2024, 7);
+        final end = DateTime(2024, 7, 10);
+        final period = Period(start: start, end: end);
+
+        final result = period.toString();
+
+        expect(result, contains('2024-07-01'));
+        expect(result, contains('2024-07-10'));
+      });
+
+      test('Uses custom date formatter when provided', () {
+        // July 1, 2024 is Monday
+        final start = DateTime(2024, 7);
+        final end = DateTime(2024, 7, 10);
+        final period = Period(start: start, end: end);
+
+        final result = period.toString(
+          dateFormat: (date) => '${date.year}-${date.month}-${date.day} custom',
+        );
+
+        expect(result, equals('2024-7-1 custom, 2024-7-10 custom'));
+      });
+    });
+
+    group('trim', () {
+      test('Removes periods that do not overlap', () {
+        // July 2024 period
+        final period = Period(
+          start: DateTime(2024, 7),
+          end: DateTime(2024, 7, 31),
+        );
+
+        // June and August periods do not overlap
+        final periods = [
+          Period(start: DateTime(2024, 6), end: DateTime(2024, 6, 30)),
+          Period(start: DateTime(2024, 8), end: DateTime(2024, 8, 31)),
+        ];
+
+        final result = period.trim(periods);
+
+        expect(result, isEmpty);
+      });
+
+      test('Keeps periods that are fully contained', () {
+        // July 2024 period
+        final period = Period(
+          start: DateTime(2024, 7),
+          end: DateTime(2024, 7, 31),
+        );
+
+        // Mid-July period is fully contained
+        final containedPeriod = Period(
+          start: DateTime(2024, 7, 10),
+          end: DateTime(2024, 7, 20),
+        );
+        final periods = [containedPeriod];
+
+        final result = period.trim(periods);
+
+        expect(result.length, equals(1));
+        expect(result.first, equals(containedPeriod));
+      });
+
+      test('Trims periods that partially overlap', () {
+        // July 2024 period
+        final period = Period(
+          start: DateTime(2024, 7),
+          end: DateTime(2024, 7, 31),
+        );
+
+        // Periods that partially overlap with July
+        final periods = [
+          Period(start: DateTime(2024, 6, 25), end: DateTime(2024, 7, 5)),
+          Period(start: DateTime(2024, 7, 25), end: DateTime(2024, 8, 5)),
+        ];
+
+        final result = period.trim(periods);
+
+        expect(result.length, equals(2));
+        // First period should be trimmed to July 1-5
+        expect(result[0].start, equals(DateTime(2024, 7)));
+        expect(result[0].end, equals(DateTime(2024, 7, 5)));
+        // Second period should be trimmed to July 25-31
+        expect(result[1].start, equals(DateTime(2024, 7, 25)));
+        expect(result[1].end, equals(DateTime(2024, 7, 31)));
+      });
+
+      test(
+          'Mixed case with overlapping, contained, and non-overlapping periods',
+          () {
+        // July 2024 period
+        final period = Period(
+          start: DateTime(2024, 7),
+          end: DateTime(2024, 7, 31),
+        );
+
+        final periods = [
+          // Non-overlapping - should be removed
+          Period(start: DateTime(2024, 6), end: DateTime(2024, 6, 30)),
+          // Partially overlapping - should be trimmed
+          Period(start: DateTime(2024, 6, 25), end: DateTime(2024, 7, 5)),
+          // Fully contained - should remain unchanged
+          Period(start: DateTime(2024, 7, 10), end: DateTime(2024, 7, 20)),
+          // Partially overlapping - should be trimmed
+          Period(start: DateTime(2024, 7, 25), end: DateTime(2024, 8, 5)),
+          // Non-overlapping - should be removed
+          Period(start: DateTime(2024, 8, 10), end: DateTime(2024, 8, 15)),
+        ];
+
+        final result = period.trim(periods);
+
+        expect(result.length, equals(3));
+        // First period should be trimmed to July 1-5
+        expect(result.first.start, equals(DateTime(2024, 7)));
+        expect(result.first.end, equals(DateTime(2024, 7, 5)));
+        // Second period should remain unchanged
+        expect(result[1].start, equals(DateTime(2024, 7, 10)));
+        expect(result[1].end, equals(DateTime(2024, 7, 20)));
+        // Third period should be trimmed to July 25-31
+        expect(result.last.start, equals(DateTime(2024, 7, 25)));
+        expect(result.last.end, equals(DateTime(2024, 7, 31)));
+      });
+    });
+    group('UTC and local time handling', () {
+      group('isUtc getter', () {
+        test('Returns true for UTC dates', () {
+          final period = Period(
+            start: DateTime.utc(2024, 7),
+            end: DateTime.utc(2024, 7, 31),
+          );
+          expect(period.isUtc, isTrue);
+        });
+
+        test('Returns false for local dates', () {
+          final period = Period(
+            start: DateTime(2024, 7),
+            end: DateTime(2024, 7, 31),
+          );
+          expect(period.isUtc, isFalse);
+        });
+
+        test('Returns null for mixed UTC and local dates', () {
+          final period = Period(
+            start: DateTime.utc(2024, 7),
+            end: DateTime(2024, 7, 31),
+          );
+          expect(period.isUtc, isNull);
+        });
+      });
+
+      group('isLocal getter', () {
+        test('Returns true for local dates', () {
+          final period = Period(
+            start: DateTime(2024, 7),
+            end: DateTime(2024, 7, 31),
+          );
+          expect(period.isLocal, isTrue);
+        });
+
+        test('Returns false for UTC dates', () {
+          final period = Period(
+            start: DateTime.utc(2024, 7),
+            end: DateTime.utc(2024, 7, 31),
+          );
+          expect(period.isLocal, isFalse);
+        });
+
+        test('Returns null for mixed UTC and local dates', () {
+          final period = Period(
+            start: DateTime(2024, 7),
+            end: DateTime.utc(2024, 7, 31),
+          );
+          expect(period.isLocal, isNull);
+        });
+      });
+
+      group('toUtc method', () {
+        test('Returns same instance when already in UTC', () {
+          final period = Period(
+            start: DateTime.utc(2024, 7),
+            end: DateTime.utc(2024, 7, 31),
+          );
+
+          final result = period.toUtc();
+
+          expect(identical(result, period), isTrue);
+          expect(result.start.isUtc, isTrue);
+          expect(result.end.isUtc, isTrue);
+        });
+
+        test('Converts local dates to UTC', () {
+          final localStart = DateTime(2024, 7);
+          final localEnd = DateTime(2024, 7, 31);
+          final period = Period(
+            start: localStart,
+            end: localEnd,
+          );
+
+          final result = period.toUtc();
+
+          expect(identical(result, period), isFalse);
+          expect(result.start, equals(localStart.toUtc()));
+          expect(result.end, equals(localEnd.toUtc()));
+          expect(result.start.isUtc, isTrue);
+          expect(result.end.isUtc, isTrue);
+        });
+
+        test('Converts mixed dates to UTC', () {
+          final localStart = DateTime(2024, 7);
+          final utcEnd = DateTime.utc(2024, 7, 31);
+          final period = Period(
+            start: localStart,
+            end: utcEnd,
+          );
+
+          final result = period.toUtc();
+
+          expect(identical(result, period), isFalse);
+          expect(result.start, equals(localStart.toUtc()));
+          expect(result.end, equals(utcEnd));
+          expect(result.start.isUtc, isTrue);
+          expect(result.end.isUtc, isTrue);
+        });
+      });
+
+      group('toLocal method', () {
+        test('Returns same instance when already in local time', () {
+          final period = Period(
+            start: DateTime(2024, 7),
+            end: DateTime(2024, 7, 31),
+          );
+
+          final result = period.toLocal();
+
+          expect(identical(result, period), isTrue);
+          expect(result.start.isUtc, isFalse);
+          expect(result.end.isUtc, isFalse);
+        });
+
+        test('Converts UTC dates to local', () {
+          final utcStart = DateTime.utc(2024, 7);
+          final utcEnd = DateTime.utc(2024, 7, 31);
+          final period = Period(
+            start: utcStart,
+            end: utcEnd,
+          );
+
+          final result = period.toLocal();
+
+          expect(identical(result, period), isFalse);
+          expect(result.start, equals(utcStart.toLocal()));
+          expect(result.end, equals(utcEnd.toLocal()));
+          expect(result.start.isUtc, isFalse);
+          expect(result.end.isUtc, isFalse);
+        });
+
+        test('Converts mixed dates to local', () {
+          final utcStart = DateTime.utc(2024, 7);
+          final localEnd = DateTime(2024, 7, 31);
+          final period = Period(
+            start: utcStart,
+            end: localEnd,
+          );
+
+          final result = period.toLocal();
+
+          expect(identical(result, period), isFalse);
+          expect(result.start, equals(utcStart.toLocal()));
+          expect(result.end, equals(localEnd));
+          expect(result.start.isUtc, isFalse);
+          expect(result.end.isUtc, isFalse);
+        });
       });
     });
   });
