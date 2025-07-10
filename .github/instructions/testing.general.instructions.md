@@ -99,7 +99,7 @@ group('Constructor', () {
 
 ### Equality Testing Pattern
 
-Always include equality tests for value objects:
+Always include equality tests for value objects. **Important: Do not use `const` in equality tests** as it can interfere with proper equality testing:
 
 ```dart
 group('Equality', () {

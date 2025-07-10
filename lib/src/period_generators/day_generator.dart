@@ -18,7 +18,7 @@ class DayGenerator with PeriodGeneratorMixin<DayPeriod>, EquatableMixin {
   @override
   // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
-    return (super == other) || (other is DayGenerator);
+    return (super == other) || (other is DayGenerator) && props == other.props;
   }
 
   @override

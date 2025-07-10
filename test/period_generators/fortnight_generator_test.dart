@@ -442,6 +442,30 @@ void main() {
       test('Hash codes', () {
         expect(generator1.hashCode, equals(generator2.hashCode));
       });
+
+      test('Different generator types are not equal', () {
+        // FortnightGenerator should not equal other generator types
+        expect(generator1, isNot(equals(DayGenerator())));
+        expect(generator1, isNot(equals(WeekGenerator())));
+        expect(generator1, isNot(equals(MonthGenerator())));
+        expect(generator1, isNot(equals(HourGenerator())));
+        expect(generator1, isNot(equals(MinuteGenerator())));
+        expect(generator1, isNot(equals(SecondGenerator())));
+        expect(generator1, isNot(equals(TrimesterGenerator())));
+        expect(generator1, isNot(equals(SemesterGenerator())));
+        expect(generator1, isNot(equals(YearGenerator())));
+
+        // WeekGenerators with different parameters should not equal
+        // FortnightGenerator
+        expect(
+          generator1,
+          isNot(equals(WeekGenerator(weekStart: DateTime.tuesday))),
+        );
+        expect(
+          generator1,
+          isNot(equals(WeekGenerator(weekStart: DateTime.sunday))),
+        );
+      });
     });
   });
 }

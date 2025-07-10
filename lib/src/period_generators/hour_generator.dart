@@ -29,7 +29,7 @@ class HourGenerator with PeriodGeneratorMixin<HourPeriod>, EquatableMixin {
   @override
   // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
-    return (super == other) || (other is HourGenerator);
+    return (super == other) || (other is HourGenerator) && props == other.props;
   }
 
   @override

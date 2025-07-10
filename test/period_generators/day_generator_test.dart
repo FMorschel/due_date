@@ -162,8 +162,8 @@ void main() {
     });
 
     group('Equality', () {
-      const generator1 = DayGenerator();
-      const generator2 = DayGenerator();
+      final generator1 = DayGenerator();
+      final generator2 = DayGenerator();
 
       test('Same instance', () {
         expect(generator1, equals(generator1));
@@ -171,6 +171,27 @@ void main() {
 
       test('Different instances with same parameters', () {
         expect(generator1, equals(generator2));
+      });
+
+      test('Different generator types are not equal', () {
+        // DayGenerator should not equal other generator types
+        expect(generator1, isNot(equals(WeekGenerator())));
+        expect(generator1, isNot(equals(MonthGenerator())));
+        expect(generator1, isNot(equals(HourGenerator())));
+        expect(generator1, isNot(equals(MinuteGenerator())));
+        expect(generator1, isNot(equals(SecondGenerator())));
+        expect(generator1, isNot(equals(FortnightGenerator())));
+
+        // WeekGenerators with different parameters should not equal
+        // DayGenerator
+        expect(
+          generator1,
+          isNot(equals(WeekGenerator(weekStart: DateTime.tuesday))),
+        );
+        expect(
+          generator1,
+          isNot(equals(WeekGenerator(weekStart: DateTime.sunday))),
+        );
       });
     });
   });

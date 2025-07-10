@@ -236,9 +236,9 @@ void main() {
     });
 
     group('Equality', () {
-      const generator1 = WeekGenerator();
-      const generator2 = WeekGenerator();
-      const generator3 = WeekGenerator(weekStart: DateTime.tuesday);
+      final generator1 = WeekGenerator();
+      final generator2 = WeekGenerator();
+      final generator3 = WeekGenerator(weekStart: DateTime.tuesday);
 
       test('Same instance', () {
         expect(generator1, equals(generator1));
@@ -250,6 +250,19 @@ void main() {
 
       test('Different week start parameter', () {
         expect(generator1, isNot(equals(generator3)));
+      });
+
+      test('Different generator types are not equal', () {
+        // WeekGenerator should not equal other generator types
+        expect(generator1, isNot(equals(DayGenerator())));
+        expect(generator1, isNot(equals(HourGenerator())));
+        expect(generator1, isNot(equals(MonthGenerator())));
+        expect(generator1, isNot(equals(MinuteGenerator())));
+        expect(generator1, isNot(equals(SecondGenerator())));
+        expect(generator1, isNot(equals(FortnightGenerator())));
+        expect(generator1, isNot(equals(TrimesterGenerator())));
+        expect(generator1, isNot(equals(SemesterGenerator())));
+        expect(generator1, isNot(equals(YearGenerator())));
       });
     });
     group('Different week starts ->', () {
@@ -667,7 +680,7 @@ void main() {
       });
     });
     test('fits generator', () {
-      const generator = WeekGenerator();
+      final generator = WeekGenerator();
       final period = Period(
         start: DateTime(2019, 12, 23),
         end: DateTime(2019, 12, 29, 23, 59, 59, 999, 999),

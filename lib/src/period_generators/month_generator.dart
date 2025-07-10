@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
+
 import '../periods/periods.dart';
 import 'period_generator_mixin.dart';
 
@@ -19,7 +20,8 @@ class MonthGenerator with PeriodGeneratorMixin<MonthPeriod>, EquatableMixin {
   @override
   // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
-    return (super == other) || (other is MonthGenerator);
+    return (super == other) ||
+        (other is MonthGenerator) && props == other.props;
   }
 
   @override
