@@ -679,16 +679,12 @@ class Period with EquatableMixin implements Comparable<Period> {
   /// If the [start] and [end] are both in UTC.
   ///
   /// Is `null` if one is in UTC and the other is not.
-  bool? get isUtc => start.isUtc == end.isUtc
-      ? start.isUtc
-      : null;
+  bool? get isUtc => start.isUtc == end.isUtc ? start.isUtc : null;
 
   /// If the [start] and [end] are both in local time.
   ///
   /// Is `null` if one is in local time and the other is not.
-  bool? get isLocal => start.isUtc == end.isUtc
-      ? !start.isUtc
-      : null;
+  bool? get isLocal => start.isUtc == end.isUtc ? !start.isUtc : null;
 
   /// Returns a [Period] with the [start] and [end] in UTC.
   ///
