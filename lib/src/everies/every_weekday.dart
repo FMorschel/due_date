@@ -75,7 +75,7 @@ class EveryWeekday extends DateValidatorWeekday
     if (weeks == 0) return date;
     final localDate = date.copyWith();
     if (!valid(localDate)) {
-      return addWeeks(startDate(date), weeks + (weeks.isNegative? 0 : -1));
+      return addWeeks(startDate(date), weeks + (weeks.isNegative ? 0 : -1));
     }
     final day = localDate.toUtc().addDays(weeks * 7);
     return _solveFor(localDate, day);
