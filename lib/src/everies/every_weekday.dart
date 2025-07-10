@@ -73,24 +73,11 @@ class EveryWeekday extends DateValidatorWeekday
   @override
   DateTime addWeeks(DateTime date, int weeks) {
     if (weeks == 0) return date;
-    var localWeeks = weeks;
-    var localDate = date.copyWith();
+    final localDate = date.copyWith();
     if (!valid(localDate)) {
-      if (localWeeks.isNegative) {
-        if (localDate.weekday < weekday.dateTimeValue) {
-          localDate = localDate.firstDayOfWeek.subtractDays(1);
-        }
-        localDate = weekday.fromWeekOf(localDate);
-        localWeeks++;
-      } else {
-        if (localDate.weekday > weekday.dateTimeValue) {
-          localDate = localDate.lastDayOfWeek.addDays(1);
-        }
-        localDate = weekday.fromWeekOf(localDate);
-        localWeeks--;
-      }
+      return addWeeks(startDate(date), weeks + (weeks.isNegative? 0 : -1));
     }
-    final day = localDate.toUtc().addDays(localWeeks * 7);
+    final day = localDate.toUtc().addDays(weeks * 7);
     return _solveFor(localDate, day);
   }
 

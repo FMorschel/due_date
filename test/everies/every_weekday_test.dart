@@ -218,6 +218,251 @@ void main() {
             isSameDateTime(august20thUtc),
           );
         });
+
+        group('With invalid input dates (positive weeks)', () {
+          final everyMonday = EveryWeekday(Weekday.monday);
+
+          test('From Tuesday (weekday > target), add 1 week', () {
+            // August 9, 2022 is Tuesday.
+            final tuesday = DateTime(2022, 8, 9);
+            // August 15, 2022 is Monday (1 week from August 8).
+            final expected = DateTime(2022, 8, 15);
+
+            expect(
+              everyMonday.addWeeks(tuesday, 1),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('From Sunday (weekday < target), next valid', () {
+            // August 7, 2022 is Sunday.
+            final sunday = DateTime(2022, 8, 7);
+            // August 8, 2022 is Monday.
+            final expected = DateTime(2022, 8, 8);
+
+            expect(
+              everyMonday.addWeeks(sunday, 1),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('From Friday (weekday > target), add 2 weeks', () {
+            // August 12, 2022 is Friday.
+            final friday = DateTime(2022, 8, 12);
+            // August 22, 2022 is Monday (2 weeks from August 8).
+            final expected = DateTime(2022, 8, 22);
+
+            expect(
+              everyMonday.addWeeks(friday, 2),
+              isSameDateTime(expected),
+            );
+          });
+        });
+
+        group('With invalid input dates (negative weeks)', () {
+          final everyThursday = EveryWeekday(Weekday.thursday);
+
+          test('From Monday (weekday < target), subtract 1 week', () {
+            // August 8, 2022 is Monday.
+            final monday = DateTime(2022, 8, 8);
+            // August 4, 2022 is Thursday (1 week before August 11).
+            final expected = DateTime(2022, 8, 4);
+
+            expect(
+              everyThursday.addWeeks(monday, -1),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('From Saturday (weekday > target), previous valid', () {
+            // August 13, 2022 is Saturday.
+            final saturday = DateTime(2022, 8, 13);
+            // August 11, 2022 is Thursday.
+            final expected = DateTime(2022, 8, 11);
+
+            expect(
+              everyThursday.addWeeks(saturday, -1),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('From Wednesday (weekday < target), subtract 2 weeks', () {
+            // August 10, 2022 is Wednesday.
+            final wednesday = DateTime(2022, 8, 10);
+            // July 28, 2022 is Thursday (2 weeks before August 11).
+            final expected = DateTime(2022, 7, 28);
+
+            expect(
+              everyThursday.addWeeks(wednesday, -2),
+              isSameDateTime(expected),
+            );
+          });
+        });
+
+        group('With valid input dates', () {
+          final everyWednesday = EveryWeekday(Weekday.wednesday);
+
+          test('From Wednesday, add positive weeks', () {
+            // August 10, 2022 is Wednesday.
+            final wednesday = DateTime(2022, 8, 10);
+            // August 24, 2022 is Wednesday (2 weeks later).
+            final expected = DateTime(2022, 8, 24);
+
+            expect(
+              everyWednesday.addWeeks(wednesday, 2),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('From Wednesday, add negative weeks', () {
+            // August 10, 2022 is Wednesday.
+            final wednesday = DateTime(2022, 8, 10);
+            // July 27, 2022 is Wednesday (2 weeks earlier).
+            final expected = DateTime(2022, 7, 27);
+
+            expect(
+              everyWednesday.addWeeks(wednesday, -2),
+              isSameDateTime(expected),
+            );
+          });
+        });
+
+        group('Time component preservation in addWeeks', () {
+          final everyFriday = EveryWeekday(Weekday.friday);
+
+          test('Preserves time components with valid input date', () {
+            // August 12, 2022 is Friday.
+            final fridayWithTime = DateTime(2022, 8, 12, 15, 30, 45, 123, 456);
+            final result = everyFriday.addWeeks(fridayWithTime, 1);
+
+            // Should preserve all time components.
+            expect(result.hour, equals(15));
+            expect(result.minute, equals(30));
+            expect(result.second, equals(45));
+            expect(result.millisecond, equals(123));
+            expect(result.microsecond, equals(456));
+          });
+
+          test('Preserves time components with invalid input date', () {
+            // August 10, 2022 is Wednesday.
+            final wednesdayWithTime = DateTime(
+              2022,
+              8,
+              10,
+              9,
+              15,
+              20,
+              500,
+              750,
+            );
+            final result = everyFriday.addWeeks(wednesdayWithTime, 1);
+
+            // Should preserve all time components.
+            expect(result.hour, equals(9));
+            expect(result.minute, equals(15));
+            expect(result.second, equals(20));
+            expect(result.millisecond, equals(500));
+            expect(result.microsecond, equals(750));
+          });
+
+          test('Preserves UTC flag with valid input', () {
+            // August 12, 2022 is Friday (UTC).
+            final fridayUtc = DateTime.utc(2022, 8, 12, 10, 30);
+            final result = everyFriday.addWeeks(fridayUtc, 1);
+
+            expect(result, isUtcDateTime);
+            expect(result.hour, equals(10));
+            expect(result.minute, equals(30));
+          });
+
+          test('Preserves UTC flag with invalid input', () {
+            // August 11, 2022 is Thursday (UTC).
+            final thursdayUtc = DateTime.utc(2022, 8, 11, 14, 45);
+            final result = everyFriday.addWeeks(thursdayUtc, 1);
+
+            expect(result, isUtcDateTime);
+            expect(result.hour, equals(14));
+            expect(result.minute, equals(45));
+          });
+        });
+
+        group('Edge cases across boundaries', () {
+          final everySunday = EveryWeekday(Weekday.sunday);
+
+          test('Crosses month boundary with positive weeks', () {
+            // August 28, 2022 is Sunday.
+            final august28 = DateTime(2022, 8, 28);
+            // September 4, 2022 is Sunday.
+            final expected = DateTime(2022, 9, 4);
+
+            expect(
+              everySunday.addWeeks(august28, 1),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('Crosses month boundary with negative weeks', () {
+            // September 4, 2022 is Sunday.
+            final september4 = DateTime(2022, 9, 4);
+            // August 28, 2022 is Sunday.
+            final expected = DateTime(2022, 8, 28);
+
+            expect(
+              everySunday.addWeeks(september4, -1),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('Crosses year boundary with positive weeks', () {
+            // December 25, 2022 is Sunday.
+            final december25 = DateTime(2022, 12, 25);
+            // January 1, 2023 is Sunday.
+            final expected = DateTime(2023);
+
+            expect(
+              everySunday.addWeeks(december25, 1),
+              isSameDateTime(expected),
+            );
+          });
+
+          test('Crosses year boundary with negative weeks', () {
+            // January 1, 2023 is Sunday.
+            final january1 = DateTime(2023);
+            // December 25, 2022 is Sunday.
+            final expected = DateTime(2022, 12, 25);
+
+            expect(
+              everySunday.addWeeks(january1, -1),
+              isSameDateTime(expected),
+            );
+          });
+        });
+
+        group('Large week additions', () {
+          final everyTuesday = EveryWeekday(Weekday.tuesday);
+
+          test('Add many positive weeks', () {
+            // August 9, 2022 is Tuesday.
+            final august9 = DateTime(2022, 8, 9);
+            // Add 26 weeks (6 months).
+            final result = everyTuesday.addWeeks(august9, 26);
+            // February 7, 2023 is Tuesday.
+            final expected = DateTime(2023, 2, 7);
+
+            expect(result, isSameDateTime(expected));
+          });
+
+          test('Subtract many weeks', () {
+            // August 9, 2022 is Tuesday.
+            final august9 = DateTime(2022, 8, 9);
+            // Subtract 26 weeks (6 months).
+            final result = everyTuesday.addWeeks(august9, -26);
+            // February 8, 2022 is Tuesday.
+            final expected = DateTime(2022, 2, 8);
+
+            expect(result, isSameDateTime(expected));
+          });
+        });
       });
 
       group('addMonths', () {
