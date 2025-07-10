@@ -1,4 +1,5 @@
 import 'package:clock/clock.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:time/time.dart';
@@ -684,7 +685,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
-    return super == other || ((other is DueDateTime) && (every == other.every));
+    return super == other ||
+        ((other is DueDateTime) &&
+            const DeepCollectionEquality().equals(props, other.props));
   }
 
   /// Returns a new [DueDateTime] instance with the next date that matches the
@@ -740,5 +743,6 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         second,
         millisecond,
         microsecond,
+        isUtc,
       ];
 }
