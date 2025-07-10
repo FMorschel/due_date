@@ -7,7 +7,7 @@ class SecondPeriod extends Period {
   /// A class that implements a period type of a second.
   SecondPeriod({required super.start, required super.end})
       : assert(
-          end.difference(start) ==
+          end.difference(start).abs() ==
               const Duration(
                 milliseconds: 999,
                 microseconds: 999,

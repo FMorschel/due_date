@@ -4,10 +4,9 @@ import '../period_generators/month_generator.dart';
 import '../period_generators/period_generators.dart';
 import 'month_period.dart';
 import 'month_period_bundle.dart';
-import 'period.dart';
 
 /// A class that implements a period type of a semester.
-class SemesterPeriod extends Period implements MonthPeriodBundle {
+class SemesterPeriod extends MonthPeriodBundle {
   /// A class that implements a period type of a semester.
   SemesterPeriod({required super.start, required super.end})
       : assert(

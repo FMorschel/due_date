@@ -4,10 +4,9 @@ import '../period_generators/month_generator.dart';
 import '../period_generators/period_generators.dart';
 import 'month_period.dart';
 import 'month_period_bundle.dart';
-import 'period.dart';
 
 /// A class that implements a period type of a year.
-class YearPeriod extends Period implements MonthPeriodBundle {
+class YearPeriod extends MonthPeriodBundle {
   /// A class that implements a period type of a year.
   YearPeriod({required super.start, required super.end})
       : assert(

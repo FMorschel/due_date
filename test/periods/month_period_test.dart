@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
@@ -62,21 +60,21 @@ void main() {
           start: DateTime(2024),
           end: DateTime(2024, 1, 31, 23, 59, 59, 999, 999),
         );
-        expect(january.duration, equals(Duration(days: 31)));
+        expect(january.duration, equals(const Duration(days: 31)));
 
         // February 2024 has 29 days (leap year).
         final february = MonthPeriod(
           start: DateTime(2024, 2),
           end: DateTime(2024, 2, 29, 23, 59, 59, 999, 999),
         );
-        expect(february.duration, equals(Duration(days: 29)));
+        expect(february.duration, equals(const Duration(days: 29)));
 
         // February 2023 has 28 days (non-leap year).
         final february2023 = MonthPeriod(
           start: DateTime(2023, 2),
           end: DateTime(2023, 2, 28, 23, 59, 59, 999, 999),
         );
-        expect(february2023.duration, equals(Duration(days: 28)));
+        expect(february2023.duration, equals(const Duration(days: 28)));
       });
 
       test('Start and end are properly set', () {
@@ -192,7 +190,7 @@ void main() {
           final nextStart = days[i + 1].start;
           expect(
             nextStart.difference(currentEnd),
-            equals(Duration(microseconds: 1)),
+            equals(const Duration(microseconds: 1)),
           );
         }
       });

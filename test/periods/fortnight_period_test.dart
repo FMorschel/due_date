@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:collection/collection.dart';
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
@@ -63,7 +61,7 @@ void main() {
         final start = DateTime(2024);
         final end = DateTime(2024, 1, 15, 23, 59, 59, 999, 999);
         final fortnight = FortnightPeriod(start: start, end: end);
-        expect(fortnight.duration, equals(Duration(days: 15)));
+        expect(fortnight.duration, equals(const Duration(days: 15)));
       });
 
       test('Start and end are properly set', () {
@@ -80,21 +78,21 @@ void main() {
           start: DateTime(2024),
           end: DateTime(2024, 1, 15, 23, 59, 59, 999, 999),
         );
-        expect(jan1To15.duration, equals(Duration(days: 15)));
+        expect(jan1To15.duration, equals(const Duration(days: 15)));
 
         // Second half of January: 16 days.
         final jan16To31 = FortnightPeriod(
           start: DateTime(2024, 1, 16),
           end: DateTime(2024, 1, 31, 23, 59, 59, 999, 999),
         );
-        expect(jan16To31.duration, equals(Duration(days: 16)));
+        expect(jan16To31.duration, equals(const Duration(days: 16)));
 
         // Second half of February (leap year): 14 days.
         final feb16To29 = FortnightPeriod(
           start: DateTime(2024, 2, 16),
           end: DateTime(2024, 2, 29, 23, 59, 59, 999, 999),
         );
-        expect(feb16To29.duration, equals(Duration(days: 14)));
+        expect(feb16To29.duration, equals(const Duration(days: 14)));
       });
     });
 
@@ -186,7 +184,7 @@ void main() {
           final nextStart = days[i + 1].start;
           expect(
             nextStart.difference(currentEnd),
-            equals(Duration(microseconds: 1)),
+            equals(const Duration(microseconds: 1)),
           );
         }
       });

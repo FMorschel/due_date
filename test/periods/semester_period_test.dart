@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
@@ -57,7 +55,7 @@ void main() {
           start: DateTime(2024),
           end: DateTime(2024, 6, 30, 23, 59, 59, 999, 999),
         );
-        expect(s1_2024.duration, equals(Duration(days: 182)));
+        expect(s1_2024.duration, equals(const Duration(days: 182)));
 
         // Second semester 2024: Jul(31) + Aug(31) + Sep(30) + Oct(31) +
         // Nov(30) + Dec(31) = 184 days.
@@ -65,7 +63,7 @@ void main() {
           start: DateTime(2024, 7),
           end: DateTime(2024, 12, 31, 23, 59, 59, 999, 999),
         );
-        expect(s2_2024.duration, equals(Duration(days: 184)));
+        expect(s2_2024.duration, equals(const Duration(days: 184)));
 
         // First semester 2023 (non-leap): Jan(31) + Feb(28) + Mar(31) +
         // Apr(30) + May(31) + Jun(30) = 181 days.
@@ -73,7 +71,7 @@ void main() {
           start: DateTime(2023),
           end: DateTime(2023, 6, 30, 23, 59, 59, 999, 999),
         );
-        expect(s1_2023.duration, equals(Duration(days: 181)));
+        expect(s1_2023.duration, equals(const Duration(days: 181)));
       });
 
       test('Start and end are properly set', () {
@@ -172,7 +170,7 @@ void main() {
           final nextStart = months[i + 1].start;
           expect(
             nextStart.difference(currentEnd),
-            equals(Duration(microseconds: 1)),
+            equals(const Duration(microseconds: 1)),
           );
         }
       });
@@ -326,14 +324,14 @@ void main() {
           start: DateTime(2024),
           end: DateTime(2024, 12, 31, 23, 59, 59, 999, 999),
         );
-        expect(year2024.duration, equals(Duration(days: 366)));
+        expect(year2024.duration, equals(const Duration(days: 366)));
 
         // Non-leap year has 365 days.
         final year2023 = YearPeriod(
           start: DateTime(2023),
           end: DateTime(2023, 12, 31, 23, 59, 59, 999, 999),
         );
-        expect(year2023.duration, equals(Duration(days: 365)));
+        expect(year2023.duration, equals(const Duration(days: 365)));
       });
 
       test('Start and end are properly set', () {
@@ -422,7 +420,7 @@ void main() {
           final nextStart = months[i + 1].start;
           expect(
             nextStart.difference(currentEnd),
-            equals(Duration(microseconds: 1)),
+            equals(const Duration(microseconds: 1)),
           );
         }
       });

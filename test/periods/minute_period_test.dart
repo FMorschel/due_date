@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:collection/collection.dart';
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
@@ -50,7 +48,7 @@ void main() {
         final start = DateTime(2024, 1, 15, 14, 30);
         final end = DateTime(2024, 1, 15, 14, 30, 59, 999, 999);
         final minute = MinutePeriod(start: start, end: end);
-        expect(minute.duration, equals(Duration(minutes: 1)));
+        expect(minute.duration, equals(const Duration(minutes: 1)));
       });
 
       test('Start and end are properly set', () {
@@ -130,7 +128,7 @@ void main() {
           final nextStart = seconds[i + 1].start;
           expect(
             nextStart.difference(currentEnd),
-            equals(Duration(microseconds: 1)),
+            equals(const Duration(microseconds: 1)),
           );
         }
       });

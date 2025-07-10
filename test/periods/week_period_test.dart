@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
@@ -54,7 +52,7 @@ void main() {
           start: DateTime(2024, 1, 15),
           end: DateTime(2024, 1, 21, 23, 59, 59, 999, 999),
         );
-        expect(week.duration, equals(Duration(days: 7)));
+        expect(week.duration, equals(const Duration(days: 7)));
       });
 
       test('Start and end are properly set', () {
@@ -155,7 +153,7 @@ void main() {
           final nextStart = days[i + 1].start;
           expect(
             nextStart.difference(currentEnd),
-            equals(Duration(microseconds: 1)),
+            equals(const Duration(microseconds: 1)),
           );
         }
       });
