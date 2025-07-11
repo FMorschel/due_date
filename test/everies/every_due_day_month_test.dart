@@ -413,5 +413,49 @@ void main() {
         expect(everyFifteenth1.hashCode, equals(everyFifteenth2.hashCode));
       });
     });
+
+    // Test named constructors separately.
+    group('from', () {
+      test('Creates instance with day from given date', () {
+        // August 15, 2022 is Monday.
+        final date = DateTime(2022, 8, 15);
+        final every = EveryDueDayMonth.from(date);
+
+        expect(every.dueDay, equals(15));
+        expect(every, isNotNull);
+      });
+
+      test('Creates instance with day 1', () {
+        // August 1, 2022 is Monday.
+        final date = DateTime(2022, 8);
+        final every = EveryDueDayMonth.from(date);
+
+        expect(every.dueDay, equals(1));
+      });
+
+      test('Creates instance with day 31', () {
+        // August 31, 2022 is Wednesday.
+        final date = DateTime(2022, 8, 31);
+        final every = EveryDueDayMonth.from(date);
+
+        expect(every.dueDay, equals(31));
+      });
+
+      test('Works with UTC dates', () {
+        // August 15, 2022 is Monday (UTC).
+        final dateUtc = DateTime.utc(2022, 8, 15);
+        final every = EveryDueDayMonth.from(dateUtc);
+
+        expect(every.dueDay, equals(15));
+      });
+
+      test('Ignores time components, only uses day', () {
+        // August 15, 2022 14:30:45.
+        final dateWithTime = DateTime(2022, 8, 15, 14, 30, 45, 123, 456);
+        final every = EveryDueDayMonth.from(dateWithTime);
+
+        expect(every.dueDay, equals(15));
+      });
+    });
   });
 }

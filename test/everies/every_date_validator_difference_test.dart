@@ -188,6 +188,233 @@ void main() {
       });
     });
 
+    group('DateTimeLimitReachedException tests:', () {
+      final everies = EveryDateValidatorDifference([
+        EveryDueDayMonth(15),
+        EveryWeekday(Weekday.monday),
+      ]);
+
+      group('startDate method:', () {
+        test('Throws when input date is after limit', () {
+          // January 20, 2024 is Saturday.
+          final inputDate = DateTime(2024, 1, 20);
+          // January 19, 2024 is Friday.
+          final limit = DateTime(2024, 1, 19);
+
+          expect(
+            () => everies.startDate(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Throws when input date equals limit', () {
+          // January 20, 2024 is Saturday.
+          final inputDate = DateTime(2024, 1, 20);
+          final limit = DateTime(2024, 1, 20);
+
+          expect(
+            () => everies.startDate(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Throws when calculated result would exceed limit', () {
+          // January 10, 2024 is Wednesday.
+          final inputDate = DateTime(2024, 1, 10);
+          // January 14, 2024 is Sunday.
+          final limit = DateTime(2024, 1, 14);
+
+          // Next valid date would be January 16, 2024 (Tuesday), which exceeds
+          // limit.
+          expect(
+            () => everies.startDate(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Returns valid date when limit allows it', () {
+          // January 10, 2024 is Wednesday.
+          final inputDate = DateTime(2024, 1, 10);
+          final expected = DateTime(2024, 1, 22);
+          final limit = DateTime(2024, 1, 23);
+
+          expect(everies.startDate(inputDate, limit: limit), equals(expected));
+        });
+      });
+
+      group('next method:', () {
+        test('Throws when input date is after limit', () {
+          // February 20, 2024 is Tuesday.
+          final inputDate = DateTime(2024, 2, 20);
+          // February 19, 2024 is Monday.
+          final limit = DateTime(2024, 2, 19);
+
+          expect(
+            () => everies.next(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Throws when input date equals limit', () {
+          // February 15, 2024 is Thursday.
+          final inputDate = DateTime(2024, 2, 15);
+          final limit = DateTime(2024, 2, 15);
+
+          expect(
+            () => everies.next(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Throws when calculated next result would exceed limit', () {
+          // February 10, 2024 is Saturday.
+          final inputDate = DateTime(2024, 2, 10);
+          final limit = DateTime(2024, 2, 11);
+
+          expect(
+            () => everies.next(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Returns valid next date when limit allows it', () {
+          // January 10, 2024 is Wednesday.
+          final inputDate = DateTime(2024, 1, 10);
+          final expected = DateTime(2024, 1, 22);
+          final limit = DateTime(2024, 1, 23);
+
+          expect(everies.next(inputDate, limit: limit), equals(expected));
+        });
+      });
+
+      group('previous method:', () {
+        test('Throws when input date is before limit', () {
+          // March 10, 2024 is Sunday.
+          final inputDate = DateTime(2024, 3, 10);
+          // March 11, 2024 is Monday.
+          final limit = DateTime(2024, 3, 11);
+
+          expect(
+            () => everies.previous(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Throws when input date equals limit', () {
+          // March 15, 2024 is Friday.
+          final inputDate = DateTime(2024, 3, 15);
+          final limit = DateTime(2024, 3, 15);
+
+          expect(
+            () => everies.previous(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Throws when calculated previous result would be before limit',
+            () {
+          // March 20, 2024 is Wednesday.
+          final inputDate = DateTime(2024, 3, 20);
+          final limit = DateTime(2024, 3, 19);
+
+          // Previous valid date would be February 14, 2024 (Wednesday), which
+          // is before limit.
+          expect(
+            () => everies.previous(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test('Returns valid previous date when limit allows it', () {
+          // March 20, 2024 is Wednesday.
+          final inputDate = DateTime(2024, 3, 20);
+          final expected = DateTime(2024, 3, 18);
+          final limit = DateTime(2024, 1, 10);
+
+          expect(everies.previous(inputDate, limit: limit), equals(expected));
+        });
+
+        test('Throws when result from valid dates violates limit', () {
+          // Use two equal everies for Tuesday to ensure predictable
+          // difference.
+          final tuesdayEveries = EveryDateValidatorDifference([
+            EveryWeekday(Weekday.tuesday),
+          ]);
+          // January 16, 2024 is Tuesday.
+          final inputDate = DateTime(2024, 1, 16);
+          // January 10, 2024 is Wednesday.
+          final limit = DateTime(2024, 1, 10);
+
+          // Previous would be January 9, 2024 (Tuesday), which is before limit.
+          expect(
+            () => tuesdayEveries.previous(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+      });
+
+      group('Edge cases with empty difference:', () {
+        final emptyEveries =
+            EveryDateValidatorDifference<EveryDateValidator>([]);
+
+        test('Empty difference startDate with limit returns input', () {
+          final inputDate = DateTime(2024, 1, 15);
+          final limit = DateTime(2024, 1, 20);
+
+          expect(
+            emptyEveries.startDate(inputDate, limit: limit),
+            equals(inputDate),
+          );
+        });
+
+        test('Empty difference next with limit returns input', () {
+          final inputDate = DateTime(2024, 1, 15);
+          final limit = DateTime(2024, 1, 20);
+
+          expect(emptyEveries.next(inputDate, limit: limit), equals(inputDate));
+        });
+
+        test('Empty difference previous with limit returns input', () {
+          final inputDate = DateTime(2024, 1, 15);
+          final limit = DateTime(2024, 1, 10);
+
+          expect(
+            emptyEveries.previous(inputDate, limit: limit),
+            equals(inputDate),
+          );
+        });
+      });
+
+      group('UTC DateTime with limits:', () {
+        test('Throws DateTimeLimitReachedException with UTC DateTimes in next',
+            () {
+          // January 10, 2024 UTC.
+          final inputDate = DateTime.utc(2024, 1, 10);
+          // January 14, 2024 UTC.
+          final limit = DateTime.utc(2024, 1, 14);
+
+          expect(
+            () => everies.next(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+
+        test(
+            'Throws DateTimeLimitReachedException with UTC DateTimes in '
+            'previous', () {
+          // March 10, 2024 UTC.
+          final inputDate = DateTime.utc(2024, 3, 10);
+          // March 11, 2024 UTC.
+          final limit = DateTime.utc(2024, 3, 11);
+
+          expect(
+            () => everies.previous(inputDate, limit: limit),
+            throwsA(isA<DateTimeLimitReachedException>()),
+          );
+        });
+      });
+    });
+
     // REQUIRED: Time component preservation tests.
     group('Time component preservation:', () {
       test('Maintains time components in local DateTime', () {

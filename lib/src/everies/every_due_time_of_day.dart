@@ -20,11 +20,8 @@ class EveryDueTimeOfDay extends DateValidatorTimeOfDay
 
   @override
   DateTime startDate(DateTime date) {
-    if (date.exactTimeOfDay <= timeOfDay) {
-      return date.date.add(timeOfDay);
-    } else {
-      return next(date);
-    }
+    if (valid(date)) return date;
+    return next(date);
   }
 
   @override

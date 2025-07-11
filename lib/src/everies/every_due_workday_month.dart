@@ -1,8 +1,6 @@
 import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
-import '../enums/enums.dart';
-import '../enums/weekday.dart';
 import '../extensions/exact_time_of_day.dart';
 import '../helpers/helpers.dart';
 import 'every_date_validator.dart';
@@ -61,7 +59,6 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   }
 
   static const _workdays = WorkdayHelper.every;
-  static final _workdaysInWeek = _workdays.length;
 
   @override
   DateTime startDate(DateTime date) {
@@ -73,7 +70,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   DateTime next(DateTime date) {
     return _calculate(
       date,
-      dateGeneratorFunction: _getNextDate,
+      dateGeneratorFunction: _workdays.next,
       isNext: true,
     );
   }
@@ -82,7 +79,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   DateTime previous(DateTime date) {
     return _calculate(
       date,
-      dateGeneratorFunction: _getPreviousDate,
+      dateGeneratorFunction: _workdays.previous,
       isNext: false,
     );
   }
@@ -107,8 +104,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     required DateTime Function(DateTime date) dateGeneratorFunction,
     required bool isNext,
   }) {
-    var local = date.copyWith();
-    local = WorkdayHelper.adjustToWorkday(local, isNext: isNext);
+    var local = WorkdayHelper.adjustToWorkday(date, isNext: isNext);
     if (local != date && valid(local)) {
       return local.date.add(date.exactTimeOfDay);
     }
@@ -122,68 +118,12 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     return local.date.add(date.exactTimeOfDay);
   }
 
-  DateTime _getNextDate(DateTime date) {
-    return _getDate(
-      date,
-      isNext: true,
-      condition: (measuredWorkday) => dueWorkday > measuredWorkday,
-    );
-  }
-
-  DateTime _getPreviousDate(DateTime date) {
-    return _getDate(
-      date,
-      isNext: false,
-      condition: (measuredWorkday) => measuredWorkday > dueWorkday,
-    );
-  }
-
-  DateTime _getDate(
-    DateTime date, {
-    required bool isNext,
-    required bool Function(int measuredWorkday) condition,
-  }) {
-    final measuredWorkday = WorkdayHelper.getWorkdayNumberInMonth(date);
-    if (condition(measuredWorkday)) {
-      return _skipWeekIfPossible(
-        date,
-        isNext: isNext,
-        measuredWorkday: measuredWorkday,
-      );
-    }
-    return _firstOrLastWorkdayOfMonth(date, first: isNext);
-  }
-
   DateTime _firstOrLastWorkdayOfMonth(DateTime date, {required bool first}) {
     if (first) return _workdays.startDate(date.firstDayOfMonth);
     return date.lastDayOfMonth.when(
       _workdays.valid,
       orElse: _workdays.previous,
     )!;
-  }
-
-  DateTime _skipWeekIfPossible(
-    DateTime date, {
-    required bool isNext,
-    int? measuredWorkday,
-  }) {
-    measuredWorkday ??= WorkdayHelper.getWorkdayNumberInMonth(date);
-    if (_isDifferenceGreaterOrEqualToWeekSize(
-      measuredWorkday,
-      isNext: isNext,
-    )) {
-      final currentEvery = Weekday.from(date).every;
-      return isNext ? currentEvery.next(date) : currentEvery.previous(date);
-    }
-    return isNext ? _workdays.next(date) : _workdays.previous(date);
-  }
-
-  bool _isDifferenceGreaterOrEqualToWeekSize(
-    int measuredWorkday, {
-    required bool isNext,
-  }) {
-    if (isNext) return (measuredWorkday - dueWorkday) >= _workdaysInWeek;
-    return (dueWorkday - measuredWorkday) >= _workdaysInWeek;
   }
 
   bool _shouldChangeMonth(DateTime date, {required bool isNext}) {
