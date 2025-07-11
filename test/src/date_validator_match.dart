@@ -1,4 +1,4 @@
-import 'package:due_date/specific_exports/date_validators.dart';
+import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
 Matcher isValid(DateTime date) => _ValidDateValidator(date);

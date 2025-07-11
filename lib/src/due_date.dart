@@ -434,6 +434,10 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   ///
   /// The [limit] will be passed to the [Every] instance if it is a
   /// [LimitedEvery] instance.
+  ///
+  /// Toggling [utc] (compared with [isUtc]) will _**NOT**_ convert the date,
+  /// it will simply create a new [DateTime] with the same values in that
+  /// timezone.
   DueDateTime copyWith({
     Every? every,
     int? year,

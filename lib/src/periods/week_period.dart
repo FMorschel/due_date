@@ -1,4 +1,5 @@
 import 'package:time/time.dart';
+
 import '../enums/enums.dart';
 import '../extensions/extensions.dart';
 import '../period_generators/period_generators.dart';

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
+
 import '../periods/periods.dart';
 import 'period_generator_mixin.dart';
 
