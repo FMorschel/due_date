@@ -330,5 +330,135 @@ void main() {
         expect(wrapper1, equals(wrapper4));
       });
     });
+
+    group('processDate method:', () {
+      test('processDate with null currentCount defaults to count (next)', () {
+        // December 4, 2023 is Monday (first Monday).
+        final firstMonday = DateTime(2023, 12, 4);
+        // December 11, 2023 is Monday (skip December 4).
+        final expected = DateTime(2023, 12, 11);
+
+        final result = wrapper.processDate(
+          firstMonday,
+          DateDirection.next,
+        );
+        expect(result, equals(expected));
+      });
+
+      test('processDate with null currentCount defaults to count (start)', () {
+        // December 4, 2023 is Monday (first Monday).
+        final firstMonday = DateTime(2023, 12, 4);
+        // December 11, 2023 is Monday (skip December 4).
+        final expected = DateTime(2023, 12, 11);
+
+        final result = wrapper.processDate(
+          firstMonday,
+          DateDirection.start,
+        );
+        expect(result, equals(expected));
+      });
+
+      test('processDate with null currentCount defaults to count (previous)',
+          () {
+        // December 4, 2023 is Monday (first Monday).
+        final firstMonday = DateTime(2023, 12, 4);
+        // November 27, 2023 is Monday (skip November 20).
+        final expected = DateTime(2023, 11, 27);
+
+        final result = wrapper.processDate(
+          firstMonday,
+          DateDirection.previous,
+        );
+        expect(result, equals(expected));
+      });
+
+      test('processDate with currentCount 0 returns input date', () {
+        // December 4, 2023 is Monday.
+        final inputDate = DateTime(2023, 12, 4);
+
+        final result = wrapper.processDate(
+          inputDate,
+          DateDirection.next,
+          currentCount: 0,
+        );
+        expect(result, equals(inputDate));
+      });
+
+      test('processDate with explicit currentCount overrides default', () {
+        // December 4, 2023 is Monday.
+        final inputDate = DateTime(2023, 12, 4);
+        // December 18, 2023 is Monday (skip December 11).
+        final expected = DateTime(2023, 12, 18);
+
+        final result = wrapper.processDate(
+          inputDate,
+          DateDirection.next,
+          currentCount: 2,
+        );
+        expect(result, equals(expected));
+      });
+
+      test('processDate start direction with explicit currentCount', () {
+        // December 4, 2023 is Monday.
+        final inputDate = DateTime(2023, 12, 4);
+        // December 18, 2023 is Monday (skip December 11).
+        final expected = DateTime(2023, 12, 18);
+
+        final result = wrapper.processDate(
+          inputDate,
+          DateDirection.start,
+          currentCount: 2,
+        );
+        expect(result, equals(expected));
+      });
+
+      test('processDate with limit validation (next)', () {
+        // December 4, 2023 is Monday.
+        final inputDate = DateTime(2023, 12, 4);
+        // December 10, 2023 is before expected date.
+        final limitDate = DateTime(2023, 12, 10);
+
+        expect(
+          () => wrapper.processDate(
+            inputDate,
+            DateDirection.next,
+            limit: limitDate,
+          ),
+          throwsA(isA<DateTimeLimitReachedException>()),
+        );
+      });
+
+      test('processDate with limit validation (start)', () {
+        // December 4, 2023 is Monday.
+        final inputDate = DateTime(2023, 12, 4);
+        // December 10, 2023 is before expected date.
+        final limitDate = DateTime(2023, 12, 10);
+
+        expect(
+          () => wrapper.processDate(
+            inputDate,
+            DateDirection.start,
+            limit: limitDate,
+          ),
+          throwsA(isA<DateTimeLimitReachedException>()),
+        );
+      });
+
+      test('processDate with limit validation (previous)', () {
+        // December 4, 2023 is Monday.
+        final inputDate = DateTime(2023, 12, 4);
+        // November 28, 2023 is after expected date.
+        final limitDate = DateTime(2023, 11, 28);
+
+        expect(
+          () => wrapper.processDate(
+            inputDate,
+            DateDirection.previous,
+            limit: limitDate,
+          ),
+          throwsA(isA<DateTimeLimitReachedException>()),
+        );
+      });
+    });
   });
 }

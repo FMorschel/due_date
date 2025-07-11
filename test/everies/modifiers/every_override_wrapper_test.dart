@@ -6,6 +6,20 @@ import 'package:test/test.dart';
 import '../../src/date_time_match.dart';
 import '../../src/every_match.dart';
 
+/// Basic Every implementation for testing that returns predefined dates.
+class BasicEvery extends Every {
+  const BasicEvery();
+
+  @override
+  DateTime startDate(DateTime date) => date;
+
+  @override
+  DateTime next(DateTime date) => date;
+
+  @override
+  DateTime previous(DateTime date) => date;
+}
+
 void main() {
   group('EveryOverrideWrapper:', () {
     final every = Weekday.monday.every;
@@ -43,6 +57,25 @@ void main() {
           // October 4, 2022 is Tuesday.
           final expected = DateTime(2022, DateTime.october, 4);
           expect(wrapper, startsAt(expected).withInput(invalidDate));
+        });
+        test('Works with non-DateValidator every', () {
+          const basicEvery = BasicEvery();
+          const basicInvalidator = DateValidatorWeekday(Weekday.monday);
+          final basicWrapper = EveryOverrideWrapper(
+            every: basicEvery,
+            invalidator: basicInvalidator,
+            overrider: Weekday.tuesday.every,
+          );
+
+          // October 4, 2022 is Tuesday (valid for overrider).
+          final validDate = DateTime(2022, DateTime.october, 4);
+          expect(basicWrapper, startsAtSameDate.withInput(validDate));
+
+          // October 3, 2022 is Monday (invalid).
+          final invalidDate = DateTime(2022, DateTime.october, 3);
+          // October 4, 2022 is Tuesday.
+          final expected = DateTime(2022, DateTime.october, 4);
+          expect(basicWrapper, startsAt(expected).withInput(invalidDate));
         });
       });
 
@@ -273,6 +306,14 @@ void main() {
         ),
         overrider: Weekday.tuesday.every,
       );
+      final wrapper5 = EveryOverrideWrapper(
+        every: Weekday.monday.every,
+        invalidator: DateValidatorWeekdayCountInMonth(
+          week: Week.first,
+          day: Weekday.monday,
+        ),
+        overrider: Weekday.wednesday.every,
+      );
 
       test('Same instance', () {
         expect(wrapper1, equals(wrapper1));
@@ -285,6 +326,9 @@ void main() {
       });
       test('Same every, same invalidator, same overrider', () {
         expect(wrapper1, equals(wrapper4));
+      });
+      test('Same every, same invalidator, different overrider', () {
+        expect(wrapper1, isNot(equals(wrapper5)));
       });
     });
   });
