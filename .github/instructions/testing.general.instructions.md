@@ -14,10 +14,6 @@ When writing tests for this Dart library, follow these comprehensive guidelines 
 
 ## Import Standards
 
-Always include this comment at the top for equality tests:
-```dart
-```
-
 General imports for the package tests:
 ```dart
 import 'package:due_date/due_date.dart';
