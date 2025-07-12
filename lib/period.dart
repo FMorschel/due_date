@@ -18,6 +18,8 @@ library period;
 
 import 'src/enums/enums.dart' show PeriodGenerator;
 import 'src/period_generators/period_generators.dart';
+import 'src/period_generators/semester_generator.dart';
+import 'src/period_generators/year_generator.dart';
 import 'src/periods/periods.dart';
 
 export 'src/enums/enums.dart' show Month, PeriodGenerator, Week, Weekday;

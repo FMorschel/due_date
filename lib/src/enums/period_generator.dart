@@ -1,4 +1,6 @@
 import '../period_generators/period_generators.dart';
+import '../period_generators/semester_generator.dart';
+import '../period_generators/year_generator.dart';
 import '../periods/periods.dart';
 
 /// An enumeration of the different period generators implemented in this
