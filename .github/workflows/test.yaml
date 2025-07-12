@@ -3,8 +3,18 @@ name: Test and Coverage
 on:
   push:
     branches: [ main, master, exports-and-tests ]
+    paths:
+      - 'lib/**'
+      - 'test/**'
+      - 'pubspec.yaml'
+      - 'analysis_options.yaml'
   pull_request:
     branches: [ main, master, exports-and-tests ]
+    paths:
+      - 'lib/**'
+      - 'test/**'
+      - 'pubspec.yaml'
+      - 'analysis_options.yaml'
 
 jobs:
   test:
