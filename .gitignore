@@ -14,5 +14,7 @@ pubspec.lock
 .vscode/
 .logs/
 
+doc/
+
 coverage/
 .log
