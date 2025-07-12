@@ -450,15 +450,15 @@ void main() {
       test('Handles century years correctly', () {
         // 2000 was a leap year (divisible by 400).
         final year2000 = YearPeriod(
-          start: DateTime(2000),
-          end: DateTime(2000, 12, 31, 23, 59, 59, 999, 999),
+          start: DateTime.utc(2000),
+          end: DateTime.utc(2000, 12, 31, 23, 59, 59, 999, 999),
         );
         expect(year2000.duration.inDays, equals(366));
 
         // 1900 was not a leap year (divisible by 100 but not 400).
         final year1900 = YearPeriod(
-          start: DateTime(1900),
-          end: DateTime(1900, 12, 31, 23, 59, 59, 999, 999),
+          start: DateTime.utc(1900),
+          end: DateTime.utc(1900, 12, 31, 23, 59, 59, 999, 999),
         );
         expect(year1900.duration.inDays, equals(365));
       });
