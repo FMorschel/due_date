@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:due_date/src/helpers/date_reducer.dart';
 import 'package:test/test.dart';
 

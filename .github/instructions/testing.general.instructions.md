@@ -16,7 +16,6 @@ When writing tests for this Dart library, follow these comprehensive guidelines 
 
 Always include this comment at the top for equality tests:
 ```dart
-// ignore_for_file: prefer_const_constructors
 ```
 
 General imports for the package tests:

@@ -1,6 +1,4 @@
 // Always include this comment at the top for constructor tests.
-// ignore_for_file: prefer_const_constructors
-
 // Standard imports order:
 import 'package:due_date/due_date.dart';
 // Internal helpers (if needed).

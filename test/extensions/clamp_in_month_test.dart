@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:clock/clock.dart';
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
