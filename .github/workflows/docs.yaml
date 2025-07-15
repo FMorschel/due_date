@@ -7,12 +7,14 @@ on:
     paths:
       - 'lib/**'
       - 'pubspec.yaml'
+      - '.github/workflows/docs.yaml'
   pull_request:
     branches:
       - stable
     paths:
       - 'lib/**'
       - 'pubspec.yaml'
+      - '.github/workflows/docs.yaml'
 
 jobs:
   update-docs:
