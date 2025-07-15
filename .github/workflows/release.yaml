@@ -4,8 +4,8 @@ on:
   push:
     branches: stable
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
-      - 'v[0-9]+.[0-9]+.[0-9]+-[A-Za-z0-9._@#$%-]+'
+      - 'v*.*.*'
+      - 'v*.*.*-*'
 
 permissions:
   contents: write
@@ -13,10 +13,19 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Verify tag regex
+        id: verify_tag_regex
+        run: |
+          if echo "$GITHUB_REF" | grep -qE '^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9._@#$%-]+)?$'; then
+            echo "Tag format is valid."
+            echo "valid_tag=true" >> $GITHUB_OUTPUT
+          else
+            echo "ERROR: Tag does not match expected format 'vX.Y.Z' or 'vX.Y.Z-suffix'."
+            echo "valid_tag=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Extract latest release notes from CHANGELOG.md
+        if: steps.verify_tag_regex.outputs.valid_tag == 'true'
         id: changelog
         run: |
           RELEASE_NOTES=$(awk '/^## /{i++; if(i==2) exit} i==1' CHANGELOG.md | sed '1d')
@@ -25,6 +34,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
+        if: steps.verify_tag_regex.outputs.valid_tag == 'true'
         uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
