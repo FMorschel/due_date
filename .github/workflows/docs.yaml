@@ -83,7 +83,8 @@ jobs:
             git reset --hard
           fi
           git add .
-          if git diff --cached --quiet; then
+          # Compare staged changes against origin/gh-pages
+          if git diff --cached --quiet origin/gh-pages; then
             echo "No changes to commit."
             echo "changes=false" >> $GITHUB_OUTPUT
           else
