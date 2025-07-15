@@ -33,7 +33,7 @@ jobs:
           TAG_COMMIT=$(git rev-parse "$GITHUB_SHA")
           git fetch origin stable
           STABLE_COMMIT=$(git rev-parse origin/stable)
-          if git merge-base --is-ancestor "$TAG_COMMIT" "$STABLE_COMMIT"; then
+          if git merge-base --is-ancestor "$TAG_COMMIT" "$STABLE_COMMIT" || [ "$TAG_COMMIT" = "$STABLE_COMMIT" ]; then
             echo "Tag commit is on stable branch."
             echo "valid_tag=true" >> $GITHUB_OUTPUT
           else
