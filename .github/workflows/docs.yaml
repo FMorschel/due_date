@@ -17,52 +17,59 @@ on:
 jobs:
   update-docs:
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
-
       - name: Install dependencies
         run: dart pub get
-
       - name: Analyze project source
         run: dart analyze
-
       - name: Get version from pubspec.yaml
         id: get_version
         run: |
           VERSION=$(grep '^version:' pubspec.yaml | head -n1 | cut -d ' ' -f2)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-
       - name: Generate docs
         run: dart doc
-
       - name: Clean up everything except doc/
         run: |
           find . -mindepth 1 -maxdepth 1 ! -name 'doc' ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} +
-
       - name: Move doc/api/* to root
         run: |
           shopt -s dotglob
           mv doc/api/* .
           shopt -u dotglob
-
       - name: Remove doc/api if empty
         run: |
           rmdir doc/api || true
 
+  update-docs-branch:
+    needs: update-docs
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    outputs:
+      branch_exists: ${{ steps.update_docs_branch.outputs.branch_exists }}
+      changes: ${{ steps.update_docs_branch.outputs.changes }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
       - name: Create or update docs branch
         id: update_docs_branch
+        env:
+          VERSION: ${{ needs.update-docs.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH=docs-for-${{ steps.get_version.outputs.version }}
+          BRANCH=docs-for-${VERSION}
           if git ls-remote --exit-code --heads origin "$BRANCH"; then
             echo "branch_exists=true" >> $GITHUB_OUTPUT
             git fetch origin "$BRANCH"
@@ -78,17 +85,22 @@ jobs:
             echo "No changes to commit."
             echo "changes=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Update docs for ${{ steps.get_version.outputs.version }}"
+            git commit -m "Update docs for ${VERSION}"
             git push -f origin "$BRANCH"
             echo "changes=true" >> $GITHUB_OUTPUT
-          fi
 
+  create-docs-pr:
+    needs: [update-docs, update-docs-branch]
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    if: needs.update-docs-branch.outputs.changes == 'true' && needs.update-docs-branch.outputs.branch_exists == 'false'
+    steps:
       - name: Create or update PR to gh-pages
-        if: steps.update_docs_branch.outputs.changes == 'true' && steps.update_docs_branch.outputs.branch_exists == 'false'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: gh-pages
-          title: Docs for ${{ steps.get_version.outputs.version }}
-          body: "Automated documentation update for version ${{ steps.get_version.outputs.version }}."
-          branch: docs-for-${{ steps.get_version.outputs.version }}
+          title: Docs for ${{ needs.update-docs.outputs.version }}
+          body: "Automated documentation update for version ${{ needs.update-docs.outputs.version }}."
+          branch: docs-for-${{ needs.update-docs.outputs.version }}
