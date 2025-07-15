@@ -6,6 +6,8 @@
 
 - **`Weekday.validator`**: The return type of the `validator` getter on the `Weekday` enum has been narrowed from the general `DateValidator` to the more specific `DateValidatorWeekday`. This improves type safety but may require casting in existing code if you were relying on the broader type.
 - **`ClampInMonth.dueDateTime`**: The return type of the `dueDateTime` getter on the `ClampInMonth` extension has been changed from `DueDateTime<Every>` to `DueDateTime<EveryDueDayMonth>`. This provides a more accurate type for the created object.
+- **`DueDateTime.next`**: The return type of the `next` getter on the `DueDateTime` class has been changed from `DueDateTime<Every>` to `DueDateTime<T>`.
+- **`DueDateTime.previous`**: The return type of the `previous` getter on the `DueDateTime` class has been changed from `DueDateTime<Every>` to `DueDateTime<T>`.
 
 ### New Features & Improvements
 

@@ -705,7 +705,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// The [limit] parameter is used to limit the search for the next date when
   /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
   /// is ignored.
-  DueDateTime next({
+  DueDateTime<T> next({
     /// The limit to search for the next date.
     DateTime? limit,
   }) =>
@@ -722,7 +722,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// The [limit] parameter is used to limit the search for the previous date
   /// when [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the
   /// [limit] is ignored.
-  DueDateTime previous({
+  DueDateTime<T> previous({
     /// The limit to search for the previous date.
     DateTime? limit,
   }) =>

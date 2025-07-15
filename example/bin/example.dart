@@ -7,14 +7,14 @@ void main(List<String> arguments) {
   /// DueDateTime Recurring dates.
 
   final date = DateTime(2022, DateTime.january, 31);
-  DueDateTime dueDate = date.dueDateTime;
+  var dueDate = date.dueDateTime;
   print(dueDate.toString()); // 2022-01-31.
   dueDate = dueDate.next();
   print(dueDate.toString()); // 2022-02-28.
   dueDate = dueDate.next();
   print(dueDate.toString()); // 2022-03-31.
 
-  DueDateTime dueDate2 = DueDateTime.fromDate(
+  var dueDate2 = DueDateTime.fromDate(
     date,
     every: const EveryWeekdayCountInMonth(
       day: Weekday.friday,
