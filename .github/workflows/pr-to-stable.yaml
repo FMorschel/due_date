@@ -18,12 +18,12 @@ jobs:
 
       - name: Clone stable branch as old_version
         run: |
-          git clone --branch stable --single-branch --depth 1 ${{ github.repository }} old_version
+          git clone --branch stable --single-branch --depth 1 https://github.com/${{ github.repository }} old_version
           rm -rf old_version/.git
 
       - name: Clone PR branch as new_version
         run: |
-          git clone --branch ${{ github.head_ref }} --single-branch --depth 1 ${{ github.repository }} new_version
+          git clone --branch ${{ github.head_ref }} --single-branch --depth 1 https://github.com/${{ github.repository }} new_version
           rm -rf new_version/.git
 
       - name: Set up Dart
