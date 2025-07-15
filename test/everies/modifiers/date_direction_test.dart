@@ -2,41 +2,124 @@ import 'package:due_date/period.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('DateDirection', () {
-    test('isStart should return true for start direction', () {
-      const direction = DateDirection.start;
-      expect(direction.isStart, isTrue);
+  group('DateDirection:', () {
+    group('Values', () {
+      test('Has all expected values', () {
+        expect(DateDirection.values.length, equals(3));
+        expect(
+          DateDirection.values,
+          containsAllInOrder([
+            DateDirection.start,
+            DateDirection.next,
+            DateDirection.previous,
+          ]),
+        );
+      });
     });
-
-    test('isStart should return false for non-start directions', () {
-      const nextDirection = DateDirection.next;
-      const previousDirection = DateDirection.previous;
-      expect(nextDirection.isStart, isFalse);
-      expect(previousDirection.isStart, isFalse);
+    group('Properties', () {
+      group('isStart', () {
+        test('Returns true for start direction', () {
+          expect(DateDirection.start.isStart, isTrue);
+        });
+        test('Returns false for non-start directions', () {
+          expect(DateDirection.previous.isStart, isFalse);
+          expect(DateDirection.next.isStart, isFalse);
+        });
+      });
+      group('isNext', () {
+        test('Returns true for next direction', () {
+          expect(DateDirection.next.isNext, isTrue);
+        });
+        test('Returns false for non-next directions', () {
+          expect(DateDirection.previous.isNext, isFalse);
+          expect(DateDirection.start.isNext, isFalse);
+        });
+      });
+      group('isPrevious', () {
+        test('Returns true for previous direction', () {
+          expect(DateDirection.previous.isPrevious, isTrue);
+        });
+        test('Returns false for non-previous directions', () {
+          expect(DateDirection.next.isPrevious, isFalse);
+          expect(DateDirection.start.isPrevious, isFalse);
+        });
+      });
     });
-
-    test('isNext should return true for next direction', () {
-      const direction = DateDirection.next;
-      expect(direction.isNext, isTrue);
+    group('Properties for all values:', () {
+      for (final direction in DateDirection.values) {
+        group(direction.name, () {
+          test('index is correct', () {
+            expect(
+              direction.index,
+              equals(DateDirection.values.indexOf(direction)),
+            );
+          });
+        });
+      }
     });
-
-    test('isNext should return false for non-next directions', () {
-      const startDirection = DateDirection.start;
-      const previousDirection = DateDirection.previous;
-      expect(startDirection.isNext, isFalse);
-      expect(previousDirection.isNext, isFalse);
+    group('String representation', () {
+      test('start has correct string representation', () {
+        expect(DateDirection.start.toString(), equals('DateDirection.start'));
+      });
+      test('next has correct string representation', () {
+        expect(DateDirection.next.toString(), equals('DateDirection.next'));
+      });
+      test('previous has correct string representation', () {
+        expect(
+          DateDirection.previous.toString(),
+          equals('DateDirection.previous'),
+        );
+      });
     });
-
-    test('isPrevious should return true for previous direction', () {
-      const direction = DateDirection.previous;
-      expect(direction.isPrevious, isTrue);
+    group('Name property', () {
+      test('start has correct name', () {
+        expect(DateDirection.start.name, equals('start'));
+      });
+      test('next has correct name', () {
+        expect(DateDirection.next.name, equals('next'));
+      });
+      test('previous has correct name', () {
+        expect(DateDirection.previous.name, equals('previous'));
+      });
     });
-
-    test('isPrevious should return false for non-previous directions', () {
-      const startDirection = DateDirection.start;
-      const nextDirection = DateDirection.next;
-      expect(startDirection.isPrevious, isFalse);
-      expect(nextDirection.isPrevious, isFalse);
+    group('Index property', () {
+      test('start has correct index', () {
+        expect(DateDirection.start.index, equals(0));
+      });
+      test('next has correct index', () {
+        expect(DateDirection.next.index, equals(1));
+      });
+      test('previous has correct index', () {
+        expect(DateDirection.previous.index, equals(2));
+      });
+    });
+    group('Equality', () {
+      test('Same values are equal', () {
+        expect(DateDirection.start, equals(DateDirection.start));
+        expect(DateDirection.previous, equals(DateDirection.previous));
+        expect(DateDirection.next, equals(DateDirection.next));
+      });
+      test('Different values are not equal', () {
+        expect(DateDirection.next, isNot(equals(DateDirection.previous)));
+        expect(DateDirection.start, isNot(equals(DateDirection.next)));
+        expect(DateDirection.start, isNot(equals(DateDirection.previous)));
+      });
+    });
+    group('Edge Cases', () {
+      test('All boolean properties are mutually exclusive', () {
+        for (final direction in DateDirection.values) {
+          final bools = [
+            direction.isStart,
+            direction.isNext,
+            direction.isPrevious,
+          ];
+          expect(bools.where((b) => b).length, equals(1));
+        }
+      });
+      test('All values are unique', () {
+        final set = DateDirection.values.toSet();
+        expect(set.length, equals(DateDirection.values.length));
+      });
     });
   });
 }

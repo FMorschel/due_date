@@ -107,15 +107,17 @@ enum Month implements Comparable<Month> {
   /// Eg.:
   ///  - [january] + `1` returns [february].
   ///  - [december] + `3` returns [march].
-  Month operator +(int months) =>
-      Month.fromDateTimeValue(((dateTimeValue + months) % values.length).abs());
+  Month operator +(int months) => Month.fromDateTimeValue(
+        ((dateTimeValue + months - 1) % values.length + 1).abs(),
+      );
 
   /// Returns the [Month] that corresponds to this subtracted [months].
   /// Eg.:
   ///  - [february] - `1` returns [january].
   ///  - [march] - `3` returns [december].
-  Month operator -(int months) =>
-      Month.fromDateTimeValue(((dateTimeValue - months) % values.length).abs());
+  Month operator -(int months) => Month.fromDateTimeValue(
+        ((dateTimeValue - months - 1) % values.length + 1).abs(),
+      );
 
   /// Returns the [Month] previous to this.
   Month get previous {

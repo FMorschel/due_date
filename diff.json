@@ -1,0 +1,597 @@
+{
+  "reportName": "API Changes Report",
+  "apiToolInfo": {
+    "toolName": "dart_apitool",
+    "toolVersion": "0.21.1",
+    "toolAuthor": "BMW Tech",
+    "generatedAt": "2025-07-11 15:47:46.719268",
+    "oldRef": "pub://due_date/2.2.2",
+    "newRef": "."
+  },
+  "version": {
+    "success": false,
+    "old": "2.2.2",
+    "new": "2.2.3",
+    "needed": "3.0.0",
+    "explanation": "Got \"2.2.3\" expected >= \"3.0.0\" (breaking changes)"
+  },
+  "report": {
+    "breakingChanges": {
+      "label": "BREAKING CHANGES",
+      "children": [
+        {
+          "label": "Class Weekday",
+          "children": [
+            {
+              "label": "Field validator",
+              "children": [
+                {
+                  "changeDescription": "Type of field changed. DateValidator -> DateValidatorWeekday",
+                  "changeCode": "CF04",
+                  "isBreaking": true,
+                  "type": "major"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Class ClampInMonth",
+          "children": [
+            {
+              "label": "Field dueDateTime",
+              "children": [
+                {
+                  "changeDescription": "Type of field changed. DueDateTime<Every> -> DueDateTime<EveryDueDayMonth>",
+                  "changeCode": "CF04",
+                  "isBreaking": true,
+                  "type": "major"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "nonBreakingChanges": {
+      "label": "Non-Breaking changes",
+      "children": [
+        {
+          "changeDescription": "Interface \"ExactEvery\" added",
+          "changeCode": "CI02",
+          "isBreaking": false,
+          "type": "minor"
+        },
+        {
+          "changeDescription": "Interface \"_When\" added",
+          "changeCode": "CI02",
+          "isBreaking": false,
+          "type": "minor"
+        },
+        {
+          "changeDescription": "Function \"boolCompareTo\" added",
+          "changeCode": "CE11",
+          "isBreaking": false,
+          "type": "minor"
+        },
+        {
+          "changeDescription": "Package dependency \"equatable\" version changed from \"^2.0.0\" to \"^2.0.3\"",
+          "changeCode": "CD03",
+          "isBreaking": false,
+          "type": "patch"
+        },
+        {
+          "label": "Class DueDateTime",
+          "children": [
+            {
+              "label": "Method copyWith",
+              "children": [
+                {
+                  "changeDescription": "Parameter \"utc\" added",
+                  "changeCode": "CE02",
+                  "isBreaking": false,
+                  "type": "minor"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Class DateValidatorDayInYear",
+          "children": [
+            {
+              "changeDescription": "Field \"inexact\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Super Type \"ExactDateValidator\" added",
+              "changeCode": "CI04",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class Period",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class WeekPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class DayPeriodBundle",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class DayPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class HourPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class MinutePeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class SecondPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class MonthPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class EveryDayInYear",
+          "children": [
+            {
+              "changeDescription": "Field \"inexact\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Super Type \"ExactDateValidator\" added",
+              "changeCode": "CI04",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Super Type \"ExactEvery\" added",
+              "changeCode": "CI04",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class EveryDueDayMonth",
+          "children": [
+            {
+              "changeDescription": "Super Type \"ExactEvery\" added",
+              "changeCode": "CI04",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class EveryDueWorkdayMonth",
+          "children": [
+            {
+              "changeDescription": "Super Type \"ExactEvery\" added",
+              "changeCode": "CI04",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class DateReducer",
+          "children": [
+            {
+              "changeDescription": "Constructor \"new\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class LimitedOrEveryHandler",
+          "children": [
+            {
+              "changeDescription": "Constructor \"new\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class ObjectExt",
+          "children": [
+            {
+              "changeDescription": "Method \"when2\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"whenn\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class WorkdayHelper",
+          "children": [
+            {
+              "changeDescription": "Constructor \"new\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"dateValidator\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class FortnightPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class SemesterPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class MonthPeriodBundle",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class TrimesterPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        },
+        {
+          "label": "Class YearPeriod",
+          "children": [
+            {
+              "changeDescription": "Method \"toUtc\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Method \"toLocal\" added",
+              "changeCode": "CE11",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isUtc\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            },
+            {
+              "changeDescription": "Field \"isLocal\" added",
+              "changeCode": "CF02",
+              "isBreaking": false,
+              "type": "minor"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

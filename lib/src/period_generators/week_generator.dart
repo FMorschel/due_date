@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
+
 import '../extensions/extensions.dart';
 import '../periods/periods.dart';
 import 'period_generator_mixin.dart';
@@ -25,7 +26,8 @@ class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
   @override
   // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
-    return (super == other) || (other is WeekGenerator);
+    return (super == other) ||
+        ((other is WeekGenerator) && (other.weekStart == weekStart));
   }
 
   @override

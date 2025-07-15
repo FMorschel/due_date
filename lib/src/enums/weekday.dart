@@ -1,4 +1,5 @@
 import 'package:time/time.dart';
+
 import '../date_validators/date_validators.dart';
 import '../everies/everies.dart';
 import '../extensions/extensions.dart';
@@ -94,11 +95,6 @@ enum Weekday implements Comparable<Weekday> {
 
   /// Returns the amount of weekdays correspondent to this on the given [month]
   /// of [year].
-  @Deprecated("Use 'Weekday.occurrencesIn' instead")
-  int occrurencesIn(int year, int month) => occurrencesIn(year, month);
-
-  /// Returns the amount of weekdays correspondent to this on the given [month]
-  /// of [year].
   int occurrencesIn(int year, int month) {
     var date = DateTime.utc(year, month);
     var count = 0;
@@ -123,6 +119,11 @@ enum Weekday implements Comparable<Weekday> {
   @override
   int compareTo(Weekday other) => dateTimeValue.compareTo(other.dateTimeValue);
 
+  /// Returns the amount of weekdays correspondent to this on the given [month]
+  /// of [year].
+  @Deprecated("Use 'Weekday.occurrencesIn' instead")
+  int occrurencesIn(int year, int month) => occurrencesIn(year, month);
+
   /// Returns true if this weekday is after other.
   bool operator >(Weekday other) => index > other.index;
 
@@ -140,14 +141,14 @@ enum Weekday implements Comparable<Weekday> {
   ///  - [monday] + `1` returns [tuesday].
   ///  - [friday] + `3` returns [monday].
   Weekday operator +(int days) =>
-      Weekday.fromDateTimeValue(dateTimeValue + days % values.length);
+      Weekday.fromDateTimeValue((dateTimeValue - 1 + days) % values.length + 1);
 
   /// Returns the [Weekday] that corresponds to this subtracted [days].
   /// Eg.:
   ///  - [tuesday] - `1` returns [monday].
   ///  - [monday] - `3` returns [friday].
   Weekday operator -(int days) =>
-      Weekday.fromDateTimeValue(dateTimeValue - days % values.length);
+      Weekday.fromDateTimeValue((dateTimeValue - 1 - days) % values.length + 1);
 
   /// Returns the [EveryWeekday] that corresponds to this weekday.
   EveryWeekday get every {
@@ -169,8 +170,8 @@ enum Weekday implements Comparable<Weekday> {
     }
   }
 
-  /// Returns the [DateValidator] that corresponds to this weekday.
-  DateValidator get validator {
+  /// Returns the [DateValidatorWeekday] that corresponds to this weekday.
+  DateValidatorWeekday get validator {
     switch (this) {
       case monday:
         return const DateValidatorWeekday(monday);

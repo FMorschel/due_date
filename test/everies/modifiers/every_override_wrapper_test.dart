@@ -1,8 +1,25 @@
 import 'package:due_date/due_date.dart';
 import 'package:test/test.dart';
 
+import '../../src/date_time_match.dart';
+import '../../src/every_match.dart';
+
+/// Basic Every implementation for testing that returns predefined dates.
+class BasicEvery extends Every {
+  const BasicEvery();
+
+  @override
+  DateTime startDate(DateTime date) => date;
+
+  @override
+  DateTime next(DateTime date) => date;
+
+  @override
+  DateTime previous(DateTime date) => date;
+}
+
 void main() {
-  group('EveryOverrideWrapper', () {
+  group('EveryOverrideWrapper:', () {
     final every = Weekday.monday.every;
     const invalidator = DateValidatorWeekdayCountInMonth(
       week: Week.first,
@@ -14,157 +31,302 @@ void main() {
       overrider: Weekday.tuesday.every,
     );
 
-    group('Test base methods logic', () {
-      final date = DateTime(2022, DateTime.september, 27);
-      final expected = DateTime(2022, DateTime.october, 4);
+    group('Constructor', () {
+      group('Unnamed', () {
+        test('Valid basic case', () {
+          expect(wrapper, isNotNull);
+        });
+        test('Creates with correct every', () {
+          expect(wrapper.every, equals(every));
+        });
+      });
+    });
+
+    group('Methods', () {
       group('startDate', () {
-        test('If the given date would be generated, return it', () {
-          expect(
-            wrapper.startDate(expected),
-            equals(expected),
-          );
+        test('Returns same date when input is valid', () {
+          // October 4, 2022 is Tuesday (overrider day).
+          final validDate = DateTime(2022, DateTime.october, 4);
+          expect(wrapper, startsAtSameDate.withInput(validDate));
         });
-        test('If the given date would not be generated, use next', () {
-          expect(
-            wrapper.startDate(date),
-            equals(wrapper.next(date)),
+        test('Returns next valid date when input is invalid', () {
+          // September 27, 2022 is Tuesday.
+          final invalidDate = DateTime(2022, DateTime.september, 27);
+          // October 4, 2022 is Tuesday.
+          final expected = DateTime(2022, DateTime.october, 4);
+          expect(wrapper, startsAt(expected).withInput(invalidDate));
+        });
+        test('Works with non-DateValidator every', () {
+          const basicEvery = BasicEvery();
+          const basicInvalidator = DateValidatorWeekday(Weekday.monday);
+          final basicWrapper = EveryOverrideWrapper(
+            every: basicEvery,
+            invalidator: basicInvalidator,
+            overrider: Weekday.tuesday.every,
           );
+
+          // October 4, 2022 is Tuesday (valid for overrider).
+          final validDate = DateTime(2022, DateTime.october, 4);
+          expect(basicWrapper, startsAtSameDate.withInput(validDate));
+
+          // October 3, 2022 is Monday (invalid).
+          final invalidDate = DateTime(2022, DateTime.october, 3);
+          // October 4, 2022 is Tuesday.
+          final expected = DateTime(2022, DateTime.october, 4);
+          expect(basicWrapper, startsAt(expected).withInput(invalidDate));
         });
       });
+
       group('next', () {
-        test(
-          'If the given date would be generated, generate a new one anyway',
-          () => expect(
-            wrapper.next(expected),
-            equals(DateTime(2022, DateTime.october, 10)),
-          ),
-        );
-        test(
-          'If the given date would not be generated, generate the next valid '
-          'date',
-          () => expect(
-            wrapper.next(date),
-            equals(expected),
-          ),
-        );
+        test('Always generates date after input', () {
+          // October 4, 2022 is Tuesday.
+          final validDate = DateTime(2022, DateTime.october, 4);
+          expect(wrapper, nextIsAfter.withInput(validDate));
+        });
+        test('Generates next occurrence from valid date', () {
+          // October 4, 2022 is Tuesday.
+          final validDate = DateTime(2022, DateTime.october, 4);
+          // October 10, 2022 is Monday.
+          final expected = DateTime(2022, DateTime.october, 10);
+          expect(wrapper, hasNext(expected).withInput(validDate));
+        });
+        test('Generates next occurrence from invalid date', () {
+          // September 27, 2022 is Tuesday.
+          final invalidDate = DateTime(2022, DateTime.september, 27);
+          // October 4, 2022 is Tuesday.
+          final expected = DateTime(2022, DateTime.october, 4);
+          expect(wrapper, hasNext(expected).withInput(invalidDate));
+        });
       });
+
       group('previous', () {
-        final expectedPrevious = DateTime(2022, DateTime.september, 26);
-
-        test(
-          'If the given date would be generated, generate a new one anyway',
-          () {
-            expect(
-              wrapper.previous(DateTime(2022, DateTime.october, 3)),
-              equals(expectedPrevious),
-            );
-            expect(
-              wrapper.previous(DateTime(2022, DateTime.october, 4)),
-              equals(DateTime(2022, DateTime.september, 27)),
-            );
-          },
-        );
-        test(
-          'If the given date would not be generated, generate the next valid '
-          'date',
-          () => expect(wrapper.previous(date), equals(expectedPrevious)),
-        );
-      });
-    });
-
-    group('startDate', () {
-      final date = DateTime(2023, 12, 3);
-      final expectedDate = DateTime(2023, 12, 5);
-
-      test('when limit is null', () {
-        final result = wrapper.startDate(date);
-
-        expect(result, equals(expectedDate));
-      });
-
-      group('when limit is not null', () {
-        test('and limit is after date', () {
-          final result = wrapper.startDate(
-            date,
-            limit: DateTime(2023, 12, 12),
-          );
-
-          expect(result, equals(expectedDate));
+        test('Always generates date before input', () {
+          // October 4, 2022 is Tuesday.
+          final validDate = DateTime(2022, DateTime.october, 4);
+          expect(wrapper, previousIsBefore.withInput(validDate));
         });
-
-        test('and limit is before date', () {
-          expect(
-            () => wrapper.startDate(date, limit: DateTime(2023, 12)),
-            throwsA(isA<DateTimeLimitReachedException>()),
-          );
+        test('Generates previous occurrence from valid date', () {
+          // October 4, 2022 is Tuesday.
+          final validDate = DateTime(2022, DateTime.october, 4);
+          // September 27, 2022 is Tuesday.
+          final expected = DateTime(2022, DateTime.september, 27);
+          expect(wrapper, hasPrevious(expected).withInput(validDate));
         });
-
-        test('and limit is the expected date', () {
-          final result = wrapper.startDate(date, limit: expectedDate);
-
-          expect(result, equals(expectedDate));
+        test('Generates previous occurrence from invalid date', () {
+          // September 27, 2022 is Tuesday.
+          final invalidDate = DateTime(2022, DateTime.september, 27);
+          // September 26, 2022 is Monday.
+          final expected = DateTime(2022, DateTime.september, 26);
+          expect(wrapper, hasPrevious(expected).withInput(invalidDate));
         });
       });
     });
 
-    group('next', () {
-      final date = DateTime(2023, 12, 3);
-      final expectedDate = DateTime(2023, 12, 5);
-
-      test('when limit is null', () {
-        final result = wrapper.next(date);
-
-        expect(result, equals(expectedDate));
+    group('Explicit datetime tests:', () {
+      test('Override first Monday with Tuesday calculation', () {
+        // December 3, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 3);
+        // December 5, 2023 is Tuesday (overriding first Monday).
+        final expectedDate = DateTime(2023, 12, 5);
+        expect(wrapper, hasNext(expectedDate).withInput(inputDate));
       });
 
-      group('when limit is not null', () {
-        test('and limit is after date', () {
-          final result = wrapper.next(date, limit: DateTime(2023, 12, 12));
-
-          expect(result, equals(expectedDate));
-        });
-
-        test('and limit is before date', () {
-          expect(
-            () => wrapper.next(date, limit: DateTime(2023, 12)),
-            throwsA(isA<DateTimeLimitReachedException>()),
-          );
-        });
-
-        test('and limit is the expected date', () {
-          final result = wrapper.next(date, limit: expectedDate);
-
-          expect(result, equals(expectedDate));
-        });
-      });
-    });
-
-    group('previous', () {
-      final date = DateTime(2023, 12, 10);
-      final expectedDate = DateTime(2023, 11, 28);
-
-      test('when limit is null', () {
-        final result = wrapper.previous(date);
-
-        expect(result, equals(expectedDate));
-      });
-      test('when limit is not null', () {
-        final result = wrapper.previous(date, limit: DateTime(2023, 11, 26));
-
-        expect(result, equals(expectedDate));
+      test('Previous calculation with override', () {
+        // December 10, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 10);
+        // November 28, 2023 is Tuesday.
+        final expectedDate = DateTime(2023, 11, 28);
+        expect(wrapper, hasPrevious(expectedDate).withInput(inputDate));
       });
 
-      test('when limit is before date', () {
+      test('Edge case: limit reached in next', () {
+        // December 3, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 3);
+        // December 1, 2023 is before input date.
+        final limitDate = DateTime(2023, 12);
         expect(
-          () => wrapper.previous(date, limit: DateTime(2023, 11, 29)),
+          () => wrapper.next(inputDate, limit: limitDate),
           throwsA(isA<DateTimeLimitReachedException>()),
         );
       });
 
-      test('and limit is the expected date', () {
-        final result = wrapper.previous(date, limit: expectedDate);
+      test('Edge case: limit reached in previous', () {
+        // December 10, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 10);
+        // November 29, 2023 is after expected previous date.
+        final limitDate = DateTime(2023, 11, 29);
+        expect(
+          () => wrapper.previous(inputDate, limit: limitDate),
+          throwsA(isA<DateTimeLimitReachedException>()),
+        );
+      });
 
-        expect(result, equals(expectedDate));
+      test('Limit is exactly the expected date', () {
+        // December 3, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 3);
+        // December 5, 2023 is Tuesday.
+        final expectedDate = DateTime(2023, 12, 5);
+        expect(
+          wrapper,
+          hasNext(expectedDate).withInput(inputDate, limit: expectedDate),
+        );
+      });
+    });
+
+    group('Time component preservation:', () {
+      test('Maintains time components in local DateTime', () {
+        final input = DateTime(2024, 1, 10, 14, 30, 45, 123, 456);
+        final result = wrapper.next(input);
+        expect(result.hour, equals(14));
+        expect(result.minute, equals(30));
+        expect(result.second, equals(45));
+        expect(result.millisecond, equals(123));
+        expect(result.microsecond, equals(456));
+        expect(result, isLocalDateTime);
+      });
+      test('Maintains time components in UTC DateTime', () {
+        final input = DateTime.utc(2024, 1, 10, 14, 30, 45, 123, 456);
+        final result = wrapper.next(input);
+        expect(result.hour, equals(14));
+        expect(result.minute, equals(30));
+        expect(result.second, equals(45));
+        expect(result.millisecond, equals(123));
+        expect(result.microsecond, equals(456));
+        expect(result, isUtcDateTime);
+      });
+
+      test('Previous maintains time components in local DateTime', () {
+        final inputWithTime = DateTime(2023, 12, 10, 9, 15, 30, 500, 250);
+        final result = wrapper.previous(inputWithTime);
+
+        // Should preserve time components.
+        expect(result.hour, equals(9));
+        expect(result.minute, equals(15));
+        expect(result.second, equals(30));
+        expect(result.millisecond, equals(500));
+        expect(result.microsecond, equals(250));
+        expect(result, isLocalDateTime);
+      });
+
+      test('Previous maintains time components in UTC DateTime', () {
+        final inputWithTime = DateTime.utc(2023, 12, 10, 9, 15, 30, 500, 250);
+        final result = wrapper.previous(inputWithTime);
+
+        // Should preserve time components and UTC flag.
+        expect(result.hour, equals(9));
+        expect(result.minute, equals(15));
+        expect(result.second, equals(30));
+        expect(result.millisecond, equals(500));
+        expect(result.microsecond, equals(250));
+        expect(result, isUtcDateTime);
+      });
+
+      test('Normal generation with date-only input (local)', () {
+        final inputDate = DateTime(2023, 12, 3);
+        final expected = DateTime(2023, 12, 5);
+        expect(wrapper, hasNext(expected).withInput(inputDate));
+      });
+
+      test('Normal generation with date-only input (UTC)', () {
+        final inputDate = DateTime.utc(2023, 12, 3);
+        final expected = DateTime.utc(2023, 12, 5);
+        expect(wrapper, hasNext(expected).withInput(inputDate));
+      });
+    });
+
+    group('Edge Cases', () {
+      test('Limit validation in startDate', () {
+        // December 3, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 3);
+        // December 1, 2023 is before input date.
+        final limitDate = DateTime(2023, 12);
+        expect(
+          () => wrapper.startDate(inputDate, limit: limitDate),
+          throwsA(isA<DateTimeLimitReachedException>()),
+        );
+      });
+
+      test('Limit validation in next', () {
+        // December 3, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 3);
+        // December 12, 2023 is after expected date.
+        final limitDate = DateTime(2023, 12, 12);
+        final expectedDate = DateTime(2023, 12, 5);
+        expect(
+          wrapper,
+          hasNext(expectedDate).withInput(inputDate, limit: limitDate),
+        );
+      });
+
+      test('Limit validation in previous', () {
+        // December 10, 2023 is Sunday.
+        final inputDate = DateTime(2023, 12, 10);
+        // November 26, 2023 is before expected date.
+        final limitDate = DateTime(2023, 11, 26);
+        final expectedDate = DateTime(2023, 11, 28);
+        expect(
+          wrapper,
+          hasPrevious(expectedDate).withInput(inputDate, limit: limitDate),
+        );
+      });
+    });
+
+    group('Equality', () {
+      final wrapper1 = EveryOverrideWrapper(
+        every: Weekday.monday.every,
+        invalidator: DateValidatorWeekdayCountInMonth(
+          week: Week.first,
+          day: Weekday.monday,
+        ),
+        overrider: Weekday.tuesday.every,
+      );
+      final wrapper2 = EveryOverrideWrapper(
+        every: Weekday.monday.every,
+        invalidator: DateValidatorWeekdayCountInMonth(
+          week: Week.second,
+          day: Weekday.monday,
+        ),
+        overrider: Weekday.tuesday.every,
+      );
+      final wrapper3 = EveryOverrideWrapper(
+        every: Weekday.tuesday.every,
+        invalidator: DateValidatorWeekdayCountInMonth(
+          week: Week.first,
+          day: Weekday.monday,
+        ),
+        overrider: Weekday.tuesday.every,
+      );
+      final wrapper4 = EveryOverrideWrapper(
+        every: Weekday.monday.every,
+        invalidator: DateValidatorWeekdayCountInMonth(
+          week: Week.first,
+          day: Weekday.monday,
+        ),
+        overrider: Weekday.tuesday.every,
+      );
+      final wrapper5 = EveryOverrideWrapper(
+        every: Weekday.monday.every,
+        invalidator: DateValidatorWeekdayCountInMonth(
+          week: Week.first,
+          day: Weekday.monday,
+        ),
+        overrider: Weekday.wednesday.every,
+      );
+
+      test('Same instance', () {
+        expect(wrapper1, equals(wrapper1));
+      });
+      test('Same every, different invalidator', () {
+        expect(wrapper1, isNot(equals(wrapper2)));
+      });
+      test('Different every, same invalidator', () {
+        expect(wrapper1, isNot(equals(wrapper3)));
+      });
+      test('Same every, same invalidator, same overrider', () {
+        expect(wrapper1, equals(wrapper4));
+      });
+      test('Same every, same invalidator, different overrider', () {
+        expect(wrapper1, isNot(equals(wrapper5)));
       });
     });
   });

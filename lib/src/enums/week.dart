@@ -26,24 +26,21 @@ enum Week implements Comparable<Week> {
   last;
 
   /// Returns the [Week] constant that corresponds to the given [date].
-  factory Week.from(DateTime date) {
-    const weekDuration = Duration(days: 7);
-    final seventhDayOfMonth = date.toUtc().firstDayOfMonth.add(
-          const Duration(days: 6),
-        );
-    final monday = date.toUtc().firstDayOfWeek;
-    if (monday.compareTo(seventhDayOfMonth) <= 0) {
+  factory Week.from(DateTime date, {Weekday firstDayOfWeek = Weekday.monday}) {
+    final firstWeekEnd =
+        firstDayOfWeek.weekGenerator.of(date.firstDayOfMonth).end;
+    final weekStart = firstDayOfWeek.weekGenerator.of(date).start;
+
+    if (weekStart.compareTo(firstWeekEnd) <= 0) {
       return first;
-    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration)) <= 0) {
+    } else if (weekStart.compareTo(firstWeekEnd.addDays(7)) <= 0) {
       return second;
-    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration * 2)) <= 0) {
+    } else if (weekStart.compareTo(firstWeekEnd.addDays(14)) <= 0) {
       return third;
-    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration * 3)) <= 0) {
+    } else if (weekStart.compareTo(firstWeekEnd.addDays(21)) <= 0) {
       return fourth;
-    } else if (monday.compareTo(seventhDayOfMonth.add(weekDuration * 4)) <= 0) {
-      return last;
     }
-    throw Exception('Unsupported week');
+    return last;
   }
 
   /// Returns a WeekPeriod for the week of the given [year] and [month].
@@ -59,25 +56,17 @@ enum Week implements Comparable<Week> {
       case first:
         return firstDayOfWeek.weekGenerator.of(firstDayOfMonth);
       case second:
-        return firstDayOfWeek.weekGenerator.of(
-          utc ? DateTime.utc(year, month, 8) : DateTime(year, month, 8),
-        );
+        return firstDayOfWeek.weekGenerator.of(firstDayOfMonth.addDays(7));
       case third:
-        return firstDayOfWeek.weekGenerator.of(
-          utc ? DateTime.utc(year, month, 15) : DateTime(year, month, 15),
-        );
+        return firstDayOfWeek.weekGenerator.of(firstDayOfMonth.addDays(14));
       case fourth:
-        return firstDayOfWeek.weekGenerator.of(
-          utc ? DateTime.utc(year, month, 22) : DateTime(year, month, 22),
-        );
+        return firstDayOfWeek.weekGenerator.of(firstDayOfMonth.addDays(21));
       case last:
-        final fourthWeek = fourth.of(year, month);
-        if (fourthWeek.end.isBefore(firstDayOfMonth.lastDayOfMonth)) {
-          return firstDayOfWeek.weekGenerator.of(
-            utc
-                ? DateTime.utc(year, month).lastDayOfMonth
-                : DateTime(year, month).lastDayOfMonth,
-          );
+        final fourthWeek =
+            fourth.of(year, month, firstDayOfWeek: firstDayOfWeek, utc: utc);
+        if (fourthWeek.end.date.isBefore(firstDayOfMonth.lastDayOfMonth)) {
+          return firstDayOfWeek.weekGenerator
+              .of(firstDayOfMonth.lastDayOfMonth);
         } else {
           return fourthWeek;
         }

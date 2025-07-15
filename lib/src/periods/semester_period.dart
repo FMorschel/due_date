@@ -1,13 +1,12 @@
 import 'package:time/time.dart';
+
 import '../extensions/extensions.dart';
-import '../period_generators/month_generator.dart';
 import '../period_generators/period_generators.dart';
-import 'month_period.dart';
-import 'month_period_bundle.dart';
-import 'period.dart';
+import 'trimester_period.dart';
+import 'trimester_period_bundle.dart';
 
 /// A class that implements a period type of a semester.
-class SemesterPeriod extends Period implements MonthPeriodBundle {
+class SemesterPeriod extends TrimesterPeriodBundle {
   /// A class that implements a period type of a semester.
   SemesterPeriod({required super.start, required super.end})
       : assert(
@@ -39,14 +38,14 @@ class SemesterPeriod extends Period implements MonthPeriodBundle {
   }
 
   @override
-  List<MonthPeriod> get months {
-    const generator = MonthGenerator();
-    final months = <MonthPeriod>[];
+  List<TrimesterPeriod> get trimesters {
+    const generator = TrimesterGenerator();
+    final trimesters = <TrimesterPeriod>[];
     var last = generator.of(start);
     while (last.start.isBefore(end)) {
-      months.add(last);
+      trimesters.add(last);
       last = generator.after(last);
     }
-    return months;
+    return trimesters;
   }
 }

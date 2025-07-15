@@ -4,20 +4,21 @@ import '../date_validators/date_validators.dart';
 import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
 import 'every_year.dart';
+import 'exact_every.dart';
 
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
 class EveryDayInYear extends DateValidatorDayInYear
     with EveryYear
-    implements EveryDateValidator {
+    implements EveryDateValidator, ExactEvery {
   /// Returns a [EveryDayInYear] with the given [dayInYear].
   const EveryDayInYear(super.dayInYear)
       : assert(
           dayInYear >= 1 && dayInYear <= 366,
           'Day In Year must be between 1 and 366',
         ),
-        super(exact: false);
+        super();
 
   /// Returns a [EveryDayInYear] with the [dayInYear] calculated by the given
   /// [date].
@@ -53,18 +54,17 @@ class EveryDayInYear extends DateValidatorDayInYear
   /// being the [dayInYear].
   @override
   DateTime next(DateTime date) {
-    if (!date.isLeapYear && dayInYear == 366) {
-      return date.copyWith(year: date.year + 1).lastDayOfYear;
-    }
     final thisYearDay = date.firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.lastDayOfYear);
+        .clamp(max: date.lastDayOfYear)
+        .add(date.exactTimeOfDay);
     if (date.dayInYear < dayInYear) return thisYearDay;
     return date
         .copyWith(year: date.year + 1)
         .firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.copyWith(year: date.year + 1).lastDayOfYear);
+        .clamp(max: date.copyWith(year: date.year + 1).lastDayOfYear)
+        .add(date.exactTimeOfDay);
   }
 
   /// Returns the previous date that fits the [dayInYear].
@@ -78,13 +78,15 @@ class EveryDayInYear extends DateValidatorDayInYear
   DateTime previous(DateTime date) {
     final thisYearDay = date.firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.lastDayOfYear);
+        .clamp(max: date.lastDayOfYear)
+        .add(date.exactTimeOfDay);
     if (date.dayInYear > dayInYear) return thisYearDay;
     return date
         .copyWith(year: date.year - 1)
         .firstDayOfYear
         .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.copyWith(year: date.year - 1).lastDayOfYear);
+        .clamp(max: date.copyWith(year: date.year - 1).lastDayOfYear)
+        .add(date.exactTimeOfDay);
   }
 
   /// Returns a new [DateTime] where the year is [years] from this year and the

@@ -1,9 +1,11 @@
 import 'package:clock/clock.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import 'everies/everies.dart';
+import 'extensions/extensions.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
 @immutable
@@ -174,7 +176,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     /// The limit for the operations.
     DateTime? limit,
   }) {
-    final now = _clock.now();
+    final now = clock.now();
     return DueDateTime.fromDate(
       now,
       every: EveryDueDayMonth(now.day) as T,
@@ -225,7 +227,6 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   }
 
   static const _week = Duration(days: DateTime.daysPerWeek);
-  static const _clock = Clock();
 
   /// The handler for processing the next dates.
   final T every;
@@ -433,6 +434,10 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   ///
   /// The [limit] will be passed to the [Every] instance if it is a
   /// [LimitedEvery] instance.
+  ///
+  /// Toggling [utc] (compared with [isUtc]) will _**NOT**_ convert the date,
+  /// it will simply create a new [DateTime] with the same values in that
+  /// timezone.
   DueDateTime copyWith({
     Every? every,
     int? year,
@@ -443,6 +448,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     int? second,
     int? millisecond,
     int? microsecond,
+    bool? utc,
 
     /// The limit for the operations.
     DateTime? limit,
@@ -457,6 +463,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
       second: second ?? this.second,
       millisecond: millisecond ?? this.millisecond,
       microsecond: microsecond ?? this.microsecond,
+      utc: utc ?? isUtc,
       limit: limit,
     );
   }
@@ -676,14 +683,16 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   @override
   String toString() {
-    final date = this.date.add(timeOfDay);
+    final date = this.date.add(exactTimeOfDay);
     return '$date - $every';
   }
 
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
-    return super == other || ((other is DueDateTime) && (every == other.every));
+    return super == other ||
+        ((other is DueDateTime) &&
+            const DeepCollectionEquality().equals(props, other.props));
   }
 
   /// Returns a new [DueDateTime] instance with the next date that matches the
@@ -696,7 +705,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// The [limit] parameter is used to limit the search for the next date when
   /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
   /// is ignored.
-  DueDateTime next({
+  DueDateTime<T> next({
     /// The limit to search for the next date.
     DateTime? limit,
   }) =>
@@ -710,20 +719,16 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// Returns a new [DueDateTime] instance with the previous date that matches
   /// the [every] main pattern.
   ///
-  /// The [limit] parameter is used to limit the search for the next date when
-  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
-  /// is ignored.
-  ///
-  /// The [limit] parameter is used to limit the search for the next date when
-  /// [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the [limit]
-  /// is ignored.
-  DueDateTime previous({
+  /// The [limit] parameter is used to limit the search for the previous date
+  /// when [every] is [LimitedEvery]. If [every] is not [LimitedEvery], the
+  /// [limit] is ignored.
+  DueDateTime<T> previous({
     /// The limit to search for the previous date.
     DateTime? limit,
   }) =>
       DueDateTime.fromDate(
         every is LimitedEvery
-            ? (every as LimitedEvery).next(this, limit: limit)
+            ? (every as LimitedEvery).previous(this, limit: limit)
             : every.previous(this),
         every: every,
       );
@@ -739,5 +744,6 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         second,
         millisecond,
         microsecond,
+        isUtc,
       ];
 }

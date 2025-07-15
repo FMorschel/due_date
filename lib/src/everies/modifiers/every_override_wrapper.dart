@@ -43,40 +43,57 @@ class EveryOverrideWrapper<T extends Every> extends EveryModifierInvalidator<T>
         limit: limit,
       );
 
-      /// - Iterate over the next possible dates after [previous] with the
-      /// [every] generator using startDate on the first iteration and next on
-      /// every following.
-      /// If the date generated for the  iteration is already bigger than the
-      /// given [date], super.startDate will be used.
-      /// If the date is valid for the [invalidator], the [overrider] startDate
-      /// will be used.
-      /// If that date is then the exact given [date], it will be returned.
-      /// If that date is before the given [date], a new iteration will be
-      /// started.
       previous = every.startDate(previous);
-      if (previous.isAfter(date)) {
-        return super.startDate(date, limit: limit);
-      } else if (previous.isAtSameMomentAs(date)) {
-        if (invalidator.invalid(previous)) return date;
-      }
+
+      // Check the initial date after startDate
+      final initialCheck = _checkDateConditions(previous, date, limit);
+      if (initialCheck != null) return initialCheck;
+
+      // Iterate over the next possible dates after [previous] with the
+      // [every] generator using startDate on the first iteration and next on
+      // every following.
+      //
+      // - If the date generated for the iteration is already bigger than the
+      // given [date], super.startDate will be used.
+      // - If the date is valid for the [invalidator], the [overrider] startDate
+      // will be used.
+      // - If that date is then the exact given [date], it will be returned.
+      // - If that date is before the given [date], a new iteration will be
+      // started.
       while (previous.isBefore(date)) {
         if (invalidator.valid(previous)) {
           previous = overrider.startDate(previous);
         }
-        if (previous.isAfter(date)) {
-          return super.startDate(date, limit: limit);
-        } else if (previous.isAtSameMomentAs(date)) {
-          if (invalidator.invalid(previous)) return date;
-        }
+        // Check conditions after potential override
+        final checkResult = _checkDateConditions(previous, date, limit);
+        if (checkResult != null) return checkResult;
+
         previous = every.next(previous);
       }
-      if (previous.isAfter(date)) {
-        return super.startDate(date, limit: limit);
-      } else if (previous.isAtSameMomentAs(date)) {
-        if (invalidator.invalid(previous)) return date;
-      }
+
+      // Final check after the loop
+      final finalCheck = _checkDateConditions(previous, date, limit);
+      if (finalCheck != null) return finalCheck;
     }
     return super.startDate(date, limit: limit);
+  }
+
+  /// Helper method to check common date conditions and return appropriate
+  /// result.
+  ///
+  /// Returns null if no condition is met and processing should continue.
+  DateTime? _checkDateConditions(
+    DateTime previous,
+    DateTime date,
+    DateTime? limit,
+  ) {
+    if (previous.isAfter(date)) {
+      return super.startDate(date, limit: limit);
+    }
+    if (previous.isAtSameMomentAs(date) && invalidator.invalid(previous)) {
+      return date;
+    }
+    return null;
   }
 
   /// Generates the next instance of the given [date] considering the [every]

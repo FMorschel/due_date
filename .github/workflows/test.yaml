@@ -1,0 +1,57 @@
+name: Test and Coverage
+
+on:
+  push:
+    branches: [ main, master, exports-and-tests ]
+    paths:
+      - 'lib/**'
+      - 'test/**'
+      - 'pubspec.yaml'
+      - 'analysis_options.yaml'
+  pull_request:
+    branches: [ main, master, exports-and-tests ]
+    paths:
+      - 'lib/**'
+      - 'test/**'
+      - 'pubspec.yaml'
+      - 'analysis_options.yaml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        dart-version: [stable, beta]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Dart
+      uses: dart-lang/setup-dart@v1
+      with:
+        sdk: ${{ matrix.dart-version }}
+    
+    - name: Install dependencies
+      run: dart pub get
+    
+    - name: Verify formatting
+      run: dart format --output=none --set-exit-if-changed .
+    
+    - name: Analyze project source
+      run: |
+        dart pub downgrade
+        dart analyze --fatal-infos
+    
+    - name: Run tests with coverage
+      run: dart test --coverage=coverage --fail-fast
+    
+    - name: Generate LCOV report
+      run: dart pub global activate coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib
+    
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: coverage/lcov.info
+        fail_ci_if_error: false
