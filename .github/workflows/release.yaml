@@ -16,7 +16,8 @@ jobs:
       - name: Verify tag regex
         id: verify_tag_regex
         run: |
-          if echo "$GITHUB_REF" | grep -qE '^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9._@#$%-]+)?$'; then
+          TAG_NAME=$(echo "$GITHUB_REF" | sed -E 's|refs/tags/||')
+          if echo "$TAG_NAME" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9._@#$%-]+)?$'; then
             echo "Tag format is valid."
             echo "valid_tag=true" >> $GITHUB_OUTPUT
           else
