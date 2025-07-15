@@ -16,6 +16,9 @@ on:
       - 'pubspec.yaml'
       - 'analysis_options.yaml'
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
