@@ -1,0 +1,40 @@
+name: PR Checks to Stable
+
+on:
+  pull_request:
+    branches:
+      - stable
+
+jobs:
+  pr-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Clone stable branch as old_version
+        run: |
+          git clone --branch stable --single-branch --depth 1 ${{ github.repository }} old_version
+          rm -rf old_version/.git
+
+      - name: Clone PR branch as new_version
+        run: |
+          git clone --branch ${{ github.head_ref }} --single-branch --depth 1 ${{ github.repository }} new_version
+          rm -rf new_version/.git
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dart API Tool
+        run: |
+          dart pub global activate dart_apitool
+
+      - name: Run API diff and save report
+        run: |
+          dart_apitool diff --old ./old_version --new ./new_version --ignore-prerelease on --report-format markdown --report-file-path apitool_report.md
+
+      - name: Comment API diff report on PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body "$(cat apitool_report.md)"
