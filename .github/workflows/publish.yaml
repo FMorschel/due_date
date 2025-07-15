@@ -26,6 +26,10 @@ jobs:
             echo "valid_tag=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Checkout stable branch
+        if: steps.verify_tag_regex.outputs.valid_tag == 'true'
+        uses: actions/checkout@v4
+
       - name: Check that tag commit is on stable branch
         id: check_tag_commit_branch
         if: steps.verify_tag_regex.outputs.valid_tag == 'true'
@@ -33,19 +37,13 @@ jobs:
           TAG_COMMIT=$(git rev-parse "$GITHUB_SHA")
           git fetch origin stable
           STABLE_COMMIT=$(git rev-parse origin/stable)
-          if git merge-base --is-ancestor "$TAG_COMMIT" "$STABLE_COMMIT"; then
+          if git merge-base --is-ancestor "$TAG_COMMIT" "$STABLE_COMMIT" || [ "$TAG_COMMIT" = "$STABLE_COMMIT" ]; then
             echo "Tag commit is on stable branch."
             echo "valid_tag=true" >> $GITHUB_OUTPUT
           else
             echo "ERROR: Tag commit ($TAG_COMMIT) is not on stable branch ($STABLE_COMMIT)."
             echo "valid_tag=false" >> $GITHUB_OUTPUT
           fi
-
-      - name: Checkout stable branch
-        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
-        uses: actions/checkout@v4
-        with:
-          ref: stable
 
       - name: Read version from pubspec.yaml
         if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
