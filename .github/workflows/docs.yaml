@@ -5,34 +5,87 @@ on:
     branches:
       - stable
     paths:
-      - 'docs/api/**'
+      - 'lib/**'
+      - 'pubspec.yaml'
   pull_request:
     branches:
       - stable
     paths:
-      - 'docs/api/**'
+      - 'lib/**'
+      - 'pubspec.yaml'
 
 jobs:
   update-docs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Install git-filter-repo
-      run: sudo apt-get install -y git-filter-repo
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
 
-    - name: Switch to gh-pages and replace contents
-      run: |
-        git checkout gh-pages
-        git rm -r -f .
-        git checkout HEAD -- docs/api
-        mv docs/api/* .
-        git add .
-        git commit -m "Update gh-pages" || echo "No changes to commit"
-        git push
+      - name: Install dependencies
+        run: dart pub get
 
-    - name: Filter repo
-      run: |
-        git filter-repo --path docs/api
+      - name: Analyze project source
+        run: dart analyze
+
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | head -n1 | cut -d ' ' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Generate docs
+        run: dart doc
+
+      - name: Clean up everything except doc/
+        run: |
+          find . -mindepth 1 -maxdepth 1 ! -name 'doc' ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} +
+
+      - name: Move doc/api/* to root
+        run: |
+          shopt -s dotglob
+          mv doc/api/* .
+          shopt -u dotglob
+
+      - name: Remove doc/api if empty
+        run: |
+          rmdir doc/api || true
+
+      - name: Create or update docs branch
+        id: update_docs_branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH=docs-for-${{ steps.get_version.outputs.version }}
+          if git ls-remote --exit-code --heads origin "$BRANCH"; then
+            echo "branch_exists=true" >> $GITHUB_OUTPUT
+            git fetch origin "$BRANCH"
+            git checkout "$BRANCH"
+            git reset --hard origin/$BRANCH
+          else
+            echo "branch_exists=false" >> $GITHUB_OUTPUT
+            git checkout --orphan "$BRANCH"
+            git reset --hard
+          fi
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Update docs for ${{ steps.get_version.outputs.version }}"
+            git push -f origin "$BRANCH"
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create or update PR to gh-pages
+        if: steps.update_docs_branch.outputs.changes == 'true' && steps.update_docs_branch.outputs.branch_exists == 'false'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: gh-pages
+          title: Docs for ${{ steps.get_version.outputs.version }}
+          body: "Automated documentation update for version ${{ steps.get_version.outputs.version }}."
+          branch: docs-for-${{ steps.get_version.outputs.version }}
