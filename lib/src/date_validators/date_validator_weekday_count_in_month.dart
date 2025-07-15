@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:time/time.dart';
 
 import '../enums/enums.dart';
 import '../extensions/extensions.dart';
@@ -19,12 +20,14 @@ class DateValidatorWeekdayCountInMonth extends DateValidator
 
   /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
   /// [day] of the week and is the [week] of the month.
-  factory DateValidatorWeekdayCountInMonth.from(DateTime date) {
-    return DateValidatorWeekdayCountInMonth(
-      week: Week.from(date),
-      day: Weekday.from(date),
-    );
-  }
+  factory DateValidatorWeekdayCountInMonth.from(DateTime date) =>
+      DateValidatorWeekdayCountInMonth(
+        week: Week.from(
+          date,
+          firstDayOfWeek: Weekday.from(date.firstDayOfMonth),
+        ),
+        day: Weekday.from(date),
+      );
 
   /// The expected week of the month.
   final Week week;

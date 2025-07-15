@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -17,13 +18,6 @@ class Period with EquatableMixin implements Comparable<Period> {
         end,
         'end',
         'End must be after or equals to start.',
-      );
-    }
-    if (start.isUtc ^ end.isUtc) {
-      throw ArgumentError.value(
-        end,
-        'end',
-        'Start and end must be both UTC or both local.',
       );
     }
   }
@@ -115,56 +109,56 @@ class Period with EquatableMixin implements Comparable<Period> {
   /// Returns the period between the start of the [first] period and the start
   /// of the [second] period.
   ///
-  /// If [first] and [second] do not overlap, the period that occurs before will
-  /// be returned.
+  /// If [first] and [second] overlap:
+  /// - If the [first] period starts before the [second] period, the period will
+  ///   be from the start of the [first] period to the start of the [second]
+  ///   period.
+  /// - If the [first] period starts after the [second] period, the period will
+  ///   be from the start of the [second] period to the start of the [first]
+  ///   period.
+  /// - If both periods start at the same time, `null` will be returned.
   ///
-  /// If the [first] period starts before the [second] period, the period will
-  /// be from the start of the [first] period to the start of the [second]
-  /// period.
-  ///
-  /// If the [first] period starts after the [second] period, the period will be
-  /// from the start of the [second] period to the start of the [first] period.
-  ///
-  /// If both periods start at the same time, `null` will be returned.
+  /// If [first] and [second] do not overlap, the period that occurs before
+  /// the other will be returned (whichever period starts first
+  /// chronologically).
   static Period? calculateStartDifference(Period first, Period second) {
     if (first.overlapsWith(second)) {
       if (first.startsBefore(second.start)) {
         return Period(start: first.start, end: second.start);
-      } else if (first.startsAfter(second.start)) {
+      }
+      if (first.startsAfter(second.start)) {
         return Period(start: second.start, end: first.start);
       }
-    } else {
-      if (first.occursBefore(second)) return first;
-      return second;
+      return null;
     }
-    return null;
+    if (first.occursBefore(second)) return first;
+    return second;
   }
 
   /// Returns the period between the end of the [first] period and the end
   /// of the [second] period.
   ///
+  /// If [first] and [second] overlap:
+  /// - If the [first] period ends after the [second] period, the period will be
+  ///   from the end of the [second] period to the end of the [first] period.
+  /// - If the [first] period ends before the [second] period, the period will
+  ///   be from the end of the [first] period to the end of the [second] period.
+  /// - If both periods end at the same time, `null` will be returned.
+  ///
   /// If [first] and [second] do not overlap, the period that occurs after will
-  /// be returned.
-  ///
-  /// If the [first] period ends after the [second] period, the period will be
-  /// from the end of the [second] period to the end of the [first] period.
-  ///
-  /// If the [first] period ends before the [second] period, the period will be
-  /// from the end of the [first] period to the end of the [second] period.
-  ///
-  /// If both periods end at the same time, `null` will be returned.
+  /// be returned (whichever period ends last chronologically).
   static Period? calculateEndDifference(Period first, Period second) {
     if (first.overlapsWith(second)) {
       if (first.endsAfter(second.end)) {
         return Period(start: second.end, end: first.end);
-      } else if (first.endsBefore(second.end)) {
+      }
+      if (first.endsBefore(second.end)) {
         return Period(start: first.end, end: second.end);
       }
-    } else {
-      if (first.occursAfter(second)) return first;
-      return second;
+      return null;
     }
-    return null;
+    if (first.occursAfter(second)) return first;
+    return second;
   }
 
   /// Split the period in multiple periods. The [times] is the number of periods
@@ -263,13 +257,15 @@ class Period with EquatableMixin implements Comparable<Period> {
   /// The [periodBetween] is the duration between each period.
   /// The [dates] not included in the period are ignored.
   /// The [dates] will be sorted before splitting.
+  /// If [dates] contain the [start] or [end] of the period, they will be
+  /// ignored since they are already included in the period.
   ///
   /// The [periodBetween] must be greater than or equals to zero and less than
   /// the duration of the period.
   /// The sum of the period between dates must be less than the duration of the
   /// period.
   ///
-  /// If the [periodBetween] is zero, the periods will be contiguous.
+  /// If the [periodBetween] is zero, the periods will be continuous.
   /// If the [periodBetween] is greater than zero, the periods will be
   /// separated by the given duration.
   ///
@@ -319,7 +315,8 @@ class Period with EquatableMixin implements Comparable<Period> {
       );
     }
     final periods = <Period>[];
-    final sortedValidDates = [...dates.where(contains)]..sort();
+    final sortedValidDates = [...dates.where(contains).whereNot(_startOrEnd)]
+      ..sort();
     final resultDuration = periodBetween * sortedValidDates.length;
     if (resultDuration > duration) {
       throw ArgumentError.value(
@@ -329,28 +326,27 @@ class Period with EquatableMixin implements Comparable<Period> {
             'the period.',
       );
     }
-    for (final date in sortedValidDates.sublist(sortedValidDates.length - 1)) {
-      if (periods.isEmpty) {
-        periods.add(Period(start: start, end: date));
-      } else {
-        final last = periods.last;
-        if (last.end.add(periodBetween).isBefore(date)) {
-          periods.add(Period(start: last.end.add(periodBetween), end: date));
-        } else {
-          final start = last.end.add(periodBetween);
-          periods.add(Period(start: start, end: start));
-        }
+    if (sortedValidDates.isNotEmpty) {
+      sortedValidDates.add(end);
+      if (sortedValidDates
+          .mapPairs((a, b) => b.difference(a))
+          .any((difference) => difference < periodBetween)) {
+        throw ArgumentError.value(
+          periodBetween,
+          'periodBetween',
+          'The period between the provided dates must be greater than or '
+              'equal to $periodBetween',
+        );
       }
+      periods.add(Period(start: start, end: sortedValidDates.first));
+      sortedValidDates.removeAt(0);
     }
-    if (periods.isNotEmpty) {
-      final last = periods.last;
-      if (last.end.add(periodBetween).isBefore(end)) {
-        periods.add(Period(start: last.end.add(periodBetween), end: end));
-      } else {
-        final start = last.end.add(periodBetween);
-        periods.add(Period(start: start, end: start));
-      }
-    } else {
+    for (final date in sortedValidDates) {
+      periods.add(
+        Period(start: periods.last.end.add(periodBetween), end: date),
+      );
+    }
+    if (!periods.isNotEmpty) {
       periods.add(this);
     }
     return periods;
@@ -632,17 +628,16 @@ class Period with EquatableMixin implements Comparable<Period> {
   }
 
   @override
-  String toString({String Function(DateTime date)? dateFormat}) {
-    // ignore: no_runtimetype_tostring, simply to print the class
-    return '$runtimeType(${dateFormat?.call(start) ?? start}, '
-        '${dateFormat?.call(end) ?? end})';
-  }
-
-  @override
   // ignore: hash_and_equals, overridden in EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is Period) && (other.start == start) && (other.end == end));
+  }
+
+  @override
+  String toString({String Function(DateTime date)? dateFormat}) {
+    return '${dateFormat?.call(start) ?? start}, '
+        '${dateFormat?.call(end) ?? end}';
   }
 
   /// Removes periods that do not overlap with this period and trims the ones
@@ -653,12 +648,17 @@ class Period with EquatableMixin implements Comparable<Period> {
       if (period.doesNotOverlapWith(this)) {
         localPeriods.remove(period);
       } else if (containsPartially(period)) {
+        final index = localPeriods.indexOf(period);
         localPeriods
-          ..remove(period)
-          ..add(getIntersection(period)!);
+          ..removeAt(index)
+          ..insert(index, getIntersection(period)!);
       }
     }
     return localPeriods;
+  }
+
+  bool _startOrEnd(DateTime date) {
+    return start.isAtSameMomentAs(date) || end.isAtSameMomentAs(date);
   }
 
   /// The difference between the [start] and [end] plus one microsecond.
@@ -676,6 +676,52 @@ class Period with EquatableMixin implements Comparable<Period> {
   /// If the [duration] is not `Duration(microseconds: 1)`.
   bool get isNotEmpty => start != end;
 
+  /// If the [start] and [end] are both in UTC.
+  ///
+  /// Is `null` if one is in UTC and the other is not.
+  bool? get isUtc => start.isUtc == end.isUtc ? start.isUtc : null;
+
+  /// If the [start] and [end] are both in local time.
+  ///
+  /// Is `null` if one is in local time and the other is not.
+  bool? get isLocal => start.isUtc == end.isUtc ? !start.isUtc : null;
+
+  /// Returns a [Period] with the [start] and [end] in UTC.
+  ///
+  /// If `this` [isUtc], it will be returned.
+  /// If eiher [start] or [end] is not in UTC, a new [Period] will be created
+  /// with the [start] and [end] converted to UTC.
+  Period toUtc() {
+    if (isUtc ?? false) return this;
+    return Period(
+      start: start.toUtc(),
+      end: end.toUtc(),
+    );
+  }
+
+  /// Returns a [Period] with the [start] and [end] in local time.
+  ///
+  /// If `this` [isLocal], it will be returned.
+  /// If eiher [start] or [end] is not in local time, a new [Period] will be
+  /// created with the [start] and [end] converted to local time.
+  Period toLocal() {
+    if (isLocal ?? false) return this;
+    return Period(
+      start: start.toLocal(),
+      end: end.toLocal(),
+    );
+  }
+
   @override
   List<Object?> get props => [start, end];
+}
+
+extension<T> on List<T> {
+  List<O> mapPairs<O>(O Function(T a, T b) map) {
+    final result = <O>[];
+    for (var i = 0, j = 1; j < length; i++, j++) {
+      result.add(map(this[i], this[j]));
+    }
+    return result;
+  }
 }

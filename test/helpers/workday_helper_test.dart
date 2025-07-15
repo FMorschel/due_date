@@ -2,6 +2,8 @@ import 'package:due_date/due_date.dart';
 import 'package:due_date/src/helpers/helpers.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('WorkdayHelper', () {
     group('getWorkdayNumberInMonth', () {
@@ -55,14 +57,14 @@ void main() {
           final date = DateTime(2022, DateTime.june, 7);
           expect(
             WorkdayHelper.adjustToWorkday(date, isNext: true),
-            equals(date),
+            isSameDateTime(date),
           );
         });
         test('isPrevious', () {
           final date = DateTime(2022, DateTime.june, 7);
           expect(
             WorkdayHelper.adjustToWorkday(date, isNext: false),
-            equals(date),
+            isSameDateTime(date),
           );
         });
       });
@@ -70,14 +72,14 @@ void main() {
         final date = DateTime(2022, DateTime.june, 5);
         expect(
           WorkdayHelper.adjustToWorkday(date, isNext: true),
-          equals(DateTime(2022, DateTime.june, 6)),
+          isSameDateTime(DateTime(2022, DateTime.june, 6)),
         );
       });
       test('should return the previous workday', () {
         final date = DateTime(2024, DateTime.november, 10);
         expect(
           WorkdayHelper.adjustToWorkday(date, isNext: false),
-          equals(DateTime(2024, DateTime.november, 8)),
+          isSameDateTime(DateTime(2024, DateTime.november, 8)),
         );
       });
     });

@@ -304,9 +304,9 @@ enum WeekdayOccurrence
 
   /// Returns the [WeekdayOccurrence] for the given [every].
   factory WeekdayOccurrence.fromEvery(EveryWeekdayCountInMonth every) {
-    return WeekdayOccurrence.values.singleWhere((element) {
-      return (element.day == every.day) && (element.week == every.week);
-    });
+    return WeekdayOccurrence.values.singleWhere(
+      (element) => (element.day == every.day) && (element.week == every.week),
+    );
   }
 
   final EveryWeekdayCountInMonth _handler;
@@ -321,9 +321,8 @@ enum WeekdayOccurrence
   DateTime startDate(DateTime date) => _handler.startDate(date);
 
   @override
-  DateTime addMonths(DateTime date, int months) {
-    return _handler.addMonths(date, months);
-  }
+  DateTime addMonths(DateTime date, int months) =>
+      _handler.addMonths(date, months);
 
   @override
   DateTime next(DateTime date) => _handler.next(date);

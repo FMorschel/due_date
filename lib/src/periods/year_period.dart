@@ -1,13 +1,12 @@
 import 'package:time/time.dart';
+
 import '../extensions/extensions.dart';
-import '../period_generators/month_generator.dart';
-import '../period_generators/period_generators.dart';
-import 'month_period.dart';
-import 'month_period_bundle.dart';
-import 'period.dart';
+import '../period_generators/semester_generator.dart';
+import 'semester_period.dart';
+import 'semester_period_bundle.dart';
 
 /// A class that implements a period type of a year.
-class YearPeriod extends Period implements MonthPeriodBundle {
+class YearPeriod extends SemesterPeriodBundle {
   /// A class that implements a period type of a year.
   YearPeriod({required super.start, required super.end})
       : assert(
@@ -33,8 +32,8 @@ class YearPeriod extends Period implements MonthPeriodBundle {
         (end.lastDayOfMonth.endOfDay != end) ||
         ((end.month - start.month) != 11)) {
       throw ArgumentError.value(
-        end,
-        'end',
+        [start.toIso8601String(), end.toIso8601String()],
+        'start, end',
         'End must be at the same year as start and must be the last '
             'microsecond of the year',
       );
@@ -42,14 +41,14 @@ class YearPeriod extends Period implements MonthPeriodBundle {
   }
 
   @override
-  List<MonthPeriod> get months {
-    const generator = MonthGenerator();
-    final months = <MonthPeriod>[];
+  List<SemesterPeriod> get semesters {
+    const generator = SemesterGenerator();
+    final trimesters = <SemesterPeriod>[];
     var last = generator.of(start);
     while (last.start.isBefore(end)) {
-      months.add(last);
+      trimesters.add(last);
       last = generator.after(last);
     }
-    return months;
+    return trimesters;
   }
 }

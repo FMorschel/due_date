@@ -2,6 +2,8 @@ import 'package:due_date/due_date.dart';
 import 'package:due_date/src/helpers/helpers.dart';
 import 'package:test/test.dart';
 
+import '../src/date_time_match.dart';
+
 void main() {
   group('LimitedOrEveryHandler', () {
     final every = Weekday.monday.every;
@@ -18,10 +20,13 @@ void main() {
       final expectedDate = DateTime(2023, 12, 4);
 
       test('when limit is null', () {
-        final result =
-            LimitedOrEveryHandler.startDate(every, date, limit: null);
+        final result = LimitedOrEveryHandler.startDate(
+          every,
+          date,
+          limit: null,
+        );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
       test('when limit is not null', () {
         final result = LimitedOrEveryHandler.startDate(
@@ -30,7 +35,7 @@ void main() {
           limit: DateTime(2023, 12, 12),
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
 
       test('when limit is before date', () {
@@ -40,7 +45,7 @@ void main() {
           limit: DateTime(2023, 12, 2),
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
     });
 
@@ -52,7 +57,7 @@ void main() {
         final result =
             LimitedOrEveryHandler.startDate(limited, date, limit: null);
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
 
       group('when limit is not null', () {
@@ -63,7 +68,7 @@ void main() {
             limit: DateTime(2023, 12, 12),
           );
 
-          expect(result, equals(expectedDate));
+          expect(result, isSameDateTime(expectedDate));
         });
 
         test('and limit is before date', () {
@@ -84,7 +89,7 @@ void main() {
             limit: expectedDate,
           );
 
-          expect(result, equals(expectedDate));
+          expect(result, isSameDateTime(expectedDate));
         });
       });
     });
@@ -96,7 +101,7 @@ void main() {
       test('when limit is null', () {
         final result = LimitedOrEveryHandler.next(every, date, limit: null);
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
       test('when limit is not null', () {
         final result = LimitedOrEveryHandler.next(
@@ -105,7 +110,7 @@ void main() {
           limit: DateTime(2023, 12, 12),
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
 
       test('when limit is before date', () {
@@ -115,7 +120,7 @@ void main() {
           limit: DateTime(2023, 12, 2),
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
     });
 
@@ -126,7 +131,7 @@ void main() {
       test('when limit is null', () {
         final result = LimitedOrEveryHandler.next(limited, date, limit: null);
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
 
       group('when limit is not null', () {
@@ -137,7 +142,7 @@ void main() {
             limit: DateTime(2023, 12, 12),
           );
 
-          expect(result, equals(expectedDate));
+          expect(result, isSameDateTime(expectedDate));
         });
 
         test('and limit is before date', () {
@@ -158,7 +163,7 @@ void main() {
             limit: expectedDate,
           );
 
-          expect(result, equals(expectedDate));
+          expect(result, isSameDateTime(expectedDate));
         });
       });
     });
@@ -170,7 +175,7 @@ void main() {
       test('when limit is null', () {
         final result = LimitedOrEveryHandler.previous(every, date, limit: null);
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
       test('when limit is not null', () {
         final result = LimitedOrEveryHandler.previous(
@@ -179,7 +184,7 @@ void main() {
           limit: DateTime(2023, 12, 3),
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
 
       test('when limit is after date', () {
@@ -189,7 +194,7 @@ void main() {
           limit: DateTime(2023, 12, 5),
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
     });
 
@@ -201,7 +206,7 @@ void main() {
         final result =
             LimitedOrEveryHandler.previous(limited, date, limit: null);
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
       test('when limit is not null', () {
         final result = LimitedOrEveryHandler.previous(
@@ -210,7 +215,7 @@ void main() {
           limit: DateTime(2023, 11, 26),
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
 
       test('when limit is before date', () {
@@ -231,7 +236,7 @@ void main() {
           limit: expectedDate,
         );
 
-        expect(result, equals(expectedDate));
+        expect(result, isSameDateTime(expectedDate));
       });
     });
   });

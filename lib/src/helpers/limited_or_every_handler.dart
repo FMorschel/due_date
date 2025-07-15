@@ -3,9 +3,7 @@ import '../everies/everies.dart';
 /// Simple class to delegate the work to a given [Every] base process.
 /// For every one one of the everies that is a [LimitedEvery], the limit
 /// will be passed.
-class LimitedOrEveryHandler {
-  const LimitedOrEveryHandler._();
-
+abstract class LimitedOrEveryHandler {
   /// Returns the start date considering the given [every] base process.
   /// If [every] is a [LimitedEvery], the [limit] will be passed on.
   static DateTime startDate<T extends Every>(

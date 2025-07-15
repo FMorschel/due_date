@@ -14,6 +14,7 @@ export 'every_week.dart';
 export 'every_weekday.dart';
 export 'every_weekday_count_in_month.dart';
 export 'every_year.dart';
+export 'exact_every.dart';
 export 'limited_every.dart';
 export 'modifiers/modifiers.dart';
 export 'workday_direction.dart';

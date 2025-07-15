@@ -1,0 +1,110 @@
+name: Publish Package
+
+on:
+  push:
+    branches: stable
+    tags:
+      - 'v*.*.*'
+      - 'v*.*.*-*'
+
+jobs:
+  verify-docs-version:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    steps:
+      - name: Verify tag regex
+        id: verify_tag_regex
+        run: |
+          if echo "$GITHUB_REF" | grep -qE '^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9._@#$%-]+)?$'; then
+            echo "Tag format is valid."
+            echo "valid_tag=true" >> $GITHUB_OUTPUT
+          else
+            echo "ERROR: Tag does not match expected format 'vX.Y.Z' or 'vX.Y.Z-suffix'."
+            echo "valid_tag=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check that tag commit is on stable branch
+        id: check_tag_commit_branch
+        if: steps.verify_tag_regex.outputs.valid_tag == 'true'
+        run: |
+          TAG_COMMIT=$(git rev-parse "$GITHUB_SHA")
+          git fetch origin stable
+          STABLE_COMMIT=$(git rev-parse origin/stable)
+          if git merge-base --is-ancestor "$TAG_COMMIT" "$STABLE_COMMIT"; then
+            echo "Tag commit is on stable branch."
+            echo "valid_tag=true" >> $GITHUB_OUTPUT
+          else
+            echo "ERROR: Tag commit ($TAG_COMMIT) is not on stable branch ($STABLE_COMMIT)."
+            echo "valid_tag=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout stable branch
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: stable
+
+      - name: Read version from pubspec.yaml
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        id: stable_version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | head -n1 | cut -d ' ' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check tag matches pubspec.yaml version
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        run: |
+          TAG_VERSION=$(echo "$GITHUB_REF" | sed -E 's|refs/tags/v||')
+          if [ "$TAG_VERSION" != "${{ steps.stable_version.outputs.version }}" ]; then
+            echo "ERROR: Tag version ($TAG_VERSION) does not match pubspec.yaml version (${{ steps.stable_version.outputs.version }})"
+            exit 1
+          fi
+          echo "Tag version matches pubspec.yaml version."
+
+      - name: Checkout gh-pages branch
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Read version from index.html
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        id: pages_version
+        run: |
+          VERSION=$(grep -oP 'due_date\s*\K[0-9]+\.[0-9]+\.[0-9]+' index.html | head -n1)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Compare versions
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        id: compare_versions
+        run: |
+          echo "Docs version: ${{ steps.pages_version.outputs.version }}"
+          echo "Stable version: ${{ steps.stable_version.outputs.version }}"
+          if [ "${{ steps.pages_version.outputs.version }}" != "${{ steps.stable_version.outputs.version }}" ]; then
+            echo "Version mismatch!"
+            echo "publish=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          echo "Versions match."
+          echo "publish=true" >> $GITHUB_OUTPUT
+
+      - name: Check CHANGELOG version-date format
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        run: |
+          if grep -E '^## ' CHANGELOG.md | grep -vqE '^## [0-9]+\.[0-9]+\.[0-9]+(-[^ ]+)? - [0-9]{4}\.[0-9]{2}\.[0-9]{2}$'; then
+            echo "ERROR: All '## ' lines in CHANGELOG.md must match '## x.y.z(-suffix) - YYYY.MM.DD' format. Suffixes must start with a dash."
+            exit 1
+          fi
+          echo "CHANGELOG.md version-date format OK."
+
+      - name: Setup dart
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true' && steps.compare_versions.outputs.publish == 'true'
+        uses: dart-lang/setup-dart@v1
+
+      - name: Publish package
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true' && steps.compare_versions.outputs.publish == 'true'
+        run: |
+          dart pub get
+          dart pub publish -n
+          dart pub publish -f

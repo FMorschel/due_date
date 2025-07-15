@@ -1,7 +1,5 @@
 /// Helper class to reduce a list of dates to a single date.
-class DateReducer {
-  const DateReducer._();
-
+abstract class DateReducer {
   /// Reduces a list of dates to the oldest date.
   static DateTime reduceFuture(DateTime value, DateTime element) {
     return value.isBefore(element) ? value : element;

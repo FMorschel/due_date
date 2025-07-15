@@ -1,4 +1,5 @@
 import 'package:time/time.dart';
+
 import '../period_generators/period_generators.dart';
 import 'hour_period.dart';
 import 'period.dart';
@@ -8,9 +9,10 @@ class DayPeriod extends Period {
   /// A class that implements a period type of a day.
   DayPeriod({required super.start, required super.end})
       : assert(
-          end.difference(start) < const Duration(days: 1),
-          'The difference between start and end must be 23 hours, 59 minutes, '
-          '59 seconds, 999 milliseconds and 999 microseconds',
+          end.difference(start) < const Duration(days: 1, hours: 1),
+          'The difference between start and end must be 24 hours (daylight '
+          'savings), 59 minutes, 59 seconds, 999 milliseconds and 999 '
+          'microseconds',
         ) {
     const microsecond = Duration(microseconds: 1);
     if (!start.isAtSameDayAs(end) ||

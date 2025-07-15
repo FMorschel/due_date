@@ -18,7 +18,7 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
   @override
   DateTime startDate(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    if ((limit != null) && (date.isAfter(limit) || (date == limit))) {
+    if ((limit != null) && date.isAfter(limit)) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
     final startingDates = map(
@@ -27,7 +27,7 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
     final validDates = startingDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(DateReducer.reduceFuture);
-      if ((limit != null) && (result.isAfter(limit) || (date == limit))) {
+      if ((limit != null) && result.isAfter(limit)) {
         throw DateTimeLimitReachedException(date: result, limit: limit);
       }
       return result;
@@ -38,7 +38,7 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
   @override
   DateTime next(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    if ((limit != null) && (date.isAfter(limit) || (date == limit))) {
+    if ((limit != null) && date.isAfter(limit)) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
     final nextDates =
@@ -46,7 +46,7 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
     final validDates = nextDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(DateReducer.reduceFuture);
-      if ((limit != null) && (result.isAfter(limit) || (date == limit))) {
+      if ((limit != null) && result.isAfter(limit)) {
         throw DateTimeLimitReachedException(date: result, limit: limit);
       }
       return result;
@@ -57,16 +57,16 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
   @override
   DateTime previous(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    if ((limit != null) && (date.isBefore(limit) || (date == limit))) {
+    if ((limit != null) && date.isBefore(limit)) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    final previousDates = map(
-      (every) => LimitedOrEveryHandler.previous(every, date, limit: limit),
-    );
+    final previousDates = map((every) {
+      return LimitedOrEveryHandler.previous(every, date, limit: limit);
+    });
     final validDates = previousDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(DateReducer.reducePast);
-      if ((limit != null) && (result.isBefore(limit) || (date == limit))) {
+      if ((limit != null) && result.isBefore(limit)) {
         throw DateTimeLimitReachedException(date: result, limit: limit);
       }
       return result;
