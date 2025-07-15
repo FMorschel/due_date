@@ -1,0 +1,77 @@
+name: Publish Package
+
+on:
+  push:
+    branches: stable
+    tags:
+    - 'v[0-9]+.[0-9]+.[0-9]+'
+    - 'v[0-9]+.[0-9]+.[0-9]+-[A-Za-z0-9._@#$%-]+'
+
+jobs:
+  verify-docs-version:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    steps:
+      - name: Checkout stable branch
+        uses: actions/checkout@v4
+        with:
+          ref: stable
+
+      - name: Read version from pubspec.yaml
+        id: stable_version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | head -n1 | cut -d ' ' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check tag matches pubspec.yaml version
+        run: |
+          TAG_VERSION=$(echo "$GITHUB_REF" | sed -E 's|refs/tags/v||')
+          if [ "$TAG_VERSION" != "${{ steps.stable_version.outputs.version }}" ]; then
+            echo "ERROR: Tag version ($TAG_VERSION) does not match pubspec.yaml version (${{ steps.stable_version.outputs.version }})"
+            exit 1
+          fi
+          echo "Tag version matches pubspec.yaml version."
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Read version from index.html
+        id: pages_version
+        run: |
+          VERSION=$(grep -oP 'due_date\s*\K[0-9]+\.[0-9]+\.[0-9]+' index.html | head -n1)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Compare versions
+        id: compare_versions
+        run: |
+          echo "Docs version: ${{ steps.pages_version.outputs.version }}"
+          echo "Stable version: ${{ steps.stable_version.outputs.version }}"
+          if [ "${{ steps.pages_version.outputs.version }}" != "${{ steps.stable_version.outputs.version }}" ]; then
+            echo "Version mismatch!"
+            echo "publish=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          echo "Versions match."
+          echo "publish=true" >> $GITHUB_OUTPUT
+
+      - name: Check CHANGELOG version-date format
+        run: |
+          if grep -E '^## ' CHANGELOG.md | grep -vqE '^## [0-9]+\.[0-9]+\.[0-9]+(-[^ ]+)? - [0-9]{4}\.[0-9]{2}\.[0-9]{2}$'; then
+            echo "ERROR: All '## ' lines in CHANGELOG.md must match '## x.y.z(-suffix) - YYYY.MM.DD' format. Suffixes must start with a dash."
+            exit 1
+          fi
+          echo "CHANGELOG.md version-date format OK."
+
+      - name: Setup dart
+        if: steps.compare_versions.outputs.publish == 'true'
+        uses: dart-lang/setup-dart@v1
+
+      - name: Publish package
+        if: steps.compare_versions.outputs.publish == 'true'
+        run: |
+          dart pub get
+          dart pub publish -n
+          dart pub publish -f
