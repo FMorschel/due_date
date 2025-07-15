@@ -29,13 +29,9 @@ jobs:
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
 
-      - name: Install Dart API Tool
-        run: |
-          dart pub global activate dart_apitool
-
       - name: Run API diff and save report
         run: |
-          dart_apitool diff --old ./old_version --new ./new_version --ignore-prerelease on --report-format markdown --report-file-path apitool_report.md
+          dart pub global activate dart_apitool && dart_apitool diff --old ./old_version --new ./new_version --ignore-prerelease on --report-format markdown --report-file-path apitool_report.md
 
       - name: Comment API diff report on PR
         env:
