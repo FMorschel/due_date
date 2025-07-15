@@ -22,6 +22,7 @@ jobs:
             echo "valid_tag=true" >> $GITHUB_OUTPUT
           else
             echo "ERROR: Tag does not match expected format 'vX.Y.Z' or 'vX.Y.Z-suffix'."
+            echo "Tag: $TAG_NAME"
             echo "valid_tag=false" >> $GITHUB_OUTPUT
           fi
 
