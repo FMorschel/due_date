@@ -2,14 +2,14 @@ name: Test and Coverage
 
 on:
   push:
-    branches: [ main, master, exports-and-tests ]
+    branches: [ main, stable ]
     paths:
       - 'lib/**'
       - 'test/**'
       - 'pubspec.yaml'
       - 'analysis_options.yaml'
   pull_request:
-    branches: [ main, master, exports-and-tests ]
+    branches: [ main, stable ]
     paths:
       - 'lib/**'
       - 'test/**'
