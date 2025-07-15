@@ -19,10 +19,12 @@ on:
 jobs:
   update-docs:
     permissions:
-      contents: read
+      contents: write
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
+      branch_exists: ${{ steps.update_docs_branch.outputs.branch_exists }}
+      changes: ${{ steps.update_docs_branch.outputs.changes }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -50,24 +52,8 @@ jobs:
       - name: Remove doc/api if empty
         run: |
           rmdir doc/api || true
-
-  update-docs-branch:
-    needs: update-docs
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    outputs:
-      branch_exists: ${{ steps.update_docs_branch.outputs.branch_exists }}
-      changes: ${{ steps.update_docs_branch.outputs.changes }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
       - name: Create or update docs branch
         id: update_docs_branch
-        env:
-          VERSION: ${{ needs.update-docs.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -94,11 +80,11 @@ jobs:
           fi
 
   create-docs-pr:
-    needs: [update-docs, update-docs-branch]
+    needs: [update-docs]
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs-branch.outputs.changes == 'true' && needs.update-docs-branch.outputs.branch_exists == 'false'
+    if: needs.update-docs.outputs.changes == 'true' && needs.update-docs.outputs.branch_exists == 'false'
     steps:
       - name: Create or update PR to gh-pages
         uses: peter-evans/create-pull-request@v7
