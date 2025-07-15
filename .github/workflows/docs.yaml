@@ -86,6 +86,8 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.update-docs.outputs.changes == 'true' && needs.update-docs.outputs.branch_exists == 'false'
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Create or update PR to gh-pages
         uses: peter-evans/create-pull-request@v7
         with:
