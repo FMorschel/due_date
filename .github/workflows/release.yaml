@@ -26,6 +26,10 @@ jobs:
             echo "valid_tag=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Checkout stable branch
+        if: steps.verify_tag_regex.outputs.valid_tag == 'true'
+        uses: actions/checkout@v4
+
       - name: Check that tag commit is on stable branch
         id: check_tag_commit_branch
         if: steps.verify_tag_regex.outputs.valid_tag == 'true'
