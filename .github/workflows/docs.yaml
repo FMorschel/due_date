@@ -105,8 +105,15 @@ jobs:
             echo "Docs branch is identical to gh-pages. Checking for open PR..."
             if [ "$PR_EXISTS" = "false" ]; then
               echo "No open PR. Deleting branch."
+              # Checkout gh-pages or orphan so docs branch is not in use
+              git fetch origin gh-pages:gh-pages || true
+              git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
               git branch -D "$BRANCH" || true
-              git push origin --delete "$BRANCH" || true
+              if git ls-remote --exit-code --heads origin "$BRANCH"; then
+                git push origin --delete "$BRANCH" || true
+              else
+                echo "Remote branch $BRANCH does not exist, nothing to delete."
+              fi
               echo "docs_changed=false" >> $GITHUB_OUTPUT
               exit 0
             else
