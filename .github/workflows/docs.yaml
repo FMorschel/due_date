@@ -81,12 +81,12 @@ jobs:
           echo "Now checking for changes..."
           # Compare current files against origin/gh-pages by path
           if git diff --cached --quiet origin/gh-pages -- . 2>/dev/null; then
-            echo "No changes to commit."
-            echo "changes=false" >> $GITHUB_OUTPUT
-          else
             git commit -m "Update docs for $VERSION"
             git push -f origin "$BRANCH"
             echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes to commit."
+            echo "changes=false" >> $GITHUB_OUTPUT
           fi
 
   create-docs-pr:
