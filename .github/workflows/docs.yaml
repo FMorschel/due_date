@@ -54,10 +54,12 @@ jobs:
           rmdir doc/api || true
       - name: Create or update docs branch
         id: update_docs_branch
+        env:
+          VERSION: ${{ steps.get_version.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH=docs-for-${VERSION}
+          BRANCH=docs-for-$VERSION
           if git ls-remote --exit-code --heads origin "$BRANCH"; then
             echo "branch_exists=true" >> $GITHUB_OUTPUT
             git fetch origin "$BRANCH"
@@ -71,12 +73,11 @@ jobs:
           fi
           git add .
           # Compare current files against origin/gh-pages by path
-          git fetch origin gh-pages:gh-pages 2>/dev/null || true
-          if git diff --no-index --quiet gh-pages . 2>/dev/null; then
+          if git diff origin/gh-pages -- . 2>/dev/null; then
             echo "No changes to commit."
             echo "changes=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Update docs for ${VERSION}"
+            git commit -m "Update docs for $VERSION"
             git push -f origin "$BRANCH"
             echo "changes=true" >> $GITHUB_OUTPUT
           fi
