@@ -24,7 +24,6 @@ jobs:
     outputs:
       version: ${{ steps.get_version.outputs.version }}
       branch_exists: ${{ steps.update_docs_branch.outputs.branch_exists }}
-      changes: ${{ steps.update_docs_branch.outputs.changes }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -83,10 +82,8 @@ jobs:
           if git diff --cached --quiet origin/gh-pages -- . 2>/dev/null; then
             git commit -m "Update docs for $VERSION"
             git push -f origin "$BRANCH"
-            echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "No changes to commit."
-            echo "changes=false" >> $GITHUB_OUTPUT
           fi
 
   create-docs-pr:
@@ -95,7 +92,7 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs.outputs.changes == 'true' && needs.update-docs.outputs.branch_exists == 'false'
+    if: needs.update-docs.outputs.branch_exists == 'false'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
