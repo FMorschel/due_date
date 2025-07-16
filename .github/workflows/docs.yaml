@@ -85,6 +85,7 @@ jobs:
   create-docs-pr:
     needs: [update-docs]
     permissions:
+      contents: write
       pull-requests: write
     runs-on: ubuntu-latest
     if: needs.update-docs.outputs.changes == 'true' && needs.update-docs.outputs.branch_exists == 'false'
