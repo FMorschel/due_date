@@ -61,6 +61,7 @@ jobs:
           if git ls-remote --exit-code --heads origin "$BRANCH"; then
             echo "branch_exists=true" >> $GITHUB_OUTPUT
             git fetch origin "$BRANCH"
+            git clean -fd
             git checkout "$BRANCH"
             git reset --hard origin/$BRANCH
           else
@@ -69,8 +70,9 @@ jobs:
             git reset --hard
           fi
           git add .
-          # Compare staged changes against origin/gh-pages
-          if git diff --cached --quiet origin/gh-pages; then
+          # Compare current files against origin/gh-pages by path
+          git fetch origin gh-pages:gh-pages 2>/dev/null || true
+          if git diff --no-index --quiet gh-pages . 2>/dev/null; then
             echo "No changes to commit."
             echo "changes=false" >> $GITHUB_OUTPUT
           else
