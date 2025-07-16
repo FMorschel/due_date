@@ -59,11 +59,13 @@ jobs:
             # Remove everything except .git
             echo "Cleaning up gh-pages branch..."
             shopt -s dotglob
+            shopt -s extglob
             rm -rf !(doc|.git)
             # Move generated docs from temp location to root
             echo "Moving generated docs to gh-pages root..."
             mv /tmp/generated_docs/* .
             shopt -u dotglob
+            shopt -u extglob
 
             NEW_HASH=$(find . -name '.git' -prune -o -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
             echo "Generated docs hash: $NEW_HASH"
