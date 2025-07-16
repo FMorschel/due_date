@@ -73,7 +73,7 @@ jobs:
           fi
           git add .
           # Compare current files against origin/gh-pages by path
-          if git diff origin/gh-pages -- . 2>/dev/null; then
+          if git diff --quiet origin/gh-pages -- . 2>/dev/null; then
             echo "No changes to commit."
             echo "changes=false" >> $GITHUB_OUTPUT
           else
