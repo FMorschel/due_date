@@ -86,7 +86,6 @@ jobs:
           echo "$(cat apitool_report.md)
 
           <details>
-
           <summary>API Diff Hash</summary>
 
           \`$COMBINED_SHA\`
