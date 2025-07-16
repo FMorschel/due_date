@@ -56,24 +56,24 @@ jobs:
           # Compare and print result, set output
           if [ "$LAST_LIB_SHA" = "$CUR_LIB_SHA" ] && [ "$LAST_PUBSPEC_SHA" = "$CUR_PUBSPEC_SHA" ]; then
             echo "Hashes match: lib/ and pubspec.yaml have not changed since last comment."
-            echo "skip_steps=true" >> $GITHUB_OUTPUT
+            echo "match_hash=true" >> $GITHUB_OUTPUT
           else
             echo "Hashes do not match: lib/ or pubspec.yaml have changed since last comment."
-            echo "skip_steps=false" >> $GITHUB_OUTPUT
+            echo "match_hash=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Set up Dart
-        if: steps.check_hashes.outputs.skip_steps != 'true'
+        if: steps.check_hashes.outputs.match_hash != 'true'
         uses: dart-lang/setup-dart@v1
 
       - name: Run API diff and save report
-        if: steps.check_hashes.outputs.skip_steps != 'true'
+        if: steps.check_hashes.outputs.match_hash != 'true'
         continue-on-error: true
         run: |
           dart pub global activate dart_apitool && dart-apitool diff --old ./old_version --new ./new_version --ignore-prerelease on --report-format markdown --report-file-path apitool_report.md
 
       - name: Comment API diff report on PR
-        if: steps.check_hashes.outputs.skip_steps != 'true'
+        if: steps.check_hashes.outputs.match_hash != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
