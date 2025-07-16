@@ -52,8 +52,8 @@ jobs:
           echo "$COMMENTS" | jq -r '.[] | select(.author.login=="github-actions[bot]") | select(.body | contains("<!-- apitool-meta")) | .body' | tail -n 1 > last_apitool_meta_comment.txt
           cat last_apitool_meta_comment.txt
 
-          # Extract combined hash from the last comment
-          LAST_COMBINED_SHA=$(grep 'combined_sha:' last_apitool_meta_comment.txt | awk -F': ' '{print $2}')
+          # Extract combined hash from the last comment (foldable section, hash in backticks)
+          LAST_COMBINED_SHA=$(awk '/<summary>API Diff Hash<\/summary>/ {getline; getline; gsub(/[`\r\n]/,""); print; exit}' last_apitool_meta_comment.txt)
 
           # Read current combined hash
           CUR_COMBINED_SHA=$(cat combined.sha)
