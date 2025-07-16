@@ -24,6 +24,7 @@ jobs:
     outputs:
       version: ${{ steps.get_version.outputs.version }}
       pr_exists: ${{ steps.update_docs_branch.outputs.pr_exists }}
+      docs_changed: ${{ steps.update_docs_branch.outputs.docs_changed }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -86,10 +87,10 @@ jobs:
           shopt -s dotglob
           mv /tmp/generated_docs/* .
           shopt -u dotglob
-          
+
           # Add all files
           git add .
-          
+
           echo "Files in working directory:"
           ls -alR
           echo "Files staged for commit:"
@@ -97,7 +98,31 @@ jobs:
           echo "Files changed (not staged):"
           git diff --name-status
           echo "Now checking for changes..."
-          
+
+          # Compare with gh-pages branch
+          git fetch origin gh-pages:gh-pages || true
+          if git diff --cached --quiet origin/gh-pages --; then
+            echo "Docs branch is identical to gh-pages. Checking for open PR..."
+            if [ "$PR_EXISTS" = "false" ]; then
+              echo "No open PR. Deleting branch."
+              # Checkout gh-pages or orphan so docs branch is not in use
+              git fetch origin gh-pages:gh-pages || true
+              git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
+              git branch -D "$BRANCH" || true
+              if git ls-remote --exit-code --heads origin "$BRANCH"; then
+                git push origin --delete "$BRANCH" || true
+              else
+                echo "Remote branch $BRANCH does not exist, nothing to delete."
+              fi
+              echo "docs_changed=false" >> $GITHUB_OUTPUT
+              exit 0
+            else
+              echo "Open PR exists. Not deleting branch."
+              echo "docs_changed=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+
           # Check if there are any changes to commit (FIXED LOGIC)
           if ! git diff --cached --quiet; then
             echo "Changes detected, committing..."
@@ -106,8 +131,10 @@ jobs:
             COMMIT_MSG="Update docs for $VERSION (generated from $TRIGGER_COMMIT)"
             git commit -m "$COMMIT_MSG"
             git push -f origin "$BRANCH"
+            echo "docs_changed=true" >> $GITHUB_OUTPUT
           else
             echo "No changes to commit."
+            echo "docs_changed=false" >> $GITHUB_OUTPUT
           fi
 
   create-docs-pr:
@@ -116,7 +143,7 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs.outputs.pr_exists == 'false'
+    if: needs.update-docs.outputs.pr_exists == 'false' && needs.update-docs.outputs.docs_changed == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
