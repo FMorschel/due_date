@@ -59,10 +59,7 @@ jobs:
 
             # Remove everything except .git
             echo "Cleaning up gh-pages branch..."
-            shopt -s dotglob
-            shopt -s extglob
-            rm -rf !(doc|.git)
-            shopt -u extglob
+            find . -mindepth 1 -maxdepth 1 ! -name 'doc' ! -name '.git' -exec rm -rf {} +
             # Move generated docs from temp location to root
             echo "Moving generated docs to gh-pages root..."
             mv /tmp/generated_docs/* .
