@@ -72,8 +72,15 @@ jobs:
             git reset --hard
           fi
           git add .
+          echo "Files in working directory:"
+          ls -alR
+          echo "Files staged for commit:"
+          git diff --cached --name-status
+          echo "Files changed (not staged):"
+          git diff --name-status
+          echo "Now checking for changes..."
           # Compare current files against origin/gh-pages by path
-          if git diff --quiet origin/gh-pages -- . 2>/dev/null; then
+          if git diff --cached --quiet origin/gh-pages -- . 2>/dev/null; then
             echo "No changes to commit."
             echo "changes=false" >> $GITHUB_OUTPUT
           else
