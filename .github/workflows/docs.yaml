@@ -129,11 +129,15 @@ jobs:
           PR_TITLE="Docs for $VERSION"
 
           TRIGGER_COMMIT=${{ github.sha }}
-          PR_BODY="Automated documentation update for version $VERSION.\n\nTriggered by commit $TRIGGER_COMMIT."
+          PR_BODY="Automated documentation update for version $VERSION.
+
+          Triggered by commit $TRIGGER_COMMIT."
 
           # If triggered by a PR, mention it in the PR body
           if [ "${{ github.event_name }}" = "pull_request" ] && [ -n "${{ github.event.pull_request.number }}" ]; then
-            PR_BODY="$PR_BODY\n\nTriggered by #${{ github.event.pull_request.number }}"
+            PR_BODY="$PR_BODY
+            
+            Triggered by #${{ github.event.pull_request.number }}"
           fi
 
           # Check if a PR already exists
