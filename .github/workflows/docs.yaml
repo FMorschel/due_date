@@ -127,7 +127,9 @@ jobs:
         run: |
           BRANCH=docs-for-$VERSION
           PR_TITLE="Docs for $VERSION"
-          PR_BODY="Automated documentation update for version $VERSION."
+
+          TRIGGER_COMMIT=${{ github.sha }}
+          PR_BODY="Automated documentation update for version $VERSION.\n\nTriggered by commit $TRIGGER_COMMIT."
 
           # If triggered by a PR, mention it in the PR body
           if [ "${{ github.event_name }}" = "pull_request" ] && [ -n "${{ github.event.pull_request.number }}" ]; then
