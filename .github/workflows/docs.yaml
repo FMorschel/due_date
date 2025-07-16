@@ -27,17 +27,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
+
       - name: Install dependencies
         run: dart pub get
+
       - name: Analyze project source
         run: dart analyze
+
       - name: Get version from pubspec.yaml
         id: get_version
         run: |
           VERSION=$(grep '^version:' pubspec.yaml | head -n1 | cut -d ' ' -f2)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Generate docs
         run: dart doc
 
@@ -96,7 +101,10 @@ jobs:
           # Check if there are any changes to commit (FIXED LOGIC)
           if ! git diff --cached --quiet; then
             echo "Changes detected, committing..."
-            git commit -m "Update docs for $VERSION"
+            # Get the commit SHA that triggered the workflow
+            TRIGGER_COMMIT=${{ github.sha }}
+            COMMIT_MSG="Update docs for $VERSION (generated from $TRIGGER_COMMIT)"
+            git commit -m "$COMMIT_MSG"
             git push -f origin "$BRANCH"
           else
             echo "No changes to commit."
@@ -120,7 +128,12 @@ jobs:
           BRANCH=docs-for-$VERSION
           PR_TITLE="Docs for $VERSION"
           PR_BODY="Automated documentation update for version $VERSION."
-          
+
+          # If triggered by a PR, mention it in the PR body
+          if [ "${{ github.event_name }}" = "pull_request" ] && [ -n "${{ github.event.pull_request.number }}" ]; then
+            PR_BODY="$PR_BODY\n\nTriggered by #${{ github.event.pull_request.number }}"
+          fi
+
           # Check if a PR already exists
           PR_NUMBER=$(gh pr list --base gh-pages --head "$BRANCH" --state open --json number --jq '.[0].number' || echo "")
           if [ -z "$PR_NUMBER" ]; then
