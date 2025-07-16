@@ -1,7 +1,3 @@
-[![Build](https://github.com/fmorschel/due_date/actions/workflows/build.yml/badge.svg)](https://github.com/fmorschel/due_date/actions/workflows/build.yml)
-
-[![codecov](https://codecov.io/gh/fmorschel/due_date/branch/main/graph/badge.svg)](https://codecov.io/gh/fmorschel/due_date)
-
 # DueDate
 
 [![pub package](https://img.shields.io/pub/v/due_date.svg)](https://pub.dev/packages/due_date)
@@ -16,6 +12,7 @@
 <span class="badge-buymeacoffee">
 <a href="https://www.buymeacoffee.com/fmorschel" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a>
 </span>
+[![codecov](https://codecov.io/gh/fmorschel/due_date/branch/main/graph/badge.svg)](https://codecov.io/gh/fmorschel/due_date)
 
 A package for working with repeating `DateTime` patterns.
 

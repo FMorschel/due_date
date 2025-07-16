@@ -7,20 +7,24 @@ on:
     paths:
       - 'lib/**'
       - 'pubspec.yaml'
+      - '.github/workflows/docs.yaml'
   pull_request:
     branches:
       - stable
     paths:
       - 'lib/**'
       - 'pubspec.yaml'
+      - '.github/workflows/docs.yaml'
 
 jobs:
   update-docs:
     permissions:
-      contents: read
+      contents: write
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
+      branch_exists: ${{ steps.update_docs_branch.outputs.branch_exists }}
+      changes: ${{ steps.update_docs_branch.outputs.changes }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,31 +52,18 @@ jobs:
       - name: Remove doc/api if empty
         run: |
           rmdir doc/api || true
-
-  update-docs-branch:
-    needs: update-docs
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    outputs:
-      branch_exists: ${{ steps.update_docs_branch.outputs.branch_exists }}
-      changes: ${{ steps.update_docs_branch.outputs.changes }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
       - name: Create or update docs branch
         id: update_docs_branch
         env:
-          VERSION: ${{ needs.update-docs.outputs.version }}
+          VERSION: ${{ steps.get_version.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH=docs-for-${VERSION}
+          BRANCH=docs-for-$VERSION
           if git ls-remote --exit-code --heads origin "$BRANCH"; then
             echo "branch_exists=true" >> $GITHUB_OUTPUT
             git fetch origin "$BRANCH"
+            git clean -fd
             git checkout "$BRANCH"
             git reset --hard origin/$BRANCH
           else
@@ -81,21 +72,33 @@ jobs:
             git reset --hard
           fi
           git add .
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            echo "changes=false" >> $GITHUB_OUTPUT
-          else
-            git commit -m "Update docs for ${VERSION}"
+          echo "Files in working directory:"
+          ls -alR
+          echo "Files staged for commit:"
+          git diff --cached --name-status
+          echo "Files changed (not staged):"
+          git diff --name-status
+          echo "Now checking for changes..."
+          # Compare current files against origin/gh-pages by path
+          if git diff --cached --quiet origin/gh-pages -- . 2>/dev/null; then
+            git commit -m "Update docs for $VERSION"
             git push -f origin "$BRANCH"
             echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes to commit."
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
 
   create-docs-pr:
-    needs: [update-docs, update-docs-branch]
+    needs: [update-docs]
     permissions:
+      contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs-branch.outputs.changes == 'true' && needs.update-docs-branch.outputs.branch_exists == 'false'
+    if: needs.update-docs.outputs.changes == 'true' && needs.update-docs.outputs.branch_exists == 'false'
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Create or update PR to gh-pages
         uses: peter-evans/create-pull-request@v7
         with:

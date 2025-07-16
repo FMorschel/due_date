@@ -26,16 +26,77 @@ jobs:
           git clone --branch ${{ github.head_ref }} --single-branch --depth 1 https://github.com/${{ github.repository }} new_version
           rm -rf new_version/.git
 
+      - name: Generate SHA of lib/ folder
+        run: |
+          (cd new_version/lib && find . -type f -exec sha1sum {} \; | sort | sha1sum | awk '{print $1}') > lib_folder.sha
+          cat lib_folder.sha
+          (cd old_version/lib && find . -type f -exec sha1sum {} \; | sort | sha1sum | awk '{print $1}') > lib_folder_old.sha
+          cat lib_folder_old.sha
+
+
+      - name: Generate SHA of pubspec.yaml
+        run: |
+          sha1sum new_version/pubspec.yaml | awk '{print $1}' > pubspec_yaml.sha
+          cat pubspec_yaml.sha
+          sha1sum old_version/pubspec.yaml | awk '{print $1}' > pubspec_yaml_old.sha
+          cat pubspec_yaml_old.sha
+
+      - name: Generate combined SHA for lib/ and pubspec.yaml
+        run: |
+          LIB_SHA=$(cat lib_folder.sha)
+          PUBSPEC_SHA=$(cat pubspec_yaml.sha)
+          echo -n "${LIB_SHA}-${PUBSPEC_SHA}" | sha1sum | awk '{print $1}' > combined.sha
+          cat combined.sha
+          PREV_LIB_SHA=$(cat lib_folder_old.sha)
+          PREV_PUBSPEC_SHA=$(cat pubspec_yaml_old.sha)
+          echo -n "${PREV_LIB_SHA}-${PREV_PUBSPEC_SHA}" | sha1sum | awk '{print $1}' > combined_old.sha
+          cat combined_old.sha
+
+      - name: Fetch and verify last apitool-meta comment from PR
+        id: check_hashes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMENTS=$(gh pr view ${{ github.event.pull_request.number }} --json comments --jq '.comments')
+          echo "$COMMENTS" | jq -r '.[] | select(.author.login=="github-actions[bot]") | select(.body | contains("<!-- apitool-meta")) | .body' | tail -n 1 > last_apitool_meta_comment.txt
+          cat last_apitool_meta_comment.txt
+
+          # Read current combined hash
+          CUR_COMBINED_SHA=$(cat combined.sha)
+          # Read previous combined hash
+          LAST_COMBINED_SHA=$(cat combined_old.sha)
+
+          # Compare and print result, set output
+          if [ "$LAST_COMBINED_SHA" = "$CUR_COMBINED_SHA" ]; then
+            echo "Hashes match: lib/ and pubspec.yaml have not changed since last comment."
+            echo "match_hash=true" >> $GITHUB_OUTPUT
+          else
+            echo "Hashes do not match: lib/ or pubspec.yaml have changed since last comment."
+            echo "Previous and current hash values:"
+            echo "  Previous lib/ hash:        $PREV_LIB_SHA"
+            echo "  Current  lib/ hash:        $(cat lib_folder.sha)"
+            echo "  Previous pubspec.yaml hash:$PREV_PUBSPEC_SHA"
+            echo "  Current  pubspec.yaml hash:$(cat pubspec_yaml.sha)"
+            echo "  Previous combined hash:    $LAST_COMBINED_SHA"
+            echo "  Current  combined hash:    $CUR_COMBINED_SHA"
+            echo "match_hash=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Set up Dart
+        if: steps.check_hashes.outputs.match_hash != 'true'
         uses: dart-lang/setup-dart@v1
 
       - name: Run API diff and save report
+        if: steps.check_hashes.outputs.match_hash != 'true'
         continue-on-error: true
         run: |
           dart pub global activate dart_apitool && dart-apitool diff --old ./old_version --new ./new_version --ignore-prerelease on --report-format markdown --report-file-path apitool_report.md
 
       - name: Comment API diff report on PR
+        if: steps.check_hashes.outputs.match_hash != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr comment ${{ github.event.pull_request.number }} --body "$(cat apitool_report.md)"
+          COMBINED_SHA=$(cat combined.sha)
+          echo "$(cat apitool_report.md)" > apitool_report_with_meta.md
+          gh pr comment ${{ github.event.pull_request.number }} --body "$(cat apitool_report_with_meta.md)"
