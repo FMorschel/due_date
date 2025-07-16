@@ -16,20 +16,16 @@
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../due_date/due_date-library.html">due_date.dart</a></li>
+    <li><a href="../../due_date/">due_date.dart</a></li>
     <li><a href="../../due_date/DueDateTime-class.html">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span></a></li>
     <li class="self-crumb">DueDateTime.utc factory constructor</li>
   </ol>
@@ -37,20 +33,16 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button" title="Toggle brightness">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        dark_mode
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        light_mode
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
   <div
       id="dartdoc-main-content"
       class="main-content"
@@ -62,19 +54,18 @@
 
     <section class="multi-line-signature">
       
-      <span class="name ">DueDateTime&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;.utc</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="utc-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span></li>
+      <span class="name ">DueDateTime&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;.utc</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="utc-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span></li>
 <li><span class="parameter" id="utc-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span></li>
-<li><span class="parameter" id="utc-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span></li>
-<li><span class="parameter" id="utc-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span></li>
-<li><span class="parameter" id="utc-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span></li>
-<li><span class="parameter" id="utc-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span></li>
-<li><span class="parameter" id="utc-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span></li>
-<li><span class="parameter" id="utc-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span></li>
-<li><span class="parameter" id="utc-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span></li>
-<li><span class="parameter" id="utc-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
+<li><span class="parameter" id="utc-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span> = <span class="default-value">1</span>, </span></li>
+<li><span class="parameter" id="utc-param-day"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">day</span> = <span class="default-value">1</span>, </span></li>
+<li><span class="parameter" id="utc-param-hour"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">hour</span> = <span class="default-value">0</span>, </span></li>
+<li><span class="parameter" id="utc-param-minute"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">minute</span> = <span class="default-value">0</span>, </span></li>
+<li><span class="parameter" id="utc-param-second"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">second</span> = <span class="default-value">0</span>, </span></li>
+<li><span class="parameter" id="utc-param-millisecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">millisecond</span> = <span class="default-value">0</span>, </span></li>
+<li><span class="parameter" id="utc-param-microsecond"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecond</span> = <span class="default-value">0</span>, </span></li>
+<li><span class="parameter" id="utc-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
 </ol>})
     </section>
-
     
 <section class="desc markdown">
   <p>Constructs a <a href="../../due_date/DueDateTime-class.html">DueDateTime</a> instance specified in the UTC time zone.</p>
@@ -94,7 +85,7 @@ since they are unaffected by daylight-saving changes and are unaffected
 by the local timezone.</p>
 <p>The <code>every</code> parameter is optional. If it is provided, the <a href="../../due_date/DueDateTime-class.html">DueDateTime</a>
 will be adjusted to the next due date. If it is not provided, the
-values will be used as-is. And the <code>DueDateTime.every</code> property will
+values will be used as-is. And the <a href="../../due_date/DueDateTime/every.html">DueDateTime.every</a> property will
 be:</p>
 <pre class="language-dart"><code class="language-dart">EveryDueDayMonth(day);
 </code></pre>
@@ -137,7 +128,6 @@ be:</p>
 
 
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -145,41 +135,31 @@ be:</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../../due_date/">due_date</a></li>
     <li><a href="../../due_date/DueDateTime-class.html">DueDateTime<span class="signature">&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span></a></li>
     <li class="self-crumb">DueDateTime.utc factory constructor</li>
 </ol>
 
-
     <h5>DueDateTime class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-left-->
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      2.2.1
+      2.3.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 
