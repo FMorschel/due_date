@@ -16,20 +16,16 @@
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../period/period-library.html">period.dart</a></li>
+    <li><a href="../../period/">period.dart</a></li>
     <li><a href="../../period/Period-class.html">Period</a></li>
     <li class="self-crumb">splitAt method</li>
   </ol>
@@ -37,20 +33,16 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button" title="Toggle brightness">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        dark_mode
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        light_mode
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
 <div
     id="dartdoc-main-content"
     class="main-content"
@@ -62,10 +54,9 @@
 
     <section class="multi-line-signature">
       
-
-<span class="returntype"><a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../period/Period-class.html">Period</a></span>&gt;</span></span>
-<span class="name ">splitAt</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="splitAt-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span>, {</span></li>
-<li><span class="parameter" id="splitAt-param-periodBetween"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">periodBetween</span> = <span class="default-value">Duration.zero</span>, </span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../period/Period-class.html">Period</a></span>&gt;</span></span>
+<span class="name ">splitAt</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="splitAt-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span>, {</span></li>
+<li><span class="parameter" id="splitAt-param-periodBetween"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">periodBetween</span> = <span class="default-value">Duration.zero</span>, </span></li>
 </ol>})
 
       
@@ -76,12 +67,14 @@
   <p>Splits the period in multiple periods at the given <code>dates</code>.
 The <code>periodBetween</code> is the duration between each period.
 The <code>dates</code> not included in the period are ignored.
-The <code>dates</code> will be sorted before splitting.</p>
+The <code>dates</code> will be sorted before splitting.
+If <code>dates</code> contain the <a href="../../period/Period/start.html">start</a> or <a href="../../period/Period/end.html">end</a> of the period, they will be
+ignored since they are already included in the period.</p>
 <p>The <code>periodBetween</code> must be greater than or equals to zero and less than
 the duration of the period.
 The sum of the period between dates must be less than the duration of the
 period.</p>
-<p>If the <code>periodBetween</code> is zero, the periods will be contiguous.
+<p>If the <code>periodBetween</code> is zero, the periods will be continuous.
 If the <code>periodBetween</code> is greater than zero, the periods will be
 separated by the given duration.</p>
 <p>If the <code>dates</code> are empty, the period is returned.
@@ -134,7 +127,8 @@ final periods = period.splitAt(
     );
   }
   final periods = &lt;Period&gt;[];
-  final sortedValidDates = [...dates.where(contains)]..sort();
+  final sortedValidDates = [...dates.where(contains).whereNot(_startOrEnd)]
+    ..sort();
   final resultDuration = periodBetween * sortedValidDates.length;
   if (resultDuration &gt; duration) {
     throw ArgumentError.value(
@@ -144,28 +138,27 @@ final periods = period.splitAt(
           &#39;the period.&#39;,
     );
   }
-  for (final date in sortedValidDates.sublist(sortedValidDates.length - 1)) {
-    if (periods.isEmpty) {
-      periods.add(Period(start: start, end: date));
-    } else {
-      final last = periods.last;
-      if (last.end.add(periodBetween).isBefore(date)) {
-        periods.add(Period(start: last.end.add(periodBetween), end: date));
-      } else {
-        final start = last.end.add(periodBetween);
-        periods.add(Period(start: start, end: start));
-      }
+  if (sortedValidDates.isNotEmpty) {
+    sortedValidDates.add(end);
+    if (sortedValidDates
+        .mapPairs((a, b) =&gt; b.difference(a))
+        .any((difference) =&gt; difference &lt; periodBetween)) {
+      throw ArgumentError.value(
+        periodBetween,
+        &#39;periodBetween&#39;,
+        &#39;The period between the provided dates must be greater than or &#39;
+            &#39;equal to $periodBetween&#39;,
+      );
     }
+    periods.add(Period(start: start, end: sortedValidDates.first));
+    sortedValidDates.removeAt(0);
   }
-  if (periods.isNotEmpty) {
-    final last = periods.last;
-    if (last.end.add(periodBetween).isBefore(end)) {
-      periods.add(Period(start: last.end.add(periodBetween), end: end));
-    } else {
-      final start = last.end.add(periodBetween);
-      periods.add(Period(start: start, end: start));
-    }
-  } else {
+  for (final date in sortedValidDates) {
+    periods.add(
+      Period(start: periods.last.end.add(periodBetween), end: date),
+    );
+  }
+  if (!periods.isNotEmpty) {
     periods.add(this);
   }
   return periods;
@@ -174,7 +167,6 @@ final periods = period.splitAt(
 
 
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -182,41 +174,31 @@ final periods = period.splitAt(
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../period/period-library.html">period</a></li>
+    <li><a href="../../period/">period</a></li>
     <li><a href="../../period/Period-class.html">Period</a></li>
     <li class="self-crumb">splitAt method</li>
 </ol>
 
-
     <h5>Period class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      2.2.1
+      2.3.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 
