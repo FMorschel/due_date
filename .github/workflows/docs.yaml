@@ -50,6 +50,7 @@ jobs:
 
       - name: Compare docs hash with gh-pages
         id: compare_docs_hash
+        shell: bash
         run: |
           # Calculate hash of generated docs
           if [ -d "doc/api" ]; then
@@ -61,11 +62,11 @@ jobs:
             shopt -s dotglob
             shopt -s extglob
             rm -rf !(doc|.git)
+            shopt -u extglob
             # Move generated docs from temp location to root
             echo "Moving generated docs to gh-pages root..."
             mv /tmp/generated_docs/* .
             shopt -u dotglob
-            shopt -u extglob
 
             NEW_HASH=$(find . -name '.git' -prune -o -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
             echo "Generated docs hash: $NEW_HASH"
