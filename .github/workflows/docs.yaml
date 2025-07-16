@@ -73,7 +73,10 @@ jobs:
             git checkout "$BRANCH"
             git reset --hard origin/$BRANCH
           else
-            git checkout --orphan "$BRANCH"
+            # Always create the docs branch from gh-pages so there is a common ancestor
+            git fetch origin gh-pages:gh-pages || true
+            git checkout gh-pages
+            git checkout -b "$BRANCH"
             git reset --hard
           fi
           git add .
