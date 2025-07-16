@@ -103,10 +103,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Create or update PR to gh-pages
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: gh-pages
-          title: Docs for ${{ needs.update-docs.outputs.version }}
-          body: "Automated documentation update for version ${{ needs.update-docs.outputs.version }}."
-          branch: docs-for-${{ needs.update-docs.outputs.version }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.update-docs.outputs.version }}
+        run: |
+          BRANCH=docs-for-$VERSION
+          PR_TITLE="Docs for $VERSION"
+          PR_BODY="Automated documentation update for version $VERSION."
+          # Check if a PR already exists
+          PR_NUMBER=$(gh pr list --base gh-pages --head "$BRANCH" --state open --json number --jq '.[0].number' || echo "")
+          if [ -z "$PR_NUMBER" ]; then
+            gh pr create --base gh-pages --head "$BRANCH" --title "$PR_TITLE" --body "$PR_BODY"
+          else
+            echo "PR #$PR_NUMBER already exists. Updating title and body."
+            gh pr edit "$PR_NUMBER" --title "$PR_TITLE" --body "$PR_BODY"
+          fi
