@@ -72,8 +72,10 @@ jobs:
         if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
         id: pages_version
         run: |
+          git checkout gh-pages
           VERSION=$(perl -0777 -ne 'print "$1\n" if /due_date\s*([0-9]+\.[0-9]+\.[0-9]+)/s' index.html | head -n1)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          git checkout stable
 
       - name: Compare versions
         if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
@@ -105,6 +107,7 @@ jobs:
       - name: Publish package
         if: steps.check_tag_commit_branch.outputs.valid_tag == 'true' && steps.compare_versions.outputs.publish == 'true'
         run: |
+          git checkout stable
           dart pub get
           dart pub publish -n
           dart pub publish -f
