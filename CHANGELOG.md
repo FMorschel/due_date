@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2.3.0 -
+## 2.3.0 - 2025.07.16
 
 ### API Changes - Return values upgraded to more specific type
 
