@@ -53,12 +53,17 @@ jobs:
         run: |
           # Calculate hash of generated docs
           if [ -d "doc/api" ]; then
+            # Store the generated docs in a temporary location
+            cp -r doc/api /tmp/generated_docs
             NEW_HASH=$(find doc/api -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
             echo "Generated docs hash: $NEW_HASH"
           else
             echo "No doc/api folder found"
             exit 1
           fi
+          
+          # Reset the working dir
+          git reset --hard
           
           # Fetch gh-pages branch and calculate existing docs hash
           if git ls-remote --exit-code --heads origin gh-pages; then
@@ -91,12 +96,6 @@ jobs:
             echo "hash_changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Prepare docs for branch
-        if: steps.compare_docs_hash.outputs.hash_changed == 'true'
-        run: |
-          # Store the generated docs in a temporary location
-          cp -r doc/api /tmp/generated_docs
-
       - name: Create or update docs branch
         if: steps.compare_docs_hash.outputs.hash_changed == 'true'
         id: update_docs_branch
@@ -125,9 +124,6 @@ jobs:
             git checkout gh-pages || git checkout --orphan gh-pages
             git checkout -b "$BRANCH"
           fi
-          
-          # Clean up everything except .git
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} +
           
           # Move generated docs from temp location to root
           shopt -s dotglob
