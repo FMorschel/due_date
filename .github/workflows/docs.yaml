@@ -56,7 +56,16 @@ jobs:
             # Store the generated docs in a temporary location
             cp -r doc/api /tmp/generated_docs
 
-            NEW_HASH=$(find doc/api -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
+            # Remove everything except .git
+            echo "Cleaning up gh-pages branch..."
+            shopt -s dotglob
+            rm -rf !(doc|.git)
+            # Move generated docs from temp location to root
+            echo "Moving generated docs to gh-pages root..."
+            mv /tmp/generated_docs/* .
+            shopt -u dotglob
+
+            NEW_HASH=$(find . -name '.git' -prune -o -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
             echo "Generated docs hash: $NEW_HASH"
           else
             echo "No doc/api folder found"
@@ -73,15 +82,6 @@ jobs:
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
             git checkout gh-pages
 
-            # Remove everything except .git
-            echo "Cleaning up gh-pages branch..."
-            shopt -s dotglob
-            rm -rf !(doc|.git)
-            # Move generated docs from temp location to root
-            echo "Moving generated docs to gh-pages root..."
-            mv /tmp/generated_docs/* .
-            shopt -u dotglob
-            
             if [ -d "." ] && [ "$(ls -A . | grep -v '^\.git$' | wc -l)" -gt 0 ]; then
               # Calculate hash of current gh-pages content (excluding .git)
               CURRENT_HASH=$(find . -name '.git' -prune -o -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
