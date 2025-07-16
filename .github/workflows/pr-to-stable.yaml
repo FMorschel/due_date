@@ -64,6 +64,11 @@ jobs:
             echo "match_hash=true" >> $GITHUB_OUTPUT
           else
             echo "Hashes do not match: lib/ or pubspec.yaml have changed since last comment."
+            echo "Previous and current hash values:"
+            echo "  Current  lib/ hash:        $(cat lib_folder.sha)"
+            echo "  Current  pubspec.yaml hash:$(cat pubspec_yaml.sha)"
+            echo "  Previous combined hash:    $LAST_COMBINED_SHA"
+            echo "  Current  combined hash:    $CUR_COMBINED_SHA"
             echo "match_hash=false" >> $GITHUB_OUTPUT
           fi
 
