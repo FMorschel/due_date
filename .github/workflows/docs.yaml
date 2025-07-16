@@ -25,6 +25,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
       pr_exists: ${{ steps.update_docs_branch.outputs.pr_exists }}
       docs_changed: ${{ steps.update_docs_branch.outputs.docs_changed }}
+      docs_hash_changed: ${{ steps.compare_docs_hash.outputs.hash_changed }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -47,12 +48,57 @@ jobs:
       - name: Generate docs
         run: dart doc
 
+      - name: Compare docs hash with gh-pages
+        id: compare_docs_hash
+        run: |
+          # Calculate hash of generated docs
+          if [ -d "doc/api" ]; then
+            NEW_HASH=$(find doc/api -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
+            echo "Generated docs hash: $NEW_HASH"
+          else
+            echo "No doc/api folder found"
+            exit 1
+          fi
+          
+          # Fetch gh-pages branch and calculate existing docs hash
+          if git ls-remote --exit-code --heads origin gh-pages; then
+            echo "gh-pages branch exists, fetching..."
+            git fetch origin gh-pages
+            git checkout gh-pages
+            
+            if [ -d "." ] && [ "$(ls -A . | grep -v '^\.git$' | wc -l)" -gt 0 ]; then
+              # Calculate hash of current gh-pages content (excluding .git)
+              CURRENT_HASH=$(find . -name '.git' -prune -o -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
+              echo "Current gh-pages hash: $CURRENT_HASH"
+            else
+              echo "gh-pages branch is empty"
+              CURRENT_HASH="empty"
+            fi
+            
+            # Switch back to original branch
+            git checkout ${{ github.ref_name }}
+          else
+            echo "gh-pages branch does not exist"
+            CURRENT_HASH="empty"
+          fi
+          
+          # Compare hashes
+          if [ "$NEW_HASH" = "$CURRENT_HASH" ]; then
+            echo "Docs hash unchanged, skipping branch creation"
+            echo "hash_changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Docs hash changed, proceeding with branch creation"
+            echo "hash_changed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Prepare docs for branch
+        if: steps.compare_docs_hash.outputs.hash_changed == 'true'
         run: |
           # Store the generated docs in a temporary location
           cp -r doc/api /tmp/generated_docs
 
       - name: Create or update docs branch
+        if: steps.compare_docs_hash.outputs.hash_changed == 'true'
         id: update_docs_branch
         env:
           VERSION: ${{ steps.get_version.outputs.version }}
@@ -119,7 +165,7 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs.outputs.pr_exists == 'false' && needs.update-docs.outputs.docs_changed == 'true'
+    if: needs.update-docs.outputs.pr_exists == 'false' && needs.update-docs.outputs.docs_changed == 'true' && needs.update-docs.outputs.docs_hash_changed == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
