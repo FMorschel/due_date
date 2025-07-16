@@ -25,7 +25,6 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
       pr_exists: ${{ steps.update_docs_branch.outputs.pr_exists }}
       docs_changed: ${{ steps.update_docs_branch.outputs.docs_changed }}
-      docs_hash_changed: ${{ steps.compare_docs_hash.outputs.hash_changed }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,59 +47,12 @@ jobs:
       - name: Generate docs
         run: dart doc
 
-      - name: Compare docs hash with gh-pages
-        id: compare_docs_hash
-        shell: bash
+      - name: Prepare docs for branch
         run: |
-          # Compare generated docs (doc/api) with gh-pages root (excluding .git)
-          if [ ! -d "doc/api" ]; then
-            echo "No doc/api folder found"
-            exit 1
-          fi
-
-          # Fetch gh-pages branch and check it out in a temp dir
-          TMP_GHPAGES=$(mktemp -d)
-          git fetch origin gh-pages
-          git worktree add "$TMP_GHPAGES" gh-pages
-
-          # List files (relative paths) in generated docs and gh-pages root (excluding .git)
-          pushd doc/api > /dev/null
-          find . -type f | sort > /tmp/generated_files.txt
-          popd > /dev/null
-
-          pushd "$TMP_GHPAGES" > /dev/null
-          find . -type f ! -path './.git/*' | sort > /tmp/ghpages_files.txt
-          popd > /dev/null
-
-          # Compare file lists
-          if ! diff -q /tmp/generated_files.txt /tmp/ghpages_files.txt; then
-            echo "File structure differs. Docs changed."
-            echo "hash_changed=true" >> $GITHUB_OUTPUT
-          else
-            # File lists match, compare file contents
-            DIFF_FOUND=0
-            while read -r relpath; do
-              if ! cmp -s "doc/api/$relpath" "$TMP_GHPAGES/$relpath"; then
-                echo "Difference found in $relpath"
-                DIFF_FOUND=1
-                break
-              fi
-            done < /tmp/generated_files.txt
-            if [ "$DIFF_FOUND" = "1" ]; then
-              echo "File content differs. Docs changed."
-              echo "hash_changed=true" >> $GITHUB_OUTPUT
-            else
-              echo "Docs unchanged."
-              echo "hash_changed=false" >> $GITHUB_OUTPUT
-            fi
-          fi
-
-          # Clean up
-          git worktree remove "$TMP_GHPAGES" --force
-          rm -rf "$TMP_GHPAGES" /tmp/generated_files.txt /tmp/ghpages_files.txt
+          # Store the generated docs in a temporary location
+          cp -r doc/api /tmp/generated_docs
 
       - name: Create or update docs branch
-        if: steps.compare_docs_hash.outputs.hash_changed == 'true'
         id: update_docs_branch
         env:
           VERSION: ${{ steps.get_version.outputs.version }}
@@ -128,14 +80,17 @@ jobs:
             git checkout -b "$BRANCH"
           fi
           
+          # Clean up everything except .git
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} +
+          
           # Move generated docs from temp location to root
           shopt -s dotglob
           mv /tmp/generated_docs/* .
           shopt -u dotglob
-          
+
           # Add all files
           git add .
-          
+
           echo "Files in working directory:"
           ls -alR
           echo "Files staged for commit:"
@@ -143,7 +98,24 @@ jobs:
           echo "Files changed (not staged):"
           git diff --name-status
           echo "Now checking for changes..."
-          
+
+          # Compare with gh-pages branch
+          git fetch origin gh-pages:gh-pages || true
+          if git diff --cached --quiet origin/gh-pages --; then
+            echo "Docs branch is identical to gh-pages. Checking for open PR..."
+            if [ "$PR_EXISTS" = "false" ]; then
+              echo "No open PR. Deleting branch."
+              git branch -D "$BRANCH" || true
+              git push origin --delete "$BRANCH" || true
+              echo "docs_changed=false" >> $GITHUB_OUTPUT
+              exit 0
+            else
+              echo "Open PR exists. Not deleting branch."
+              echo "docs_changed=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+
           # Check if there are any changes to commit (FIXED LOGIC)
           if ! git diff --cached --quiet; then
             echo "Changes detected, committing..."
@@ -164,7 +136,7 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs.outputs.pr_exists == 'false' && needs.update-docs.outputs.docs_changed == 'true' && needs.update-docs.outputs.docs_hash_changed == 'true'
+    if: needs.update-docs.outputs.pr_exists == 'false' && needs.update-docs.outputs.docs_changed == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
