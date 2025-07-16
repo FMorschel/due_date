@@ -16,40 +16,32 @@
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">due_date</a></li>
-    <li><a href="../due_date/due_date-library.html">due_date.dart</a></li>
+    <li><a href="../due_date/">due_date.dart</a></li>
     <li class="self-crumb">DateValidatorDifference<span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span> class</li>
   </ol>
   <div class="self-name">DateValidatorDifference</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button" title="Toggle brightness">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        dark_mode
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        light_mode
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
 <div
     id="dartdoc-main-content"
     class="main-content"
@@ -62,7 +54,7 @@
 
     
 <section class="desc markdown">
-  <p>A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> if the date is valid for only
+  <p>A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> if the date is valid for only
 one of the <a href="../due_date/DateValidatorListMixin/validators.html">validators</a>.</p>
 </section>
 
@@ -73,18 +65,24 @@ one of the <a href="../due_date/DateValidatorListMixin/validators.html">validato
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark clazz-relationships">
-      <li><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a></li>
+      <li><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a></li>
         <li><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList-class.html">DelegatingList</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></li>
       <li>DateValidatorDifference</li>
     </ul>
   </dd>
 
         
-        
-  <dt>Mixed in types</dt>
+  <dt>Implemented types</dt>
   <dd>
     <ul class="comma-separated clazz-relationships">
-        <li><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin-mixin.html">EquatableMixin</a></li>
+        <li><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></li>
+    </ul>
+  </dd>
+        
+  <dt>Mixed-in types</dt>
+  <dd>
+    <ul class="comma-separated clazz-relationships">
+        <li><a href="https://pub.dev/documentation/equatable/2.0.7/equatable/EquatableMixin-mixin.html">EquatableMixin</a></li>
         <li><a href="../due_date/DateValidatorMixin-mixin.html">DateValidatorMixin</a></li>
         <li><a href="../due_date/DateValidatorListMixin-mixin.html">DateValidatorListMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></li>
     </ul>
@@ -95,20 +93,12 @@ one of the <a href="../due_date/DateValidatorListMixin/validators.html">validato
               <li><a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a></li>
           </ul></dd>
 
-          <dt>Available Extensions</dt>
-          <dd><ul class="comma-separated clazz-relationships">
-              <li><a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a></li>
-              <li><a href="https://api.dart.dev/stable/3.5.4/dart-core/EnumByName.html">EnumByName</a></li>
-              <li><a href="https://pub.dev/documentation/collection/1.19.1/collection/IterableComparableExtension.html">IterableComparableExtension</a></li>
-              <li><a href="https://pub.dev/documentation/collection/1.19.1/collection/IterableExtension.html">IterableExtension</a></li>
-              <li><a href="https://api.dart.dev/stable/3.5.4/dart-collection/IterableExtensions.html">IterableExtensions</a></li>
-              <li><a href="https://pub.dev/documentation/collection/1.19.1/collection/IterableNullableExtension.html">IterableNullableExtension</a></li>
-              <li><a href="https://pub.dev/documentation/collection/1.19.1/collection/ListComparableExtensions.html">ListComparableExtensions</a></li>
-              <li><a href="https://pub.dev/documentation/collection/1.19.1/collection/ListExtensions.html">ListExtensions</a></li>
-              <li><a href="https://api.dart.dev/stable/3.5.4/dart-js_interop/ListToJSArray.html">ListToJSArray</a></li>
-              <li><a href="https://api.dart.dev/stable/3.5.4/dart-collection/NullableIterableExtensions.html">NullableIterableExtensions</a></li>
-          </ul></dd>
-
+        
+  <dt>Available extensions</dt>
+  <dd><ul class="comma-separated clazz-relationships">
+      <li><a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a></li>
+      <li><a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a></li>
+  </ul></dd>
         
 
 
@@ -118,14 +108,13 @@ one of the <a href="../due_date/DateValidatorListMixin/validators.html">validato
     
   <section class="summary offset-anchor" id="constructors">
     <h2>Constructors</h2>
-
     <dl class="constructor-summary-list">
-        <dt id="DateValidatorDifference" class="callable">
-          <span class="name"><a href="../due_date/DateValidatorDifference/DateValidatorDifference.html">DateValidatorDifference</a></span><span class="signature">(<span class="parameter" id="-param-validators"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">validators</span></span>)</span>
+        <dt id="DateValidatorDifference.new" class="callable">
+          <span class="name"><a href="../due_date/DateValidatorDifference/DateValidatorDifference.html">DateValidatorDifference.new</a></span><span class="signature">(<span class="parameter" id="-param-validators"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">validators</span></span>)</span>
         </dt>
         <dd>
-          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a> if the date is valid for
-only one of the <a href="../due_date/DateValidatorListMixin/validators.html">validators</a>.
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> if the date is valid for
+only one of the <code>validators</code>.
             <div class="constructor-modifier features">const</div>
         </dd>
     </dl>
@@ -136,6 +125,39 @@ only one of the <a href="../due_date/DateValidatorListMixin/validators.html">val
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
+        <dt id="difference" class="property">
+  <span class="name"><a href="../due_date/DateValidatorListExt/difference.html">difference</a></span>
+  <span class="signature">&#8594; <a href="../due_date/DateValidatorDifference-class.html">DateValidatorDifference</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span>,
+        provided by the <a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a> extension</span>
+      </p>
+  Returns a <a href="../due_date/DateValidatorUnion-class.html">DateValidatorUnion</a> of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a> of <a href="../due_date/DateValidator-class.html">DateValidator</a>s.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="difference" class="property">
+  <span class="name"><a href="../due_date/EveryDateValidatorListExt/difference.html">difference</a></span>
+  <span class="signature">&#8594; <a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span>,
+        provided by the <a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a> extension</span>
+      </p>
+  Returns a <a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a> of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a> of
+<a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
         <dt id="first" class="property inherited">
   <span class="name"><a href="../due_date/DateValidatorDifference/first.html">first</a></span>
   <span class="signature">&#8596; E</span>
@@ -149,8 +171,8 @@ only one of the <a href="../due_date/DateValidatorListMixin/validators.html">val
 </dd>
 
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.7/equatable/EquatableMixin/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -160,9 +182,42 @@ only one of the <a href="../due_date/DateValidatorListMixin/validators.html">val
 
 </dd>
 
+        <dt id="intersection" class="property">
+  <span class="name"><a href="../due_date/DateValidatorListExt/intersection.html">intersection</a></span>
+  <span class="signature">&#8594; <a href="../due_date/DateValidatorIntersection-class.html">DateValidatorIntersection</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span>,
+        provided by the <a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a> extension</span>
+      </p>
+  Returns a <a href="../due_date/DateValidatorIntersection-class.html">DateValidatorIntersection</a> of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a> of <a href="../due_date/DateValidator-class.html">DateValidator</a>s.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="intersection" class="property">
+  <span class="name"><a href="../due_date/EveryDateValidatorListExt/intersection.html">intersection</a></span>
+  <span class="signature">&#8594; <a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span>,
+        provided by the <a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a> extension</span>
+      </p>
+  Returns a <a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a> of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a> of
+<a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
         <dt id="isEmpty" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/isEmpty.html">isEmpty</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   
 
 </dt>
@@ -174,7 +229,7 @@ only one of the <a href="../due_date/DateValidatorListMixin/validators.html">val
 
         <dt id="isNotEmpty" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/isNotEmpty.html">isNotEmpty</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   
 
 </dt>
@@ -186,7 +241,7 @@ only one of the <a href="../due_date/DateValidatorListMixin/validators.html">val
 
         <dt id="iterator" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/iterator.html">iterator</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterator-class.html">Iterator</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterator-class.html">Iterator</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   
 
 </dt>
@@ -210,19 +265,19 @@ only one of the <a href="../due_date/DateValidatorListMixin/validators.html">val
 
         <dt id="length" class="property inherited">
   <span class="name"><a href="../due_date/DateValidatorDifference/length.html">length</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
+  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
   
 
 </dt>
 <dd class="inherited">
-  The number of elements in this <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a>.
+  The number of elements in this <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a>.
   <div class="features"><span class="feature">getter/setter pair</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="props" class="property">
   <span class="name"><a href="../due_date/DateValidatorDifference/props.html">props</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a></span>&gt;</span></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a></span>&gt;</span></span>
   
 
 </dt>
@@ -235,19 +290,19 @@ two instances are equal.
 
         <dt id="reversed" class="property inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/reversed.html">reversed</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   
 
 </dt>
 <dd class="inherited">
-  An <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a> of the objects in this list in reverse order.
+  An <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a> of the objects in this list in reverse order.
   <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Type-class.html">Type</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Type-class.html">Type</a></span>
   
 
 </dt>
@@ -270,21 +325,54 @@ two instances are equal.
 </dd>
 
         <dt id="stringify" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/stringify.html">stringify</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a>?</span>
+  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.7/equatable/EquatableMixin/stringify.html">stringify</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a>?</span>
   
 
 </dt>
 <dd class="inherited">
-  If set to <code>true</code>, the <a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/toString.html">toString</a> method will be overridden to output
+  If set to <code>true</code>, the <a href="https://pub.dev/documentation/equatable/2.0.7/equatable/EquatableMixin/toString.html">toString</a> method will be overridden to output
 this instance's <a href="../due_date/DateValidatorDifference/props.html">props</a>.
   <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
 
 </dd>
 
+        <dt id="union" class="property">
+  <span class="name"><a href="../due_date/DateValidatorListExt/union.html">union</a></span>
+  <span class="signature">&#8594; <a href="../due_date/DateValidatorUnion-class.html">DateValidatorUnion</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span>,
+        provided by the <a href="../due_date/DateValidatorListExt.html">DateValidatorListExt</a> extension</span>
+      </p>
+  Returns a <a href="../due_date/DateValidatorDifference-class.html">DateValidatorDifference</a> of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a> of <a href="../due_date/DateValidator-class.html">DateValidator</a>s.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="union" class="property">
+  <span class="name"><a href="../due_date/EveryDateValidatorListExt/union.html">union</a></span>
+  <span class="signature">&#8594; <a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span>,
+        provided by the <a href="../due_date/EveryDateValidatorListExt.html">EveryDateValidatorListExt</a> extension</span>
+      </p>
+  Returns a <a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a> of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a> of
+<a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
         <dt id="validators" class="property inherited">
   <span class="name"><a href="../due_date/DateValidatorListMixin/validators.html">validators</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span>
   
 
 </dt>
@@ -296,6 +384,7 @@ this instance's <a href="../due_date/DateValidatorDifference/props.html">props</
 
     </dl>
   </section>
+
     
   <section
       class="summary offset-anchor"
@@ -317,7 +406,7 @@ extending the length by one.
 </dd>
 
         <dt id="addAll" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/addAll.html">addAll</a></span><span class="signature">(<wbr><span class="parameter" id="addAll-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/addAll.html">addAll</a></span><span class="signature">(<wbr><span class="parameter" id="addAll-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -330,8 +419,8 @@ extending the length by one.
 </dd>
 
         <dt id="any" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/any.html">any</a></span><span class="signature">(<wbr><span class="parameter" id="any-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/any.html">any</a></span><span class="signature">(<wbr><span class="parameter" id="any-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -344,20 +433,20 @@ extending the length by one.
 
         <dt id="asMap" class="callable inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/asMap.html">asMap</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>, <span class="type-parameter">E</span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>, <span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  An unmodifiable <a href="https://api.dart.dev/stable/3.5.4/dart-core/Map-class.html">Map</a> view of this list.
+  An unmodifiable <a href="https://api.dart.dev/stable/3.8.1/dart-core/Map-class.html">Map</a> view of this list.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="cast" class="callable inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/cast.html">cast</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
   </span>
   
 
@@ -382,8 +471,8 @@ extending the length by one.
 </dd>
 
         <dt id="contains" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/contains.html">contains</a></span><span class="signature">(<wbr><span class="parameter" id="contains-param-element"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">element</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/contains.html">contains</a></span><span class="signature">(<wbr><span class="parameter" id="contains-param-element"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">element</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -395,7 +484,7 @@ extending the length by one.
 </dd>
 
         <dt id="elementAt" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/elementAt.html">elementAt</a></span><span class="signature">(<wbr><span class="parameter" id="elementAt-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/elementAt.html">elementAt</a></span><span class="signature">(<wbr><span class="parameter" id="elementAt-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span></span>)
     <span class="returntype parameter">&#8594; E</span>
   </span>
   
@@ -408,8 +497,8 @@ extending the length by one.
 </dd>
 
         <dt id="every" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/every.html">every</a></span><span class="signature">(<wbr><span class="parameter" id="every-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/every.html">every</a></span><span class="signature">(<wbr><span class="parameter" id="every-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -421,20 +510,20 @@ extending the length by one.
 </dd>
 
         <dt id="expand" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/expand.html">expand</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="expand-param-f"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">f</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/expand.html">expand</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="expand-param-f"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">f</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Expands each element of this <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a> into zero or more elements.
+  Expands each element of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a> into zero or more elements.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="fillRange" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/fillRange.html">fillRange</a></span><span class="signature">(<wbr><span class="parameter" id="fillRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="fillRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, [</span><span class="parameter" id="fillRange-param-fillValue"><span class="type-annotation">E?</span> <span class="parameter-name">fillValue</span></span>])
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/fillRange.html">fillRange</a></span><span class="signature">(<wbr><span class="parameter" id="fillRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="fillRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, [</span><span class="parameter" id="fillRange-param-fillValue"><span class="type-annotation">E?</span> <span class="parameter-name">fillValue</span></span>])
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -447,8 +536,8 @@ extending the length by one.
 </dd>
 
         <dt id="filterValidDates" class="callable inherited">
-  <span class="name"><a href="../due_date/DateValidatorMixin/filterValidDates.html">filterValidDates</a></span><span class="signature">(<wbr><span class="parameter" id="filterValidDates-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  <span class="name"><a href="../due_date/DateValidatorMixin/filterValidDates.html">filterValidDates</a></span><span class="signature">(<wbr><span class="parameter" id="filterValidDates-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
   </span>
   
 
@@ -460,7 +549,7 @@ extending the length by one.
 </dd>
 
         <dt id="firstWhere" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/firstWhere.html">firstWhere</a></span><span class="signature">(<wbr><span class="parameter" id="firstWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), {</span><span class="parameter" id="firstWhere-param-orElse"><span class="type-annotation">E</span> <span class="parameter-name">orElse</span>()?</span>})
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/firstWhere.html">firstWhere</a></span><span class="signature">(<wbr><span class="parameter" id="firstWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), {</span><span class="parameter" id="firstWhere-param-orElse"><span class="type-annotation">E</span> <span class="parameter-name">orElse</span>()?</span>})
     <span class="returntype parameter">&#8594; E</span>
   </span>
   
@@ -487,8 +576,8 @@ element of the collection with an existing value
 </dd>
 
         <dt id="followedBy" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/followedBy.html">followedBy</a></span><span class="signature">(<wbr><span class="parameter" id="followedBy-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/followedBy.html">followedBy</a></span><span class="signature">(<wbr><span class="parameter" id="followedBy-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
@@ -513,21 +602,21 @@ element of the collection with an existing value
 </dd>
 
         <dt id="getRange" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/getRange.html">getRange</a></span><span class="signature">(<wbr><span class="parameter" id="getRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="getRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/getRange.html">getRange</a></span><span class="signature">(<wbr><span class="parameter" id="getRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="getRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates an <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a> that iterates over a range of elements.
+  Creates an <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a> that iterates over a range of elements.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="indexOf" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/indexOf.html">indexOf</a></span><span class="signature">(<wbr><span class="parameter" id="indexOf-param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span>, [</span><span class="parameter" id="indexOf-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span> = <span class="default-value">0</span></span>])
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/indexOf.html">indexOf</a></span><span class="signature">(<wbr><span class="parameter" id="indexOf-param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span>, [</span><span class="parameter" id="indexOf-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span> = <span class="default-value">0</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
   </span>
   
 
@@ -539,8 +628,8 @@ element of the collection with an existing value
 </dd>
 
         <dt id="indexWhere" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/indexWhere.html">indexWhere</a></span><span class="signature">(<wbr><span class="parameter" id="indexWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), [</span><span class="parameter" id="indexWhere-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span> = <span class="default-value">0</span></span>])
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/indexWhere.html">indexWhere</a></span><span class="signature">(<wbr><span class="parameter" id="indexWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), [</span><span class="parameter" id="indexWhere-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span> = <span class="default-value">0</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
   </span>
   
 
@@ -552,7 +641,7 @@ element of the collection with an existing value
 </dd>
 
         <dt id="insert" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/insert.html">insert</a></span><span class="signature">(<wbr><span class="parameter" id="insert-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="insert-param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/insert.html">insert</a></span><span class="signature">(<wbr><span class="parameter" id="insert-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="insert-param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -565,7 +654,7 @@ element of the collection with an existing value
 </dd>
 
         <dt id="insertAll" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/insertAll.html">insertAll</a></span><span class="signature">(<wbr><span class="parameter" id="insertAll-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="insertAll-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/insertAll.html">insertAll</a></span><span class="signature">(<wbr><span class="parameter" id="insertAll-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="insertAll-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -578,8 +667,8 @@ element of the collection with an existing value
 </dd>
 
         <dt id="invalid" class="callable">
-  <span class="name"><a href="../due_date/DateValidatorDifference/invalid.html">invalid</a></span><span class="signature">(<wbr><span class="parameter" id="invalid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DateValidatorDifference/invalid.html">invalid</a></span><span class="signature">(<wbr><span class="parameter" id="invalid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -591,21 +680,21 @@ element of the collection with an existing value
 </dd>
 
         <dt id="join" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/join.html">join</a></span><span class="signature">(<wbr>[<span class="parameter" id="join-param-separator"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">separator</span> = <span class="default-value">&#39;&#39;</span></span>])
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/join.html">join</a></span><span class="signature">(<wbr>[<span class="parameter" id="join-param-separator"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/String-class.html">String</a></span> <span class="parameter-name">separator</span> = <span class="default-value">&#39;&#39;</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Converts each element to a <a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a> and concatenates the strings.
+  Converts each element to a <a href="https://api.dart.dev/stable/3.8.1/dart-core/String-class.html">String</a> and concatenates the strings.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="lastIndexOf" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/lastIndexOf.html">lastIndexOf</a></span><span class="signature">(<wbr><span class="parameter" id="lastIndexOf-param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span>, [</span><span class="parameter" id="lastIndexOf-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">start</span></span>])
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/lastIndexOf.html">lastIndexOf</a></span><span class="signature">(<wbr><span class="parameter" id="lastIndexOf-param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span>, [</span><span class="parameter" id="lastIndexOf-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">start</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
   </span>
   
 
@@ -617,8 +706,8 @@ element of the collection with an existing value
 </dd>
 
         <dt id="lastIndexWhere" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/lastIndexWhere.html">lastIndexWhere</a></span><span class="signature">(<wbr><span class="parameter" id="lastIndexWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), [</span><span class="parameter" id="lastIndexWhere-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">start</span></span>])
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/lastIndexWhere.html">lastIndexWhere</a></span><span class="signature">(<wbr><span class="parameter" id="lastIndexWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), [</span><span class="parameter" id="lastIndexWhere-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">start</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
   </span>
   
 
@@ -630,7 +719,7 @@ element of the collection with an existing value
 </dd>
 
         <dt id="lastWhere" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/lastWhere.html">lastWhere</a></span><span class="signature">(<wbr><span class="parameter" id="lastWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), {</span><span class="parameter" id="lastWhere-param-orElse"><span class="type-annotation">E</span> <span class="parameter-name">orElse</span>()?</span>})
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/lastWhere.html">lastWhere</a></span><span class="signature">(<wbr><span class="parameter" id="lastWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), {</span><span class="parameter" id="lastWhere-param-orElse"><span class="type-annotation">E</span> <span class="parameter-name">orElse</span>()?</span>})
     <span class="returntype parameter">&#8594; E</span>
   </span>
   
@@ -644,7 +733,7 @@ element of the collection with an existing value
 
         <dt id="map" class="callable inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/map.html">map</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="map-param-f"><span class="type-annotation">T</span> <span class="parameter-name">f</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
   </span>
   
 
@@ -656,7 +745,7 @@ element of the collection with an existing value
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
@@ -683,8 +772,8 @@ of the collection using the provided function.
 </dd>
 
         <dt id="remove" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/remove.html">remove</a></span><span class="signature">(<wbr><span class="parameter" id="remove-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">value</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/remove.html">remove</a></span><span class="signature">(<wbr><span class="parameter" id="remove-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">value</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -696,7 +785,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="removeAt" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/removeAt.html">removeAt</a></span><span class="signature">(<wbr><span class="parameter" id="removeAt-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/removeAt.html">removeAt</a></span><span class="signature">(<wbr><span class="parameter" id="removeAt-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span></span>)
     <span class="returntype parameter">&#8594; E</span>
   </span>
   
@@ -722,7 +811,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="removeRange" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/removeRange.html">removeRange</a></span><span class="signature">(<wbr><span class="parameter" id="removeRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="removeRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/removeRange.html">removeRange</a></span><span class="signature">(<wbr><span class="parameter" id="removeRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="removeRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -735,7 +824,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="removeWhere" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/removeWhere.html">removeWhere</a></span><span class="signature">(<wbr><span class="parameter" id="removeWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/removeWhere.html">removeWhere</a></span><span class="signature">(<wbr><span class="parameter" id="removeWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -748,7 +837,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="replaceRange" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/replaceRange.html">replaceRange</a></span><span class="signature">(<wbr><span class="parameter" id="replaceRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="replaceRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, </span><span class="parameter" id="replaceRange-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/replaceRange.html">replaceRange</a></span><span class="signature">(<wbr><span class="parameter" id="replaceRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="replaceRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, </span><span class="parameter" id="replaceRange-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -761,7 +850,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="retainWhere" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/retainWhere.html">retainWhere</a></span><span class="signature">(<wbr><span class="parameter" id="retainWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/retainWhere.html">retainWhere</a></span><span class="signature">(<wbr><span class="parameter" id="retainWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -775,7 +864,7 @@ of the collection using the provided function.
 
         <dt id="retype" class="callable inherited">
   <span class="name deprecated"><a class="deprecated" href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/retype.html">retype</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
   </span>
   
 
@@ -787,7 +876,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="setAll" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/setAll.html">setAll</a></span><span class="signature">(<wbr><span class="parameter" id="setAll-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="setAll-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/setAll.html">setAll</a></span><span class="signature">(<wbr><span class="parameter" id="setAll-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="setAll-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -800,7 +889,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="setRange" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/setRange.html">setRange</a></span><span class="signature">(<wbr><span class="parameter" id="setRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="setRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, </span><span class="parameter" id="setRange-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span>, [</span><span class="parameter" id="setRange-param-skipCount"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">skipCount</span> = <span class="default-value">0</span></span>])
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/setRange.html">setRange</a></span><span class="signature">(<wbr><span class="parameter" id="setRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="setRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, </span><span class="parameter" id="setRange-param-iterable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">iterable</span>, [</span><span class="parameter" id="setRange-param-skipCount"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">skipCount</span> = <span class="default-value">0</span></span>])
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -813,7 +902,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="shuffle" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/shuffle.html">shuffle</a></span><span class="signature">(<wbr>[<span class="parameter" id="shuffle-param-random"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-math/Random-class.html">Random</a>?</span> <span class="parameter-name">random</span></span>])
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/shuffle.html">shuffle</a></span><span class="signature">(<wbr>[<span class="parameter" id="shuffle-param-random"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-math/Random-class.html">Random</a>?</span> <span class="parameter-name">random</span></span>])
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -826,7 +915,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="singleWhere" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/singleWhere.html">singleWhere</a></span><span class="signature">(<wbr><span class="parameter" id="singleWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), {</span><span class="parameter" id="singleWhere-param-orElse"><span class="type-annotation">E</span> <span class="parameter-name">orElse</span>()?</span>})
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/singleWhere.html">singleWhere</a></span><span class="signature">(<wbr><span class="parameter" id="singleWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>), {</span><span class="parameter" id="singleWhere-param-orElse"><span class="type-annotation">E</span> <span class="parameter-name">orElse</span>()?</span>})
     <span class="returntype parameter">&#8594; E</span>
   </span>
   
@@ -839,21 +928,21 @@ of the collection using the provided function.
 </dd>
 
         <dt id="skip" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/skip.html">skip</a></span><span class="signature">(<wbr><span class="parameter" id="skip-param-n"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">n</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/skip.html">skip</a></span><span class="signature">(<wbr><span class="parameter" id="skip-param-n"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">n</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates an <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a> that provides all but the first <code>count</code> elements.
+  Creates an <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a> that provides all but the first <code>count</code> elements.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="skipWhile" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/skipWhile.html">skipWhile</a></span><span class="signature">(<wbr><span class="parameter" id="skipWhile-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/skipWhile.html">skipWhile</a></span><span class="signature">(<wbr><span class="parameter" id="skipWhile-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
@@ -865,7 +954,7 @@ of the collection using the provided function.
 </dd>
 
         <dt id="sort" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/sort.html">sort</a></span><span class="signature">(<wbr>[<span class="parameter" id="sort-param-compare"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">compare</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span>, </span><span class="parameter" id="param-"><span class="type-annotation">E</span></span>)?</span>])
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/sort.html">sort</a></span><span class="signature">(<wbr>[<span class="parameter" id="sort-param-compare"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">compare</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span>, </span><span class="parameter" id="param-"><span class="type-annotation">E</span></span>)?</span>])
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -878,8 +967,8 @@ of the collection using the provided function.
 </dd>
 
         <dt id="sublist" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/sublist.html">sublist</a></span><span class="signature">(<wbr><span class="parameter" id="sublist-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, [</span><span class="parameter" id="sublist-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">end</span></span>])
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/sublist.html">sublist</a></span><span class="signature">(<wbr><span class="parameter" id="sublist-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, [</span><span class="parameter" id="sublist-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">end</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
@@ -891,8 +980,8 @@ of the collection using the provided function.
 </dd>
 
         <dt id="take" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/take.html">take</a></span><span class="signature">(<wbr><span class="parameter" id="take-param-n"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">n</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/take.html">take</a></span><span class="signature">(<wbr><span class="parameter" id="take-param-n"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">n</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
@@ -904,8 +993,8 @@ of the collection using the provided function.
 </dd>
 
         <dt id="takeWhile" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/takeWhile.html">takeWhile</a></span><span class="signature">(<wbr><span class="parameter" id="takeWhile-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/takeWhile.html">takeWhile</a></span><span class="signature">(<wbr><span class="parameter" id="takeWhile-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
@@ -917,34 +1006,34 @@ of the collection using the provided function.
 </dd>
 
         <dt id="toList" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/toList.html">toList</a></span><span class="signature">(<wbr>{<span class="parameter" id="toList-param-growable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">growable</span> = <span class="default-value">true</span></span>})
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/toList.html">toList</a></span><span class="signature">(<wbr>{<span class="parameter" id="toList-param-growable"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">growable</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates a <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a> containing the elements of this <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a>.
+  Creates a <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a> containing the elements of this <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="toSet" class="callable inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/toSet.html">toSet</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates a <a href="https://api.dart.dev/stable/3.5.4/dart-core/Set-class.html">Set</a> containing the same elements as this iterable.
+  Creates a <a href="https://api.dart.dev/stable/3.8.1/dart-core/Set-class.html">Set</a> containing the same elements as this iterable.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.5/equatable/EquatableMixin/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/equatable/2.0.7/equatable/EquatableMixin/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -956,8 +1045,8 @@ of the collection using the provided function.
 </dd>
 
         <dt id="valid" class="callable">
-  <span class="name"><a href="../due_date/DateValidatorDifference/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DateValidatorDifference/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -969,8 +1058,8 @@ of the collection using the provided function.
 </dd>
 
         <dt id="validsIn" class="callable inherited">
-  <span class="name deprecated"><a class="deprecated" href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></span><span class="signature">(<wbr><span class="parameter" id="validsIn-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.4/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  <span class="name deprecated"><a class="deprecated" href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></span><span class="signature">(<wbr><span class="parameter" id="validsIn-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
   </span>
   
 
@@ -982,14 +1071,14 @@ of the collection using the provided function.
 </dd>
 
         <dt id="where" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/where.html">where</a></span><span class="signature">(<wbr><span class="parameter" id="where-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/where.html">where</a></span><span class="signature">(<wbr><span class="parameter" id="where-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<span class="parameter" id="param-"><span class="type-annotation">E</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates a new lazy <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a> with all elements that satisfy the
+  Creates a new lazy <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a> with all elements that satisfy the
 predicate <code>test</code>.
   <div class="features"><span class="feature">inherited</span></div>
 
@@ -997,13 +1086,13 @@ predicate <code>test</code>.
 
         <dt id="whereType" class="callable inherited">
   <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/whereType.html">whereType</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates a new lazy <a href="https://api.dart.dev/stable/3.5.4/dart-core/Iterable-class.html">Iterable</a> with all elements that have type <code>T</code>.
+  Creates a new lazy <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a> with all elements that have type <code>T</code>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
@@ -1017,8 +1106,8 @@ predicate <code>test</code>.
     <h2>Operators</h2>
     <dl class="callables">
         <dt id="operator +" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/operator_plus.html">operator +</a></span><span class="signature">(<wbr><span class="parameter" id="+-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/operator_plus.html">operator +</a></span><span class="signature">(<wbr><span class="parameter" id="+-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
   </span>
   
 
@@ -1030,8 +1119,8 @@ predicate <code>test</code>.
 </dd>
 
         <dt id="operator ==" class="callable">
-  <span class="name"><a href="../due_date/DateValidatorDifference/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.5.4/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DateValidatorDifference/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -1043,7 +1132,7 @@ predicate <code>test</code>.
 </dd>
 
         <dt id="operator []" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/operator_get.html">operator []</a></span><span class="signature">(<wbr><span class="parameter" id="[]-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/operator_get.html">operator []</a></span><span class="signature">(<wbr><span class="parameter" id="[]-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span></span>)
     <span class="returntype parameter">&#8594; E</span>
   </span>
   
@@ -1056,7 +1145,7 @@ predicate <code>test</code>.
 </dd>
 
         <dt id="operator []=" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/operator_put.html">operator []=</a></span><span class="signature">(<wbr><span class="parameter" id="[]=-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="[]=-param-value"><span class="type-annotation">E</span> <span class="parameter-name">value</span></span>)
+  <span class="name"><a href="https://pub.dev/documentation/collection/1.19.1/collection/DelegatingList/operator_put.html">operator []=</a></span><span class="signature">(<wbr><span class="parameter" id="[]=-param-index"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span><span class="parameter" id="[]=-param-value"><span class="type-annotation">E</span> <span class="parameter-name">value</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -1074,9 +1163,7 @@ predicate <code>test</code>.
     
     
 
-
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -1084,40 +1171,30 @@ predicate <code>test</code>.
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">due_date</a></li>
-    <li><a href="../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../due_date/">due_date</a></li>
     <li class="self-crumb">DateValidatorDifference<span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span> class</li>
 </ol>
-
 
     <h5>due_date library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div>
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      2.2.1
+      2.3.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 

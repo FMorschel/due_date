@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the EveryDueWorkdayMonth constructor from Class EveryDueWorkdayMonth from the due_date library, for the Dart programming language.">
-  <title>EveryDueWorkdayMonth constructor - EveryDueWorkdayMonth - due_date library - Dart API</title>
+  <meta name="description" content="API docs for the EveryDueWorkdayMonth.new constructor from Class EveryDueWorkdayMonth from the due_date library, for the Dart programming language.">
+  <title>EveryDueWorkdayMonth.new constructor - EveryDueWorkdayMonth - due_date library - Dart API</title>
 
 
   
@@ -16,41 +16,33 @@
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../due_date/due_date-library.html">due_date.dart</a></li>
+    <li><a href="../../due_date/">due_date.dart</a></li>
     <li><a href="../../due_date/EveryDueWorkdayMonth-class.html">EveryDueWorkdayMonth</a></li>
-    <li class="self-crumb">EveryDueWorkdayMonth const constructor</li>
+    <li class="self-crumb">EveryDueWorkdayMonth.new const constructor</li>
   </ol>
-  <div class="self-name">EveryDueWorkdayMonth</div>
+  <div class="self-name">EveryDueWorkdayMonth.new</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button" title="Toggle brightness">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        dark_mode
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        light_mode
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
   <div
       id="dartdoc-main-content"
       class="main-content"
@@ -62,15 +54,14 @@
 
     <section class="multi-line-signature">
       const
-      <span class="name ">EveryDueWorkdayMonth</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="-param-dueWorkday"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.5.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">dueWorkday</span></span></li>
+      <span class="name ">EveryDueWorkdayMonth</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="-param-dueWorkday"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">dueWorkday</span></span></li>
 </ol>)
     </section>
-
     
 <section class="desc markdown">
-  <p>Returns a <a href="../../due_date/EveryDueWorkdayMonth-class.html">EveryDueWorkdayMonth</a> with the given <a href="../../due_date/DateValidatorDueWorkdayMonth/dueWorkday.html">dueWorkday</a>.</p>
+  <p>Returns a <a href="../../due_date/EveryDueWorkdayMonth-class.html">EveryDueWorkdayMonth</a> with the given <code>dueWorkday</code>.</p>
 <p>A month can have at most 23 workdays.</p>
-<p>When you call <a href="../../due_date/EveryDueWorkdayMonth/next.html">next</a> or <a href="../../due_date/EveryDueWorkdayMonth/previous.html">previous</a>, it will return the <a href="../../due_date/DateValidatorDueWorkdayMonth/dueWorkday.html">dueWorkday</a>
+<p>When you call <a href="../../due_date/EveryDueWorkdayMonth/next.html">next</a> or <a href="../../due_date/EveryDueWorkdayMonth/previous.html">previous</a>, it will return the <code>dueWorkday</code>
 workday of the next or previous month.</p>
 </section>
 
@@ -83,12 +74,11 @@ workday of the next or previous month.</p>
         (dueWorkday &gt;= 1) &amp;&amp; (dueWorkday &lt;= 23),
         &#39;Due workday must be between 1 and 23&#39;,
       ),
-      super(exact: false);</code></pre>
+      super();</code></pre>
 </section>
 
 
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -96,41 +86,31 @@ workday of the next or previous month.</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">due_date</a></li>
-    <li><a href="../../due_date/due_date-library.html">due_date</a></li>
+    <li><a href="../../due_date/">due_date</a></li>
     <li><a href="../../due_date/EveryDueWorkdayMonth-class.html">EveryDueWorkdayMonth</a></li>
-    <li class="self-crumb">EveryDueWorkdayMonth const constructor</li>
+    <li class="self-crumb">EveryDueWorkdayMonth.new const constructor</li>
 </ol>
-
 
     <h5>EveryDueWorkdayMonth class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-left-->
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     due_date
-      2.2.1
+      2.3.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 

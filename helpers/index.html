@@ -31,17 +31,14 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button" title="Toggle brightness">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        dark_mode
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        light_mode
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
 <div
@@ -116,7 +113,7 @@ will be passed.
 
 </dt>
 <dd>
-  Extension for <a href="https://api.dart.dev/edge/3.7.0-edge.d75c493e27f9bf2a89043860132462be665065c2/dart-core/Object-class.html">Object</a>s.
+  Extension for <a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a>s.
 </dd>
 
       </dl>
@@ -124,6 +121,24 @@ will be passed.
 
 
 
+    <section class="summary offset-anchor" id="functions">
+      <h2>Functions</h2>
+      <dl class="callables">
+          <dt id="boolCompareTo" class="callable">
+  <span class="name"><a href="../helpers/boolCompareTo.html">boolCompareTo</a></span><span class="signature">(<wbr><span class="parameter" id="boolCompareTo-param-a"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">a</span>, </span><span class="parameter" id="boolCompareTo-param-b"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">b</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Helper function to compare two nullable booleans.
+  
+
+</dd>
+
+      </dl>
+    </section>
 
 
   </div> <!-- /.main-content -->
@@ -142,9 +157,9 @@ will be passed.
     <h5><span class="package-name">due_date</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="../due_date">due_date</a></li>
-      <li><a class="deprecated" href="../helpers">helpers</a></li>
-      <li><a href="../period">period</a></li>
+      <li><a href="../due_date/">due_date</a></li>
+      <li><a class="deprecated" href="../helpers/">helpers</a></li>
+      <li><a href="../period/">period</a></li>
 </ol>
 
   </div>
@@ -155,7 +170,7 @@ will be passed.
 <footer>
   <span class="no-break">
     due_date
-      2.2.0
+      2.3.0
   </span>
   
 </footer>
