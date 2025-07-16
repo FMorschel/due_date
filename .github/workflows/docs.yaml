@@ -52,61 +52,52 @@ jobs:
         id: compare_docs_hash
         shell: bash
         run: |
-          # Calculate hash of generated docs
-          if [ -d "doc/api" ]; then
-            # Store the generated docs in a temporary location
-            cp -r doc/api /tmp/generated_docs
-
-            # Remove everything except .git
-            echo "Cleaning up gh-pages branch..."
-            find . -mindepth 1 -maxdepth 1 ! -name 'doc' ! -name '.git' -exec rm -rf {} +
-            # Move generated docs from temp location to root
-            echo "Moving generated docs to gh-pages root..."
-            mv /tmp/generated_docs/* .
-            shopt -u dotglob
-
-            NEW_HASH=$(find . -name '.git' -prune -o -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
-            echo "Generated docs hash: $NEW_HASH"
-          else
+          # Compare generated docs (doc/api) with gh-pages root (excluding .git)
+          if [ ! -d "doc/api" ]; then
             echo "No doc/api folder found"
             exit 1
           fi
-          
-          # Reset the working dir
-          git reset --hard
-          git clean -fdx
-          
-          # Fetch gh-pages branch and calculate existing docs hash
-          if git ls-remote --exit-code --heads origin gh-pages; then
-            echo "gh-pages branch exists, fetching..."
-            git fetch origin gh-pages
-            CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-            git checkout gh-pages
 
-            if [ -d "." ] && [ "$(ls -A . | grep -v '^\.git$' | wc -l)" -gt 0 ]; then
-              # Calculate hash of current gh-pages content (excluding .git)
-              CURRENT_HASH=$(find . -name '.git' -prune -o -type f -exec sha256sum {} \; | sort -k2 | sha256sum | cut -d' ' -f1)
-              echo "Current gh-pages hash: $CURRENT_HASH"
-            else
-              echo "gh-pages branch is empty"
-              CURRENT_HASH="empty"
-            fi
-            
-            # Switch back to original branch
-            git checkout "$CURRENT_BRANCH"
-          else
-            echo "gh-pages branch does not exist"
-            CURRENT_HASH="empty"
-          fi
-          
-          # Compare hashes
-          if [ "$NEW_HASH" = "$CURRENT_HASH" ]; then
-            echo "Docs hash unchanged, skipping branch creation"
-            echo "hash_changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "Docs hash changed, proceeding with branch creation"
+          # Fetch gh-pages branch and check it out in a temp dir
+          TMP_GHPAGES=$(mktemp -d)
+          git fetch origin gh-pages
+          git worktree add "$TMP_GHPAGES" gh-pages
+
+          # List files (relative paths) in generated docs and gh-pages root (excluding .git)
+          pushd doc/api > /dev/null
+          find . -type f | sort > /tmp/generated_files.txt
+          popd > /dev/null
+
+          pushd "$TMP_GHPAGES" > /dev/null
+          find . -type f ! -path './.git/*' | sort > /tmp/ghpages_files.txt
+          popd > /dev/null
+
+          # Compare file lists
+          if ! diff -q /tmp/generated_files.txt /tmp/ghpages_files.txt; then
+            echo "File structure differs. Docs changed."
             echo "hash_changed=true" >> $GITHUB_OUTPUT
+          else
+            # File lists match, compare file contents
+            DIFF_FOUND=0
+            while read -r relpath; do
+              if ! cmp -s "doc/api/$relpath" "$TMP_GHPAGES/$relpath"; then
+                echo "Difference found in $relpath"
+                DIFF_FOUND=1
+                break
+              fi
+            done < /tmp/generated_files.txt
+            if [ "$DIFF_FOUND" = "1" ]; then
+              echo "File content differs. Docs changed."
+              echo "hash_changed=true" >> $GITHUB_OUTPUT
+            else
+              echo "Docs unchanged."
+              echo "hash_changed=false" >> $GITHUB_OUTPUT
+            fi
           fi
+
+          # Clean up
+          git worktree remove "$TMP_GHPAGES" --force
+          rm -rf "$TMP_GHPAGES" /tmp/generated_files.txt /tmp/ghpages_files.txt
 
       - name: Create or update docs branch
         if: steps.compare_docs_hash.outputs.hash_changed == 'true'
