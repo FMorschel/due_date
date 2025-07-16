@@ -74,6 +74,7 @@ jobs:
           
           # Reset the working dir
           git reset --hard
+          git clean -fdx
           
           # Fetch gh-pages branch and calculate existing docs hash
           if git ls-remote --exit-code --heads origin gh-pages; then
