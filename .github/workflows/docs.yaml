@@ -23,55 +23,73 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
-      branch_exists: ${{ steps.update_docs_branch.outputs.branch_exists }}
-      changes: ${{ steps.update_docs_branch.outputs.changes }}
+      pr_exists: ${{ steps.update_docs_branch.outputs.pr_exists }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
+
       - name: Install dependencies
         run: dart pub get
+
       - name: Analyze project source
         run: dart analyze
+
       - name: Get version from pubspec.yaml
         id: get_version
         run: |
           VERSION=$(grep '^version:' pubspec.yaml | head -n1 | cut -d ' ' -f2)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Generate docs
         run: dart doc
-      - name: Clean up everything except doc/
+
+      - name: Prepare docs for branch
         run: |
-          find . -mindepth 1 -maxdepth 1 ! -name 'doc' ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} +
-      - name: Move doc/api/* to root
-        run: |
-          shopt -s dotglob
-          mv doc/api/* .
-          shopt -u dotglob
-      - name: Remove doc/api if empty
-        run: |
-          rmdir doc/api || true
+          # Store the generated docs in a temporary location
+          cp -r doc/api /tmp/generated_docs
+
       - name: Create or update docs branch
         id: update_docs_branch
         env:
           VERSION: ${{ steps.get_version.outputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           BRANCH=docs-for-$VERSION
+          
+          # Check for existing PR from docs branch to gh-pages
+          PR_EXISTS=$(gh pr list --base gh-pages --head "$BRANCH" --state open --json number --jq 'length > 0' || echo false)
+          echo "pr_exists=$PR_EXISTS" >> $GITHUB_OUTPUT
+          
+          # Check if docs branch exists
           if git ls-remote --exit-code --heads origin "$BRANCH"; then
-            echo "branch_exists=true" >> $GITHUB_OUTPUT
+            echo "Branch $BRANCH exists, checking it out..."
             git fetch origin "$BRANCH"
-            git clean -fd
             git checkout "$BRANCH"
             git reset --hard origin/$BRANCH
           else
-            echo "branch_exists=false" >> $GITHUB_OUTPUT
-            git checkout --orphan "$BRANCH"
-            git reset --hard
+            echo "Branch $BRANCH does not exist, creating from gh-pages..."
+            # Create docs branch from gh-pages so there is a common ancestor
+            git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages
+            git checkout gh-pages || git checkout --orphan gh-pages
+            git checkout -b "$BRANCH"
           fi
+          
+          # Clean up everything except .git
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} +
+          
+          # Move generated docs from temp location to root
+          shopt -s dotglob
+          mv /tmp/generated_docs/* .
+          shopt -u dotglob
+          
+          # Add all files
           git add .
+          
           echo "Files in working directory:"
           ls -alR
           echo "Files staged for commit:"
@@ -79,14 +97,17 @@ jobs:
           echo "Files changed (not staged):"
           git diff --name-status
           echo "Now checking for changes..."
-          # Compare current files against origin/gh-pages by path
-          if git diff --cached --quiet origin/gh-pages -- . 2>/dev/null; then
-            git commit -m "Update docs for $VERSION"
+          
+          # Check if there are any changes to commit (FIXED LOGIC)
+          if ! git diff --cached --quiet; then
+            echo "Changes detected, committing..."
+            # Get the commit SHA that triggered the workflow
+            TRIGGER_COMMIT=${{ github.sha }}
+            COMMIT_MSG="Update docs for $VERSION (generated from $TRIGGER_COMMIT)"
+            git commit -m "$COMMIT_MSG"
             git push -f origin "$BRANCH"
-            echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "No changes to commit."
-            echo "changes=false" >> $GITHUB_OUTPUT
           fi
 
   create-docs-pr:
@@ -95,15 +116,36 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs.outputs.changes == 'true' && needs.update-docs.outputs.branch_exists == 'false'
+    if: needs.update-docs.outputs.pr_exists == 'false'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Create or update PR to gh-pages
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: gh-pages
-          title: Docs for ${{ needs.update-docs.outputs.version }}
-          body: "Automated documentation update for version ${{ needs.update-docs.outputs.version }}."
-          branch: docs-for-${{ needs.update-docs.outputs.version }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.update-docs.outputs.version }}
+        run: |
+          BRANCH=docs-for-$VERSION
+          PR_TITLE="Docs for $VERSION"
+
+          TRIGGER_COMMIT=${{ github.sha }}
+          PR_BODY="Automated documentation update for version $VERSION.
+
+          Triggered by commit $TRIGGER_COMMIT."
+
+          # If triggered by a PR, mention it in the PR body
+          if [ "${{ github.event_name }}" = "pull_request" ] && [ -n "${{ github.event.pull_request.number }}" ]; then
+            PR_BODY="$PR_BODY
+            
+            Triggered by #${{ github.event.pull_request.number }}"
+          fi
+
+          # Check if a PR already exists
+          PR_NUMBER=$(gh pr list --base gh-pages --head "$BRANCH" --state open --json number --jq '.[0].number' || echo "")
+          if [ -z "$PR_NUMBER" ]; then
+            echo "Creating new PR..."
+            gh pr create --base gh-pages --head "$BRANCH" --title "$PR_TITLE" --body "$PR_BODY"
+          else
+            echo "PR #$PR_NUMBER already exists. Updating title and body."
+            gh pr edit "$PR_NUMBER" --title "$PR_TITLE" --body "$PR_BODY"
+          fi
