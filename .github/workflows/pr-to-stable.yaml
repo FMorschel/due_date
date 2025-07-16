@@ -30,7 +30,7 @@ jobs:
         run: |
           (cd new_version/lib && find . -type f -exec sha1sum {} \; | sort | sha1sum | awk '{print $1}') > lib_folder.sha
           cat lib_folder.sha
-          (cd old_version/lib && find . -type f -exec sha1sum {} \; | sort | sha1sum | awk '{print $1}') > lib_folder.sha
+          (cd old_version/lib && find . -type f -exec sha1sum {} \; | sort | sha1sum | awk '{print $1}') > lib_folder_old.sha
           cat lib_folder_old.sha
 
 
