@@ -36,6 +36,13 @@ jobs:
           sha1sum new_version/pubspec.yaml | awk '{print $1}' > pubspec_yaml.sha
           cat pubspec_yaml.sha
 
+      - name: Generate combined SHA for lib/ and pubspec.yaml
+        run: |
+          LIB_SHA=$(cat lib_folder.sha)
+          PUBSPEC_SHA=$(cat pubspec_yaml.sha)
+          echo -n "${LIB_SHA}-${PUBSPEC_SHA}" | sha1sum | awk '{print $1}' > combined.sha
+          cat combined.sha
+
       - name: Fetch and verify last apitool-meta comment from PR
         id: check_hashes
         env:
@@ -45,16 +52,14 @@ jobs:
           echo "$COMMENTS" | jq -r '.[] | select(.author.login=="github-actions[bot]") | select(.body | contains("<!-- apitool-meta")) | .body' | tail -n 1 > last_apitool_meta_comment.txt
           cat last_apitool_meta_comment.txt
 
-          # Extract hashes from the last comment
-          LAST_LIB_SHA=$(grep 'lib_sha:' last_apitool_meta_comment.txt | awk -F': ' '{print $2}')
-          LAST_PUBSPEC_SHA=$(grep 'pubspec_yaml_sha:' last_apitool_meta_comment.txt | awk -F': ' '{print $2}')
+          # Extract combined hash from the last comment
+          LAST_COMBINED_SHA=$(grep 'combined_sha:' last_apitool_meta_comment.txt | awk -F': ' '{print $2}')
 
-          # Read current hashes
-          CUR_LIB_SHA=$(cat lib_folder.sha)
-          CUR_PUBSPEC_SHA=$(cat pubspec_yaml.sha)
+          # Read current combined hash
+          CUR_COMBINED_SHA=$(cat combined.sha)
 
           # Compare and print result, set output
-          if [ "$LAST_LIB_SHA" = "$CUR_LIB_SHA" ] && [ "$LAST_PUBSPEC_SHA" = "$CUR_PUBSPEC_SHA" ]; then
+          if [ "$LAST_COMBINED_SHA" = "$CUR_COMBINED_SHA" ]; then
             echo "Hashes match: lib/ and pubspec.yaml have not changed since last comment."
             echo "match_hash=true" >> $GITHUB_OUTPUT
           else
@@ -77,12 +82,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          LIB_SHA=$(cat lib_folder.sha)
-          PUBSPEC_SHA=$(cat pubspec_yaml.sha)
+          COMBINED_SHA=$(cat combined.sha)
           echo "$(cat apitool_report.md)
 
-          <!-- apitool-meta
-          lib_sha: $LIB_SHA
-          pubspec_yaml_sha: $PUBSPEC_SHA
-          -->" > apitool_report_with_meta.md
+          <details>
+
+          <summary>API Diff Hash</summary>
+
+          \`$COMBINED_SHA\`
+
+          </details>" > apitool_report_with_meta.md
           gh pr comment ${{ github.event.pull_request.number }} --body "$(cat apitool_report_with_meta.md)"
