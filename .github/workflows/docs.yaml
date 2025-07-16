@@ -24,6 +24,7 @@ jobs:
     outputs:
       version: ${{ steps.get_version.outputs.version }}
       pr_exists: ${{ steps.update_docs_branch.outputs.pr_exists }}
+      docs_changed: ${{ steps.update_docs_branch.outputs.docs_changed }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -106,8 +107,10 @@ jobs:
             COMMIT_MSG="Update docs for $VERSION (generated from $TRIGGER_COMMIT)"
             git commit -m "$COMMIT_MSG"
             git push -f origin "$BRANCH"
+            echo "docs_changed=true" >> $GITHUB_OUTPUT
           else
             echo "No changes to commit."
+            echo "docs_changed=false" >> $GITHUB_OUTPUT
           fi
 
   create-docs-pr:
@@ -116,7 +119,7 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    if: needs.update-docs.outputs.pr_exists == 'false'
+    if: needs.update-docs.outputs.pr_exists == 'false' && needs.update-docs.outputs.docs_changed == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
