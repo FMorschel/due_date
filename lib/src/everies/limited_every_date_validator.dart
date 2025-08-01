@@ -1,35 +1,37 @@
-import 'date_time_limit_reached_exception.dart';
-import 'every.dart';
+import 'every_date_validator.dart';
 import 'every_date_validator_difference.dart';
 import 'every_date_validator_intersection.dart';
 import 'every_date_validator_union.dart';
 import 'every_month.dart';
 import 'every_week.dart';
 import 'every_year.dart';
+import 'limited_every.dart';
 
-/// Abstract class that forces the implementation of [Every] to have a
-/// limit parameter for the [next] and [previous] methods.
-abstract class LimitedEvery extends Every {
+/// Abstract class that forces the implementation of [EveryDateValidator] to
+/// have a limit parameter for the [next] and [previous] methods.
+abstract class LimitedEveryDateValidator extends EveryDateValidator
+    implements LimitedEvery {
   /// Abstract class that, when extended, processes [DateTime] with custom
   /// logic.
   ///
-  /// Abstract class that forces the implementation of [Every] to have a
-  /// limit parameter for the [next] and [previous] methods.
+  /// Abstract class that forces the implementation of [EveryDateValidator] to
+  /// have a limit parameter for the [next] and [previous] methods.
   ///
   /// See [EveryDateValidatorDifference], [EveryDateValidatorIntersection] and
   /// [EveryDateValidatorUnion] for complete base implementations.
   ///
   /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
-  const LimitedEvery();
+  const LimitedEveryDateValidator();
+
+  /// {@macro startDate}
+  ///
+  /// {@macro limit}
+  @override
+  DateTime startDate(DateTime date, {DateTime? limit});
 
   /// {@macro next}
   ///
-  /// {@template limit}
-  /// If the generated [DateTime] is still not able to return the first call to
-  /// this function it will be called recursively.
-  /// If [limit] is not null and the generated [DateTime] is past [limit], a
-  /// [DateTimeLimitReachedException] will be thrown.
-  /// {@endtemplate}
+  /// {@macro limit}
   @override
   DateTime next(DateTime date, {DateTime? limit});
 
@@ -38,4 +40,10 @@ abstract class LimitedEvery extends Every {
   /// {@macro limit}
   @override
   DateTime previous(DateTime date, {DateTime? limit});
+
+  /// {@macro endDate}
+  ///
+  /// {@macro limit}
+  @override
+  DateTime endDate(DateTime date, {DateTime? limit});
 }

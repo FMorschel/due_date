@@ -6,10 +6,10 @@ import '../src/date_time_match.dart';
 
 void main() {
   group('LimitedOrEveryHandler', () {
-    final every = Weekday.monday.every;
-    final limited = EverySkipInvalidModifier(
-      every: every,
-      invalidator: const DateValidatorWeekdayCountInMonth(
+    const every = EveryWeekday(Weekday.monday);
+    const limited = EverySkipInvalidModifier(
+      every: EveryWeekday(Weekday.monday),
+      invalidator: DateValidatorWeekdayCountInMonth(
         week: Week.first,
         day: Weekday.monday,
       ),

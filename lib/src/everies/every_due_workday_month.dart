@@ -3,8 +3,11 @@ import 'package:time/time.dart';
 import '../date_validators/date_validators.dart';
 import '../extensions/exact_time_of_day.dart';
 import '../helpers/helpers.dart';
-import 'every_date_validator.dart';
+import 'every_date_validator_mixin.dart';
+import 'every_date_validator_union.dart';
+import 'every_due_day_month.dart';
 import 'every_month.dart';
+import 'every_weekday.dart';
 import 'exact_every.dart';
 import 'workday_direction.dart';
 
@@ -12,8 +15,8 @@ import 'workday_direction.dart';
 /// next month's with the [DateTime.day] being the [dueWorkday] workday of the
 /// month clamped to fit in the length of the next month.
 class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
-    with EveryMonth
-    implements EveryDateValidator, ExactEvery {
+    with EveryMonth, EveryDateValidatorMixin
+    implements ExactEvery {
   /// Returns a [EveryDueWorkdayMonth] with the given [dueWorkday].
   ///
   /// A month can have at most 23 workdays.
@@ -58,13 +61,8 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     );
   }
 
-  static const _workdays = WorkdayHelper.every;
-
-  @override
-  DateTime startDate(DateTime date) {
-    if (valid(date)) return date;
-    return next(date);
-  }
+  static const EveryDateValidatorUnion<EveryWeekday> _workdays =
+      WorkdayHelper.every;
 
   @override
   DateTime next(DateTime date) {
@@ -135,4 +133,8 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
             (_firstOrLastWorkdayOfMonth(date, first: false) == date))
         : (measuredWorkday <= dueWorkday));
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) =>
+      next(const EveryDueDayMonth(1).addYears(date, years));
 }

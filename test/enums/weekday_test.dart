@@ -480,47 +480,5 @@ void main() {
         }
       });
     });
-
-    group('Deprecated methods', () {
-      group('occrurencesIn (deprecated)', () {
-        test('Returns same result as occurrencesIn for August 2022', () {
-          final month = DateTime.utc(2022, DateTime.august);
-          for (final weekday in Weekday.values) {
-            // ignore: deprecated_member_use_from_same_package
-            final deprecatedResult =
-                weekday.occurrencesIn(month.year, month.month);
-            final currentResult =
-                weekday.occurrencesIn(month.year, month.month);
-            expect(deprecatedResult, equals(currentResult));
-          }
-        });
-
-        test(
-            'Returns same result as occurrencesIn for February 2024 (leap '
-            'year)', () {
-          const year = 2024;
-          const month = DateTime.february;
-          for (final weekday in Weekday.values) {
-            // ignore: deprecated_member_use_from_same_package
-            final deprecatedResult = weekday.occrurencesIn(year, month);
-            final currentResult = weekday.occurrencesIn(year, month);
-            expect(deprecatedResult, equals(currentResult));
-          }
-        });
-
-        test(
-            'Returns same result as occurrencesIn for February 2023 (non-leap '
-            'year)', () {
-          const year = 2023;
-          const month = DateTime.february;
-          for (final weekday in Weekday.values) {
-            // ignore: deprecated_member_use_from_same_package
-            final deprecatedResult = weekday.occrurencesIn(year, month);
-            final currentResult = weekday.occurrencesIn(year, month);
-            expect(deprecatedResult, equals(currentResult));
-          }
-        });
-      });
-    });
   });
 }

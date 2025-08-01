@@ -9,6 +9,7 @@ analyzer:
     - "**/generated_plugin_registrant.dart"
   errors:
     missing_required_param: error
+    deprecated_member_use_from_same_package: false
 
 linter:
   rules:

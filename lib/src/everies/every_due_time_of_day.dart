@@ -2,7 +2,7 @@ import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
 import '../extensions/extensions.dart';
-import 'every_date_validator.dart';
+import 'every_date_validator_mixin.dart';
 
 /// {@template everyDay}
 /// Class that processes [DateTime] so that [next] always returns the next day
@@ -10,19 +10,13 @@ import 'every_date_validator.dart';
 /// [DateTime] that is being processed.
 /// {@endtemplate}
 class EveryDueTimeOfDay extends DateValidatorTimeOfDay
-    implements EveryDateValidator {
+    with EveryDateValidatorMixin {
   /// {@macro everyDay}
   const EveryDueTimeOfDay(super.timeOfDay);
 
   /// Constructor that takes the time of day from [date].
   factory EveryDueTimeOfDay.from(DateTime date) =>
       EveryDueTimeOfDay(date.exactTimeOfDay);
-
-  @override
-  DateTime startDate(DateTime date) {
-    if (valid(date)) return date;
-    return next(date);
-  }
 
   @override
   DateTime next(DateTime date) {

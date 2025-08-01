@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 import '../../date_validators/date_validators.dart';
+import '../../helpers/limited_or_every_handler.dart';
 import '../date_time_limit_reached_exception.dart';
 import '../every.dart';
 import '../every_date_validator.dart';
+import '../limited_every_date_validator.dart';
 import 'date_direction.dart';
+import 'every_modifier.dart';
 import 'every_modifier_invalidator.dart';
 import 'limited_every_modifier_mixin.dart';
 
@@ -16,34 +19,20 @@ import 'limited_every_modifier_mixin.dart';
 /// not valid for the [invalidator].
 /// {@endtemplate}
 class EverySkipInvalidModifier<T extends Every, V extends DateValidator>
-    extends EveryModifierInvalidator<T>
-    with EquatableMixin, DateValidatorMixin, LimitedEveryModifierMixin<T>
-    implements EveryDateValidator {
+    extends EveryModifier<T>
+    with EquatableMixin, DateValidatorMixin
+    implements
+        LimitedEveryDateValidator,
+        EveryModifierInvalidator<T, V>,
+        LimitedEveryModifierMixin<T> {
   /// {@macro everySkipInvalidModifier}
   const EverySkipInvalidModifier({
     required super.every,
-    required super.invalidator,
+    required this.invalidator,
   });
 
-  /// Returns the next [DateTime] that matches the [every] pattern and is not
-  /// valid for the [invalidator].
   @override
-  DateTime startDate(DateTime date, {DateTime? limit}) =>
-      super.startDate(date, limit: limit);
-
-  /// Returns the next instance of the given [date] considering the [every]
-  /// base process. If the [date] is valid for the [invalidator], a new
-  /// [DateTime] will be returned.
-  @override
-  DateTime next(DateTime date, {DateTime? limit}) =>
-      super.next(date, limit: limit);
-
-  /// Returns the previous instance of the given [date] considering the [every]
-  /// base process. If the [date] is valid for the [invalidator], a new
-  /// [DateTime] will be returned.
-  @override
-  DateTime previous(DateTime date, {DateTime? limit}) =>
-      super.previous(date, limit: limit);
+  final V invalidator;
 
   /// Returns `true` if the [date] is valid for the [every] (if it is a
   /// [DateValidator], like an [EveryDateValidator], for example) and not valid
@@ -69,13 +58,7 @@ class EverySkipInvalidModifier<T extends Every, V extends DateValidator>
   /// that implement [DateValidatorMixin]. However, if there is a simpler way to
   /// check for invalid dates, it can be implemented here.
   @override
-  bool invalid(DateTime date) {
-    if (every is DateValidator) {
-      final invalid = (every as DateValidator).invalid(date);
-      if (invalid) return true;
-    }
-    return invalidator.valid(date);
-  }
+  bool invalid(DateTime date) => !valid(date);
 
   @override
   DateTime processDate(
@@ -87,7 +70,7 @@ class EverySkipInvalidModifier<T extends Every, V extends DateValidator>
         (direction.isPrevious ? date.isBefore(limit) : date.isAfter(limit))) {
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
-    if (invalidator.invalid(date)) return date;
+    if (valid(date)) return date;
     if (!direction.isPrevious) return next(date, limit: limit);
     return previous(date, limit: limit);
   }
@@ -103,4 +86,40 @@ class EverySkipInvalidModifier<T extends Every, V extends DateValidator>
 
   @override
   List<Object?> get props => [every, invalidator];
+
+  @override
+  DateTime startDate(DateTime date, {DateTime? limit}) {
+    return processDate(
+      LimitedOrEveryHandler.startDate2(every, this, date, limit: limit),
+      DateDirection.start,
+      limit: limit,
+    );
+  }
+
+  @override
+  DateTime next(DateTime date, {DateTime? limit}) {
+    return processDate(
+      LimitedOrEveryHandler.next(every, date, limit: limit),
+      DateDirection.next,
+      limit: limit,
+    );
+  }
+
+  @override
+  DateTime previous(DateTime date, {DateTime? limit}) {
+    return processDate(
+      LimitedOrEveryHandler.previous(every, date, limit: limit),
+      DateDirection.previous,
+      limit: limit,
+    );
+  }
+
+  @override
+  DateTime endDate(DateTime date, {DateTime? limit}) {
+    return processDate(
+      LimitedOrEveryHandler.endDate2(every, this, date, limit: limit),
+      DateDirection.end,
+      limit: limit,
+    );
+  }
 }

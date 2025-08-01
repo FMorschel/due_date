@@ -2,7 +2,7 @@ import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
 import '../extensions/extensions.dart';
-import 'every_date_validator.dart';
+import 'every_date_validator_mixin.dart';
 import 'every_month.dart';
 import 'exact_every.dart';
 
@@ -18,8 +18,8 @@ import 'exact_every.dart';
 /// - If the [dueDay] is 15, the [addMonths] will return the next month with the
 /// [DateTime.day] as 15.
 class EveryDueDayMonth extends DateValidatorDueDayMonth
-    with EveryMonth
-    implements EveryDateValidator, ExactEvery {
+    with EveryMonth, EveryDateValidatorMixin
+    implements ExactEvery {
   /// Returns a [EveryDueDayMonth] with the given [dueDay].
   /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
   /// return the [dueDay] of the next or previous month.
@@ -44,10 +44,7 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
   /// returned the next month with the [DateTime.day] being [dueDay], clamped to
   /// the months length.
   @override
-  DateTime startDate(DateTime date) {
-    if (valid(date)) return date;
-    return next(date);
-  }
+  DateTime startDate(DateTime date) => super.startDate(date);
 
   @override
   DateTime next(DateTime date) {
@@ -92,4 +89,7 @@ class EveryDueDayMonth extends DateValidatorDueDayMonth
         .add(date.exactTimeOfDay);
     return dueMonth.clamp(max: endMonth);
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 }

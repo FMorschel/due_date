@@ -33,21 +33,6 @@ void main() {
     });
 
     group('Methods', () {
-      group('startDate', () {
-        test('Returns same date when input is valid', () {
-          // December 11, 2023 is Monday (valid with skip count 1).
-          final validDate = DateTime(2023, 12, 11);
-          expect(wrapper, startsAtSameDate.withInput(validDate));
-        });
-        test('Returns next valid date when input is invalid', () {
-          // December 3, 2023 is Sunday.
-          final invalidDate = DateTime(2023, 12, 3);
-          // December 11, 2023 is Monday (skip count 1).
-          final expected = DateTime(2023, 12, 11);
-          expect(wrapper, startsAt(expected).withInput(invalidDate));
-        });
-      });
-
       group('next', () {
         test('Always generates date after input', () {
           // December 11, 2023 is Monday.
@@ -261,17 +246,6 @@ void main() {
     });
 
     group('Edge Cases', () {
-      test('Limit validation in startDate', () {
-        // December 3, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 3);
-        // December 1, 2023 is before input date.
-        final limitDate = DateTime(2023, 12);
-        expect(
-          () => wrapper.startDate(inputDate, limit: limitDate),
-          throwsA(isA<DateTimeLimitReachedException>()),
-        );
-      });
-
       test('Limit validation in next', () {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);

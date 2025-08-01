@@ -7,9 +7,6 @@ class _TestEvery extends Every {
   const _TestEvery();
 
   @override
-  DateTime startDate(DateTime date) => date;
-
-  @override
   DateTime next(DateTime date) => date;
 
   @override

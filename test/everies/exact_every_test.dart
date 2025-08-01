@@ -1,4 +1,5 @@
 import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator_opposite.dart';
 import 'package:test/test.dart';
 
 /// Test implementation of [ExactEvery] that can be made constant.
@@ -16,15 +17,13 @@ class _TestExactEvery extends ExactEvery {
   DateTime previous(DateTime date) => date;
 
   @override
+  DateTime endDate(DateTime date) => date;
+
+  @override
   bool valid(DateTime date) => true;
 
   @override
   bool invalid(DateTime date) => !valid(date);
-
-  @override
-  @Deprecated("Use 'DateValidator.filterValidDates' instead.")
-  Iterable<DateTime> validsIn(Iterable<DateTime> dates) =>
-      filterValidDates(dates);
 
   @override
   Iterable<DateTime> filterValidDates(Iterable<DateTime> dates) sync* {
@@ -32,6 +31,9 @@ class _TestExactEvery extends ExactEvery {
       if (valid(date)) yield date;
     }
   }
+
+  @override
+  DateValidator operator -() => DateValidatorOpposite(this);
 }
 
 void main() {

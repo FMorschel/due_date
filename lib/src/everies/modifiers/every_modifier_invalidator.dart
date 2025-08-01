@@ -7,8 +7,9 @@ import 'every_modifier_mixin.dart';
 /// Class that wraps an [every] generator and adds an [invalidator] that will
 /// be used to invalidate the generated dates.
 /// {@endtemplate}
-abstract class EveryModifierInvalidator<T extends Every>
-    extends EveryModifier<T> with EveryModifierMixin<T> {
+abstract class EveryModifierInvalidator<T extends Every,
+        V extends DateValidator> extends EveryModifier<T>
+    with EveryModifierMixin<T> {
   /// {@macro everyModifierInvalidator}
   const EveryModifierInvalidator({
     required super.every,
@@ -16,5 +17,5 @@ abstract class EveryModifierInvalidator<T extends Every>
   });
 
   /// The [DateValidator] that will be used to invalidate the generated dates.
-  final DateValidator invalidator;
+  final V invalidator;
 }

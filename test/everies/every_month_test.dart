@@ -9,9 +9,6 @@ class _TestEveryMonth extends Every with EveryMonth {
   const _TestEveryMonth();
 
   @override
-  DateTime startDate(DateTime date) => date;
-
-  @override
   DateTime addMonths(DateTime date, int months) {
     return DateTime(
       date.year,
@@ -24,6 +21,15 @@ class _TestEveryMonth extends Every with EveryMonth {
       date.microsecond,
     );
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
+
+  @override
+  DateTime next(DateTime date) => addMonths(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addMonths(date, -1);
 }
 
 /// Test implementation of [EveryMonth] with UTC support that can be made
@@ -31,9 +37,6 @@ class _TestEveryMonth extends Every with EveryMonth {
 class _TestEveryMonthUtc extends Every with EveryMonth {
   /// Creates a test implementation of [EveryMonth] with UTC support.
   const _TestEveryMonthUtc();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addMonths(DateTime date, int months) {
@@ -61,6 +64,15 @@ class _TestEveryMonthUtc extends Every with EveryMonth {
       );
     }
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
+
+  @override
+  DateTime next(DateTime date) => addMonths(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addMonths(date, -1);
 }
 
 void main() {

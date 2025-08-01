@@ -6,7 +6,8 @@ import '../everies/everies.dart';
 /// Helper class to work with workdays.
 abstract class WorkdayHelper {
   /// An every that generates workdays (monday to friday).
-  static const every = EveryWeekday.workdays;
+  static const EveryDateValidatorUnion<EveryWeekday> every =
+      EveryWeekday.workdays;
 
   /// A date validator that validates workdays (monday to friday).
   static const DateValidatorUnion<EveryWeekday> dateValidator = every;

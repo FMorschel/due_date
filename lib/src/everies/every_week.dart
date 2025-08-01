@@ -23,7 +23,7 @@ mixin EveryWeek implements Every {
   /// Returns the next instance of the given [date] considering this [Every]
   /// base process.
   @override
-  DateTime next(DateTime date) => addWeeks(date, 1);
+  DateTime next(DateTime date);
 
   /// Returns the previous week of the given [date] considering this [EveryWeek]
   /// implementation.
@@ -31,5 +31,5 @@ mixin EveryWeek implements Every {
   /// Returns the previous instance of the given [date] considering this [Every]
   /// base process.
   @override
-  DateTime previous(DateTime date) => addWeeks(date, -1);
+  DateTime previous(DateTime date);
 }

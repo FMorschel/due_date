@@ -2,7 +2,7 @@ import 'package:time/time.dart';
 
 import '../date_validators/date_validators.dart';
 import '../extensions/extensions.dart';
-import 'every_date_validator.dart';
+import 'every_date_validator_mixin.dart';
 import 'every_year.dart';
 import 'exact_every.dart';
 
@@ -10,8 +10,8 @@ import 'exact_every.dart';
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
 class EveryDayInYear extends DateValidatorDayInYear
-    with EveryYear
-    implements EveryDateValidator, ExactEvery {
+    with EveryYear, EveryDateValidatorMixin
+    implements ExactEvery {
   /// Returns a [EveryDayInYear] with the given [dayInYear].
   const EveryDayInYear(super.dayInYear)
       : assert(

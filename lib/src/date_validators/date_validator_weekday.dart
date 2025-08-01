@@ -23,7 +23,7 @@ class DateValidatorWeekday
   }
 
   /// A [DateValidator] that validates a [DateTime] if it is a workday.
-  static const workdays = DateValidatorUnion([
+  static const DateValidatorUnion<EveryWeekday> workdays = DateValidatorUnion([
     EveryWeekday(Weekday.monday),
     EveryWeekday(Weekday.tuesday),
     EveryWeekday(Weekday.wednesday),
@@ -32,7 +32,7 @@ class DateValidatorWeekday
   ]);
 
   /// A [DateValidator] that validates a [DateTime] if it is a weekend.
-  static const weekend = DateValidatorUnion([
+  static const DateValidatorUnion<EveryWeekday> weekend = DateValidatorUnion([
     EveryWeekday(Weekday.saturday),
     EveryWeekday(Weekday.sunday),
   ]);

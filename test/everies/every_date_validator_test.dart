@@ -16,6 +16,9 @@ class _TestEveryDateValidator extends EveryDateValidator {
   DateTime previous(DateTime date) => date;
 
   @override
+  DateTime endDate(DateTime date) => date;
+
+  @override
   bool valid(DateTime date) => true;
 }
 

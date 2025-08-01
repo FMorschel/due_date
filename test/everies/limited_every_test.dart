@@ -7,9 +7,6 @@ class _TestLimitedEvery extends LimitedEvery {
   const _TestLimitedEvery();
 
   @override
-  DateTime startDate(DateTime date, {DateTime? limit}) => date;
-
-  @override
   DateTime next(DateTime date, {DateTime? limit}) => date;
 
   @override

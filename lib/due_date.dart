@@ -21,7 +21,7 @@
 /// them in is important. The last mixin you mix in will be the one that is
 /// used for [DueDateTime.next] and [DueDateTime.previous] on the [DueDateTime]
 /// class.
-library due_date;
+library;
 
 import 'src/due_date.dart';
 import 'src/enums/enums.dart' show WeekdayOccurrence;

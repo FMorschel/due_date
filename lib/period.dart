@@ -14,7 +14,7 @@
 /// [HourGenerator], [DayGenerator], [WeekGenerator],
 /// [FortnightGenerator], [MonthGenerator], [TrimesterGenerator],
 /// [SemesterGenerator] and [YearGenerator].
-library period;
+library;
 
 import 'src/enums/enums.dart' show PeriodGenerator;
 import 'src/period_generators/period_generators.dart';

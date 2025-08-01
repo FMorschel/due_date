@@ -8,24 +8,19 @@ class _TestEveryModifier<T extends Every> extends EveryModifier<T>
     with EveryModifierMixin<T> {
   const _TestEveryModifier({
     required super.every,
-    this.direction = DateDirection.next,
+    this.forward = true,
   });
 
   /// The direction to use when processing dates.
-  final DateDirection direction;
+  final bool forward;
 
   @override
   DateTime processDate(DateTime date, DateDirection actualDirection) {
     // For testing, we can modify the date based on direction
     // This is a simple test implementation
-    switch (direction) {
-      case DateDirection.start:
-      case DateDirection.next:
-        return date;
-      case DateDirection.previous:
-        // Subtract one day for testing purposes
-        return date.subtract(Duration(days: 1));
-    }
+    if (forward) return date;
+    // Subtract one day for testing purposes
+    return date.subtract(Duration(days: 1));
   }
 }
 
@@ -43,7 +38,7 @@ void main() {
           expect(modifier.every, equals(baseEvery));
         });
         test('Default property values', () {
-          expect(modifier.direction, equals(DateDirection.next));
+          expect(modifier.forward, equals(true));
         });
       });
     });
@@ -67,83 +62,7 @@ void main() {
         expect(modified.every, equals(base));
       });
     });
-
-    group('Modifier behavior', () {
-      test('Delegates to LimitedOrEveryHandler.startDate', () {
-        // December 4, 2023 is Monday
-        final inputDate = DateTime(2023, DateTime.december, 4);
-        expect(modifier, startsAtSameDate.withInput(inputDate));
-      });
-
-      test('Processes date with custom logic', () {
-        final modifierWithPrevious = _TestEveryModifier<EveryWeekday>(
-          every: baseEvery,
-          direction: DateDirection.previous,
-        );
-        final inputDate = DateTime(2023, DateTime.december, 5);
-        final expectedDate = DateTime(2023, DateTime.december, 10);
-        expect(
-          modifierWithPrevious,
-          startsAt(expectedDate).withInput(inputDate),
-        );
-      });
-
-      test('Combination with different directions', () {
-        final nextModifier = _TestEveryModifier<EveryWeekday>(
-          every: baseEvery,
-        );
-        final previousModifier = _TestEveryModifier<EveryWeekday>(
-          every: baseEvery,
-          direction: DateDirection.previous,
-        );
-
-        // December 4, 2023 is Monday
-        final inputDate = DateTime(2023, DateTime.december, 4);
-
-        // Next modifier should return the same date
-        expect(nextModifier, startsAtSameDate.withInput(inputDate));
-
-        // Previous modifier should return one day earlier
-        final expectedPrevious = DateTime(2023, DateTime.december, 3);
-        expect(
-          previousModifier,
-          startsAt(expectedPrevious).withInput(inputDate),
-        );
-      });
-    });
-
     group('Methods', () {
-      group('startDate', () {
-        test('Returns same date when input is valid', () {
-          // December 4, 2023 is Monday
-          final validDate = DateTime(2023, DateTime.december, 4);
-          expect(modifier, startsAtSameDate.withInput(validDate));
-        });
-
-        test('Returns next valid date when input is invalid', () {
-          // December 5, 2023 is Tuesday
-          final invalidDate = DateTime(2023, DateTime.december, 5);
-          // December 11, 2023 is Monday
-          final expectedDate = DateTime(2023, DateTime.december, 11);
-          expect(modifier, startsAt(expectedDate).withInput(invalidDate));
-        });
-
-        test('Always processes the result through processDate', () {
-          final modifierWithPrevious = _TestEveryModifier<EveryWeekday>(
-            every: baseEvery,
-            direction: DateDirection.previous,
-          );
-          // December 4, 2023 is Monday (valid)
-          final validDate = DateTime(2023, DateTime.december, 4);
-          // Expected: December 3, 2023 (one day earlier due to processDate)
-          final expectedDate = DateTime(2023, DateTime.december, 3);
-          expect(
-            modifierWithPrevious,
-            startsAt(expectedDate).withInput(validDate),
-          );
-        });
-      });
-
       group('next', () {
         test('Always generates date after input', () {
           // December 4, 2023 is Monday
@@ -162,7 +81,7 @@ void main() {
         test('Applies processDate to the result', () {
           final modifierWithPrevious = _TestEveryModifier<EveryWeekday>(
             every: baseEvery,
-            direction: DateDirection.previous,
+            forward: false,
           );
           // December 4, 2023 is Monday
           final date = DateTime(2023, DateTime.december, 4);
@@ -190,7 +109,7 @@ void main() {
         test('Applies processDate to the result', () {
           final modifierWithPrevious = _TestEveryModifier<EveryWeekday>(
             every: baseEvery,
-            direction: DateDirection.previous,
+            forward: false,
           );
           // December 11, 2023 is Monday
           final date = DateTime(2023, DateTime.december, 11);
@@ -219,23 +138,10 @@ void main() {
         );
         expect(modifier.every, equals(limitedBase));
       });
-
-      test('Handles processDate correctly with different directions', () {
-        // Test that processDate is called with correct direction parameter
-        final modifier = _TestEveryModifier<EveryWeekday>(
-          every: baseEvery,
-          direction: DateDirection.start,
-        );
-        // December 4, 2023 is Monday
-        final date = DateTime(2023, DateTime.december, 4);
-        expect(modifier, startsAtSameDate.withInput(date));
-      });
-
       test('Works with edge dates', () {
         // Test with year boundary
         final date = DateTime(2023, DateTime.december, 31);
         // Should work without throwing
-        expect(() => modifier.startDate(date), returnsNormally);
         expect(() => modifier.next(date), returnsNormally);
         expect(() => modifier.previous(date), returnsNormally);
       });

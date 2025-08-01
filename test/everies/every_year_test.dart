@@ -9,9 +9,6 @@ class _TestEveryYear extends Every with EveryYear {
   const _TestEveryYear();
 
   @override
-  DateTime startDate(DateTime date) => date;
-
-  @override
   DateTime addYears(DateTime date, int years) {
     final newYear = date.year + years;
     return DateTime(
@@ -25,6 +22,12 @@ class _TestEveryYear extends Every with EveryYear {
       date.microsecond,
     );
   }
+
+  @override
+  DateTime next(DateTime date) => addYears(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addYears(date, -1);
 }
 
 /// Test implementation of [EveryYear] with UTC support that can be made
@@ -32,9 +35,6 @@ class _TestEveryYear extends Every with EveryYear {
 class _TestEveryYearUtc extends Every with EveryYear {
   /// Creates a test implementation of [EveryYear] with UTC support.
   const _TestEveryYearUtc();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addYears(DateTime date, int years) {
@@ -63,6 +63,12 @@ class _TestEveryYearUtc extends Every with EveryYear {
       );
     }
   }
+
+  @override
+  DateTime next(DateTime date) => addYears(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addYears(date, -1);
 }
 
 void main() {

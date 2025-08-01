@@ -331,6 +331,9 @@ enum WeekdayOccurrence
   DateTime previous(DateTime date) => _handler.previous(date);
 
   @override
+  DateTime endDate(DateTime date) => _handler.endDate(date);
+
+  @override
   DateTime addYears(DateTime date, int years) => _handler.addYears(date, years);
 
   @override

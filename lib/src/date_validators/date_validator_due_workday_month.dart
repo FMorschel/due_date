@@ -51,7 +51,8 @@ class DateValidatorDueWorkdayMonth extends ExactDateValidator
     );
   }
 
-  static const _workdays = WorkdayHelper.every;
+  static const EveryDateValidatorUnion<EveryWeekday> _workdays =
+      WorkdayHelper.every;
 
   /// The expected workday of the month.
   final int dueWorkday;

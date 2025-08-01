@@ -27,17 +27,6 @@ abstract class Every {
   /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
   const Every();
 
-  /// {@template startDate}
-  /// Returns the next [DateTime] that matches the [Every] pattern.
-  ///
-  /// If the [date] is a [DateTime] that matches the [Every] pattern, it will
-  /// be returned.
-  ///
-  /// If the [date] is not a [DateTime] that matches the [Every] pattern, [next]
-  /// will be called to generate a new one.
-  /// {@endtemplate}
-  DateTime startDate(DateTime date);
-
   /// {@template next}
   /// Returns the next instance of the given [date] considering this [Every]
   /// base process.

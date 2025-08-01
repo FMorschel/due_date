@@ -6,6 +6,6 @@
 /// something useful here, please open an issue on the GitHub repository for us
 /// to consider exporting it for you.
 @Deprecated('This library is not meant to be used by the end user.')
-library helpers;
+library;
 
 export 'src/helpers/helpers.dart';

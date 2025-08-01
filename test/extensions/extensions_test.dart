@@ -6,7 +6,7 @@ void main() {
     test('All extension symbols are available', () {
       // This test will fail to compile if any export is missing.
       // Just reference one symbol from each extension file.
-      final _ = [
+      final list = [
         DateTime.now().addDays(1),
         DateTime.now().clampInMonth(DateTime.now()),
         <DateValidator>[].intersection,
@@ -17,7 +17,7 @@ void main() {
         DateTime.now().nextWeekday(Weekday.monday),
         DateTime.now().workdayInMonth,
       ];
-      expect(_, isNotNull);
+      expect(list, isNotNull);
     });
   });
 }

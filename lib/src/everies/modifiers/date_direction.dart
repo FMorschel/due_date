@@ -3,17 +3,17 @@ import 'modifiers.dart';
 /// An enum that represents the direction of the process inside [EveryModifier].
 /// Used on [EveryModifier.processDate].
 enum DateDirection {
-  /// An enum that represents the start direction of the process inside
-  /// [EveryModifier].
+  /// Represents the start direction of the process inside [EveryModifier].
   start,
 
-  /// An enum that represents the next direction of the process inside
-  /// [EveryModifier].
+  /// Represents the next direction of the process inside [EveryModifier].
   next,
 
-  /// An enum that represents the previous direction of the process inside
-  /// [EveryModifier].
-  previous;
+  /// Represents the previous direction of the process inside [EveryModifier].
+  previous,
+
+  /// Represents the end direction of the process inside [EveryModifier].
+  end;
 
   /// Returns true if the [DateDirection] is [DateDirection.start].
   bool get isStart => this == DateDirection.start;
@@ -23,4 +23,7 @@ enum DateDirection {
 
   /// Returns true if the [DateDirection] is [DateDirection.previous].
   bool get isPrevious => this == DateDirection.previous;
+
+  /// Returns true if the [DateDirection] is [DateDirection.end].
+  bool get isEnd => this == DateDirection.end;
 }

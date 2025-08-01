@@ -6,9 +6,7 @@ import 'date_direction.dart';
 /// {@endtemplate}
 abstract class EveryModifier<T extends Every> extends Every {
   /// {@macro everyModifier}
-  const EveryModifier({
-    required this.every,
-  });
+  const EveryModifier({required this.every});
 
   /// The base generator for this [EveryModifier].
   final T every;

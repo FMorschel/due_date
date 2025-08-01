@@ -1,18 +1,17 @@
 import 'package:equatable/equatable.dart';
 
-import '../../date_validators/date_validators.dart';
 import '../../helpers/helpers.dart';
 import '../date_time_limit_reached_exception.dart';
 import '../every.dart';
 import 'date_direction.dart';
-import 'every_modifier.dart';
+import 'limited_every_modifier.dart';
 import 'limited_every_modifier_mixin.dart';
 
 /// {@template everySkipCountWrapper}
 /// Class that wraps an [Every] generator and skips [count] times from the
 /// [Every] base process.
 /// {@endtemplate}
-class EverySkipCountWrapper<T extends Every> extends EveryModifier<T>
+class EverySkipCountWrapper<T extends Every> extends LimitedEveryModifier<T>
     with EquatableMixin, LimitedEveryModifierMixin<T> {
   /// {@macro everySkipCountWrapper}
   const EverySkipCountWrapper({
@@ -22,33 +21,6 @@ class EverySkipCountWrapper<T extends Every> extends EveryModifier<T>
 
   /// The number of times to skip.
   final int count;
-
-  /// Generates the start date of the [every] base process.
-  /// It will skip [currentCount] times from the [date] using the
-  /// [EverySkipCountWrapper.next] process.
-  ///
-  /// {@template currentCount}
-  /// If [currentCount] is `null`, it will be set to [count].
-  /// {@endtemplate}
-  @override
-  DateTime startDate(DateTime date, {DateTime? limit, int? currentCount}) {
-    assert(
-      currentCount == null || currentCount >= 0,
-      'currentCount must be greater than or equal to 0',
-    );
-    final validForEveryValidator =
-        (every is DateValidator) && ((every as DateValidator).valid(date));
-    if (validForEveryValidator ||
-        LimitedOrEveryHandler.startDate(every, date, limit: limit) == date) {
-      return date;
-    }
-    return processDate(
-      LimitedOrEveryHandler.next(every, date, limit: limit),
-      DateDirection.next,
-      limit: limit,
-      currentCount: currentCount ?? count,
-    );
-  }
 
   /// Generates the next of the [every] base process.
   /// It will skip [currentCount] times from the [date] using the

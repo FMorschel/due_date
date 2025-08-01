@@ -9,12 +9,15 @@ class _TestEveryWeek extends Every with EveryWeek {
   const _TestEveryWeek();
 
   @override
-  DateTime startDate(DateTime date) => date;
-
-  @override
   DateTime addWeeks(DateTime date, int weeks) {
     return date.add(Duration(days: weeks * 7));
   }
+
+  @override
+  DateTime next(DateTime date) => addWeeks(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addWeeks(date, -1);
 }
 
 /// Test implementation of [EveryWeek] with UTC support that can be made
@@ -22,9 +25,6 @@ class _TestEveryWeek extends Every with EveryWeek {
 class _TestEveryWeekUtc extends Every with EveryWeek {
   /// Creates a test implementation of [EveryWeek] with UTC support.
   const _TestEveryWeekUtc();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addWeeks(DateTime date, int weeks) {
@@ -52,6 +52,12 @@ class _TestEveryWeekUtc extends Every with EveryWeek {
       );
     }
   }
+
+  @override
+  DateTime next(DateTime date) => addWeeks(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addWeeks(date, -1);
 }
 
 void main() {

@@ -4,6 +4,7 @@ import '../date_validators/date_validators.dart';
 import '../enums/enums.dart';
 import '../extensions/extensions.dart';
 import 'every_date_validator.dart';
+import 'every_date_validator_mixin.dart';
 import 'every_date_validator_union.dart';
 import 'every_month.dart';
 import 'every_week.dart';
@@ -12,8 +13,8 @@ import 'every_weekday_count_in_month.dart';
 /// Class that processes [DateTime] so that the [addWeeks] always returns the
 /// next week's with the [DateTime.weekday] equals to the [weekday].
 class EveryWeekday extends DateValidatorWeekday
-    with EveryWeek
-    implements EveryMonth, EveryDateValidator {
+    with EveryWeek, EveryDateValidatorMixin
+    implements EveryMonth {
   /// Returns a [EveryWeekday] with the given [weekday].
   /// When you call [next] or [previous] on this [EveryWeekday], it will return
   /// the [weekday] of the next or previous week.
@@ -28,21 +29,16 @@ class EveryWeekday extends DateValidatorWeekday
   }
 
   /// An [EveryDateValidator] that generates a [DateTime] that is a workday.
-  static const workdays = EveryDateValidatorUnion(
+  static const EveryDateValidatorUnion<EveryWeekday> workdays =
+      EveryDateValidatorUnion(
     DateValidatorWeekday.workdays,
   );
 
   /// An [EveryDateValidator] that generates a [DateTime] that is a weekend.
-  static const weekend = EveryDateValidatorUnion(
+  static const EveryDateValidatorUnion<EveryWeekday> weekend =
+      EveryDateValidatorUnion(
     DateValidatorWeekday.weekend,
   );
-
-  /// Returns the next date that fits the [weekday].
-  @override
-  DateTime startDate(DateTime date) {
-    if (valid(date)) return date;
-    return next(date);
-  }
 
   /// Returns the previous date that fits the [weekday].
   ///

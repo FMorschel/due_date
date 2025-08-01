@@ -1204,7 +1204,6 @@ void main() {
             DateTime(2022, DateTime.september, 5),
             every: limitedEvery,
           );
-          // Skip one Monday back, previous is August 22, 2022.
           expect(
             dueDate.previous(),
             isSameDateTime(DateTime(2022, DateTime.august, 22)),

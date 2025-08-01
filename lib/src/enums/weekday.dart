@@ -119,11 +119,6 @@ enum Weekday implements Comparable<Weekday> {
   @override
   int compareTo(Weekday other) => dateTimeValue.compareTo(other.dateTimeValue);
 
-  /// Returns the amount of weekdays correspondent to this on the given [month]
-  /// of [year].
-  @Deprecated("Use 'Weekday.occurrencesIn' instead")
-  int occrurencesIn(int year, int month) => occurrencesIn(year, month);
-
   /// Returns true if this weekday is after other.
   bool operator >(Weekday other) => index > other.index;
 

@@ -9,9 +9,6 @@ class BasicEvery extends Every {
   const BasicEvery();
 
   @override
-  DateTime startDate(DateTime date) => date;
-
-  @override
   DateTime next(DateTime date) => date;
 
   @override
@@ -43,40 +40,6 @@ void main() {
     });
 
     group('Methods', () {
-      group('startDate', () {
-        test('Returns same date when input is valid', () {
-          // October 4, 2022 is Tuesday (overrider day).
-          final validDate = DateTime(2022, DateTime.october, 4);
-          expect(wrapper, startsAtSameDate.withInput(validDate));
-        });
-        test('Returns next valid date when input is invalid', () {
-          // September 27, 2022 is Tuesday.
-          final invalidDate = DateTime(2022, DateTime.september, 27);
-          // October 4, 2022 is Tuesday.
-          final expected = DateTime(2022, DateTime.october, 4);
-          expect(wrapper, startsAt(expected).withInput(invalidDate));
-        });
-        test('Works with non-DateValidator every', () {
-          const basicEvery = BasicEvery();
-          const basicInvalidator = DateValidatorWeekday(Weekday.monday);
-          final basicWrapper = EveryOverrideWrapper(
-            every: basicEvery,
-            invalidator: basicInvalidator,
-            overrider: Weekday.tuesday.every,
-          );
-
-          // October 4, 2022 is Tuesday (valid for overrider).
-          final validDate = DateTime(2022, DateTime.october, 4);
-          expect(basicWrapper, startsAtSameDate.withInput(validDate));
-
-          // October 3, 2022 is Monday (invalid).
-          final invalidDate = DateTime(2022, DateTime.october, 3);
-          // October 4, 2022 is Tuesday.
-          final expected = DateTime(2022, DateTime.october, 4);
-          expect(basicWrapper, startsAt(expected).withInput(invalidDate));
-        });
-      });
-
       group('next', () {
         test('Always generates date after input', () {
           // October 4, 2022 is Tuesday.
@@ -235,17 +198,6 @@ void main() {
     });
 
     group('Edge Cases', () {
-      test('Limit validation in startDate', () {
-        // December 3, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 3);
-        // December 1, 2023 is before input date.
-        final limitDate = DateTime(2023, 12);
-        expect(
-          () => wrapper.startDate(inputDate, limit: limitDate),
-          throwsA(isA<DateTimeLimitReachedException>()),
-        );
-      });
-
       test('Limit validation in next', () {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);

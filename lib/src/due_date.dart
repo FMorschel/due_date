@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
 import 'everies/everies.dart';
+import 'everies/limited_every_date_validator.dart';
 import 'extensions/extensions.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
@@ -208,9 +209,11 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
       );
     } else {
       return DueDateTime<T>._toConstructor(
-        date: every is LimitedEvery
-            ? every.startDate(reference, limit: limit)
-            : every.startDate(reference),
+        date: every is EveryDateValidator
+            ? (every is LimitedEveryDateValidator
+                ? every.startDate(reference, limit: limit)
+                : every.startDate(reference))
+            : reference,
         every: every,
       );
     }

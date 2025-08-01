@@ -3,7 +3,7 @@ import 'package:time/time.dart';
 import '../date_validators/date_validators.dart';
 import '../enums/enums.dart';
 import '../extensions/extensions.dart';
-import 'every_date_validator.dart';
+import 'every_date_validator_mixin.dart';
 import 'every_month.dart';
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
@@ -18,8 +18,7 @@ import 'every_month.dart';
 /// lastFriday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 28).
 /// ```
 class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
-    with EveryMonth
-    implements EveryDateValidator {
+    with EveryMonth, EveryDateValidatorMixin {
   /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week].
   const EveryWeekdayCountInMonth({
     required super.week,
@@ -36,19 +35,6 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
           firstDayOfWeek: Weekday.from(date.firstDayOfMonth),
         ),
       );
-
-  /// Returns the next date that fits the [day] and the [week].
-  /// - If the current [date] - [DateTime.day] is less than the [DateTime.month]
-  /// [week], it's returned the same month with the [DateTime.day] being the
-  /// [day] of the [week].
-  /// - If the current [date] - [DateTime.day] is greater than the
-  /// [DateTime.month], [week], it's returned the next month with the
-  /// [DateTime.day] being the [day] of the [week].
-  @override
-  DateTime startDate(DateTime date) {
-    if (valid(date)) return date;
-    return next(date);
-  }
 
   /// Returns the next date that fits the [day] and the [week].
   /// - If the current [date] - [DateTime.day] is less than the [DateTime.month]
@@ -140,4 +126,7 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
             (week == other.week) &&
             (day == other.day));
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
 }
