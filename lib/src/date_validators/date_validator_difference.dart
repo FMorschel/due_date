@@ -11,7 +11,7 @@ class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   /// A [DateValidator] that validates a [DateTime] if the date is valid for
   /// only one of the [validators].
-  const DateValidatorDifference(super.validators);
+  const DateValidatorDifference(super.base);
 
   @override
   bool valid(DateTime date) {

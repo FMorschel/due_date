@@ -11,7 +11,7 @@ class DateValidatorUnion<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   /// A [DateValidator] that validates a [DateTime] if the date is valid for any
   /// of the [validators].
-  const DateValidatorUnion(super.validators);
+  const DateValidatorUnion(super.base);
 
   @override
   bool valid(DateTime date) {

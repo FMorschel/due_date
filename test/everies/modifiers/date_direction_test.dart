@@ -1,4 +1,4 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/everies/modifiers/date_direction.dart';
 import 'package:test/test.dart';
 
 void main() {

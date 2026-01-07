@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every_due_day_month.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';

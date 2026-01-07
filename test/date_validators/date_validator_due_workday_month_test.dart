@@ -1,5 +1,6 @@
-import 'package:due_date/due_date.dart';
-import 'package:due_date/src/helpers/helpers.dart';
+import 'package:due_date/src/date_validators/date_validator_due_workday_month.dart';
+import 'package:due_date/src/everies/workday_direction.dart';
+import 'package:due_date/src/helpers/workday_helper.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
@@ -16,13 +17,13 @@ void main() {
         test('Due workday 23', () {
           expect(const DateValidatorDueWorkdayMonth(23), isNotNull);
         });
-        test('Exact false by default', () {
-          expect(const DateValidatorDueWorkdayMonth(15).exact, isFalse);
+        test('Exact true by default', () {
+          expect(const DateValidatorDueWorkdayMonth(15).exact, isTrue);
         });
-        test('Exact true when specified', () {
+        test('Exact false when specified', () {
           expect(
-            const DateValidatorDueWorkdayMonth(15, exact: true).exact,
-            isTrue,
+            const DateValidatorDueWorkdayMonth(15, exact: false).exact,
+            isFalse,
           );
         });
         test('DueWorkday property is set correctly', () {
@@ -143,7 +144,7 @@ void main() {
       });
 
       test('exact property with false', () {
-        final validator = DateValidatorDueWorkdayMonth(10);
+        final validator = DateValidatorDueWorkdayMonth(10, exact: false);
         expect(validator.exact, isFalse);
       });
 
@@ -153,7 +154,7 @@ void main() {
       });
 
       test('inexact property when exact is false', () {
-        final validator = DateValidatorDueWorkdayMonth(15);
+        final validator = DateValidatorDueWorkdayMonth(15, exact: false);
         expect(validator.inexact, isTrue);
       });
 
@@ -224,7 +225,7 @@ void main() {
         test(
             'Non-exact mode falls back to last workday when dueWorkday exceeds '
             'month', () {
-          final validator = DateValidatorDueWorkdayMonth(23);
+          final validator = DateValidatorDueWorkdayMonth(23, exact: false);
           // Test with February 2024 which has only 20 workdays.
           final lastWorkdayFeb = DateTime(2024, 2, 29);
           // Last workday of February 2024.
@@ -252,10 +253,10 @@ void main() {
     });
 
     group('Equality', () {
-      final validator1 = DateValidatorDueWorkdayMonth(1);
+      final validator1 = DateValidatorDueWorkdayMonth(1, exact: false);
       final validator2 = DateValidatorDueWorkdayMonth(1, exact: true);
-      final validator3 = DateValidatorDueWorkdayMonth(2);
-      final validator4 = DateValidatorDueWorkdayMonth(1);
+      final validator3 = DateValidatorDueWorkdayMonth(2, exact: false);
+      final validator4 = DateValidatorDueWorkdayMonth(1, exact: false);
 
       test('Same instance', () {
         expect(validator1, equals(validator1));
@@ -271,7 +272,7 @@ void main() {
       });
       test('Hash code consistency', () {
         final validator5 = DateValidatorDueWorkdayMonth(1);
-        expect(validator1.hashCode, equals(validator5.hashCode));
+        expect(validator2.hashCode, equals(validator5.hashCode));
       });
     });
   });

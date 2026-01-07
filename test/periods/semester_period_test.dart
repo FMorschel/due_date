@@ -1,4 +1,7 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/periods/month_period.dart';
+import 'package:due_date/src/periods/period.dart';
+import 'package:due_date/src/periods/semester_period.dart';
+import 'package:due_date/src/periods/year_period.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -12,7 +12,7 @@ class DateValidatorIntersection<E extends DateValidator>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
   /// A [DateValidator] that validates a [DateTime] if the date is valid for all
   /// of the [validators].
-  const DateValidatorIntersection(super.validators);
+  const DateValidatorIntersection(super.base);
 
   @override
   bool valid(DateTime date) {

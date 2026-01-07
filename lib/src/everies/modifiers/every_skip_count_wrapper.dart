@@ -1,18 +1,17 @@
 import 'package:equatable/equatable.dart';
 
-import '../../helpers/helpers.dart';
-import '../date_time_limit_reached_exception.dart';
+import '../../helpers/limited_or_every_handler.dart';
 import '../every.dart';
 import 'date_direction.dart';
-import 'limited_every_modifier.dart';
-import 'limited_every_modifier_mixin.dart';
+import 'limited_every_wrapper.dart';
+import 'limited_every_wrapper_mixin.dart';
 
 /// {@template everySkipCountWrapper}
 /// Class that wraps an [Every] generator and skips [count] times from the
 /// [Every] base process.
 /// {@endtemplate}
-class EverySkipCountWrapper<T extends Every> extends LimitedEveryModifier<T>
-    with EquatableMixin, LimitedEveryModifierMixin<T> {
+class EverySkipCountWrapper<T extends Every> extends LimitedEveryWrapper<T>
+    with EquatableMixin, LimitedEveryWrapperMixin<T> {
   /// {@macro everySkipCountWrapper}
   const EverySkipCountWrapper({
     required super.every,
@@ -75,13 +74,10 @@ class EverySkipCountWrapper<T extends Every> extends LimitedEveryModifier<T>
       (currentCount == null) || (currentCount >= 0),
       'currentCount must be greater than or equal to 0',
     );
-    if ((limit != null) &&
-        (direction.isPrevious ? date.isBefore(limit) : date.isAfter(limit))) {
-      throw DateTimeLimitReachedException(date: date, limit: limit);
-    }
+    throwIfLimitReached(date, direction, limit: limit);
     currentCount ??= count;
     if (currentCount <= 0) return date;
-    if (!direction.isPrevious) {
+    if (direction.isForward) {
       return next(date, limit: limit, currentCount: currentCount - 1);
     }
     return previous(date, limit: limit, currentCount: currentCount - 1);

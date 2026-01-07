@@ -1,8 +1,9 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validators.dart';
-import '../enums/enums.dart';
-import '../extensions/extensions.dart';
+import '../date_validators/date_validator_weekday.dart';
+import '../enums/week.dart';
+import '../enums/weekday.dart';
+import '../extensions/add_days.dart';
 import 'every_date_validator.dart';
 import 'every_date_validator_mixin.dart';
 import 'every_date_validator_union.dart';
@@ -48,7 +49,7 @@ class EveryWeekday extends DateValidatorWeekday
   DateTime next(DateTime date) {
     if (date.weekday < weekday.dateTimeValue) return weekday.fromWeekOf(date);
     return weekday.fromWeekOf(
-      date.lastDayOfWeek.addDays(1).add(date.exactTimeOfDay),
+      date.lastDayOfWeek.addDays(1).add(date.timeOfDay),
     );
   }
 
@@ -60,7 +61,7 @@ class EveryWeekday extends DateValidatorWeekday
   DateTime previous(DateTime date) {
     if (date.weekday > weekday.dateTimeValue) return weekday.fromWeekOf(date);
     return weekday.fromWeekOf(
-      date.firstDayOfWeek.subtractDays(1).add(date.exactTimeOfDay),
+      date.firstDayOfWeek.subtractDays(1).add(date.timeOfDay),
     );
   }
 
@@ -98,8 +99,8 @@ class EveryWeekday extends DateValidatorWeekday
   /// Solves the date for the given [date] and [day].
   DateTime _solveFor(DateTime date, DateTime day) {
     if (date.isUtc) {
-      return weekday.fromWeekOf(day.date).add(date.exactTimeOfDay);
+      return weekday.fromWeekOf(day.date).add(date.timeOfDay);
     }
-    return weekday.fromWeekOf(day.toLocal().date).add(date.exactTimeOfDay);
+    return weekday.fromWeekOf(day.toLocal().date).add(date.timeOfDay);
   }
 }

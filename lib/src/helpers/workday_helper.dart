@@ -1,7 +1,8 @@
 import 'package:time/time.dart';
 
 import '../date_validators/date_validator_union.dart';
-import '../everies/everies.dart';
+import '../everies/every_date_validator_union.dart';
+import '../everies/every_weekday.dart';
 
 /// Helper class to work with workdays.
 abstract class WorkdayHelper {

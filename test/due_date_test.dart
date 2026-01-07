@@ -1,6 +1,20 @@
 import 'package:clock/clock.dart';
 import 'package:collection/collection.dart';
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator_weekday.dart';
+import 'package:due_date/src/due_date.dart';
+import 'package:due_date/src/enums/week.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/enums/weekday_occurrence.dart';
+import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_day_in_year.dart';
+import 'package:due_date/src/everies/every_due_day_month.dart';
+import 'package:due_date/src/everies/every_due_time_of_day.dart';
+import 'package:due_date/src/everies/every_due_workday_month.dart';
+import 'package:due_date/src/everies/every_weekday.dart';
+import 'package:due_date/src/everies/every_weekday_count_in_month.dart';
+import 'package:due_date/src/everies/modifiers/every_skip_count_wrapper.dart';
+import 'package:due_date/src/everies/modifiers/every_skip_invalid_modifier.dart';
 import 'package:test/test.dart';
 
 import 'src/date_time_match.dart';
@@ -495,7 +509,7 @@ void main() {
           every: limitedEvery,
         );
 
-        // When sameEvery is false, it should use EveryDueDayMonth instead
+        // When sameEvery is false, it should use EveryDueDayMonth instead.
         final result = dueDateLimited.addWeeks(1, sameEvery: false);
         expect(result.day, equals(10));
         expect(result.year, equals(2022));
@@ -560,11 +574,11 @@ void main() {
         final dueDateWeekday = DueDateTime(
           every: const EveryWeekday(Weekday.monday),
           year: 2022,
-          day: 3, // January 3, 2022 is Monday
+          day: 3, // January 3, 2022 is Monday.
         );
 
         test('Add 1 month', () {
-          // Should return February 7, 2022 (first Monday in February)
+          // Should return February 7, 2022 (first Monday in February).
           expect(
             dueDateWeekday.addMonths(1),
             isSameDateTime(DateTime(2022, 2, 7)),
@@ -572,7 +586,7 @@ void main() {
         });
 
         test('Add 3 months', () {
-          // Should return April 4, 2022 (first Monday in April)
+          // Should return April 4, 2022 (first Monday in April).
           expect(
             dueDateWeekday.addMonths(3),
             isSameDateTime(DateTime(2022, 4, 4)),
@@ -612,21 +626,21 @@ void main() {
 
       group('EveryDayInYear:', () {
         final dueDateDayInYear = DueDateTime(
-          every: const EveryDayInYear(100), // 100th day of the year
+          every: const EveryDayInYear(100), // 100th day of the year.
           year: 2022,
         );
 
         test('Add 1 month', () {
           // Starting from April 10, 2022 (100th day), should return next
-          // occurrence
+          // occurrence.
           expect(
             dueDateDayInYear.addMonths(1),
-            isSameDateTime(DateTime(2023, 4, 10)), // Next year's 100th day
+            isSameDateTime(DateTime(2023, 4, 10)), // Next year's 100th day.
           );
         });
 
         test('Add 6 months', () {
-          // Should return next year's 100th day
+          // Should return next year's 100th day.
           expect(
             dueDateDayInYear.addMonths(6),
             isSameDateTime(DateTime(2023, 4, 10)),
@@ -637,7 +651,7 @@ void main() {
           final actual = dueDateDayInYear.addMonths(6, sameEvery: false);
           // When sameEvery is false, it uses EveryDueDayMonth(day) logic
           // Starting from 2022-04-10, adding 6 months with day=10 gives
-          // 2022-10-10
+          // 2022-10-10.
           expect(actual, isSameDateTime(DateTime(2022, 10, 10)));
           expect(actual.day, equals(10));
           expect(
@@ -654,11 +668,11 @@ void main() {
             invalidator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDateLimited = DueDateTime.fromDate(
-            DateTime(2022, 1, 3), // Monday
+            DateTime(2022, 1, 3), // Monday.
             every: limitedEvery,
           );
 
-          // Should return February 7, 2022 (first Monday in February)
+          // Should return February 7, 2022 (first Monday in February).
           expect(
             dueDateLimited.addMonths(1),
             isSameDateTime(DateTime(2022, 2, 7)),
@@ -671,14 +685,14 @@ void main() {
             invalidator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDateLimited = DueDateTime.fromDate(
-            DateTime(2022, 1, 3), // Monday
+            DateTime(2022, 1, 3), // Monday.
             every: limitedEvery,
           );
 
           final result = dueDateLimited.addMonths(1, sameEvery: false);
           // When sameEvery is false, it uses EveryDueDayMonth(day) logic
           // Starting from 2022-01-03, adding 1 month with day=3 gives
-          // 2022-02-03
+          // 2022-02-03.
           expect(result, isSameDateTime(DateTime(2022, 2, 3)));
           expect((result.every as EveryDueDayMonth).dueDay, equals(3));
         });
@@ -765,7 +779,7 @@ void main() {
         );
 
         test('Add 1 year', () {
-          // Should return same time next year
+          // Should return same time next year.
           expect(
             dueDateTimeOfDay.addYears(1),
             isSameDateTime(DateTime(2023, 6, 15, 14, 30)),
@@ -773,7 +787,7 @@ void main() {
         });
 
         test('Add 2 years', () {
-          // Should return same time in 2 years
+          // Should return same time in 2 years.
           expect(
             dueDateTimeOfDay.addYears(2),
             isSameDateTime(DateTime(2024, 6, 15, 14, 30)),
@@ -782,7 +796,7 @@ void main() {
 
         test("Add 1 year, don't keep every", () {
           final actual = dueDateTimeOfDay.addYears(1, sameEvery: false);
-          // When sameEvery is false, it uses EveryDueDayMonth(day) logic
+          // When sameEvery is false, it uses EveryDueDayMonth(day) logic.
           expect(actual, isSameDateTime(DateTime(2023, 6, 15, 14, 30)));
           expect(actual.day, equals(15));
           expect(
@@ -824,7 +838,7 @@ void main() {
         );
 
         test('Add 1 year', () {
-          // Should return April 15, 2023
+          // Should return April 15, 2023.
           expect(
             dueDateDayMonth.addYears(1),
             isSameDateTime(DateTime(2023, 4, 15)),
@@ -832,7 +846,7 @@ void main() {
         });
 
         test('Add 5 years', () {
-          // Should return April 15, 2027
+          // Should return April 15, 2027.
           expect(
             dueDateDayMonth.addYears(5),
             isSameDateTime(DateTime(2027, 4, 15)),
@@ -841,7 +855,7 @@ void main() {
 
         test("Add 1 year, don't keep every", () {
           final actual = dueDateDayMonth.addYears(1, sameEvery: false);
-          // Should be same since it's already EveryDueDayMonth
+          // Should be same since it's already EveryDueDayMonth.
           expect(actual, isSameDateTime(DateTime(2023, 4, 15)));
           expect(actual.day, equals(15));
           expect(
@@ -1595,7 +1609,7 @@ void main() {
         millisecond: 123,
         microsecond: 456,
       );
-      // The toString method formats: date.add(timeOfDay) - every
+      // The toString method formats: date.add(timeOfDay) - every.
       const expectedString =
           '2022-06-15 14:30:45.123456 - EveryDueDayMonth<15>';
       expect(dueDate.toString(), equals(expectedString));
@@ -1610,7 +1624,7 @@ void main() {
         hour: 9,
         minute: 15,
       );
-      // UTC dates should show Z suffix
+      // UTC dates should show Z suffix.
       const expectedString =
           '2022-08-22 09:15:00.000Z - EveryWeekday<Weekday.monday>';
       expect(dueDate.toString(), equals(expectedString));

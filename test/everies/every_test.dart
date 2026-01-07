@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every.dart';
 import 'package:test/test.dart';
 
 /// Test implementation of [Every] that can be made constant.

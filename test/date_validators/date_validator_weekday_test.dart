@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator_weekday.dart';
+import 'package:due_date/src/enums/weekday.dart';
 import 'package:test/test.dart';
 
 import '../src/date_tostring.dart';

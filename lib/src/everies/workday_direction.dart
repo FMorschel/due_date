@@ -1,4 +1,4 @@
-import 'everies.dart';
+import 'every_due_workday_month.dart';
 
 /// An enum that represents the direction of the [EveryDueWorkdayMonth.from]
 /// constructor.

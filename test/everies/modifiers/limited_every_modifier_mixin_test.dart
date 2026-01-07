@@ -1,13 +1,25 @@
-import 'package:due_date/due_date.dart';
-import 'package:due_date/src/everies/modifiers/limited_every_modifier.dart';
+import 'package:due_date/src/date_validators/date_validator.dart';
+import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
+import 'package:due_date/src/enums/week.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_due_day_month.dart';
+import 'package:due_date/src/everies/every_due_workday_month.dart';
+import 'package:due_date/src/everies/every_weekday.dart';
+import 'package:due_date/src/everies/limited_every.dart';
+import 'package:due_date/src/everies/limited_every_mixin.dart';
+import 'package:due_date/src/everies/modifiers/date_direction.dart';
+import 'package:due_date/src/everies/modifiers/every_skip_invalid_modifier.dart';
+import 'package:due_date/src/everies/modifiers/every_wrapper.dart';
+import 'package:due_date/src/everies/modifiers/limited_every_wrapper.dart';
+import 'package:due_date/src/everies/modifiers/limited_every_wrapper_mixin.dart';
 import 'package:test/test.dart';
 
 import '../../src/every_match.dart';
 
-/// Test implementation of [LimitedEveryModifier] with
-/// [LimitedEveryModifierMixin].
-class _TestLimitedEveryModifier<T extends Every> extends LimitedEveryModifier<T>
-    with LimitedEveryModifierMixin<T> {
+/// Test implementation of [EveryWrapper] with [LimitedEveryWrapperMixin].
+class _TestLimitedEveryModifier<T extends Every> extends LimitedEveryWrapper<T>
+    with LimitedEveryWrapperMixin<T>, LimitedEveryMixin {
   const _TestLimitedEveryModifier({
     required super.every,
     this.forward = true,
@@ -23,7 +35,7 @@ class _TestLimitedEveryModifier<T extends Every> extends LimitedEveryModifier<T>
     DateTime? limit,
   }) {
     if (forward) return date;
-    // Subtract one day for testing purposes
+    // Subtract one day for testing purposes.
     return date.subtract(Duration(days: 1));
   }
 }
@@ -81,35 +93,35 @@ void main() {
             day: Weekday.monday,
           ),
         );
-        final modifier = _TestLimitedEveryModifier<
+        final current = _TestLimitedEveryModifier<
             EverySkipInvalidModifier<EveryWeekday, DateValidator>>(
           every: limitedBase,
         );
-        expect(modifier.every, equals(limitedBase));
+        expect(current.every, equals(limitedBase));
       });
     });
 
     group('Methods', () {
       group('next', () {
         test('Always generates date after input when no limit', () {
-          // December 4, 2023 is Monday
+          // December 4, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 4);
           expect(modifier, nextIsAfter.withInput(date));
         });
 
         test('Returns next occurrence with processDate applied', () {
-          // December 4, 2023 is Monday
+          // December 4, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 4);
-          // December 11, 2023 is Monday (next occurrence)
+          // December 11, 2023 is Monday (next occurrence).
           final expectedDate = DateTime(2023, DateTime.december, 11);
           expect(modifier, hasNext(expectedDate).withInput(date));
         });
 
         test('Accepts limit parameter', () {
-          // December 4, 2023 is Monday
+          // December 4, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 4);
           final limit = DateTime(2024);
-          // December 11, 2023 is Monday (next occurrence)
+          // December 11, 2023 is Monday (next occurrence).
           final expectedDate = DateTime(2023, DateTime.december, 11);
           expect(modifier, hasNext(expectedDate).withInput(date, limit: limit));
         });
@@ -119,9 +131,9 @@ void main() {
             every: baseEvery,
             forward: false,
           );
-          // December 4, 2023 is Monday
+          // December 4, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 4);
-          // December 10, 2023 (December 11 minus one day due to processDate)
+          // December 10, 2023 (December 11 minus one day due to processDate).
           final expectedDate = DateTime(2023, DateTime.december, 10);
           expect(modifierWithPrevious, hasNext(expectedDate).withInput(date));
         });
@@ -129,24 +141,24 @@ void main() {
 
       group('previous', () {
         test('Always generates date before input when no limit', () {
-          // December 11, 2023 is Monday
+          // December 11, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 11);
           expect(modifier, previousIsBefore.withInput(date));
         });
 
         test('Returns previous occurrence with processDate applied', () {
-          // December 11, 2023 is Monday
+          // December 11, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 11);
-          // December 4, 2023 is Monday (previous occurrence)
+          // December 4, 2023 is Monday (previous occurrence).
           final expectedDate = DateTime(2023, DateTime.december, 4);
           expect(modifier, hasPrevious(expectedDate).withInput(date));
         });
 
         test('Accepts limit parameter', () {
-          // December 11, 2023 is Monday
+          // December 11, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 11);
           final limit = DateTime(2023, DateTime.november);
-          // December 4, 2023 is Monday (previous occurrence)
+          // December 4, 2023 is Monday (previous occurrence).
           final expectedDate = DateTime(2023, DateTime.december, 4);
           expect(
             modifier,
@@ -159,9 +171,9 @@ void main() {
             every: baseEvery,
             forward: false,
           );
-          // December 11, 2023 is Monday
+          // December 11, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 11);
-          // December 3, 2023 (December 4 minus one day due to processDate)
+          // December 3, 2023 (December 4 minus one day due to processDate).
           final expectedDate = DateTime(2023, DateTime.december, 3);
           expect(
             modifierWithPrevious,
@@ -173,10 +185,10 @@ void main() {
 
     group('Edge Cases', () {
       test('Works with edge dates and limits', () {
-        // Test with year boundary
+        // Test with year boundary.
         final date = DateTime(2023, DateTime.december, 31);
         final limit = DateTime(2024, DateTime.february);
-        // Should work without throwing
+        // Should work without throwing.
         expect(() => modifier.next(date, limit: limit), returnsNormally);
         expect(() => modifier.previous(date, limit: limit), returnsNormally);
       });
@@ -184,11 +196,11 @@ void main() {
 
     group('LimitedEvery interface compliance', () {
       test('All methods accept limit parameter', () {
-        // Verify that all three methods accept the limit parameter
+        // Verify that all three methods accept the limit parameter.
         final date = DateTime(2023, DateTime.december, 4);
         final limit = DateTime(2024);
 
-        // These should all compile and run without error
+        // These should all compile and run without error.
         expect(() => modifier.next(date, limit: limit), returnsNormally);
         expect(() => modifier.previous(date, limit: limit), returnsNormally);
       });
@@ -200,7 +212,7 @@ void main() {
 
       test('Abstract processDate method requires limit parameter', () {
         // This is tested by the fact that our concrete implementation
-        // successfully overrides the abstract method with the limit parameter
+        // successfully overrides the abstract method with the limit parameter.
         expect(modifier, isNotNull);
       });
     });

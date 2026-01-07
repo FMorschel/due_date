@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/due_date.dart';
 import 'package:test/test.dart';
 
 /// Custom matcher for DueDateTime equality.

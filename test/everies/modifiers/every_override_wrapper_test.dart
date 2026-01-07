@@ -1,19 +1,11 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
+import 'package:due_date/src/enums/week.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/modifiers/every_override_wrapper.dart';
 import 'package:test/test.dart';
 
 import '../../src/date_time_match.dart';
 import '../../src/every_match.dart';
-
-/// Basic Every implementation for testing that returns predefined dates.
-class BasicEvery extends Every {
-  const BasicEvery();
-
-  @override
-  DateTime next(DateTime date) => date;
-
-  @override
-  DateTime previous(DateTime date) => date;
-}
 
 void main() {
   group('EveryOverrideWrapper:', () {
@@ -22,7 +14,7 @@ void main() {
       week: Week.first,
       day: Weekday.monday,
     );
-    final wrapper = EveryOverrideWrapper(
+    final wrapper = EveryOverrideModifier(
       every: every,
       invalidator: invalidator,
       overrider: Weekday.tuesday.every,
@@ -108,8 +100,8 @@ void main() {
         // December 1, 2023 is before input date.
         final limitDate = DateTime(2023, 12);
         expect(
-          () => wrapper.next(inputDate, limit: limitDate),
-          throwsA(isA<DateTimeLimitReachedException>()),
+          wrapper,
+          limitedNext.withInput(inputDate, limit: limitDate),
         );
       });
 
@@ -119,8 +111,8 @@ void main() {
         // November 29, 2023 is after expected previous date.
         final limitDate = DateTime(2023, 11, 29);
         expect(
-          () => wrapper.previous(inputDate, limit: limitDate),
-          throwsA(isA<DateTimeLimitReachedException>()),
+          wrapper,
+          limitedPrevious.withInput(inputDate, limit: limitDate),
         );
       });
 
@@ -202,11 +194,11 @@ void main() {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);
         // December 12, 2023 is after expected date.
-        final limitDate = DateTime(2023, 12, 12);
-        final expectedDate = DateTime(2023, 12, 5);
+        final limitDate = DateTime(2023, 12, 4);
+        // Expected date would be DateTime(2023, 12, 5);
         expect(
           wrapper,
-          hasNext(expectedDate).withInput(inputDate, limit: limitDate),
+          limitedNext.withInput(inputDate, limit: limitDate),
         );
       });
 
@@ -214,17 +206,17 @@ void main() {
         // December 10, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 10);
         // November 26, 2023 is before expected date.
-        final limitDate = DateTime(2023, 11, 26);
-        final expectedDate = DateTime(2023, 11, 28);
+        final limitDate = DateTime(2023, 11, 29);
+        // Expected date would be DateTime(2023, 11, 28);
         expect(
           wrapper,
-          hasPrevious(expectedDate).withInput(inputDate, limit: limitDate),
+          limitedPrevious.withInput(inputDate, limit: limitDate),
         );
       });
     });
 
     group('Equality', () {
-      final wrapper1 = EveryOverrideWrapper(
+      final wrapper1 = EveryOverrideModifier(
         every: Weekday.monday.every,
         invalidator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
@@ -232,7 +224,7 @@ void main() {
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper2 = EveryOverrideWrapper(
+      final wrapper2 = EveryOverrideModifier(
         every: Weekday.monday.every,
         invalidator: DateValidatorWeekdayCountInMonth(
           week: Week.second,
@@ -240,7 +232,7 @@ void main() {
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper3 = EveryOverrideWrapper(
+      final wrapper3 = EveryOverrideModifier(
         every: Weekday.tuesday.every,
         invalidator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
@@ -248,7 +240,7 @@ void main() {
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper4 = EveryOverrideWrapper(
+      final wrapper4 = EveryOverrideModifier(
         every: Weekday.monday.every,
         invalidator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
@@ -256,7 +248,7 @@ void main() {
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper5 = EveryOverrideWrapper(
+      final wrapper5 = EveryOverrideModifier(
         every: Weekday.monday.every,
         invalidator: DateValidatorWeekdayCountInMonth(
           week: Week.first,

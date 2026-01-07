@@ -1,34 +1,30 @@
-import '../date_validators/date_validators.dart';
-import '../helpers/helpers.dart';
-import 'date_time_limit_reached_exception.dart';
+import '../date_validators/date_validator_difference.dart';
+import '../helpers/date_reducer.dart';
+import '../helpers/limited_or_every_handler.dart';
 import 'every_date_validator.dart';
-import 'limited_every.dart';
 import 'limited_every_date_validator_list_mixin.dart';
+import 'limited_every_mixin.dart';
+import 'modifiers/date_direction.dart';
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where only one of the [EveryDateValidator]s conditions is met.
 class EveryDateValidatorDifference<E extends EveryDateValidator>
     extends DateValidatorDifference<E>
-    with LimitedEveryDateValidatorListMixin<E>
-    implements EveryDateValidator, LimitedEvery {
+    with LimitedEveryDateValidatorListMixin<E>, LimitedEveryMixin {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where only one of the [EveryDateValidator]s conditions is met.
-  const EveryDateValidatorDifference(super.everyDateValidators);
+  const EveryDateValidatorDifference(super.base);
 
   @override
   DateTime next(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    if ((limit != null) && date.isAfter(limit)) {
-      throw DateTimeLimitReachedException(date: date, limit: limit);
-    }
+    throwIfLimitReached(date, DateDirection.next, limit: limit);
     final nextDates =
         map((every) => LimitedOrEveryHandler.next(every, date, limit: limit));
     final validDates = nextDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(DateReducer.reduceFuture);
-      if ((limit != null) && result.isAfter(limit)) {
-        throw DateTimeLimitReachedException(date: result, limit: limit);
-      }
+      throwIfLimitReached(result, DateDirection.next, limit: limit);
       return result;
     }
     return next(nextDates.reduce(DateReducer.reduceFuture), limit: limit);
@@ -37,18 +33,14 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
   @override
   DateTime previous(DateTime date, {DateTime? limit}) {
     if (isEmpty) return date;
-    if ((limit != null) && date.isBefore(limit)) {
-      throw DateTimeLimitReachedException(date: date, limit: limit);
-    }
+    throwIfLimitReached(date, DateDirection.previous, limit: limit);
     final previousDates = map((every) {
       return LimitedOrEveryHandler.previous(every, date, limit: limit);
     });
     final validDates = previousDates.where(valid);
     if (validDates.isNotEmpty) {
       final result = validDates.reduce(DateReducer.reducePast);
-      if ((limit != null) && result.isBefore(limit)) {
-        throw DateTimeLimitReachedException(date: result, limit: limit);
-      }
+      throwIfLimitReached(result, DateDirection.previous, limit: limit);
       return result;
     }
     return previous(previousDates.reduce(DateReducer.reducePast), limit: limit);

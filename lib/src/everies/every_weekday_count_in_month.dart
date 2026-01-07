@@ -1,8 +1,8 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validators.dart';
-import '../enums/enums.dart';
-import '../extensions/extensions.dart';
+import '../date_validators/date_validator_weekday_count_in_month.dart';
+import '../enums/week.dart';
+import '../enums/weekday.dart';
 import 'every_date_validator_mixin.dart';
 import 'every_month.dart';
 
@@ -10,7 +10,8 @@ import 'every_month.dart';
 /// next month's with the [week] occurrence of the [day] ([DateTime.weekday]
 /// is the [day]'s [Weekday.dateTimeValue]).
 ///
-/// E.g.
+/// E.g.:
+///
 /// ```dart
 /// const firstMonday = EveryDayOfWeek(day: Weekday.monday, week: Week.first);
 /// firstMonday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 3).
@@ -52,7 +53,7 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
           day: day,
           utc: date.isUtc,
         )
-        .add(date.exactTimeOfDay);
+        .add(date.timeOfDay);
     if (date.day < thisMonthDay.day) return thisMonthDay;
     return week
         .weekdayOf(
@@ -61,7 +62,7 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
           day: day,
           utc: date.isUtc,
         )
-        .add(date.exactTimeOfDay);
+        .add(date.timeOfDay);
   }
 
   /// Returns the previous date that fits the [day] and the [week].
@@ -80,7 +81,7 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
           day: day,
           utc: date.isUtc,
         )
-        .add(date.exactTimeOfDay);
+        .add(date.timeOfDay);
     if (date.day > thisMonthDay.day) return thisMonthDay;
     return week
         .weekdayOf(
@@ -89,7 +90,7 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
           day: day,
           utc: date.isUtc,
         )
-        .add(date.exactTimeOfDay);
+        .add(date.timeOfDay);
   }
 
   /// Returns the [date] - [DateTime.month] + [months] with the [week]

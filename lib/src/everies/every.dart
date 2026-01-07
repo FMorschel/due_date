@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import '../enums/enums.dart';
+import '../enums/weekday_occurrence.dart';
 import 'every_day_in_year.dart';
 import 'every_due_day_month.dart';
 import 'every_month.dart';

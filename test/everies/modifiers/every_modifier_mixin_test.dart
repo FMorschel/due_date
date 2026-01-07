@@ -1,11 +1,22 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator.dart';
+import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
+import 'package:due_date/src/enums/week.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_due_day_month.dart';
+import 'package:due_date/src/everies/every_due_workday_month.dart';
+import 'package:due_date/src/everies/every_weekday.dart';
+import 'package:due_date/src/everies/modifiers/date_direction.dart';
+import 'package:due_date/src/everies/modifiers/every_skip_invalid_modifier.dart';
+import 'package:due_date/src/everies/modifiers/every_wrapper.dart';
+import 'package:due_date/src/everies/modifiers/every_wrapper_mixin.dart';
 import 'package:test/test.dart';
 
 import '../../src/every_match.dart';
 
-/// Test implementation of [EveryModifier] with [EveryModifierMixin].
-class _TestEveryModifier<T extends Every> extends EveryModifier<T>
-    with EveryModifierMixin<T> {
+/// Test implementation of [EveryWrapper] with [EveryWrapperMixin].
+class _TestEveryModifier<T extends Every> extends EveryWrapper<T>
+    with EveryWrapperMixin<T> {
   const _TestEveryModifier({
     required super.every,
     this.forward = true,
@@ -17,9 +28,9 @@ class _TestEveryModifier<T extends Every> extends EveryModifier<T>
   @override
   DateTime processDate(DateTime date, DateDirection actualDirection) {
     // For testing, we can modify the date based on direction
-    // This is a simple test implementation
+    // This is a simple test implementation.
     if (forward) return date;
-    // Subtract one day for testing purposes
+    // Subtract one day for testing purposes.
     return date.subtract(Duration(days: 1));
   }
 }
@@ -65,15 +76,15 @@ void main() {
     group('Methods', () {
       group('next', () {
         test('Always generates date after input', () {
-          // December 4, 2023 is Monday
+          // December 4, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 4);
           expect(modifier, nextIsAfter.withInput(date));
         });
 
         test('Returns next occurrence with processDate applied', () {
-          // December 4, 2023 is Monday
+          // December 4, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 4);
-          // December 11, 2023 is Monday (next occurrence)
+          // December 11, 2023 is Monday (next occurrence).
           final expectedDate = DateTime(2023, DateTime.december, 11);
           expect(modifier, hasNext(expectedDate).withInput(date));
         });
@@ -83,9 +94,9 @@ void main() {
             every: baseEvery,
             forward: false,
           );
-          // December 4, 2023 is Monday
+          // December 4, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 4);
-          // December 10, 2023 (December 11 minus one day due to processDate)
+          // December 10, 2023 (December 11 minus one day due to processDate).
           final expectedDate = DateTime(2023, DateTime.december, 10);
           expect(modifierWithPrevious, hasNext(expectedDate).withInput(date));
         });
@@ -93,15 +104,15 @@ void main() {
 
       group('previous', () {
         test('Always generates date before input', () {
-          // December 11, 2023 is Monday
+          // December 11, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 11);
           expect(modifier, previousIsBefore.withInput(date));
         });
 
         test('Returns previous occurrence with processDate applied', () {
-          // December 11, 2023 is Monday
+          // December 11, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 11);
-          // December 4, 2023 is Monday (previous occurrence)
+          // December 4, 2023 is Monday (previous occurrence).
           final expectedDate = DateTime(2023, DateTime.december, 4);
           expect(modifier, hasPrevious(expectedDate).withInput(date));
         });
@@ -111,9 +122,9 @@ void main() {
             every: baseEvery,
             forward: false,
           );
-          // December 11, 2023 is Monday
+          // December 11, 2023 is Monday.
           final date = DateTime(2023, DateTime.december, 11);
-          // December 3, 2023 (December 4 minus one day due to processDate)
+          // December 3, 2023 (December 4 minus one day due to processDate).
           final expectedDate = DateTime(2023, DateTime.december, 3);
           expect(
             modifierWithPrevious,
@@ -132,16 +143,16 @@ void main() {
             day: Weekday.monday,
           ),
         );
-        final modifier = _TestEveryModifier<
+        final current = _TestEveryModifier<
             EverySkipInvalidModifier<EveryWeekday, DateValidator>>(
           every: limitedBase,
         );
-        expect(modifier.every, equals(limitedBase));
+        expect(current.every, equals(limitedBase));
       });
       test('Works with edge dates', () {
-        // Test with year boundary
+        // Test with year boundary.
         final date = DateTime(2023, DateTime.december, 31);
-        // Should work without throwing
+        // Should work without throwing.
         expect(() => modifier.next(date), returnsNormally);
         expect(() => modifier.previous(date), returnsNormally);
       });

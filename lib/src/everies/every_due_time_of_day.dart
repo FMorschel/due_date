@@ -1,7 +1,7 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validators.dart';
-import '../extensions/extensions.dart';
+import '../date_validators/date_validator_time_of_day.dart';
+import '../extensions/add_days.dart';
 import 'every_date_validator_mixin.dart';
 
 /// {@template everyDay}
@@ -16,7 +16,21 @@ class EveryDueTimeOfDay extends DateValidatorTimeOfDay
 
   /// Constructor that takes the time of day from [date].
   factory EveryDueTimeOfDay.from(DateTime date) =>
-      EveryDueTimeOfDay(date.exactTimeOfDay);
+      EveryDueTimeOfDay(date.timeOfDay);
+
+  /// An [EveryDueTimeOfDay] that represents midnight (00:00).
+  static const midnight = EveryDueTimeOfDay(Duration.zero);
+
+  /// An [EveryDueTimeOfDay] that represents the last microsecond of the day.
+  static const EveryDueTimeOfDay lastMicrosecond = EveryDueTimeOfDay(
+    Duration(
+      hours: 23,
+      minutes: 59,
+      seconds: 59,
+      milliseconds: 999,
+      microseconds: 999,
+    ),
+  );
 
   @override
   DateTime next(DateTime date) {

@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import '../extensions/extensions.dart';
-import 'date_validator.dart';
 import 'date_validator_mixin.dart';
 
 /// {@template dateValidatorDay}
@@ -11,15 +9,11 @@ import 'date_validator_mixin.dart';
 ///
 /// The [timeOfDay] must be between 0 and 24 hours (exclusive).
 /// {@endtemplate}
-class DateValidatorTimeOfDay extends DateValidator
+class DateValidatorTimeOfDay
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorTimeOfDay> {
   /// {@macro dateValidatorDay}
-  const DateValidatorTimeOfDay(this.timeOfDay)
-      : assert(
-          (timeOfDay >= Duration.zero) && (timeOfDay < const Duration(days: 1)),
-          'timeOfDay must be between 0 and 24 hours',
-        );
+  const DateValidatorTimeOfDay(this.timeOfDay);
 
   /// Constructor that takes the time of day from [date].
   ///
@@ -34,13 +28,7 @@ class DateValidatorTimeOfDay extends DateValidator
   final Duration timeOfDay;
 
   @override
-  bool valid(DateTime date) {
-    return date.exactTimeOfDay == timeOfDay;
-  }
-
-  @override
-  int compareTo(DateValidatorTimeOfDay other) =>
-      timeOfDay.compareTo(other.timeOfDay);
+  List<Object?> get props => [timeOfDay];
 
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
@@ -50,5 +38,9 @@ class DateValidatorTimeOfDay extends DateValidator
   }
 
   @override
-  List<Object?> get props => [timeOfDay];
+  int compareTo(DateValidatorTimeOfDay other) =>
+      timeOfDay.compareTo(other.timeOfDay);
+
+  @override
+  bool valid(DateTime date) => date.timeOfDay == timeOfDay;
 }

@@ -26,12 +26,13 @@ dependencies:
   collection: ^1.0.0
   equatable: ^2.0.3
   meta: ^1.0.0
-  time: ^2.1.5
+  time: ^2.1.6
 
 dev_dependencies:
-  dart_apitool: ^0.22.1
+  analyzer: ^9.0.0
   frontend_server_client: ^4.0.0 # Test bug github.com/dart-lang/test/issues/2516
   intl: any
   lints: ^6.0.0
+  path: ^1.9.1
   test: any
-  very_good_analysis: ^9.0.0
+  very_good_analysis: ^10.0.0

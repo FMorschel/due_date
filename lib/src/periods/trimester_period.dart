@@ -1,8 +1,6 @@
 import 'package:time/time.dart';
 
-import '../extensions/extensions.dart';
 import '../period_generators/month_generator.dart';
-import '../period_generators/period_generators.dart';
 import 'month_period.dart';
 import 'month_period_bundle.dart';
 
@@ -23,8 +21,8 @@ class TrimesterPeriod extends MonthPeriodBundle {
           'The difference between start and end must be 91 days, 23 hours, '
           '59 minutes, 59 seconds, 999 milliseconds and 999 microseconds',
         ) {
-    if ((start.exactTimeOfDay != Duration.zero) ||
-        (end.exactTimeOfDay != end.endOfDay.exactTimeOfDay) ||
+    if ((start.timeOfDay != Duration.zero) ||
+        (end.timeOfDay != end.endOfDay.timeOfDay) ||
         start.isAtSameMonthAs(end) ||
         (start.firstDayOfMonth != start) ||
         (end.lastDayOfMonth.endOfDay != end) ||

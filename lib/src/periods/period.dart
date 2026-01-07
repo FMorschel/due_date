@@ -2,8 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../helpers/helpers.dart';
-import '../period_generators/period_generators.dart';
+import '../helpers/object_extension.dart';
+import '../period_generators/period_generator_mixin.dart';
 
 /// A period of time between two [DateTime]s.
 @immutable
@@ -21,6 +21,15 @@ class Period with EquatableMixin implements Comparable<Period> {
       );
     }
   }
+
+  /// Creates a period of a given [duration] containing [at].
+  factory Period.of(
+    Duration duration, {
+    required DateTime at,
+  }) =>
+      duration.isNegative
+          ? Period(start: at.add(duration), end: at)
+          : Period(start: at, end: at.add(duration));
 
   /// The start of the period. It is included in the period.
   final DateTime start;
@@ -273,6 +282,7 @@ class Period with EquatableMixin implements Comparable<Period> {
   /// If the [dates] are not empty, the period is split at the given dates.
   ///
   /// Example:
+  ///
   /// ```dart
   /// final period = Period(
   ///   start: DateTime(2020, 1, 1),

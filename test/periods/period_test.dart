@@ -1,4 +1,5 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/day_generator.dart';
+import 'package:due_date/src/periods/period.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';
@@ -351,7 +352,7 @@ void main() {
       });
 
       test('with dates outside period ignores them', () {
-        // Dates before and after the period should be ignored
+        // Dates before and after the period should be ignored.
         final beforePeriod = DateTime(2021, 12, 31);
         final afterPeriod = DateTime(2022, 1, 3);
 
@@ -366,7 +367,7 @@ void main() {
 
       test('with multiple dates splits correctly', () {
         // January 1 00:00 to January 3 00:00, split at Jan 1 12:00 and Jan 2
-        // 12:00
+        // 12:00.
         final period = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 3),
@@ -375,7 +376,7 @@ void main() {
         final split2 = DateTime(2022, 1, 2, 12);
 
         expect(
-          period.splitAt({split2, split1}), // Test that dates are sorted
+          period.splitAt({split2, split1}), // Test that dates are sorted.
           orderedEquals([
             Period(start: DateTime(2022), end: split1),
             Period(start: split1, end: split2),
@@ -404,7 +405,7 @@ void main() {
       });
 
       test('handles single date at period boundary', () {
-        // Split exactly at the start
+        // Split exactly at the start.
         expect(
           base.splitAt({start}),
           orderedEquals([
@@ -412,7 +413,7 @@ void main() {
           ]),
         );
 
-        // Split exactly at the end
+        // Split exactly at the end.
         expect(
           base.splitAt({end}),
           orderedEquals([
@@ -443,7 +444,7 @@ void main() {
 
         test('throws ArgumentError when periodBetween equals period duration',
             () {
-          // Period duration is 1 day + 1 microsecond
+          // Period duration is 1 day + 1 microsecond.
           final periodDuration = base.duration;
 
           expect(
@@ -485,7 +486,7 @@ void main() {
             'duration', () {
           // Period from Jan 1 to Jan 2 (1 day + 1 microsecond)
           // Two valid dates means periodBetween will be multiplied by 2
-          // If periodBetween is 13 hours, total gap = 26 hours > 24 hours
+          // If periodBetween is 13 hours, total gap = 26 hours > 24 hours.
           final period = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 2),
@@ -515,17 +516,17 @@ void main() {
         test(
             'throws ArgumentError when period between dates is less than '
             'periodBetween', () {
-          // Create a period from Jan 1 to Jan 5
+          // Create a period from Jan 1 to Jan 5.
           final period = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 5),
           );
 
-          // Split dates that are only 12 hours apart
+          // Split dates that are only 12 hours apart.
           final split1 = DateTime(2022, 1, 2);
           final split2 = DateTime(2022, 1, 2, 12);
 
-          // But require at least 24 hours between periods
+          // But require at least 24 hours between periods.
           const periodBetween = Duration(hours: 24);
 
           expect(
@@ -547,17 +548,17 @@ void main() {
         });
 
         test('handles edge case with many small gaps', () {
-          // Create a scenario where many small gaps add up to exceed duration
+          // Create a scenario where many small gaps add up to exceed duration.
           final period = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 1, 2), // 2 hours
           );
 
-          // 10 dates means 10 gaps of 30 minutes each = 5 hours > 2 hours
+          // 10 dates means 10 gaps of 30 minutes each = 5 hours > 2 hours.
           final dates = List.generate(
             10,
             (i) =>
-                // Every 6 minutes
+                // Every 6 minutes.
                 DateTime(2022, 1, 1, 0, i * 6),
           ).toSet();
 
@@ -646,7 +647,7 @@ void main() {
           'Period:Period(2020-01-11 08:00:00.000, 2020-01-20 16:00:00.000), '
           'Period:Period(2020-01-21 16:00:00.000, 2020-01-31 00:00:00.000)]',
           () {
-        final base = Period(
+        final current = Period(
           start: DateTime(2020),
           end: DateTime(2020, 1, 31),
         );
@@ -665,7 +666,7 @@ void main() {
           ),
         ];
         expect(
-          base.splitIn(3, periodBetween: const Duration(days: 1)),
+          current.splitIn(3, periodBetween: const Duration(days: 1)),
           orderedEquals(expected),
         );
         for (var i = 1; i < (expected.length - 1); i++) {
@@ -677,13 +678,14 @@ void main() {
       });
 
       group('Invalid arguments', () {
-        final start = DateTime(2022);
-        final end = DateTime(2022, DateTime.january, 2);
-        final base = Period(start: start, end: end);
+        final current = Period(
+          start: DateTime(2022),
+          end: DateTime(2022, DateTime.january, 2),
+        );
 
         test('throws ArgumentError when times is zero', () {
           expect(
-            () => base.splitIn(0),
+            () => current.splitIn(0),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -696,7 +698,7 @@ void main() {
 
         test('throws ArgumentError when times is negative', () {
           expect(
-            () => base.splitIn(-1),
+            () => current.splitIn(-1),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -709,7 +711,10 @@ void main() {
 
         test('throws ArgumentError when periodBetween is negative', () {
           expect(
-            () => base.splitIn(2, periodBetween: const Duration(seconds: -1)),
+            () => current.splitIn(
+              2,
+              periodBetween: const Duration(seconds: -1),
+            ),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -723,10 +728,10 @@ void main() {
 
         test('throws ArgumentError when periodBetween equals period duration',
             () {
-          // Period duration is 1 day + 1 microsecond
-          final periodDuration = base.duration;
+          // Period duration is 1 day + 1 microsecond.
+          final periodDuration = current.duration;
           expect(
-            () => base.splitIn(2, periodBetween: periodDuration),
+            () => current.splitIn(2, periodBetween: periodDuration),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -741,9 +746,9 @@ void main() {
         test(
             'throws ArgumentError when periodBetween is greater than period '
             'duration', () {
-          // Period duration is 1 day + 1 microsecond, so 2 days is greater
+          // Period duration is 1 day + 1 microsecond, so 2 days is greater.
           expect(
-            () => base.splitIn(2, periodBetween: const Duration(days: 2)),
+            () => current.splitIn(2, periodBetween: const Duration(days: 2)),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -760,9 +765,9 @@ void main() {
             'duration', () {
           // Base period is 1 day + 1 microsecond
           // If we split into 3 parts with 12 hours between each, that's 24
-          // hours total which exceeds the period duration
+          // hours total which exceeds the period duration.
           expect(
-            () => base.splitIn(3, periodBetween: const Duration(hours: 12)),
+            () => current.splitIn(3, periodBetween: const Duration(hours: 12)),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -780,9 +785,9 @@ void main() {
           // Base period is 1 day + 1 microsecond
           // If we split into 2 parts with 1 day + 1 microsecond between, that
           // equals the period duration.
-          final periodDuration = base.duration;
+          final periodDuration = current.duration;
           expect(
-            () => base.splitIn(2, periodBetween: periodDuration),
+            () => current.splitIn(2, periodBetween: periodDuration),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -797,7 +802,7 @@ void main() {
         test(
             'throws ArgumentError with edge case: very small period with large '
             'times', () {
-          // Create a very small period (1 microsecond)
+          // Create a very small period (1 microsecond).
           final smallStart = DateTime(2022);
           final smallEnd = smallStart;
           final smallPeriod = Period(start: smallStart, end: smallEnd);
@@ -821,15 +826,17 @@ void main() {
         test(
             'throws ArgumentError when sum of periodBetween exceeds duration '
             'but individual periodBetween is valid', () {
-          // Create a period of 10 seconds
-          final start = DateTime(2022);
-          final end = start.add(const Duration(seconds: 10));
-          final testPeriod = Period(start: start, end: end);
+          // Create a period of 10 seconds.
+          final startDate = DateTime(2022);
+          final testPeriod = Period(
+            start: startDate,
+            end: startDate.add(const Duration(seconds: 10)),
+          );
 
           // Individual periodBetween (3 seconds) is less than period duration
           // (10 seconds + 1 microsecond)
           // But sum: 3 seconds * 5 times = 15 seconds > 10 seconds + 1
-          // microsecond
+          // microsecond.
           expect(
             () => testPeriod.splitIn(
               5,
@@ -885,7 +892,7 @@ void main() {
       expect(period3.end, end.subtract(const Duration(days: 1)));
     });
     test('>> operator (shift forward)', () {
-      // January 1, 2022 is Saturday
+      // January 1, 2022 is Saturday.
       final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
@@ -894,14 +901,14 @@ void main() {
       expect(shiftedPeriod.start, start.add(const Duration(days: 1)));
       expect(shiftedPeriod.end, end.add(const Duration(days: 1)));
 
-      // Test with hours
+      // Test with hours.
       final shiftedByHours = period >> const Duration(hours: 5);
       expect(shiftedByHours.start, start.add(const Duration(hours: 5)));
       expect(shiftedByHours.end, end.add(const Duration(hours: 5)));
     });
 
     test('<< operator (shift backward)', () {
-      // January 1, 2022 is Saturday
+      // January 1, 2022 is Saturday.
       final start = DateTime(2022);
       final end = DateTime(2022, DateTime.january, 1, 23, 59, 59, 999, 999);
       final period = Period(start: start, end: end);
@@ -910,7 +917,7 @@ void main() {
       expect(shiftedPeriod.start, start.subtract(const Duration(days: 1)));
       expect(shiftedPeriod.end, end.subtract(const Duration(days: 1)));
 
-      // Test with hours
+      // Test with hours.
       final shiftedByHours = period << const Duration(hours: 3);
       expect(shiftedByHours.start, start.subtract(const Duration(hours: 3)));
       expect(shiftedByHours.end, end.subtract(const Duration(hours: 3)));
@@ -1291,7 +1298,7 @@ void main() {
     });
     group('inBetween', () {
       test('returns null when periods overlap', () {
-        // January 1-3 and January 2-4 overlap
+        // January 1-3 and January 2-4 overlap.
         final first = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 3),
@@ -1306,7 +1313,7 @@ void main() {
       });
 
       test('returns period between when first occurs before second', () {
-        // January 1-2 and January 4-5, gap is January 2-4
+        // January 1-2 and January 4-5, gap is January 2-4.
         final first = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1324,7 +1331,7 @@ void main() {
       });
 
       test('returns period between when first occurs after second', () {
-        // January 4-5 and January 1-2, gap is January 2-4
+        // January 4-5 and January 1-2, gap is January 2-4.
         final first = Period(
           start: DateTime(2022, 1, 4),
           end: DateTime(2022, 1, 5),
@@ -1341,7 +1348,7 @@ void main() {
       });
 
       test('returns zero-duration period when periods have minimal gap', () {
-        // January 1-2 and January 3-4, gap is January 2-3
+        // January 1-2 and January 3-4, gap is January 2-3.
         final first = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1360,7 +1367,7 @@ void main() {
       });
 
       test('returns null when periods are adjacent (touching)', () {
-        // January 1-2 and January 2-3 touch at January 2, so they overlap
+        // January 1-2 and January 2-3 touch at January 2, so they overlap.
         final first = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1375,7 +1382,7 @@ void main() {
       });
 
       test('handles UTC dates correctly', () {
-        // January 1-2 and January 4-5 in UTC, gap is January 2-4
+        // January 1-2 and January 4-5 in UTC, gap is January 2-4.
         final first = Period(
           start: DateTime.utc(2022),
           end: DateTime.utc(2022, 1, 2),
@@ -1397,7 +1404,7 @@ void main() {
         test(
             'returns period from first start to second start when first starts '
             'before second', () {
-          // January 1-4 and January 3-6 overlap, first starts before second
+          // January 1-4 and January 3-6 overlap, first starts before second.
           final first = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 4),
@@ -1420,7 +1427,7 @@ void main() {
         test(
             'returns period from second start to first start when first starts '
             'after second', () {
-          // January 3-6 and January 1-4 overlap, first starts after second
+          // January 3-6 and January 1-4 overlap, first starts after second.
           final first = Period(
             start: DateTime(2022, 1, 3),
             end: DateTime(2022, 1, 6),
@@ -1441,7 +1448,7 @@ void main() {
         });
 
         test('returns null when both periods start at the same time', () {
-          // January 1-3 and January 1-4 both start on January 1
+          // January 1-3 and January 1-4 both start on January 1.
           final first = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 3),
@@ -1457,7 +1464,7 @@ void main() {
 
       group('when periods do not overlap', () {
         test('returns first period when first occurs before second', () {
-          // January 1-2 and January 4-5 do not overlap, first occurs before
+          // January 1-2 and January 4-5 do not overlap, first occurs before.
           final first = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 2),
@@ -1472,7 +1479,7 @@ void main() {
 
         test('returns second period when first occurs after second', () {
           // January 4-5 and January 1-2 do not overlap, first occurs after
-          // second
+          // second.
           final first = Period(
             start: DateTime(2022, 1, 4),
             end: DateTime(2022, 1, 5),
@@ -1490,7 +1497,7 @@ void main() {
       });
 
       test('handles UTC dates correctly', () {
-        // January 1-4 UTC and January 3-6 UTC overlap
+        // January 1-4 UTC and January 3-6 UTC overlap.
         final first = Period(
           start: DateTime.utc(2022),
           end: DateTime.utc(2022, 1, 4),
@@ -1516,7 +1523,7 @@ void main() {
         test(
             'returns period from second end to first end when first ends after '
             'second', () {
-          // January 1-6 and January 3-4 overlap, first ends after second
+          // January 1-6 and January 3-4 overlap, first ends after second.
           final first = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 6),
@@ -1539,7 +1546,7 @@ void main() {
         test(
             'returns period from first end to second end when first ends '
             'before second', () {
-          // January 3-4 and January 1-6 overlap, first ends before second
+          // January 3-4 and January 1-6 overlap, first ends before second.
           final first = Period(
             start: DateTime(2022, 1, 3),
             end: DateTime(2022, 1, 4),
@@ -1560,7 +1567,7 @@ void main() {
         });
 
         test('returns null when both periods end at the same time', () {
-          // January 1-4 and January 2-4 both end on January 4
+          // January 1-4 and January 2-4 both end on January 4.
           final first = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 4),
@@ -1576,7 +1583,7 @@ void main() {
 
       group('when periods do not overlap', () {
         test('returns first period when first occurs after second', () {
-          // January 4-5 and January 1-2 do not overlap, first occurs after
+          // January 4-5 and January 1-2 do not overlap, first occurs after.
           final first = Period(
             start: DateTime(2022, 1, 4),
             end: DateTime(2022, 1, 5),
@@ -1591,7 +1598,7 @@ void main() {
 
         test('returns second period when first occurs before second', () {
           // January 1-2 and January 4-5 do not overlap, first occurs before
-          // second
+          // second.
           final first = Period(
             start: DateTime(2022),
             end: DateTime(2022, 1, 2),
@@ -1606,7 +1613,7 @@ void main() {
       });
 
       test('handles UTC dates correctly', () {
-        // January 1-6 UTC and January 3-4 UTC overlap
+        // January 1-6 UTC and January 3-4 UTC overlap.
         final first = Period(
           start: DateTime.utc(2022),
           end: DateTime.utc(2022, 1, 6),
@@ -1628,20 +1635,20 @@ void main() {
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
-      final period = Period(start: start, end: end);
-      final period2 = Period(start: start2, end: end2);
-      final period3 = Period(start: start2, end: end);
 
       test('returns intersection when periods overlap', () {
+        final period = Period(start: start, end: end);
+        final period2 = Period(start: start2, end: end2);
+        final period3 = Period(start: start2, end: end);
         // Period 1: Jan 1 00:00 - Jan 2 00:00
         // Period 2: Jan 1 12:00 - Jan 3 00:00
-        // Intersection: Jan 1 12:00 - Jan 2 00:00
+        // Intersection: Jan 1 12:00 - Jan 2 00:00.
         expect(period & period2, equals(period3));
         expect(period2 & period, equals(period3));
       });
 
       test('returns null when periods do not overlap', () {
-        // January 1-2 and January 3-4 do not overlap
+        // January 1-2 and January 3-4 do not overlap.
         final nonOverlapping1 = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1670,7 +1677,7 @@ void main() {
       });
 
       test('returns smaller period when one fully contains the other', () {
-        // January 1-5 contains January 2-3
+        // January 1-5 contains January 2-3.
         final container = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 5),
@@ -1685,7 +1692,7 @@ void main() {
       });
 
       test('returns null when periods are adjacent but do not overlap', () {
-        // January 1-2 and January 2-3 are adjacent but overlap at the boundary
+        // January 1-2 and January 2-3 are adjacent but overlap at the boundary.
         final adjacent1 = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1695,7 +1702,7 @@ void main() {
           end: DateTime(2022, 1, 3),
         );
 
-        // These periods overlap at Jan 2, so intersection should be a point
+        // These periods overlap at Jan 2, so intersection should be a point.
         final expectedIntersection = Period(
           start: DateTime(2022, 1, 2),
           end: DateTime(2022, 1, 2),
@@ -1723,7 +1730,7 @@ void main() {
       });
 
       test('returns same result as getIntersection method', () {
-        // Ensure operator & behaves identically to getIntersection
+        // Ensure operator & behaves identically to getIntersection.
         final period1 = Period(
           start: DateTime(2022, 1, 1, 6),
           end: DateTime(2022, 1, 2, 18),
@@ -1740,7 +1747,7 @@ void main() {
       test('handles partial overlap correctly', () {
         // January 1 06:00 - January 2 18:00
         // overlaps with January 1 12:00 - January 3 00:00
-        // Intersection: January 1 12:00 - January 2 18:00
+        // Intersection: January 1 12:00 - January 2 18:00.
         final period1 = Period(
           start: DateTime(2022, 1, 1, 6),
           end: DateTime(2022, 1, 2, 18),
@@ -1763,14 +1770,14 @@ void main() {
       final end = DateTime(2022, DateTime.january, 2);
       final start2 = DateTime(2022, DateTime.january, 1, 12);
       final end2 = DateTime(2022, DateTime.january, 3);
-      final period = Period(start: start, end: end);
-      final period2 = Period(start: start2, end: end2);
-      final period3 = Period(start: start, end: end2);
 
       test('returns union when periods overlap', () {
+        final period = Period(start: start, end: end);
+        final period2 = Period(start: start2, end: end2);
+        final period3 = Period(start: start, end: end2);
         // Period 1: Jan 1 00:00 - Jan 2 00:00
         // Period 2: Jan 1 12:00 - Jan 3 00:00
-        // Union: Jan 1 00:00 - Jan 3 00:00
+        // Union: Jan 1 00:00 - Jan 3 00:00.
         final result = period | period2;
         expect(result, hasLength(1));
         expect(result.first, equals(period3));
@@ -1781,7 +1788,7 @@ void main() {
       });
 
       test('returns both periods when they do not overlap', () {
-        // January 1-2 and January 3-4 do not overlap
+        // January 1-2 and January 3-4 do not overlap.
         final nonOverlapping1 = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1816,7 +1823,7 @@ void main() {
       });
 
       test('returns larger period when one fully contains the other', () {
-        // January 1-5 contains January 2-3
+        // January 1-5 contains January 2-3.
         final container = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 5),
@@ -1836,7 +1843,7 @@ void main() {
       });
 
       test('returns union when periods are adjacent', () {
-        // January 1-2 and January 2-3 are adjacent and overlap at the boundary
+        // January 1-2 and January 2-3 are adjacent and overlap at the boundary.
         final adjacent1 = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1882,7 +1889,7 @@ void main() {
         'behaves consistently with mergeWith method for overlapping periods',
         () {
           // Ensure operator | behaves consistently with mergeWith for
-          // overlapping periods
+          // overlapping periods.
           final period1 = Period(
             start: DateTime(2022, 1, 1, 6),
             end: DateTime(2022, 1, 2, 18),
@@ -1908,7 +1915,7 @@ void main() {
       test('handles partial overlap correctly', () {
         // January 1 06:00 - January 2 18:00
         // overlaps with January 1 12:00 - January 3 00:00
-        // Union: January 1 06:00 - January 3 00:00
+        // Union: January 1 06:00 - January 3 00:00.
         final period1 = Period(
           start: DateTime(2022, 1, 1, 6),
           end: DateTime(2022, 1, 2, 18),
@@ -1932,7 +1939,7 @@ void main() {
       });
 
       test('returns both periods when there is a gap between them', () {
-        // January 1-2 and January 4-5 with a gap on January 3
+        // January 1-2 and January 4-5 with a gap on January 3.
         final period1 = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 2),
@@ -1953,13 +1960,13 @@ void main() {
     });
     group('getDateTimeValues', () {
       test('returns list of dates generated by next function', () {
-        // January 1, 2022 to January 3, 2022
+        // January 1, 2022 to January 3, 2022.
         final period = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 3),
         );
 
-        // Generate daily dates
+        // Generate daily dates.
         final dates = period.getDateTimeValues((last) {
           final next = last.add(const Duration(days: 1));
           return period.contains(next) ? next : null;
@@ -1983,7 +1990,7 @@ void main() {
         DateTime? capturedFirst;
         period.getDateTimeValues((last) {
           capturedFirst ??= last;
-          return null; // Stop immediately
+          return null; // Stop immediately.
         });
 
         expect(capturedFirst, equals(period.start));
@@ -2001,11 +2008,11 @@ void main() {
           if (callCount <= 3) {
             return last.add(const Duration(days: 1));
           }
-          return null; // Stop after 3 calls
+          return null; // Stop after 3 calls.
         });
 
         expect(dates, hasLength(3));
-        expect(callCount, equals(4)); // Called once more after returning null
+        expect(callCount, equals(4)); // Called once more after returning null.
       });
 
       test('handles empty period correctly', () {
@@ -2027,7 +2034,7 @@ void main() {
 
         expect(
           () => period.getDateTimeValues((last) {
-            // Return date outside period
+            // Return date outside period.
             return DateTime(2022, 1, 5);
           }),
           throwsA(
@@ -2041,7 +2048,7 @@ void main() {
       });
 
       test('handles hourly intervals within single day', () {
-        // January 1, 2022 00:00 to January 1, 2022 06:00
+        // January 1, 2022 00:00 to January 1, 2022 06:00.
         final period = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 1, 6),
@@ -2080,9 +2087,9 @@ void main() {
         expect(
           capturedInputs,
           orderedEquals([
-            DateTime(2022), // Start date
-            DateTime(2022, 1, 2), // Last generated
-            DateTime(2022, 1, 3), // Last generated
+            DateTime(2022), // Start date.
+            DateTime(2022, 1, 2), // Last generated.
+            DateTime(2022, 1, 3), // Last generated.
           ]),
         );
       });
@@ -2097,7 +2104,7 @@ void main() {
         final dates = period.getDateTimeValues((last) {
           callCount++;
           if (callCount == 1) {
-            return last; // Return same date
+            return last; // Return same date.
           }
           return null;
         });
@@ -2106,7 +2113,7 @@ void main() {
       });
 
       test('continues until end boundary is reached', () {
-        // January 1, 2022 to January 1, 2022 03:00
+        // January 1, 2022 to January 1, 2022 03:00.
         final period = Period(
           start: DateTime(2022),
           end: DateTime(2022, 1, 1, 3),
@@ -2165,7 +2172,7 @@ void main() {
     });
     group('toString', () {
       test('Returns formatted string with default formatting', () {
-        // July 1, 2024 is Monday
+        // July 1, 2024 is Monday.
         final start = DateTime(2024, 7);
         final end = DateTime(2024, 7, 10);
         final period = Period(start: start, end: end);
@@ -2177,7 +2184,7 @@ void main() {
       });
 
       test('Uses custom date formatter when provided', () {
-        // July 1, 2024 is Monday
+        // July 1, 2024 is Monday.
         final start = DateTime(2024, 7);
         final end = DateTime(2024, 7, 10);
         final period = Period(start: start, end: end);
@@ -2192,13 +2199,13 @@ void main() {
 
     group('trim', () {
       test('Removes periods that do not overlap', () {
-        // July 2024 period
+        // July 2024 period.
         final period = Period(
           start: DateTime(2024, 7),
           end: DateTime(2024, 7, 31),
         );
 
-        // June and August periods do not overlap
+        // June and August periods do not overlap.
         final periods = [
           Period(start: DateTime(2024, 6), end: DateTime(2024, 6, 30)),
           Period(start: DateTime(2024, 8), end: DateTime(2024, 8, 31)),
@@ -2210,13 +2217,13 @@ void main() {
       });
 
       test('Keeps periods that are fully contained', () {
-        // July 2024 period
+        // July 2024 period.
         final period = Period(
           start: DateTime(2024, 7),
           end: DateTime(2024, 7, 31),
         );
 
-        // Mid-July period is fully contained
+        // Mid-July period is fully contained.
         final containedPeriod = Period(
           start: DateTime(2024, 7, 10),
           end: DateTime(2024, 7, 20),
@@ -2230,13 +2237,13 @@ void main() {
       });
 
       test('Trims periods that partially overlap', () {
-        // July 2024 period
+        // July 2024 period.
         final period = Period(
           start: DateTime(2024, 7),
           end: DateTime(2024, 7, 31),
         );
 
-        // Periods that partially overlap with July
+        // Periods that partially overlap with July.
         final periods = [
           Period(start: DateTime(2024, 6, 25), end: DateTime(2024, 7, 5)),
           Period(start: DateTime(2024, 7, 25), end: DateTime(2024, 8, 5)),
@@ -2245,10 +2252,10 @@ void main() {
         final result = period.trim(periods);
 
         expect(result.length, equals(2));
-        // First period should be trimmed to July 1-5
-        expect(result[0].start, equals(DateTime(2024, 7)));
-        expect(result[0].end, equals(DateTime(2024, 7, 5)));
-        // Second period should be trimmed to July 25-31
+        // First period should be trimmed to July 1-5.
+        expect(result.first.start, equals(DateTime(2024, 7)));
+        expect(result.first.end, equals(DateTime(2024, 7, 5)));
+        // Second period should be trimmed to July 25-31.
         expect(result[1].start, equals(DateTime(2024, 7, 25)));
         expect(result[1].end, equals(DateTime(2024, 7, 31)));
       });
@@ -2256,35 +2263,35 @@ void main() {
       test(
           'Mixed case with overlapping, contained, and non-overlapping periods',
           () {
-        // July 2024 period
+        // July 2024 period.
         final period = Period(
           start: DateTime(2024, 7),
           end: DateTime(2024, 7, 31),
         );
 
         final periods = [
-          // Non-overlapping - should be removed
+          // Non-overlapping - should be removed.
           Period(start: DateTime(2024, 6), end: DateTime(2024, 6, 30)),
-          // Partially overlapping - should be trimmed
+          // Partially overlapping - should be trimmed.
           Period(start: DateTime(2024, 6, 25), end: DateTime(2024, 7, 5)),
-          // Fully contained - should remain unchanged
+          // Fully contained - should remain unchanged.
           Period(start: DateTime(2024, 7, 10), end: DateTime(2024, 7, 20)),
-          // Partially overlapping - should be trimmed
+          // Partially overlapping - should be trimmed.
           Period(start: DateTime(2024, 7, 25), end: DateTime(2024, 8, 5)),
-          // Non-overlapping - should be removed
+          // Non-overlapping - should be removed.
           Period(start: DateTime(2024, 8, 10), end: DateTime(2024, 8, 15)),
         ];
 
         final result = period.trim(periods);
 
         expect(result.length, equals(3));
-        // First period should be trimmed to July 1-5
+        // First period should be trimmed to July 1-5.
         expect(result.first.start, equals(DateTime(2024, 7)));
         expect(result.first.end, equals(DateTime(2024, 7, 5)));
-        // Second period should remain unchanged
+        // Second period should remain unchanged.
         expect(result[1].start, equals(DateTime(2024, 7, 10)));
         expect(result[1].end, equals(DateTime(2024, 7, 20)));
-        // Third period should be trimmed to July 25-31
+        // Third period should be trimmed to July 25-31.
         expect(result.last.start, equals(DateTime(2024, 7, 25)));
         expect(result.last.end, equals(DateTime(2024, 7, 31)));
       });

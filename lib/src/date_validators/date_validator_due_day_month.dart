@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import '../helpers/helpers.dart';
+import '../helpers/bool_compare.dart';
+import '../helpers/object_extension.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';
 import 'exact_date_validator.dart';

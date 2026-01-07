@@ -6,8 +6,7 @@ import 'date_validator_mixin.dart';
 ///
 /// This simply inverts the logic of the original validator.
 /// {@endtemplate}
-class DateValidatorOpposite<T extends DateValidator> extends DateValidator
-    with DateValidatorMixin {
+class DateValidatorOpposite<T extends DateValidator> with DateValidatorMixin {
   /// {@macro dateValidatorOpposite}
   const DateValidatorOpposite(this._validator);
 

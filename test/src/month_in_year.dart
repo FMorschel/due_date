@@ -9,6 +9,7 @@ class MonthInYear with EquatableMixin {
   final int month;
   final int year;
 
+  // ignore: essential_lints/optional_positional_parameters valid use
   DateTime date([int day = 1]) => DateTime(year, month, day);
 
   @override

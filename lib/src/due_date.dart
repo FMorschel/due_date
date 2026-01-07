@@ -4,18 +4,22 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:time/time.dart';
 
-import 'everies/everies.dart';
+import 'everies/every.dart';
+import 'everies/every_date_validator.dart';
+import 'everies/every_due_day_month.dart';
+import 'everies/every_month.dart';
+import 'everies/every_week.dart';
+import 'everies/every_year.dart';
+import 'everies/limited_every.dart';
 import 'everies/limited_every_date_validator.dart';
-import 'extensions/extensions.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
 @immutable
 class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// Constructs a [DueDateTime] instance.
   ///
-  /// For example,
-  /// to create a `DueDateTime` object representing the 7th of September 2017,
-  /// 5:30pm
+  /// For example, to create a `DueDateTime` object representing the 7th of
+  /// September 2017, 5:30pm.
   ///
   /// The [limit] will be passed to the [Every] instance if it is a
   /// [LimitedEvery].
@@ -29,10 +33,12 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   ///   minute: 30,
   /// );
   /// ```
+  ///
   /// The [every] parameter is optional. If it is provided, the [DueDateTime]
   /// will be adjusted to the next due date. If it is not provided, the
   /// values will be used as-is. And the [DueDateTime.every] property will
   /// be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -132,6 +138,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// will be adjusted to the next due date. If it is not provided, the
   /// values will be used as-is. And the [DueDateTime.every] property will
   /// be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -167,6 +174,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   /// Constructs a [DueDateTime] instance with current date and time in the
   /// local time zone. The [DueDateTime.every] property will be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -191,6 +199,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// will be adjusted to the next due date. If it is not provided, the
   /// [reference] will be used as-is. And the [DueDateTime.every] property will
   /// be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(reference.day).
   /// ```
@@ -207,16 +216,15 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         every: EveryDueDayMonth(reference.day) as T,
         date: reference,
       );
-    } else {
-      return DueDateTime<T>._toConstructor(
-        date: every is EveryDateValidator
-            ? (every is LimitedEveryDateValidator
-                ? every.startDate(reference, limit: limit)
-                : every.startDate(reference))
-            : reference,
-        every: every,
-      );
     }
+    return DueDateTime<T>._toConstructor(
+      date: every is EveryDateValidator
+          ? (every is LimitedEveryDateValidator
+              ? every.startDate(reference, limit: limit)
+              : every.startDate(reference))
+          : reference,
+      every: every,
+    );
   }
 
   factory DueDateTime._toConstructor({
@@ -301,6 +309,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// [DueDateTime] will be adjusted to the next due date. If it is not
   /// provided, the [formattedString] will be used as-is. And the
   /// [DueDateTime.every] property will be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -331,6 +340,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// will be adjusted to the next due date. If it is not provided, the
   /// [formattedString] will be used as-is. And the
   /// [DueDateTime.every] property will be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -355,9 +365,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   ///
   /// If [isUtc] is false then the date is in the local time zone.
   ///
-  /// The constructed [DueDateTime] represents
-  /// 1970-01-01T00:00:00Z + [millisecondsSinceEpoch] ms in the given
-  /// time zone (local or UTC).
+  /// The constructed [DueDateTime] represents 1970-01-01T00:00:00Z +
+  /// [millisecondsSinceEpoch] ms in the given time zone (local or UTC).
+  ///
   /// ```dart
   /// final newYearsDay =
   ///     DueDateTime.fromMillisecondsSinceEpoch(1640979000000, isUtc:true);
@@ -368,6 +378,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// will be adjusted to the next due date. If it is not provided, the
   /// [millisecondsSinceEpoch] will be used as-is. And the [DueDateTime.every]
   /// property will be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -396,9 +407,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   ///
   /// If [isUtc] is false, then the date is in the local time zone.
   ///
-  /// The constructed [DueDateTime] represents
-  /// 1970-01-01T00:00:00Z + [microsecondsSinceEpoch] us in the given
-  /// time zone (local or UTC).
+  /// The constructed [DueDateTime] represents 1970-01-01T00:00:00Z +
+  /// [microsecondsSinceEpoch] us in the given time zone (local or UTC).
+  ///
   /// ```dart
   /// final newYearsEve =
   ///     DueDateTime.fromMicrosecondsSinceEpoch(1640901600000000, isUtc:true);
@@ -409,6 +420,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// will be adjusted to the next due date. If it is not provided, the
   /// [microsecondsSinceEpoch] will be used as-is. And the [DueDateTime.every]
   /// property will be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -503,8 +515,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   /// Returns a new [DueDateTime] instance with [duration] added to `this`.
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -532,8 +545,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   /// Returns a new [DueDateTime] instance with [duration] subtracted from
   /// `this`.
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -560,8 +574,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   /// Returns a new [DueDateTime] instance with [weeks] weeks added to this.
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -571,16 +586,16 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
     if (every is EveryWeek) {
       final date = (every as EveryWeek).addWeeks(this, weeks);
       return DueDateTime.fromDate(date, every: sameEvery ? every : null);
-    } else {
-      return add(_week * weeks, sameEvery: sameEvery);
     }
+    return add(_week * weeks, sameEvery: sameEvery);
   }
 
   /// Returns a new [DueDateTime] instance with [weeks] weeks subtracted from
   /// this.
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -593,8 +608,9 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   /// Returns a new [DueDateTime] instance with [months] months added to this.
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -609,19 +625,19 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         (every as EveryMonth).addMonths(this, months),
         every: sameEvery ? every : null,
       );
-    } else {
-      return DueDateTime.fromDate(
-        EveryDueDayMonth(day).addMonths(this, months),
-        every: sameEvery ? every : null,
-      );
     }
+    return DueDateTime.fromDate(
+      EveryDueDayMonth(day).addMonths(this, months),
+      every: sameEvery ? every : null,
+    );
   }
 
   /// Returns a new [DueDateTime] instance with [months] months subtracted from
   /// this.
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -637,15 +653,17 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   ///
   /// If the current [every] is! [EveryYear], the [every] used to create the
   /// new [DueDateTime] will be:
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
-  /// And if the generated date is a leap year, and the [month] is February,
-  /// the [day] will be set to 29 only if the current date is 29, else it will
-  /// stay with the same day only changing the year.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date. And if the generated date
+  /// is a leap year, and the [month] is February, the [day] will be set to 29
+  /// only if the current date is 29, else it will stay with the same day only
+  /// changing the year.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -660,19 +678,19 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
         (every as EveryYear).addYears(this, years),
         every: sameEvery ? every : null,
       );
-    } else {
-      return DueDateTime.fromDate(
-        EveryDueDayMonth(day).addYears(this, years),
-        every: sameEvery ? every : null,
-      );
     }
+    return DueDateTime.fromDate(
+      EveryDueDayMonth(day).addYears(this, years),
+      every: sameEvery ? every : null,
+    );
   }
 
   /// Returns a new [DueDateTime] instance with [years] years subtracted from
   /// this.
   ///
-  /// If [sameEvery] is true, keeps the current one.
-  /// If is false, the [every] will change to the [day] of the generated date.
+  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
+  /// will change to the [day] of the generated date.
+  ///
   /// ```dart
   /// EveryDueDayMonth(day);
   /// ```
@@ -686,7 +704,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
 
   @override
   String toString() {
-    final date = this.date.add(exactTimeOfDay);
+    final date = this.date.add(timeOfDay);
     return '$date - $every';
   }
 

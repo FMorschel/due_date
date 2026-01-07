@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_week.dart';
 import 'package:test/test.dart';
 
 import '../src/every_match.dart';
@@ -39,18 +40,17 @@ class _TestEveryWeekUtc extends Every with EveryWeek {
         date.millisecond,
         date.microsecond,
       );
-    } else {
-      return DateTime(
-        date.year,
-        date.month,
-        date.day + (weeks * 7),
-        date.hour,
-        date.minute,
-        date.second,
-        date.millisecond,
-        date.microsecond,
-      );
     }
+    return DateTime(
+      date.year,
+      date.month,
+      date.day + (weeks * 7),
+      date.hour,
+      date.minute,
+      date.second,
+      date.millisecond,
+      date.microsecond,
+    );
   }
 
   @override

@@ -1,5 +1,9 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/enums/week.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/enums/weekday_occurrence.dart';
+import 'package:due_date/src/everies/every_weekday_count_in_month.dart';
 import 'package:test/test.dart';
+import 'package:time/time.dart';
 
 import '../src/date_time_match.dart';
 import '../src/date_validator_match.dart';
@@ -137,13 +141,13 @@ void main() {
         test('Created instance can regenerate same date', () {
           // Test that the created instance can find the same date.
           final testDates = [
-            DateTime(2022, DateTime.july, 4), // First Monday
-            DateTime(2022, DateTime.august, 9), // Second Tuesday
-            DateTime(2022, DateTime.july, 20), // Third Wednesday
-            DateTime(2022, DateTime.july, 28), // Fourth Thursday
-            DateTime(2022, DateTime.july, 29), // Last Friday
-            DateTime(2022, DateTime.october), // First Saturday
-            DateTime(2022, DateTime.july, 31), // Last Sunday
+            DateTime(2022, DateTime.july, 4), // First Monday.
+            DateTime(2022, DateTime.august, 9), // Second Tuesday.
+            DateTime(2022, DateTime.july, 20), // Third Wednesday.
+            DateTime(2022, DateTime.july, 28), // Fourth Thursday.
+            DateTime(2022, DateTime.july, 29), // Last Friday.
+            DateTime(2022, DateTime.october), // First Saturday.
+            DateTime(2022, DateTime.july, 31), // Last Sunday.
           ];
 
           for (final date in testDates) {
@@ -419,7 +423,7 @@ void main() {
         final result = everySecondMonday.next(inputWithTime);
 
         // Should preserve time components.
-        expect(result.exactTimeOfDay, equals(inputWithTime.exactTimeOfDay));
+        expect(result.timeOfDay, equals(inputWithTime.timeOfDay));
         expect(result.hour, equals(14));
         expect(result.minute, equals(30));
         expect(result.second, equals(45));

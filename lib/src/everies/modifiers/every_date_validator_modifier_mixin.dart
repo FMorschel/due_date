@@ -1,21 +1,16 @@
 import '../../helpers/limited_or_every_handler.dart';
 import '../every_date_validator.dart';
-import '../limited_every_date_validator.dart';
 import 'date_direction.dart';
 import 'every_date_validator_modifier.dart';
-import 'every_modifier_mixin.dart';
-import 'limited_every_date_validator_modifier_mixin.dart';
+import 'every_wrapper_mixin.dart';
 
 /// {@template everyModifierMixin}
 /// Mixin that, when used, passes the calls to the specific method on the
 /// underlying [every].
-///
-/// If the [every] is a [LimitedEveryDateValidator], the
-/// [LimitedEveryDateValidatorModifierMixin] should be used instead.
 /// {@endtemplate}
 mixin EveryDateValidatorModifierMixin<T extends EveryDateValidator>
     on EveryDateValidatorModifier<T>
-    implements EveryDateValidator, EveryModifierMixin<T> {
+    implements EveryDateValidator, EveryWrapperMixin<T> {
   @override
   DateTime startDate(DateTime date) {
     return processDate(

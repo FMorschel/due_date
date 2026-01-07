@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator_day_in_year.dart';
+import 'package:due_date/src/extensions/add_days.dart';
 import 'package:test/test.dart';
 
 import '../src/date_tostring.dart';
@@ -14,11 +15,11 @@ void main() {
         test('Day 366', () {
           expect(const DateValidatorDayInYear(366), isNotNull);
         });
-        test('Exact false by default', () {
-          expect(const DateValidatorDayInYear(23).exact, isFalse);
+        test('Exact true by default', () {
+          expect(const DateValidatorDayInYear(23).exact, isTrue);
         });
-        test('Exact true when specified', () {
-          expect(const DateValidatorDayInYear(23, exact: true).exact, isTrue);
+        test('Exact false when specified', () {
+          expect(const DateValidatorDayInYear(23, exact: false).exact, isFalse);
         });
         test('DayInYear property is set correctly', () {
           expect(const DateValidatorDayInYear(150).dayInYear, equals(150));
@@ -107,11 +108,6 @@ void main() {
         expect(validator.dayInYear, equals(123));
       });
 
-      test('exact property with false', () {
-        final validator = DateValidatorDayInYear(50);
-        expect(validator.exact, isFalse);
-      });
-
       test('exact property with true', () {
         final validator = DateValidatorDayInYear(50, exact: true);
         expect(validator.exact, isTrue);
@@ -143,7 +139,7 @@ void main() {
         });
 
         test('Compare different exact values with same dayInYear', () {
-          final validator1 = DateValidatorDayInYear(180);
+          final validator1 = DateValidatorDayInYear(180, exact: false);
           final validator2 = DateValidatorDayInYear(180, exact: true);
           expect(validator1.compareTo(validator2), isNegative);
           expect(validator2.compareTo(validator1), isPositive);
@@ -168,7 +164,7 @@ void main() {
         });
 
         test('Day 366 non-exact in non-leap year falls back to day 365', () {
-          final validator = DateValidatorDayInYear(366);
+          final validator = DateValidatorDayInYear(366, exact: false);
           // Day 365 of 2023.
           final nonLeapYearDate = DateTime(2023, 12, 31);
           expect(validator, isValid(nonLeapYearDate));
@@ -211,10 +207,10 @@ void main() {
     });
 
     group('Equality', () {
-      final validator1 = DateValidatorDayInYear(1);
+      final validator1 = DateValidatorDayInYear(1, exact: false);
       final validator2 = DateValidatorDayInYear(1, exact: true);
-      final validator3 = DateValidatorDayInYear(2);
-      final validator4 = DateValidatorDayInYear(1);
+      final validator3 = DateValidatorDayInYear(2, exact: false);
+      final validator4 = DateValidatorDayInYear(1, exact: false);
 
       test('Same instance', () {
         expect(validator1, equals(validator1));
@@ -230,7 +226,7 @@ void main() {
       });
       test('Hash code consistency', () {
         final validator5 = DateValidatorDayInYear(1);
-        expect(validator1.hashCode, equals(validator5.hashCode));
+        expect(validator2.hashCode, equals(validator5.hashCode));
       });
     });
   });

@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import '../enums/enums.dart';
-import '../extensions/extensions.dart';
+import '../enums/week.dart';
+import '../enums/weekday.dart';
 import 'date_validator.dart';
 import 'date_validator_mixin.dart';
 
 /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
 /// [day] of the week and is the [week] of the month.
-class DateValidatorWeekdayCountInMonth extends DateValidator
+class DateValidatorWeekdayCountInMonth
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorWeekdayCountInMonth> {
   /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
@@ -36,23 +36,15 @@ class DateValidatorWeekdayCountInMonth extends DateValidator
   final Weekday day;
 
   @override
+  List<Object> get props => [day, week];
+
+  @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is DateValidatorWeekdayCountInMonth) &&
             (week == other.week) &&
             (day == other.day));
-  }
-
-  @override
-  bool valid(DateTime date) {
-    final valid = week.weekdayOf(
-      year: date.year,
-      month: date.month,
-      day: day,
-      utc: date.isUtc,
-    );
-    return valid.add(date.exactTimeOfDay) == date;
   }
 
   @override
@@ -63,5 +55,13 @@ class DateValidatorWeekdayCountInMonth extends DateValidator
   }
 
   @override
-  List<Object> get props => [day, week];
+  bool valid(DateTime date) {
+    final valid = week.weekdayOf(
+      year: date.year,
+      month: date.month,
+      day: day,
+      utc: date.isUtc,
+    );
+    return valid.add(date.timeOfDay) == date;
+  }
 }

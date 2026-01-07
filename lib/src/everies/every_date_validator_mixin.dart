@@ -1,4 +1,4 @@
-import '../../due_date.dart';
+import 'every_date_validator.dart';
 
 /// A mixin to easily implement the [EveryDateValidator.startDate] and
 /// [EveryDateValidator.endDate] methods.

@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_year.dart';
 import 'package:test/test.dart';
 
 import '../src/every_match.dart';
@@ -50,18 +51,17 @@ class _TestEveryYearUtc extends Every with EveryYear {
         date.millisecond,
         date.microsecond,
       );
-    } else {
-      return DateTime(
-        newYear,
-        date.month,
-        date.day,
-        date.hour,
-        date.minute,
-        date.second,
-        date.millisecond,
-        date.microsecond,
-      );
     }
+    return DateTime(
+      newYear,
+      date.month,
+      date.day,
+      date.hour,
+      date.minute,
+      date.second,
+      date.millisecond,
+      date.microsecond,
+    );
   }
 
   @override

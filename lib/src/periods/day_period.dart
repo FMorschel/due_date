@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import '../period_generators/period_generators.dart';
+import '../period_generators/hour_generator.dart';
 import 'hour_period.dart';
 import 'period.dart';
 

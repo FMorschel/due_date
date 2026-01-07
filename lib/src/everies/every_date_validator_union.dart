@@ -1,19 +1,20 @@
-import '../date_validators/date_validators.dart';
-import '../helpers/helpers.dart';
+import '../date_validators/date_validator_union.dart';
+import '../helpers/date_reducer.dart';
+import '../helpers/limited_or_every_handler.dart';
 import 'every.dart';
 import 'every_date_validator.dart';
 import 'limited_every.dart';
 import 'limited_every_date_validator_list_mixin.dart';
+import 'limited_every_mixin.dart';
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where any of the [EveryDateValidator]s conditions are met.
 class EveryDateValidatorUnion<E extends EveryDateValidator>
     extends DateValidatorUnion<E>
-    with LimitedEveryDateValidatorListMixin<E>
-    implements LimitedEvery {
+    with LimitedEveryDateValidatorListMixin<E>, LimitedEveryMixin {
   /// Class that processes [DateTime] so that the [next] always returns the next
   /// day where any of the [EveryDateValidator]s conditions are met.
-  const EveryDateValidatorUnion(super.everyDateValidators);
+  const EveryDateValidatorUnion(super.base);
 
   /// Returns the next instance of the given [date] considering this [Every]
   /// base process.

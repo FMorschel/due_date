@@ -1,4 +1,7 @@
-import '../everies/everies.dart';
+import '../everies/every_date_validator.dart';
+import '../everies/every_date_validator_difference.dart';
+import '../everies/every_date_validator_intersection.dart';
+import '../everies/every_date_validator_union.dart';
 
 /// Extension methods related to [EveryDateValidator]s. Simply wrappers around
 /// creating [EveryDateValidatorIntersection], [EveryDateValidatorUnion] or

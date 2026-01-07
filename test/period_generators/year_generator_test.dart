@@ -1,4 +1,9 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
+import 'package:due_date/src/period_generators/year_generator.dart';
+import 'package:due_date/src/periods/day_period.dart';
+import 'package:due_date/src/periods/month_period.dart';
+import 'package:due_date/src/periods/period.dart';
+import 'package:due_date/src/periods/year_period.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
@@ -16,7 +21,7 @@ void main() {
 
     group('of', () {
       test('Start of year', () {
-        // January 1, 2022
+        // January 1, 2022.
         final period = yearGenerator.of(DateTime(2022));
         final expected = YearPeriod(
           start: DateTime(2022),
@@ -26,7 +31,7 @@ void main() {
       });
 
       test('End of year', () {
-        // December 31, 2022
+        // December 31, 2022.
         final period = yearGenerator.of(DateTime(2022, 12, 31));
         final expected = YearPeriod(
           start: DateTime(2022),
@@ -36,7 +41,7 @@ void main() {
       });
 
       test('Middle of year', () {
-        // June 15, 2022
+        // June 15, 2022.
         final period = yearGenerator.of(DateTime(2022, 6, 15));
         final expected = YearPeriod(
           start: DateTime(2022),
@@ -46,7 +51,7 @@ void main() {
       });
 
       test('Date with time components', () {
-        // March 15, 2022 at 10:30:45
+        // March 15, 2022 at 10:30:45.
         final period = yearGenerator.of(DateTime(2022, 3, 15, 10, 30, 45));
         final expected = YearPeriod(
           start: DateTime(2022),
@@ -57,7 +62,7 @@ void main() {
 
       group('Leap year', () {
         test('Start of leap year', () {
-          // January 1, 2020
+          // January 1, 2020.
           final period = yearGenerator.of(DateTime(2020));
           final expected = YearPeriod(
             start: DateTime(2020),
@@ -67,7 +72,7 @@ void main() {
         });
 
         test('End of leap year', () {
-          // December 31, 2020
+          // December 31, 2020.
           final period = yearGenerator.of(DateTime(2020, 12, 31));
           final expected = YearPeriod(
             start: DateTime(2020),
@@ -77,7 +82,7 @@ void main() {
         });
 
         test('Leap day', () {
-          // February 29, 2020
+          // February 29, 2020.
           final period = yearGenerator.of(DateTime(2020, 2, 29));
           final expected = YearPeriod(
             start: DateTime(2020),
@@ -176,12 +181,12 @@ void main() {
         const monthGenerator = MonthGenerator();
         final year = yearGenerator.of(DateTime(2020));
         final months = year.months;
-        final february = months[1]; // February is index 1
+        final february = months[1]; // February is index 1.
         expect(
           february,
           equals(monthGenerator.of(DateTime(2020, 2))),
         );
-        // February 2020 should end on February 29
+        // February 2020 should end on February 29.
         expect(
           february.end,
           isSameDateTime(DateTime(2020, 2, 29, 23, 59, 59, 999, 999)),
@@ -192,12 +197,12 @@ void main() {
         const monthGenerator = MonthGenerator();
         final year = yearGenerator.of(DateTime(2022));
         final months = year.months;
-        final february = months[1]; // February is index 1
+        final february = months[1]; // February is index 1.
         expect(
           february,
           equals(monthGenerator.of(DateTime(2022, 2))),
         );
-        // February 2022 should end on February 28
+        // February 2022 should end on February 28.
         expect(
           february.end,
           isSameDateTime(DateTime(2022, 2, 28, 23, 59, 59, 999, 999)),

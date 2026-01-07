@@ -1,4 +1,5 @@
-import '../date_validators/date_validators.dart';
+import '../date_validators/date_validator.dart';
+import '../date_validators/date_validator_mixin.dart';
 import 'every.dart';
 
 /// A base class that represents an [Every] with a [DateValidator].

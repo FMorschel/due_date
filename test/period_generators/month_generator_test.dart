@@ -1,4 +1,16 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/day_generator.dart';
+import 'package:due_date/src/period_generators/fortnight_generator.dart';
+import 'package:due_date/src/period_generators/hour_generator.dart';
+import 'package:due_date/src/period_generators/minute_generator.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
+import 'package:due_date/src/period_generators/second_generator.dart';
+import 'package:due_date/src/period_generators/semester_generator.dart';
+import 'package:due_date/src/period_generators/trimester_generator.dart';
+import 'package:due_date/src/period_generators/week_generator.dart';
+import 'package:due_date/src/period_generators/year_generator.dart';
+import 'package:due_date/src/periods/day_period.dart';
+import 'package:due_date/src/periods/month_period.dart';
+import 'package:due_date/src/periods/period.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
@@ -14,7 +26,7 @@ void main() {
 
     group('of', () {
       test('Start of month', () {
-        // January 1, 2022
+        // January 1, 2022.
         final period = monthGenerator.of(DateTime(2022));
         final expected = MonthPeriod(
           start: DateTime(2022),
@@ -24,7 +36,7 @@ void main() {
       });
 
       test('End of month', () {
-        // January 31, 2022
+        // January 31, 2022.
         final period = monthGenerator.of(DateTime(2022, 1, 31));
         final expected = MonthPeriod(
           start: DateTime(2022),
@@ -34,7 +46,7 @@ void main() {
       });
 
       test('Middle of month', () {
-        // January 15, 2022
+        // January 15, 2022.
         final period = monthGenerator.of(DateTime(2022, 1, 15));
         final expected = MonthPeriod(
           start: DateTime(2022),
@@ -154,7 +166,7 @@ void main() {
 
     group('Edge cases', () {
       group('February leap year', () {
-        // February 2020 is in a leap year
+        // February 2020 is in a leap year.
         final day = DateTime(2020, DateTime.february);
         final period = MonthPeriod(
           start: day.date,
@@ -186,7 +198,7 @@ void main() {
       });
 
       group('February non-leap year', () {
-        // February 2022 is in a non-leap year
+        // February 2022 is in a non-leap year.
         final day = DateTime(2022, DateTime.february);
         final period = MonthPeriod(
           start: day.date,
@@ -218,7 +230,7 @@ void main() {
       });
 
       group('Month with 30 days', () {
-        // April 2022 has 30 days
+        // April 2022 has 30 days.
         final day = DateTime(2022, DateTime.april);
         final period = MonthPeriod(
           start: day.date,
@@ -250,7 +262,7 @@ void main() {
       });
 
       group('Month with 31 days', () {
-        // January 2022 has 31 days
+        // January 2022 has 31 days.
         final day = DateTime(2022);
         final period = MonthPeriod(
           start: day.date,
@@ -282,7 +294,7 @@ void main() {
       });
 
       test('Year boundary crossing', () {
-        // December 2021 to January 2022
+        // December 2021 to January 2022.
         final period = monthGenerator.of(DateTime(2021, 12, 31));
         final next = monthGenerator.after(period);
         expect(next.start.year, equals(2022));
@@ -354,7 +366,7 @@ void main() {
       });
 
       test('Different generator types are not equal', () {
-        // MonthGenerator should not equal other generator types
+        // MonthGenerator should not equal other generator types.
         expect(generator1, isNot(equals(DayGenerator())));
         expect(generator1, isNot(equals(WeekGenerator())));
         expect(generator1, isNot(equals(HourGenerator())));
@@ -366,7 +378,7 @@ void main() {
         expect(generator1, isNot(equals(YearGenerator())));
 
         // WeekGenerators with different parameters should not equal
-        // MonthGenerator
+        // MonthGenerator.
         expect(
           generator1,
           isNot(equals(WeekGenerator(weekStart: DateTime.tuesday))),

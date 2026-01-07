@@ -1,22 +1,20 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validators.dart';
-import '../extensions/exact_time_of_day.dart';
-import '../helpers/helpers.dart';
+import '../date_validators/date_validator_due_workday_month.dart';
+import '../helpers/object_extension.dart';
+import '../helpers/workday_helper.dart';
 import 'every_date_validator_mixin.dart';
 import 'every_date_validator_union.dart';
 import 'every_due_day_month.dart';
 import 'every_month.dart';
 import 'every_weekday.dart';
-import 'exact_every.dart';
 import 'workday_direction.dart';
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [DateTime.day] being the [dueWorkday] workday of the
 /// month clamped to fit in the length of the next month.
 class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
-    with EveryMonth, EveryDateValidatorMixin
-    implements ExactEvery {
+    with EveryMonth, EveryDateValidatorMixin {
   /// Returns a [EveryDueWorkdayMonth] with the given [dueWorkday].
   ///
   /// A month can have at most 23 workdays.
@@ -28,7 +26,7 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
           (dueWorkday >= 1) && (dueWorkday <= 23),
           'Due workday must be between 1 and 23',
         ),
-        super();
+        super(exact: false);
 
   /// Returns a [EveryDueWorkdayMonth] with the [dueWorkday] being the
   /// workday (monday, tuesday, wednesday, thursday or friday) of the given
@@ -65,24 +63,6 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
       WorkdayHelper.every;
 
   @override
-  DateTime next(DateTime date) {
-    return _calculate(
-      date,
-      dateGeneratorFunction: _workdays.next,
-      isNext: true,
-    );
-  }
-
-  @override
-  DateTime previous(DateTime date) {
-    return _calculate(
-      date,
-      dateGeneratorFunction: _workdays.previous,
-      isNext: false,
-    );
-  }
-
-  @override
   DateTime addMonths(DateTime date, int months) {
     if (months == 0) return startDate(date);
     if (months.isNegative) {
@@ -93,6 +73,28 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   }
 
   @override
+  DateTime addYears(DateTime date, int years) =>
+      next(const EveryDueDayMonth(1).addYears(date, years));
+
+  @override
+  DateTime next(DateTime date) {
+    return _calculate(
+      date,
+      dateGeneratorFunction: _workdays.next,
+      isForward: true,
+    );
+  }
+
+  @override
+  DateTime previous(DateTime date) {
+    return _calculate(
+      date,
+      dateGeneratorFunction: _workdays.previous,
+      isForward: false,
+    );
+  }
+
+  @override
   String toString() {
     return 'EveryDueWorkdayMonth<$dueWorkday>';
   }
@@ -100,20 +102,20 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   DateTime _calculate(
     DateTime date, {
     required DateTime Function(DateTime date) dateGeneratorFunction,
-    required bool isNext,
+    required bool isForward,
   }) {
-    var local = WorkdayHelper.adjustToWorkday(date, isNext: isNext);
+    var local = WorkdayHelper.adjustToWorkday(date, isNext: isForward);
     if (local != date && valid(local)) {
-      return local.date.add(date.exactTimeOfDay);
+      return local.date.add(date.timeOfDay);
     }
-    if (_shouldChangeMonth(date, isNext: isNext)) {
-      local = local.copyWith(month: local.month + (isNext ? 1 : -1), day: 1);
+    if (_shouldChangeMonth(date, isNext: isForward)) {
+      local = local.copyWith(month: local.month + (isForward ? 1 : -1), day: 1);
     }
-    local = _firstOrLastWorkdayOfMonth(local, first: isNext);
+    local = _firstOrLastWorkdayOfMonth(local, first: isForward);
     while (invalid(local)) {
       local = dateGeneratorFunction(local);
     }
-    return local.date.add(date.exactTimeOfDay);
+    return local.date.add(date.timeOfDay);
   }
 
   DateTime _firstOrLastWorkdayOfMonth(DateTime date, {required bool first}) {
@@ -133,8 +135,4 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
             (_firstOrLastWorkdayOfMonth(date, first: false) == date))
         : (measuredWorkday <= dueWorkday));
   }
-
-  @override
-  DateTime addYears(DateTime date, int years) =>
-      next(const EveryDueDayMonth(1).addYears(date, years));
 }

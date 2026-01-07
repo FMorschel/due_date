@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator_time_of_day.dart';
 import 'package:test/test.dart';
 
 import '../src/date_validator_match.dart';
@@ -25,26 +25,6 @@ void main() {
             validator.timeOfDay,
             equals(const Duration(hours: 8, minutes: 15)),
           );
-        });
-        group('asserts limits', () {
-          test('Negative duration', () {
-            expect(
-              () => DateValidatorTimeOfDay(-const Duration(microseconds: 1)),
-              throwsA(isA<AssertionError>()),
-            );
-          });
-          test('1 day', () {
-            expect(
-              () => DateValidatorTimeOfDay(const Duration(days: 1)),
-              throwsA(isA<AssertionError>()),
-            );
-          });
-          test('2 days', () {
-            expect(
-              () => DateValidatorTimeOfDay(const Duration(days: 2)),
-              throwsA(isA<AssertionError>()),
-            );
-          });
         });
       });
       group('from', () {

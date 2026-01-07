@@ -6,6 +6,7 @@ import 'every_date_validator_union.dart';
 import 'every_month.dart';
 import 'every_week.dart';
 import 'every_year.dart';
+import 'modifiers/date_direction.dart';
 
 /// Abstract class that forces the implementation of [Every] to have a
 /// limit parameter for the [next] and [previous] methods.
@@ -38,4 +39,12 @@ abstract class LimitedEvery extends Every {
   /// {@macro limit}
   @override
   DateTime previous(DateTime date, {DateTime? limit});
+
+  /// Throws a [DateTimeLimitReachedException] if the [date] has reached the
+  /// [limit] in the given [direction].
+  void throwIfLimitReached(
+    DateTime date,
+    DateDirection direction, {
+    required DateTime? limit,
+  });
 }

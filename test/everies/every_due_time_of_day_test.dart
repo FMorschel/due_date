@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every_due_time_of_day.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';
@@ -37,26 +37,6 @@ void main() {
             expect(
               EveryDueTimeOfDay(const Duration(hours: 14, minutes: 45)),
               isNotNull,
-            );
-          });
-        });
-        group('asserts limits', () {
-          test('Negative duration', () {
-            expect(
-              () => EveryDueTimeOfDay(-const Duration(microseconds: 1)),
-              throwsA(isA<AssertionError>()),
-            );
-          });
-          test('Duration of 1 day', () {
-            expect(
-              () => EveryDueTimeOfDay(const Duration(days: 1)),
-              throwsA(isA<AssertionError>()),
-            );
-          });
-          test('Duration greater than 1 day', () {
-            expect(
-              () => EveryDueTimeOfDay(const Duration(days: 2)),
-              throwsA(isA<AssertionError>()),
             );
           });
         });

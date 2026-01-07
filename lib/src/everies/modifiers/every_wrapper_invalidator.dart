@@ -1,5 +1,7 @@
-import '../../date_validators/date_validators.dart';
+import '../../date_validators/date_validator.dart';
+import '../../date_validators/date_validator_mixin.dart';
 import '../every.dart';
+import '../every_date_validator.dart';
 import 'every_modifier.dart';
 import 'every_modifier_mixin.dart';
 
@@ -8,8 +10,9 @@ import 'every_modifier_mixin.dart';
 /// be used to invalidate the generated dates.
 /// {@endtemplate}
 abstract class EveryModifierInvalidator<T extends Every,
-        V extends DateValidator> extends EveryModifier<T>
-    with EveryModifierMixin<T> {
+        V extends DateValidator> extends EveryModifier<T, V>
+    with EveryModifierMixin<T, V>, DateValidatorMixin
+    implements EveryDateValidator {
   /// {@macro everyModifierInvalidator}
   const EveryModifierInvalidator({
     required super.every,

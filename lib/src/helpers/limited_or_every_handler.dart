@@ -1,5 +1,7 @@
 import '../date_validators/date_validator.dart';
-import '../everies/everies.dart';
+import '../everies/every.dart';
+import '../everies/every_date_validator.dart';
+import '../everies/limited_every.dart';
 import '../everies/limited_every_date_validator.dart';
 
 /// Simple class to delegate the work to a given [Every] base process.

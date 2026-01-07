@@ -8,4 +8,8 @@
 @Deprecated('This library is not meant to be used by the end user.')
 library;
 
-export 'src/helpers/helpers.dart';
+export 'src/helpers/bool_compare.dart';
+export 'src/helpers/date_reducer.dart';
+export 'src/helpers/limited_or_every_handler.dart';
+export 'src/helpers/object_extension.dart';
+export 'src/helpers/workday_helper.dart';

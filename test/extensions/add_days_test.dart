@@ -1,10 +1,14 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/extensions/add_days.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';
 
 void main() {
   group('AddDays on DateTime:', () {
+    test('Local', () {
+      
+    });
     // Monday, July 18, 2022 is used as a reference workweek start.
     final monday = DateTime.utc(2022, DateTime.july, 18);
 
@@ -36,6 +40,10 @@ void main() {
         final result = monday.addWorkDays(5);
         expect(result, isSameDateTime(nextMonday));
       });
+      test('No ignore', () {
+        final expected = DateTime.utc(2022, DateTime.july, 19);
+        expect(monday.addDays(1), isSameDateTime(expected));
+      });
     });
 
     group('Subtract Days:', () {
@@ -49,6 +57,10 @@ void main() {
       test('Ignoring weekend', () {
         final result = monday.subtractWorkDays(5);
         expect(result, isSameDateTime(prevMonday));
+      });
+      test('No ignore', () {
+        final expected = DateTime.utc(2022, DateTime.july, 17);
+        expect(monday.subtractDays(1), isSameDateTime(expected));
       });
     });
 

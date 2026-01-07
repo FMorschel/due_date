@@ -7,7 +7,7 @@ void main() {
     test(
         'pubspec.yaml, CHANGELOG.md, and README.md all contain the same '
         'version', () async {
-      // Read pubspec.yaml version
+      // Read pubspec.yaml version.
       final pubspec = await File('pubspec.yaml').readAsString();
       final versionMatch =
           RegExp(r'^version:\s*([\d.]+)', multiLine: true).firstMatch(pubspec);
@@ -18,7 +18,7 @@ void main() {
       );
       final version = versionMatch!.group(1);
 
-      // Check CHANGELOG.md
+      // Check CHANGELOG.md.
       final changelog = await File('CHANGELOG.md').readAsString();
       final changelogMatch =
           RegExp(r'^##\s*([\d.]+)', multiLine: true).firstMatch(changelog);
@@ -33,12 +33,12 @@ void main() {
         reason: 'CHANGELOG.md version does not match pubspec.yaml',
       );
 
-      // Check README.md
+      // Check README.md.
       final readme = await File('README.md').readAsString();
       final readmeMatch =
           RegExp(r'due_date: \^\s*([\d.]+)', caseSensitive: false)
               .firstMatch(readme);
-      // README may not have a version, but if it does, it must match
+      // README may not have a version, but if it does, it must match.
       if (readmeMatch != null) {
         expect(
           readmeMatch.group(1),

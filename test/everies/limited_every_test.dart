@@ -1,8 +1,10 @@
-import 'package:due_date/due_date.dart';
+
+import 'package:due_date/src/everies/limited_every.dart';
+import 'package:due_date/src/everies/limited_every_mixin.dart';
 import 'package:test/test.dart';
 
 /// Test implementation of [LimitedEvery] that can be made constant.
-class _TestLimitedEvery extends LimitedEvery {
+class _TestLimitedEvery extends LimitedEvery with LimitedEveryMixin {
   /// Creates a test implementation of [LimitedEvery].
   const _TestLimitedEvery();
 

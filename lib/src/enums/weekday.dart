@@ -1,10 +1,10 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validators.dart';
-import '../everies/everies.dart';
-import '../extensions/extensions.dart';
-import '../period_generators/period_generators.dart';
-import '../periods/periods.dart';
+import '../date_validators/date_validator_weekday.dart';
+import '../everies/every_weekday.dart';
+import '../extensions/add_days.dart';
+import '../period_generators/week_generator.dart';
+import '../periods/week_period.dart';
 
 /// Weekday constants that are returned by [DateTime.weekday] method.
 enum Weekday implements Comparable<Weekday> {
@@ -63,20 +63,18 @@ enum Weekday implements Comparable<Weekday> {
   /// Returns the Weekday constant that corresponds to the given
   /// [dateTimeValue].
   factory Weekday.fromDateTimeValue(int weekday) {
-    if (weekday == DateTime.monday) {
-      return monday;
-    } else if (weekday == DateTime.tuesday) {
-      return tuesday;
-    } else if (weekday == DateTime.wednesday) {
-      return wednesday;
-    } else if (weekday == DateTime.thursday) {
-      return thursday;
-    } else if (weekday == DateTime.friday) {
-      return friday;
-    } else if (weekday == DateTime.saturday) {
-      return saturday;
-    } else if (weekday == DateTime.sunday) {
-      return sunday;
+    const dateTimeValues = {
+      DateTime.monday: monday,
+      DateTime.tuesday: tuesday,
+      DateTime.wednesday: wednesday,
+      DateTime.thursday: thursday,
+      DateTime.friday: friday,
+      DateTime.saturday: saturday,
+      DateTime.sunday: sunday,
+    };
+
+    if (dateTimeValues.containsKey(weekday)) {
+      return dateTimeValues[weekday]!;
     }
     throw RangeError.range(weekday, DateTime.monday, DateTime.sunday);
   }
@@ -112,8 +110,8 @@ enum Weekday implements Comparable<Weekday> {
     final monday = date.firstDayOfWeek;
     final result = monday.add(Duration(days: index));
     return date.isUtc
-        ? result.toUtc().date.add(date.exactTimeOfDay)
-        : result.date.add(date.exactTimeOfDay);
+        ? result.toUtc().date.add(date.timeOfDay)
+        : result.date.add(date.timeOfDay);
   }
 
   @override
@@ -187,20 +185,18 @@ enum Weekday implements Comparable<Weekday> {
 
   /// Returns the [Weekday] previous to this.
   Weekday get previous {
-    if (dateTimeValue != monday.dateTimeValue) {
-      return Weekday.fromDateTimeValue(dateTimeValue - 1);
-    } else {
+    if (dateTimeValue == monday.dateTimeValue) {
       return sunday;
     }
+    return Weekday.fromDateTimeValue(dateTimeValue - 1);
   }
 
   /// Returns the [Weekday] next to this.
   Weekday get next {
-    if (dateTimeValue != sunday.dateTimeValue) {
-      return Weekday.fromDateTimeValue(dateTimeValue + 1);
-    } else {
+    if (dateTimeValue == sunday.dateTimeValue) {
       return monday;
     }
+    return Weekday.fromDateTimeValue(dateTimeValue + 1);
   }
 
   /// Returns the [Weekday]s that [isWeekend] is true for.

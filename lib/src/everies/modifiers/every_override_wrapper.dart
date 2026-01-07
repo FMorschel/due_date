@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-import '../../date_validators/date_validators.dart';
-import '../../helpers/helpers.dart';
-import '../date_time_limit_reached_exception.dart';
+import '../../date_validators/date_validator.dart';
+import '../../date_validators/date_validator_mixin.dart';
+import '../../helpers/limited_or_every_handler.dart';
 import '../every.dart';
+import '../limited_every_mixin.dart';
 import '../limited_every_modifier_invalidator.dart';
 import 'date_direction.dart';
+import 'every_wrapper_invalidator_mixin.dart';
 import 'limited_every_modifier_mixin.dart';
 
 /// {@template everyOverrideWrapper}
@@ -16,11 +18,16 @@ import 'limited_every_modifier_mixin.dart';
 /// When the [invalidator] invalidates the generated dates, the [overrider]
 /// will be used instead.
 /// {@endtemplate}
-class EveryOverrideWrapper<T extends Every, V extends DateValidator>
+class EveryOverrideModifier<T extends Every, V extends DateValidator>
     extends LimitedEveryModifierInvalidator<T, V>
-    with EquatableMixin, LimitedEveryModifierMixin<T> {
+    with
+        EquatableMixin,
+        LimitedEveryModifierMixin<T, V>,
+        LimitedEveryMixin,
+        DateValidatorMixin,
+        EveryModifierInvalidatorMixin<T, V> {
   /// {@macro everyOverrideWrapper}
-  const EveryOverrideWrapper({
+  const EveryOverrideModifier({
     required super.every,
     required super.invalidator,
     required this.overrider,
@@ -29,22 +36,6 @@ class EveryOverrideWrapper<T extends Every, V extends DateValidator>
   /// The every used instead of the original when the generated date is valid
   /// for the [invalidator].
   final T overrider;
-
-  /// Generates the next instance of the given [date] considering the [every]
-  /// base process.
-  /// If the [date] is valid for the [invalidator], the [overrider] next will
-  /// be used instead of the [every].
-  @override
-  DateTime next(DateTime date, {DateTime? limit}) =>
-      super.next(date, limit: limit);
-
-  /// Generates the previous instance of the given [date] considering the
-  /// [every] base process.
-  /// If the [date] is valid for the [invalidator], the [overrider] previous
-  /// will be used instead of the [every].
-  @override
-  DateTime previous(DateTime date, {DateTime? limit}) =>
-      super.previous(date, limit: limit);
 
   /// When the [date] is valid for the [invalidator], the [overrider] will be
   /// used instead of [every].
@@ -56,30 +47,23 @@ class EveryOverrideWrapper<T extends Every, V extends DateValidator>
     DateDirection direction, {
     DateTime? limit,
   }) {
-    if ((limit != null) &&
-        (direction.isPrevious ? date.isBefore(limit) : date.isAfter(limit))) {
-      throw DateTimeLimitReachedException(date: date, limit: limit);
+    throwIfLimitReached(date, direction, limit: limit);
+    if (valid(date)) return date;
+    DateTime result;
+    if (direction.isForward) {
+      result = LimitedOrEveryHandler.next(overrider, date, limit: limit);
+    } else {
+      result = LimitedOrEveryHandler.previous(overrider, date, limit: limit);
     }
-    if (invalidator.invalid(date)) return date;
-    if (!direction.isPrevious) {
-      return processDate(
-        LimitedOrEveryHandler.next(overrider, date, limit: limit),
-        direction,
-        limit: limit,
-      );
-    }
-    return processDate(
-      LimitedOrEveryHandler.previous(overrider, date, limit: limit),
-      direction,
-      limit: limit,
-    );
+    throwIfLimitReached(result, direction, limit: limit);
+    return result;
   }
 
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
-        ((other is EveryOverrideWrapper) &&
+        ((other is EveryOverrideModifier) &&
             (other.every == every) &&
             (other.invalidator == invalidator) &&
             (other.overrider == overrider));
