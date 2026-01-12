@@ -20,7 +20,7 @@ mixin LimitedEveryDateValidatorListMixin<E extends EveryDateValidator>
   /// If none of the [everies] is a [LimitedEvery], the [limit] will be ignored.
   @override
   DateTime startDate(DateTime date, {DateTime? limit}) {
-    if (isEmpty || valid(date)) return date;
+    if (valid(date)) return date;
     return next(date, limit: limit);
   }
 
@@ -31,7 +31,7 @@ mixin LimitedEveryDateValidatorListMixin<E extends EveryDateValidator>
   /// If none of the [everies] is a [LimitedEvery], the [limit] will be ignored.
   @override
   DateTime endDate(DateTime date, {DateTime? limit}) {
-    if (isEmpty || valid(date)) return date;
+    if (valid(date)) return date;
     return previous(date, limit: limit);
   }
 }

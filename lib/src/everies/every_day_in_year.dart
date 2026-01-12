@@ -99,14 +99,7 @@ class EveryDayInYear extends DateValidatorDayInYear
   /// [dayInYear], it's returned the next year with the [DayInYear.dayInYear]
   /// being the [dayInYear].
   @override
-  DateTime startDate(DateTime date) {
-    if (valid(date)) return date;
-    final thisYearDay = date.firstDayOfYear
-        .add(Duration(days: dayInYear - 1))
-        .clamp(max: date.lastDayOfYear);
-    if (date.dayInYear <= dayInYear) return thisYearDay;
-    return next(date);
-  }
+  DateTime startDate(DateTime date) => super.startDate(date);
 
   @override
   String toString() {

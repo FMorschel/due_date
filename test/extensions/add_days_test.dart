@@ -6,9 +6,7 @@ import '../src/date_time_match.dart';
 
 void main() {
   group('AddDays on DateTime:', () {
-    test('Local', () {
-      
-    });
+    test('Local', () {});
     // Monday, July 18, 2022 is used as a reference workweek start.
     final monday = DateTime.utc(2022, DateTime.july, 18);
 

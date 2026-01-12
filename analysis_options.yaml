@@ -14,7 +14,7 @@ analyzer:
 
 plugins:
   essential_lints:
-    version: ^0.1.6
+    version: ^0.1.7
     diagnostics:
       - boolean_assignment
       - closure_incorrect_type

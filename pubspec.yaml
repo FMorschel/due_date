@@ -25,6 +25,7 @@ dependencies:
   clock: ^1.0.0
   collection: ^1.0.0
   equatable: ^2.0.3
+  essential_lints_annotations: ^0.1.1
   meta: ^1.0.0
   time: ^2.1.6
 

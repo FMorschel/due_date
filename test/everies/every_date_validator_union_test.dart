@@ -55,7 +55,7 @@ void main() {
         test('Returns same date when input is valid', () {
           // September 24, 2022 is Saturday and 24th (valid for union).
           final september24th = DateTime(2022, DateTime.september, 24);
-          expect(everies, startsAt(september24th).withInput(september24th));
+          expect(everies, startsAtSameDate.withInput(september24th));
         });
         test('Returns next valid date when input is invalid', () {
           // September 23, 2022 is Friday and 23rd (invalid for union).
@@ -103,6 +103,25 @@ void main() {
           // September 17, 2022 is Saturday but not 24th (valid for union).
           final expected = DateTime(2022, DateTime.september, 17);
           expect(everies, hasPrevious(expected).withInput(september24th));
+        });
+      });
+      group('startDate', () {
+        final everies = EveryDateValidatorUnion([
+          EveryDueDayMonth(24),
+          EveryDateValidatorDifference([EveryWeekday(Weekday.saturday)]),
+        ]);
+
+        test('Returns same date when input is valid', () {
+          // September 24, 2022 is Saturday and 24th (valid for union).
+          final september24th = DateTime(2022, DateTime.september, 24);
+          expect(everies, endsAtSameDate.withInput(september24th));
+        });
+        test('Returns previous valid date when input is invalid', () {
+          // September 25, 2022 is Sunday and 25th (invalid for union).
+          final september25th = DateTime(2022, DateTime.september, 25);
+          // September 24, 2022 is Saturday and 24th (valid for union).
+          final expected = DateTime(2022, DateTime.september, 24);
+          expect(everies, endsAt(expected).withInput(september25th));
         });
       });
     });

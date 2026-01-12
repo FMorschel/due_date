@@ -15,6 +15,25 @@ class _TestDateValidator with DateValidatorMixin {
 
 void main() {
   group('DateValidatorMixin:', () {
+    group('-', () {
+      const mondayValidator = _TestDateValidator(DateTime.monday);
+      test('Negating a validator returns opposite validator', () {
+        final notMondayValidator = -mondayValidator;
+
+        // July 1, 2024 is Monday.
+        final monday = DateTime(2024, 7);
+        final tuesday = DateTime(2024, 7, 2);
+
+        expect(notMondayValidator.valid(monday), isFalse);
+        expect(notMondayValidator.valid(tuesday), isTrue);
+      });
+      test('Negating a negated validator, returns the original instance', () {
+        final notMondayValidator = -mondayValidator;
+        final originalValidator = -notMondayValidator;
+
+        expect(identical(originalValidator, mondayValidator), isTrue);
+      });
+    });
     group('invalid method:', () {
       test('Returns opposite of valid method', () {
         // July 1, 2024 is Monday (weekday = 1).

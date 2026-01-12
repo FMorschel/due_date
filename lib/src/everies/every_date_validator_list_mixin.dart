@@ -11,14 +11,14 @@ mixin EveryDateValidatorListMixin<E extends EveryDateValidator>
   /// Returns the next [DateTime] that matches the [Every] pattern.
   @override
   DateTime startDate(DateTime date) {
-    if (isEmpty || valid(date)) return date;
+    if (valid(date)) return date;
     return next(date);
   }
 
   /// Returns the next [DateTime] that matches the [Every] pattern.
   @override
   DateTime endDate(DateTime date) {
-    if (isEmpty || valid(date)) return date;
+    if (valid(date)) return date;
     return previous(date);
   }
 }

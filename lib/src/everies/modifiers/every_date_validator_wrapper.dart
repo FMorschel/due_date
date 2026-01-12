@@ -5,6 +5,7 @@ import 'limited_every_modifier.dart';
 /// {@template everyModifier}
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
 /// {@endtemplate}
+// ignore: essential_lints/subtype_naming creates a new name
 abstract class EveryDateValidatorWrapper<T extends EveryDateValidator>
     extends EveryDateValidator implements LimitedEveryModifier<T, T> {
   /// {@macro everyModifier}
@@ -16,5 +17,9 @@ abstract class EveryDateValidatorWrapper<T extends EveryDateValidator>
 
   /// A method that processes [date] with custom logic.
   @override
-  DateTime processDate(DateTime date, DateDirection direction);
+  DateTime processDate(
+    DateTime date,
+    DateDirection direction, {
+    DateTime? limit,
+  });
 }

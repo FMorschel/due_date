@@ -3,6 +3,8 @@ import 'package:due_date/src/everies/every.dart';
 import 'package:due_date/src/everies/every_date_validator.dart';
 import 'package:due_date/src/everies/limited_every.dart';
 import 'package:due_date/src/everies/limited_every_date_validator.dart';
+import 'package:due_date/src/helpers/limited_or_every_handler.dart';
+import 'package:meta/meta.dart';
 import 'package:test/test.dart';
 
 /// Creates a matcher that verifies [EveryDateValidator.startDate] returns the
@@ -15,6 +17,14 @@ EveryDateValidatorMatcher startsAt(DateTime expectedDate) =>
 EveryDateValidatorMatcher endsAt(DateTime expectedDate) =>
     _EndsAtMatcher(expectedDate);
 
+/// Creates a matcher that verifies [EveryDateValidator.startDate] returns the
+/// expected date.
+const EveryDateValidatorMatcher startsAtNext = _StartsAtNextMatcher();
+
+/// Creates a matcher that verifies [EveryDateValidator.endDate] returns the
+/// expected date.
+const EveryDateValidatorMatcher endsAtPrevious = _EndsAtPreviousMatcher();
+
 /// Creates a matcher that verifies [Every.next] returns the expected date.
 EveryMatcher hasNext(DateTime expectedDate) => _HasNextMatcher(expectedDate);
 
@@ -24,35 +34,35 @@ EveryMatcher hasPrevious(DateTime expectedDate) =>
 
 /// Creates a matcher that verifies [EveryDateValidator.startDate] returns the
 /// input date when valid.
-EveryDateValidatorMatcher startsAtSameDate = const _StartsAtSameDateMatcher();
+const EveryDateValidatorMatcher startsAtSameDate = _StartsAtSameDateMatcher();
 
 /// Creates a matcher that verifies [EveryDateValidator.endDate] returns the
 /// input date when valid.
-EveryDateValidatorMatcher endsAtSameDate = const _EndsAtSameDateMatcher();
+const EveryDateValidatorMatcher endsAtSameDate = _EndsAtSameDateMatcher();
 
 /// Creates a matcher that verifies [LimitedEvery.next] is limited by the given
 /// limit.
-LimitedEveryMatcher limitedNext = const _LimitedNextMatcher();
+const LimitedEveryMatcher limitedNext = _LimitedNextMatcher();
 
 /// Creates a matcher that verifies [LimitedEvery.previous] is limited by the
 /// given limit.
-LimitedEveryMatcher limitedPrevious = const _LimitedPreviousMatcher();
+const LimitedEveryMatcher limitedPrevious = _LimitedPreviousMatcher();
 
 /// Creates a matcher that verifies [LimitedEveryDateValidator.startDate] is
 /// limited by the given limit.
-LimitedEveryDateValidatorMatcher startLimited = const _StartLimitedMatcher();
+const LimitedEveryDateValidatorMatcher startsLimited = _StartLimitedMatcher();
 
 /// Creates a matcher that verifies [LimitedEveryDateValidator.endDate] is
 /// limited by the given limit.
-LimitedEveryDateValidatorMatcher endLimited = const _EndLimitedMatcher();
+const LimitedEveryDateValidatorMatcher endsLimited = _EndLimitedMatcher();
 
 /// Creates a matcher that verifies [Every.next] generates a date after the
 /// input.
-EveryMatcher nextIsAfter = const _NextIsAfterMatcher();
+const EveryMatcher nextIsAfter = _NextIsAfterMatcher();
 
 /// Creates a matcher that verifies [Every.previous] generates a date before the
 /// input.
-EveryMatcher previousIsBefore = const _PreviousIsBeforeMatcher();
+const EveryMatcher previousIsBefore = _PreviousIsBeforeMatcher();
 
 final Matcher throwsADateTimeLimitReachedException =
     throwsA(isA<DateTimeLimitReachedException>());
@@ -67,7 +77,16 @@ abstract class LimitedEveryDateValidatorMatcher<
   const LimitedEveryDateValidatorMatcher();
 }
 
-abstract class EveryMatcher<T extends Every> extends Matcher {
+abstract class _WithDateInputMatcher extends Matcher {
+  const _WithDateInputMatcher();
+
+  /// {@template withInputMethod}
+  /// Adds input context for method testing.
+  /// {@endtemplate}
+  Matcher withInput(DateTime input) => _WithInputMatcher<DateTime>(this, input);
+}
+
+abstract class EveryMatcher<T extends Every> extends _WithDateInputMatcher {
   const EveryMatcher();
 
   @override
@@ -75,18 +94,6 @@ abstract class EveryMatcher<T extends Every> extends Matcher {
     if (item is! T) return false;
     return _matchesEvery(item, matchState);
   }
-
-  bool _matchesEvery(T every, Map<dynamic, dynamic> matchState);
-
-  /// {@template withInputMethod}
-  /// Adds input context for method testing.
-  /// {@endtemplate}
-  Matcher withInput(DateTime input, {DateTime? limit}) =>
-      _WithInputMatcher<DateTime?>(
-        _WithInputMatcher<DateTime>(this, input),
-        limit,
-        key: 'limit',
-      );
 
   @override
   Description describeMismatch(
@@ -101,16 +108,69 @@ abstract class EveryMatcher<T extends Every> extends Matcher {
     return _describeEveryMismatch(item, mismatchDescription, matchState);
   }
 
+  @mustBeOverridden
+  bool _matchesEvery(T every, Map<dynamic, dynamic> matchState);
+
+  @mustBeOverridden
   Description _describeEveryMismatch(
     T every,
     Description mismatchDescription,
     Map<dynamic, dynamic> matchState,
   );
+
+  /// {@template withInputMethod}
+  /// Adds input context for method testing.
+  /// {@endtemplate}
+  @override
+  Matcher withInput(DateTime input, {DateTime? limit}) =>
+      _WithInputMatcher<DateTime?>(
+        _WithInputMatcher<DateTime>(this, input),
+        limit,
+        key: 'limit',
+      );
 }
 
-abstract class LimitedEveryMatcher<T extends LimitedEvery>
-    extends EveryMatcher<T> {
+abstract class LimitedEveryMatcher<T extends LimitedEvery> extends Matcher {
   const LimitedEveryMatcher();
+
+  @override
+  bool matches(Object? item, Map<dynamic, dynamic> matchState) {
+    if (item is! T) return false;
+    return _matchesEvery(item, matchState);
+  }
+
+  @override
+  Description describeMismatch(
+    Object? item,
+    Description mismatchDescription,
+    Map<dynamic, dynamic> matchState,
+    bool verbose,
+  ) {
+    if (item is! T) {
+      return mismatchDescription.add('$item is not a(n) $T instance');
+    }
+    return _describeEveryMismatch(item, mismatchDescription, matchState);
+  }
+
+  @mustBeOverridden
+  bool _matchesEvery(T every, Map<dynamic, dynamic> matchState);
+
+  @mustBeOverridden
+  Description _describeEveryMismatch(
+    T every,
+    Description mismatchDescription,
+    Map<dynamic, dynamic> matchState,
+  );
+
+  /// {@template withInputMethod}
+  /// Adds input context for method testing.
+  /// {@endtemplate}
+  Matcher withInput(DateTime input, {required DateTime limit}) =>
+      _WithInputMatcher<DateTime?>(
+        _WithInputMatcher<DateTime>(this, input),
+        limit,
+        key: 'limit',
+      );
 }
 
 class _StartsAtMatcher extends EveryDateValidatorMatcher<EveryDateValidator> {
@@ -131,9 +191,8 @@ class _StartsAtMatcher extends EveryDateValidatorMatcher<EveryDateValidator> {
     if (input == null) return false;
 
     final limit = matchState['limit'] as DateTime?;
-    final actualDate = every is LimitedEveryDateValidator && limit != null
-        ? every.startDate(input, limit: limit)
-        : every.startDate(input);
+    final actualDate =
+        LimitedOrEveryHandler.startDate(every, input, limit: limit);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(_expectedDate);
   }
@@ -167,9 +226,8 @@ class _EndsAtMatcher extends EveryDateValidatorMatcher<EveryDateValidator> {
     if (input == null) return false;
 
     final limit = matchState['limit'] as DateTime?;
-    final actualDate = every is LimitedEveryDateValidator && limit != null
-        ? every.endDate(input, limit: limit)
-        : every.endDate(input);
+    final actualDate =
+        LimitedOrEveryHandler.endDate(every, input, limit: limit);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(_expectedDate);
   }
@@ -182,6 +240,83 @@ class _EndsAtMatcher extends EveryDateValidatorMatcher<EveryDateValidator> {
   ) {
     final actualDate = matchState['actualDate'];
     return mismatchDescription.add('ended at [$actualDate]');
+  }
+}
+
+class _StartsAtNextMatcher
+    extends EveryDateValidatorMatcher<EveryDateValidator> {
+  const _StartsAtNextMatcher();
+
+  @override
+  Description describe(Description description) =>
+      description.add('starts at next');
+
+  @override
+  bool _matchesEvery(
+    EveryDateValidator every,
+    Map<dynamic, dynamic> matchState,
+  ) {
+    final input = matchState['input'] as DateTime?;
+    if (input == null) return false;
+
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate =
+        LimitedOrEveryHandler.startDate(every, input, limit: limit);
+    final expectedDate = LimitedOrEveryHandler.next(every, input, limit: limit);
+    matchState['expectedDate'] = expectedDate;
+    matchState['actualDate'] = actualDate;
+    return actualDate.isAtSameMomentAs(expectedDate);
+  }
+
+  @override
+  Description _describeEveryMismatch(
+    Every every,
+    Description mismatchDescription,
+    Map<dynamic, dynamic> matchState,
+  ) {
+    final actualDate = matchState['actualDate'];
+    final expectedDate = matchState['expectedDate'];
+    return mismatchDescription
+        .add('started at [$actualDate] instead of [$expectedDate]');
+  }
+}
+
+class _EndsAtPreviousMatcher
+    extends EveryDateValidatorMatcher<EveryDateValidator> {
+  const _EndsAtPreviousMatcher();
+
+  @override
+  Description describe(Description description) =>
+      description.add('ends at previous');
+
+  @override
+  bool _matchesEvery(
+    EveryDateValidator every,
+    Map<dynamic, dynamic> matchState,
+  ) {
+    final input = matchState['input'] as DateTime?;
+    if (input == null) return false;
+
+    final limit = matchState['limit'] as DateTime?;
+    final actualDate =
+        LimitedOrEveryHandler.endDate(every, input, limit: limit);
+    final expectedDate =
+        LimitedOrEveryHandler.previous(every, input, limit: limit);
+    matchState['expectedDate'] = expectedDate;
+    matchState['actualDate'] = actualDate;
+    return actualDate.isAtSameMomentAs(expectedDate);
+  }
+
+  @override
+  Description _describeEveryMismatch(
+    Every every,
+    Description mismatchDescription,
+    Map<dynamic, dynamic> matchState,
+  ) {
+    final actualDate = matchState['actualDate'];
+    final expectedDate = matchState['expectedDate'];
+    return mismatchDescription
+        .add('ended at [$actualDate] instead of [$expectedDate]');
   }
 }
 
@@ -336,9 +471,8 @@ class _StartsAtSameDateMatcher
     if (input == null) return false;
 
     final limit = matchState['limit'] as DateTime?;
-    final actualDate = every is LimitedEveryDateValidator && limit != null
-        ? every.startDate(input, limit: limit)
-        : every.startDate(input);
+    final actualDate =
+        LimitedOrEveryHandler.startDate(every, input, limit: limit);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(input);
   }
@@ -374,9 +508,8 @@ class _EndsAtSameDateMatcher
     if (input == null) return false;
 
     final limit = matchState['limit'] as DateTime?;
-    final actualDate = every is LimitedEveryDateValidator && limit != null
-        ? every.endDate(input, limit: limit)
-        : every.endDate(input);
+    final actualDate =
+        LimitedOrEveryHandler.endDate(every, input, limit: limit);
     matchState['actualDate'] = actualDate;
     return actualDate.isAtSameMomentAs(input);
   }
@@ -415,7 +548,7 @@ class _StartLimitedMatcher
     if (limit == null) return false;
 
     return throwsADateTimeLimitReachedException.matches(
-      () => every.startDate(input, limit: limit),
+      () => matchState['result'] = every.startDate(input, limit: limit),
       matchState,
     );
   }
@@ -427,7 +560,9 @@ class _StartLimitedMatcher
     Map<dynamic, dynamic> matchState,
   ) {
     final input = matchState['input'];
-    return mismatchDescription.add('was limited for [$input]');
+    final result = matchState['result'];
+    return mismatchDescription
+        .add('was not limited for [$input] resulting in [$result]');
   }
 }
 

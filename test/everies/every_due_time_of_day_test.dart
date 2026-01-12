@@ -145,6 +145,25 @@ void main() {
         });
       });
     });
+    group('endDate', () {
+      final every = EveryDueTimeOfDay(
+        const Duration(hours: 23, minutes: 30),
+      );
+
+      test('Returns same date when input is valid', () {
+        final validDate = DateTime(2022, 1, 1, 23, 30);
+        expect(every, endsAtSameDate.withInput(validDate));
+      });
+      test('Returns previous valid date when input is invalid', () {
+        final invalidDate = DateTime(2022, 1, 1, 23, 31);
+        final expected = DateTime(2022, 1, 1, 23, 30);
+        expect(every, endsAt(expected).withInput(invalidDate));
+      });
+      test('Works with UTC dates', () {
+        final validDateUtc = DateTime.utc(2022, 1, 1, 23, 30);
+        expect(every, endsAtSameDate.withInput(validDateUtc));
+      });
+    });
 
     // REQUIRED: Explicit datetime-to-datetime tests.
     group('Explicit datetime tests:', () {

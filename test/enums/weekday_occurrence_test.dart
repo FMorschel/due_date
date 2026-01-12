@@ -608,6 +608,48 @@ void main() {
         });
       });
 
+      group('endDate', () {
+        test('Delegates endDate to handler correctly', () {
+          const occurrence = WeekdayOccurrence.firstMonday;
+          // July 4, 2022 is Monday (first Monday of July).
+          final july4th = DateTime(2022, DateTime.july, 4);
+
+          // Create equivalent EveryWeekdayCountInMonth for comparison.
+          const every = EveryWeekdayCountInMonth(
+            day: Weekday.monday,
+            week: Week.first,
+          );
+
+          final resultFromOccurrence = occurrence.endDate(july4th);
+          final expectedFromHandler = every.endDate(july4th);
+
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(july4th));
+        });
+
+        test('Delegates endDate to handler correctly with invalid date', () {
+          const occurrence = WeekdayOccurrence.firstMonday;
+          // August 2nd, 2022 is Tuesday (not first Monday).
+          final august2nd = DateTime(2022, DateTime.august, 2);
+
+          // Create equivalent EveryWeekdayCountInMonth for comparison.
+          const every = EveryWeekdayCountInMonth(
+            day: Weekday.monday,
+            week: Week.first,
+          );
+
+          final resultFromOccurrence = occurrence.endDate(august2nd);
+          final expectedFromHandler = every.endDate(august2nd);
+
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
+          // Should return the previous first Monday (August 1, 2022).
+          expect(
+            resultFromOccurrence,
+            isSameDateTime(DateTime(2022, DateTime.august)),
+          );
+        });
+      });
+
       group('addYears', () {
         test('Delegates addYears to handler correctly', () {
           const occurrence = WeekdayOccurrence.lastFriday;

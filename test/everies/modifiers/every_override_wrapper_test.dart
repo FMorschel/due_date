@@ -32,6 +32,18 @@ void main() {
     });
 
     group('Methods', () {
+      group('startDate', () {
+        test('Generates same date from valid date', () {
+          // October 10, 2022 is Monday.
+          final validDate = DateTime(2022, DateTime.october, 10);
+          expect(wrapper, startsAtSameDate.withInput(validDate));
+        });
+        test('Generates next occurrence from invalid date', () {
+          // September 27, 2022 is Tuesday.
+          final invalidDate = DateTime(2022, DateTime.september, 27);
+          expect(wrapper, startsAtNext.withInput(invalidDate));
+        });
+      });
       group('next', () {
         test('Always generates date after input', () {
           // October 4, 2022 is Tuesday.
@@ -73,6 +85,19 @@ void main() {
           // September 26, 2022 is Monday.
           final expected = DateTime(2022, DateTime.september, 26);
           expect(wrapper, hasPrevious(expected).withInput(invalidDate));
+        });
+      });
+
+      group('endDate', () {
+        test('Generates same date from valid date', () {
+          // October 10, 2022 is Monday.
+          final validDate = DateTime(2022, DateTime.october, 10);
+          expect(wrapper, endsAtSameDate.withInput(validDate));
+        });
+        test('Generates previous occurrence from invalid date', () {
+          // September 27, 2022 is Tuesday.
+          final invalidDate = DateTime(2022, DateTime.september, 27);
+          expect(wrapper, endsAtPrevious.withInput(invalidDate));
         });
       });
     });

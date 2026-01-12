@@ -6,33 +6,70 @@ import '../src/date_time_match.dart';
 
 void main() {
   group('Period:', () {
-    group('Constructor', () {
-      group('Valid cases', () {
-        test('Creates Period with valid start and end', () {
-          final start = DateTime(2022);
-          final end = DateTime(2022, DateTime.january, 2);
-          expect(Period(start: start, end: end), isNotNull);
+    group('Constructors', () {
+      group('unnamed', () {
+        group('Valid cases', () {
+          test('Creates Period with valid start and end', () {
+            final start = DateTime(2022);
+            final end = DateTime(2022, DateTime.january, 2);
+            expect(Period(start: start, end: end), isNotNull);
+          });
+
+          test('Creates Period with equal start and end', () {
+            final start = DateTime(2022);
+            expect(Period(start: start, end: start), isNotNull);
+          });
+
+          test('Creates Period with UTC dates', () {
+            final start = DateTime.utc(2022);
+            final end = DateTime.utc(2022, DateTime.january, 2);
+            expect(Period(start: start, end: end), isNotNull);
+          });
         });
 
-        test('Creates Period with equal start and end', () {
-          final start = DateTime(2022);
-          expect(Period(start: start, end: start), isNotNull);
-        });
-
-        test('Creates Period with UTC dates', () {
-          final start = DateTime.utc(2022);
-          final end = DateTime.utc(2022, DateTime.january, 2);
-          expect(Period(start: start, end: end), isNotNull);
+        group('Validation errors', () {
+          test('Throws ArgumentError if end is before start', () {
+            final start = DateTime(2022);
+            final end = DateTime(2022, DateTime.january, 2);
+            expect(
+              () => Period(start: end, end: start),
+              throwsArgumentError,
+            );
+          });
         });
       });
-
-      group('Validation errors', () {
-        test('Throws ArgumentError if end is before start', () {
-          final start = DateTime(2022);
-          final end = DateTime(2022, DateTime.january, 2);
+      group('of', () {
+        test('Duration 0', () {
           expect(
-            () => Period(start: end, end: start),
-            throwsArgumentError,
+            () => Period.of(Duration.zero, at: DateTime(2026)),
+            throwsA(isA<AssertionError>()),
+          );
+        });
+        test('Duration positive', () {
+          final start = DateTime(2022);
+          final period = Period.of(const Duration(seconds: 1), at: start);
+          expect(period, isNotNull);
+          expect(period.duration, equals(const Duration(seconds: 1)));
+          expect(period.start, equals(start));
+          expect(
+            period.end,
+            equals(
+              start.add(const Duration(milliseconds: 999, microseconds: 999)),
+            ),
+          );
+        });
+        test('Duration negative', () {
+          final reference = DateTime(2022);
+          final period = Period.of(const Duration(seconds: -1), at: reference);
+          expect(period, isNotNull);
+          expect(period.duration, equals(const Duration(seconds: 1)));
+          expect(period.end, equals(reference));
+          expect(
+            period.start,
+            equals(
+              reference
+                  .add(const Duration(milliseconds: -999, microseconds: -999)),
+            ),
           );
         });
       });

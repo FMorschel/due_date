@@ -56,7 +56,7 @@ void main() {
           // September 24, 2022 is Saturday and 24th, but not Saturday.
           // (valid for intersection since 24th AND not Saturday).
           final september24th = DateTime(2022, DateTime.september, 24);
-          expect(everies, startsAt(september24th).withInput(september24th));
+          expect(everies, startsAtSameDate.withInput(september24th));
         });
         test('Returns next valid date when input is invalid', () {
           // July 25, 2021 is Sunday and 25th.
@@ -104,6 +104,26 @@ void main() {
           // July 24, 2021 is Saturday and 24th, but not Saturday.
           final expected = DateTime(2021, DateTime.july, 24);
           expect(everies, hasPrevious(expected).withInput(september24th));
+        });
+      });
+      group('endDate', () {
+        final everies = EveryDateValidatorIntersection([
+          EveryDueDayMonth(24),
+          EveryDateValidatorDifference([EveryWeekday(Weekday.saturday)]),
+        ]);
+
+        test('Returns same date when input is valid', () {
+          // September 24, 2022 is Saturday and 24th, but not Saturday.
+          // (valid for intersection since 24th AND not Saturday).
+          final september24th = DateTime(2022, DateTime.september, 24);
+          expect(everies, endsAtSameDate.withInput(september24th));
+        });
+        test('Returns previous valid date when input is invalid', () {
+          // July 25, 2021 is Sunday and 25th.
+          final july25th = DateTime(2021, DateTime.july, 25);
+          // September 24, 2022 is Saturday and 24th.
+          final expected = DateTime(2021, DateTime.july, 24);
+          expect(everies, endsAt(expected).withInput(july25th));
         });
       });
     });

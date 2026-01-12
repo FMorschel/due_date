@@ -116,6 +116,27 @@ void main() {
           expect(every, hasPrevious(expectedUtc).withInput(validDateUtc));
         });
       });
+      group('endDate', () {
+        const every = EveryDueDayMonth(15);
+
+        test('Returns same date when input is valid', () {
+          // August 15, 2022 is Monday.
+          final validDate = DateTime(2022, DateTime.august, 15);
+          expect(every, endsAtSameDate.withInput(validDate));
+        });
+        test('Returns previous valid date when input is invalid', () {
+          // August 16, 2022 is Tuesday.
+          final invalidDate = DateTime(2022, DateTime.august, 16);
+          // August 15, 2022 is Monday.
+          final expected = DateTime(2022, DateTime.august, 15);
+          expect(every, endsAt(expected).withInput(invalidDate));
+        });
+        test('Works with UTC dates', () {
+          // August 15, 2022 is Monday (UTC).
+          final validDateUtc = DateTime.utc(2022, DateTime.august, 15);
+          expect(every, endsAtSameDate.withInput(validDateUtc));
+        });
+      });
 
       group('addMonths', () {
         const every = EveryDueDayMonth(31);

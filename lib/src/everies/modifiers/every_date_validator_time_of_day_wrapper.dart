@@ -7,7 +7,7 @@ import '../every_date_validator.dart';
 import '../every_due_time_of_day.dart';
 import '../limited_every_mixin.dart';
 import 'date_direction.dart';
-import 'every_date_validator_wrapper_mixin.dart';
+import 'every_date_validator_modifier_mixin.dart';
 import 'every_time_of_day_wrapper.dart';
 import 'limited_every_modifier_mixin.dart';
 
@@ -29,7 +29,7 @@ class EveryDateValidatorTimeOfDayWrapper<T extends EveryDateValidator>
         DateValidatorMixin,
         LimitedEveryModifierMixin<T, T>,
         LimitedEveryMixin,
-        EveryDateValidatorWrapperMixin<T>,
+        EveryDateValidatorModifierMixin<T>,
         EquatableMixin {
   /// {@macro everyTimeOfDayWrapper}
   const EveryDateValidatorTimeOfDayWrapper({

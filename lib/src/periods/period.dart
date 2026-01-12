@@ -26,10 +26,13 @@ class Period with EquatableMixin implements Comparable<Period> {
   factory Period.of(
     Duration duration, {
     required DateTime at,
-  }) =>
-      duration.isNegative
-          ? Period(start: at.add(duration), end: at)
-          : Period(start: at, end: at.add(duration));
+  }) {
+    assert(duration != Duration.zero, 'Duration must not be zero.');
+    const microsecond = Duration(microseconds: 1);
+    return duration.isNegative
+        ? Period(start: at.add(duration + microsecond), end: at)
+        : Period(start: at, end: at.add(duration - microsecond));
+  }
 
   /// The start of the period. It is included in the period.
   final DateTime start;

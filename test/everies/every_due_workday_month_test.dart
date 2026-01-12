@@ -176,6 +176,25 @@ void main() {
           expect(every, hasPrevious(expectedUtc).withInput(validDateUtc));
         });
       });
+      group('startDate', () {
+        const every = EveryDueWorkdayMonth(10);
+
+        test('Returns same date when input is valid', () {
+          // November 14, 2024 is Thursday (10th workday of November).
+          final validDate = DateTime(2024, DateTime.november, 14);
+          expect(every, endsAtSameDate.withInput(validDate));
+        });
+        test('Returns previous valid date when input is invalid', () {
+          // November 13, 2024 is Wednesday (9th workday of November).
+          final invalidDate = DateTime(2024, DateTime.november, 13);
+          expect(every, endsAtPrevious.withInput(invalidDate));
+        });
+        test('Works with UTC dates', () {
+          // November 14, 2024 is Thursday (10th workday of November, UTC).
+          final validDateUtc = DateTime.utc(2024, DateTime.november, 14);
+          expect(every, endsAtSameDate.withInput(validDateUtc));
+        });
+      });
 
       group('addMonths', () {
         const every = EveryDueWorkdayMonth(5);
@@ -205,6 +224,32 @@ void main() {
           // December 6, 2024 is Friday (5th workday of December, UTC).
           final expectedUtc = DateTime.utc(2024, DateTime.december, 6);
           expect(every.addMonths(validDateUtc, 1), isSameDateTime(expectedUtc));
+        });
+      });
+      group('addYears', () {
+        const every = EveryDueWorkdayMonth(5);
+
+        test('Adds years correctly', () {
+          // November 7, 2024 is Thursday (5th workday of November).
+          final validDate = DateTime(2024, DateTime.november, 7);
+          // November 7, 2025 is Friday (5th workday of November).
+          final expected = DateTime(2025, DateTime.november, 7);
+          expect(every.addYears(validDate, 1), isSameDateTime(expected));
+        });
+
+        test('Subtract years correctly', () {
+          // November 7, 2025 is Friday (5th workday of November).
+          final validDate = DateTime(2025, DateTime.november, 7);
+          // November 7, 2024 is Thursday (5th workday of November).
+          final expected = DateTime(2024, DateTime.november, 7);
+          expect(every.addYears(validDate, -1), isSameDateTime(expected));
+        });
+        test('Works with UTC dates', () {
+          // November 7, 2024 is Thursday (5th workday of November, UTC).
+          final validDateUtc = DateTime.utc(2024, DateTime.november, 7);
+          // November 7, 2025 is Friday (5th workday of November, UTC).
+          final expectedUtc = DateTime.utc(2025, DateTime.november, 7);
+          expect(every.addYears(validDateUtc, 1), isSameDateTime(expectedUtc));
         });
       });
     });

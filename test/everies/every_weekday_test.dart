@@ -176,6 +176,33 @@ void main() {
         });
       });
 
+      group('endDate', () {
+        final everySaturday = EveryWeekday(Weekday.saturday);
+        // August 6, 2022 is Saturday.
+        final august6th = DateTime(2022, DateTime.august, 6);
+
+        test('Returns same date when input is valid', () {
+          expect(
+            everySaturday,
+            endsAtSameDate.withInput(august6th),
+          );
+        });
+        test('Returns previous valid date when input is invalid', () {
+          expect(
+            everySaturday,
+            endsAt(august6th).withInput(august12th2022),
+          );
+        });
+        test('Works with UTC dates', () {
+          final everySaturdayUtc = EveryWeekday(Weekday.saturday);
+          final august6thUtc = DateTime.utc(2022, DateTime.august, 6);
+          expect(
+            everySaturdayUtc,
+            endsAt(august6thUtc).withInput(august12th2022Utc),
+          );
+        });
+      });
+
       group('addWeeks', () {
         final everySaturday = EveryWeekday(Weekday.saturday);
         // August 13, 2022 is Saturday.

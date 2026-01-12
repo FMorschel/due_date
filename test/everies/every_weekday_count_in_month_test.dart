@@ -256,6 +256,25 @@ void main() {
           expect(every, hasPrevious(july9th).withInput(august12th2022));
         });
       });
+      group('endDate', () {
+        const every = EveryWeekdayCountInMonth(
+          day: Weekday.saturday,
+          week: Week.second,
+        );
+        // August 13, 2022 is Saturday (2nd Saturday of August).
+        final august13th = DateTime(2022, DateTime.august, 13);
+
+        test('Returns same date when input is valid', () {
+          expect(every, endsAtSameDate.withInput(august13th));
+        });
+        test('Returns previous valid date when input is invalid', () {
+          final invalidDate = DateTime(2022, DateTime.august, 14);
+          expect(
+            every,
+            endsAt(every.previous(invalidDate)).withInput(invalidDate),
+          );
+        });
+      });
 
       group('addMonths', () {
         const every = EveryWeekdayCountInMonth(

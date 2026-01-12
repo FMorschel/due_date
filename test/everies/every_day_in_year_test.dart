@@ -2,6 +2,7 @@ import 'package:due_date/src/everies/every_day_in_year.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';
+import '../src/every_match.dart';
 
 void main() {
   group('EveryDayInYear:', () {
@@ -150,6 +151,30 @@ void main() {
           expect(
             every.previous(january15th2022Utc),
             isSameDateTime(january15th2021Utc),
+          );
+        });
+      });
+      group('endDate', () {
+        const every = EveryDayInYear(15);
+
+        test('Returns same date when input is valid', () {
+          // January 15, 2022 is day 15 of the year.
+          final january15th = DateTime(2022, DateTime.january, 15);
+          expect(every, endsAtSameDate.withInput(january15th));
+        });
+        test('Returns next valid date when input is invalid', () {
+          // January 16, 2022 is day 16 of the year.
+          final january16th = DateTime(2022, DateTime.january, 16);
+          // January 15, 2022 is day 15 of the year.
+          final january15th = DateTime(2022, DateTime.january, 15);
+          expect(every, endsAt(january15th).withInput(january16th));
+        });
+        test('Works with UTC dates', () {
+          // January 15, 2022 is day 15 of the year (UTC).
+          final january15thUtc = DateTime.utc(2022, DateTime.january, 15);
+          expect(
+            every,
+            endsAtSameDate.withInput(january15thUtc),
           );
         });
       });

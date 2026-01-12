@@ -73,8 +73,14 @@ class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
   }
 
   @override
-  DateTime addYears(DateTime date, int years) =>
-      next(const EveryDueDayMonth(1).addYears(date, years));
+  DateTime addYears(DateTime date, int years) {
+    var local = date;
+    const every = EveryDueDayMonth(1);
+    if (years.isNegative) {
+      local = every.endDate(local);
+    }
+    return next(every.addYears(local, years));
+  }
 
   @override
   DateTime next(DateTime date) {

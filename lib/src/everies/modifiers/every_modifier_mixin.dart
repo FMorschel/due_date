@@ -19,7 +19,7 @@ mixin EveryModifierMixin<T extends Every, V extends DateValidator>
   DateTime startDate(DateTime date) {
     return processDate(
       LimitedOrEveryHandler.startDate2(every, this, date, limit: null),
-      DateDirection.next,
+      DateDirection.start,
     );
   }
 
@@ -42,8 +42,8 @@ mixin EveryModifierMixin<T extends Every, V extends DateValidator>
   @override
   DateTime endDate(DateTime date) {
     return processDate(
-      LimitedOrEveryHandler.startDate2(every, this, date, limit: null),
-      DateDirection.previous,
+      LimitedOrEveryHandler.endDate2(every, this, date, limit: null),
+      DateDirection.end,
     );
   }
 }

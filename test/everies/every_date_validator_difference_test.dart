@@ -55,7 +55,7 @@ void main() {
           // October 1, 2022 is Saturday but not 24th, so it's valid for
           // difference.
           final october1st = DateTime(2022, DateTime.october);
-          expect(everies, startsAt(october1st).withInput(october1st));
+          expect(everies, startsAtSameDate.withInput(october1st));
         });
         test('Returns next valid date when input is invalid', () {
           // September 24, 2022 is Saturday and 24th, so both match (invalid for
@@ -101,6 +101,26 @@ void main() {
           final october1st = DateTime(2022, DateTime.october);
           final expected = DateTime(2022, DateTime.september, 17);
           expect(everies, hasPrevious(expected).withInput(october1st));
+        });
+      });
+      group('endDate', () {
+        final everies = EveryDateValidatorDifference([
+          EveryDueDayMonth(24),
+          EveryWeekday(Weekday.saturday),
+        ]);
+
+        test('Returns same date when input is valid', () {
+          // October 1, 2022 is Saturday but not 24th, so it's valid for
+          // difference.
+          final october1st = DateTime(2022, DateTime.october);
+          expect(everies, endsAtSameDate.withInput(october1st));
+        });
+        test('Returns previous valid date when input is invalid', () {
+          // September 24, 2022 is Saturday and 24th, so both match (invalid for
+          // difference).
+          final september24th = DateTime(2022, DateTime.september, 24);
+          final expected = DateTime(2022, DateTime.september, 17);
+          expect(everies, endsAt(expected).withInput(september24th));
         });
       });
     });
