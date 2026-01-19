@@ -1,4 +1,4 @@
-import 'every_wrapper.dart';
+import 'wrappers/every_wrapper.dart';
 
 /// An enum that represents the direction of the process inside [EveryWrapper].
 /// Used on [EveryWrapper.processDate].

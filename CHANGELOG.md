@@ -1,6 +1,58 @@
 # CHANGELOG
 
-## 2.3.0 - 2025.07.16
+## 3.0.0
+
+Released on 2026.01.12.
+
+### Breaking Changes
+
+- **`ExactEvery` interface removed**: This interface has been removed as part of the refactoring.
+- **`ExactTimeOfDay` interface removed**: This interface has been removed as part of the refactoring.
+- **`EveryOverrideWrapper` interface removed**: This interface has been removed as part of the refactoring.
+- **`EveryModifierInvalidator` interface removed**: This interface has been removed. Use the new `EveryWrapperInvalidator` interface instead.
+
+### New Features & Improvements
+
+- **New DateValidator interfaces**:
+  - **`DateValidatorOpposite`**: A new interface for opposite date validators.
+  - **`EveryDateValidatorMixin`**: A new mixin for every date validators.
+  - **`LimitedEveryDateValidatorListMixin`**: A new mixin for limited every date validator lists.
+  - **`LimitedEveryDateValidator`**: A new interface for limited every date validators.
+  - **`LimitedEveryMixin`**: A new mixin for limited every instances.
+
+- **New Every Modifier interfaces**:
+  - **`EveryOverrideModifier`**: A new interface for every override modifiers.
+  - **`LimitedEveryModifierInvalidator`**: A new interface for limited every modifier invalidators.
+  - **`EveryModifierInvalidator`**: A new interface for every modifier invalidators.
+  - **`EveryModifierInvalidatorMixin`**: A new mixin for every modifier invalidators.
+
+- **New Wrapper interfaces**:
+  - **`EveryWrapper`**: A new interface for every wrappers.
+  - **`LimitedEveryModifier`**: A new interface for limited every modifiers.
+  - **`LimitedEveryWrapper`**: A new interface for limited every wrappers.
+  - **`LimitedEveryWrapperMixin`**: A new mixin for limited every wrappers.
+  - **`EveryDateValidatorModifier`**: A new interface for every date validator modifiers.
+  - **`EveryDateValidatorModifierMixin`**: A new mixin for every date validator modifiers.
+  - **`EveryDateValidatorWrapper`**: A new interface for every date validator wrappers.
+  - **`EveryDateValidatorTimeOfDayModifier`**: A class that accepts a given `EveryDateValidator` and replaces the resulting `DateTime`s with a specific time of day.
+  - **`EveryTimeOfDayWrapper`**: A class that accepts a given `EveryDateValidator` and replaces the resulting `DateTime`s with a specific time of day.
+  - **`EveryWrapperMixin`**: A new mixin for every wrappers.
+  - **`EveryDateValidatorWrapperMixin`**: A new mixin for every date validator wrappers.
+  - **`LimitedEveryDateValidatorMixin`**: A new mixin for limited every date validators.
+  - **`LimitedEveryDateValidatorWrapper`**: A new interface for limited every date validator wrappers.
+
+- **New Period Bundle interfaces**:
+  - **`TrimesterPeriodBundle`**: A base class that represents a bundle of trimesters.
+  - **`SemesterPeriodBundle`**: A base class that represents a bundle of semesters.
+
+### Dependencies
+
+- Updated `time` from `^2.1.5` to `^2.1.6`.
+- Added new dependency: `essential_lints_annotations`.
+
+## 2.3.0
+
+Released on 2025.07.16.
 
 ### API Changes - Return values upgraded to more specific type
 
@@ -38,19 +90,27 @@
 
 - Updated `equatable` from `^2.0.0` to `^2.0.3`. This should fix analysis issues with `pub downgrade`.
 
-## 2.2.2 - 2024.11.27
+## 2.2.2
+
+Released on 2024.11.27.
 
 - Loosened the constraints of the dependencies.
 
-## 2.2.1 - 2024.11.19
+## 2.2.1
+
+Released on 2024.11.19.
 
 - Thightened the constraints of the dependencies.
 
-## 2.2.0 - 2024.11.19
+## 2.2.0
+
+Released on 2024.11.19.
 
 - Added [EveryDueTimeOfDay] and [EveryDueWorkdayMonth] and their respective implementations for [DateValidator].
 
-## 2.0.0 - 2023.03.28
+## 2.0.0
+
+Released on 2023.03.28.
 
 - Added [DateValidator] and some implementations.
 - Implemented [DateValidator] in all implementations of [Every].
@@ -62,7 +122,9 @@
 - API changes to always use optional named parameters.
 - API changes replacing optional positional parameters for optional named parameters.
 
-## 1.0.4 - 2022.08.23
+## 1.0.4
+
+Released on 2022.08.23.
 
 - Fixed typo on changelog.
 - Updated dependency `time` to fix issues.
@@ -72,14 +134,20 @@
 - Fixed repository and issues pointing to wrong package.
 - Fixed example README.
 
-## 1.0.2 - 2022.08.23
+## 1.0.2
+
+Released on 2022.08.23.
 
 - Renamed `isWorkDay` -> `isWorkday`. Since is the same day of release, I won't consider this a breaking change.
 
-## 1.0.1 - 2022.08.23
+## 1.0.1
+
+Released on 2022.08.23.
 
 - Fixed Dart Conventions, added more description to the `pubspec.yaml`.
 
-## 1.0.0 - 2022.08.23
+## 1.0.0
+
+Released on 2022.08.23.
 
 - Initial stable release.

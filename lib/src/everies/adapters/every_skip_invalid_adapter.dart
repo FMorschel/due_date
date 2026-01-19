@@ -2,36 +2,33 @@ import 'package:equatable/equatable.dart';
 
 import '../../date_validators/date_validator.dart';
 import '../../date_validators/date_validator_mixin.dart';
+import '../date_direction.dart';
 import '../every.dart';
 import '../limited_every_mixin.dart';
-import 'date_direction.dart';
-import 'every_modifier.dart';
-import 'every_wrapper_invalidator_mixin.dart';
-import 'limited_every_modifier_mixin.dart';
+import 'every_adapter.dart';
+import 'every_adapter_invalidator_mixin.dart';
+import 'limited_every_adapter_mixin.dart';
 
 /// {@template everySkipInvalidModifier}
 /// Class that wraps an [Every] generator and adds a [DateValidator] that will
 /// be used to invalidate the generated dates.
 ///
 /// It will return the next [DateTime] that matches the [every] pattern and is
-/// not valid for the [invalidator].
+/// not valid for the [validator].
 /// {@endtemplate}
-class EverySkipInvalidModifier<T extends Every, V extends DateValidator>
-    extends EveryModifier<T, V>
+class EverySkipInvalidAdapter<T extends Every, V extends DateValidator>
+    extends EveryAdapter<T, V>
     with
         EquatableMixin,
-        LimitedEveryModifierMixin<T, V>,
+        LimitedEveryAdapterMixin<T, V>,
         LimitedEveryMixin,
         DateValidatorMixin,
-        EveryModifierInvalidatorMixin<T, V> {
+        EveryAdapterInvalidatorMixin<T, V> {
   /// {@macro everySkipInvalidModifier}
-  const EverySkipInvalidModifier({
+  const EverySkipInvalidAdapter({
     required super.every,
-    required this.invalidator,
+    required super.validator,
   });
-
-  @override
-  final V invalidator;
 
   @override
   DateTime processDate(
@@ -49,11 +46,11 @@ class EverySkipInvalidModifier<T extends Every, V extends DateValidator>
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
-        ((other is EverySkipInvalidModifier) &&
+        ((other is EverySkipInvalidAdapter) &&
             (other.every == every) &&
-            (other.invalidator == invalidator));
+            (other.validator == validator));
   }
 
   @override
-  List<Object?> get props => [every, invalidator];
+  List<Object?> get props => [every, validator];
 }

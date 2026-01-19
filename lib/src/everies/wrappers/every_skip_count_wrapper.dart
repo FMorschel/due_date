@@ -1,17 +1,16 @@
 import 'package:equatable/equatable.dart';
 
-import '../../helpers/limited_or_every_handler.dart';
+import '../date_direction.dart';
 import '../every.dart';
-import 'date_direction.dart';
-import 'limited_every_wrapper.dart';
-import 'limited_every_wrapper_mixin.dart';
+import 'every_wrapper.dart';
+import 'every_wrapper_mixin.dart';
 
 /// {@template everySkipCountWrapper}
 /// Class that wraps an [Every] generator and skips [count] times from the
 /// [Every] base process.
 /// {@endtemplate}
-class EverySkipCountWrapper<T extends Every> extends LimitedEveryWrapper<T>
-    with EquatableMixin, LimitedEveryWrapperMixin<T> {
+class EverySkipCountWrapper<T extends Every> extends EveryWrapper<T>
+    with EquatableMixin, EveryWrapperMixin<T> {
   /// {@macro everySkipCountWrapper}
   const EverySkipCountWrapper({
     required super.every,
@@ -27,15 +26,14 @@ class EverySkipCountWrapper<T extends Every> extends LimitedEveryWrapper<T>
   ///
   /// {@macro currentCount}
   @override
-  DateTime next(DateTime date, {DateTime? limit, int? currentCount}) {
+  DateTime next(DateTime date, {int? currentCount}) {
     assert(
       currentCount == null || currentCount >= 0,
       'currentCount must be greater than or equal to 0',
     );
     return processDate(
-      LimitedOrEveryHandler.next(every, date, limit: limit),
+      every.next(date),
       DateDirection.next,
-      limit: limit,
       currentCount: currentCount ?? count,
     );
   }
@@ -46,15 +44,14 @@ class EverySkipCountWrapper<T extends Every> extends LimitedEveryWrapper<T>
   ///
   /// {@macro currentCount}
   @override
-  DateTime previous(DateTime date, {DateTime? limit, int? currentCount}) {
+  DateTime previous(DateTime date, {int? currentCount}) {
     assert(
       currentCount == null || currentCount >= 0,
       'currentCount must be greater than or equal to 0',
     );
     return processDate(
-      LimitedOrEveryHandler.previous(every, date, limit: limit),
+      every.previous(date),
       DateDirection.previous,
-      limit: limit,
       currentCount: currentCount ?? count,
     );
   }
@@ -67,20 +64,18 @@ class EverySkipCountWrapper<T extends Every> extends LimitedEveryWrapper<T>
   DateTime processDate(
     DateTime date,
     DateDirection direction, {
-    DateTime? limit,
     int? currentCount,
   }) {
     assert(
       (currentCount == null) || (currentCount >= 0),
       'currentCount must be greater than or equal to 0',
     );
-    throwIfLimitReached(date, direction, limit: limit);
     currentCount ??= count;
     if (currentCount <= 0) return date;
     if (direction.isForward) {
-      return next(date, limit: limit, currentCount: currentCount - 1);
+      return next(date, currentCount: currentCount - 1);
     }
-    return previous(date, limit: limit, currentCount: currentCount - 1);
+    return previous(date, currentCount: currentCount - 1);
   }
 
   @override

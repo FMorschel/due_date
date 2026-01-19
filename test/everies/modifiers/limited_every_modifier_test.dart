@@ -1,8 +1,8 @@
 import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/date_direction.dart';
 import 'package:due_date/src/everies/every_date_validator.dart';
 import 'package:due_date/src/everies/every_weekday.dart';
 import 'package:due_date/src/everies/limited_every_mixin.dart';
-import 'package:due_date/src/everies/modifiers/date_direction.dart';
 import 'package:due_date/src/everies/modifiers/limited_every_modifier.dart';
 import 'package:due_date/src/everies/modifiers/limited_every_modifier_mixin.dart';
 import 'package:due_date/src/helpers/limited_or_every_handler.dart';
@@ -12,8 +12,7 @@ import '../../src/every_match.dart';
 
 class LimitedEveryModifierTest extends LimitedEveryModifier
     with LimitedEveryModifierMixin, LimitedEveryMixin {
-  const LimitedEveryModifierTest({required EveryDateValidator super.every})
-      : _every = every;
+  const LimitedEveryModifierTest({required super.every}) : _every = every;
 
   final EveryDateValidator _every;
 

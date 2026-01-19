@@ -1,17 +1,17 @@
 import '../../helpers/limited_or_every_handler.dart';
+import '../date_direction.dart';
 import '../date_time_limit_reached_exception.dart';
 import '../every.dart';
 import '../limited_every.dart';
-import 'date_direction.dart';
 import 'limited_every_wrapper.dart';
 
-/// {@macro everyModifierMixin}
+/// {@macro limitedEveryWrapper}
 ///
 /// Also makes the using class a [LimitedEvery].
 ///
 /// Should **always** be used when the [every] is a [LimitedEvery].
-mixin LimitedEveryWrapperMixin<T extends Every> on LimitedEveryWrapper<T>
-    implements LimitedEvery {
+mixin LimitedEveryWrapperMixin<T extends Every>
+    implements LimitedEvery, LimitedEveryWrapper<T> {
   @override
   DateTime next(DateTime date, {DateTime? limit}) {
     return processDate(

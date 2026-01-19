@@ -28,7 +28,7 @@ abstract class LimitedOrEveryHandler {
   /// If the [validator] is valid for the [date], it will be returned.
   /// If not, the next date will be returned considering the [every] base
   /// process.
-  static DateTime startDate2<T extends Every, V extends DateValidator>(
+  static DateTime startDateAdapter<T extends Every, V extends DateValidator>(
     T every,
     V validator,
     DateTime date, {
@@ -78,7 +78,7 @@ abstract class LimitedOrEveryHandler {
   /// If the [validator] is valid for the [date], it will be returned.
   /// If not, the previous date will be returned considering the [every] base
   /// process.
-  static DateTime endDate2<T extends Every, V extends DateValidator>(
+  static DateTime endDateAdapter<T extends Every, V extends DateValidator>(
     T every,
     V validator,
     DateTime date, {

@@ -1,9 +1,9 @@
 import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
 import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
 import 'package:due_date/src/everies/every_weekday.dart';
-import 'package:due_date/src/everies/modifiers/every_skip_invalid_modifier.dart';
 import 'package:due_date/src/helpers/limited_or_every_handler.dart';
 import 'package:test/test.dart';
 
@@ -12,9 +12,9 @@ import '../src/date_time_match.dart';
 void main() {
   group('LimitedOrEveryHandler', () {
     const every = EveryWeekday(Weekday.monday);
-    const limited = EverySkipInvalidModifier(
+    const limited = EverySkipInvalidAdapter(
       every: EveryWeekday(Weekday.monday),
-      invalidator: DateValidatorWeekdayCountInMonth(
+      validator: DateValidatorWeekdayCountInMonth(
         week: Week.first,
         day: Weekday.monday,
       ),

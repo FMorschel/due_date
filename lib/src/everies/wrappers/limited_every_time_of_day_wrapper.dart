@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
+import '../date_direction.dart';
 import '../every.dart';
 import '../every_due_time_of_day.dart';
-import 'date_direction.dart';
-import 'every_wrapper.dart';
-import 'every_wrapper_mixin.dart';
+import 'limited_every_wrapper.dart';
+import 'limited_every_wrapper_mixin.dart';
 
-/// {@template everyTimeOfDayWrapper}
+/// {@template limitedEveryTimeOfDayWrapper}
 /// Class that wraps an [Every] and modifies its behavior so that all
 /// processed [DateTime]s have the same time of day as specified by
 /// [everyTimeOfDay].
@@ -19,10 +19,11 @@ import 'every_wrapper_mixin.dart';
 /// `2024-01-05 15:30`, but this wrapper has an [everyTimeOfDay] of
 /// midnight, the final output will be `2024-01-05 00:00`.
 /// {@endtemplate}
-class EveryTimeOfDayWrapper<T extends Every> extends EveryWrapper<T>
-    with EveryWrapperMixin<T>, EquatableMixin {
-  /// {@macro everyTimeOfDayWrapper}
-  const EveryTimeOfDayWrapper({
+class LimitedEveryTimeOfDayWrapper<T extends Every>
+    extends LimitedEveryWrapper<T>
+    with LimitedEveryWrapperMixin<T>, EquatableMixin {
+  /// {@macro limitedEveryTimeOfDayWrapper}
+  const LimitedEveryTimeOfDayWrapper({
     required super.every,
     this.everyTimeOfDay = EveryDueTimeOfDay.midnight,
   });
@@ -32,7 +33,12 @@ class EveryTimeOfDayWrapper<T extends Every> extends EveryWrapper<T>
   final EveryDueTimeOfDay everyTimeOfDay;
 
   @override
-  DateTime processDate(DateTime date, DateDirection direction) {
+  DateTime processDate(
+    DateTime date,
+    DateDirection direction, {
+    DateTime? limit,
+  }) {
+    throwIfLimitReached(date, direction, limit: limit);
     return everyTimeOfDay.startDate(date.date);
   }
 
@@ -40,7 +46,7 @@ class EveryTimeOfDayWrapper<T extends Every> extends EveryWrapper<T>
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
-        ((other is EveryTimeOfDayWrapper<T>) &&
+        ((other is LimitedEveryTimeOfDayWrapper<T>) &&
             (every == other.every) &&
             (everyTimeOfDay == other.everyTimeOfDay));
   }

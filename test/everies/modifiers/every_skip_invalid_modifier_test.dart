@@ -1,8 +1,8 @@
 import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
 import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
-import 'package:due_date/src/everies/modifiers/every_skip_invalid_modifier.dart';
 import 'package:test/test.dart';
 
 import '../../src/date_time_match.dart';
@@ -15,16 +15,16 @@ void main() {
       week: Week.first,
       day: Weekday.monday,
     );
-    final modifier = EverySkipInvalidModifier(
+    final modifier = EverySkipInvalidAdapter(
       every: every,
-      invalidator: invalidator,
+      validator: invalidator,
     );
 
     group('Constructor', () {
       group('Unnamed', () {
         test('Valid basic case', () {
           expect(
-            EverySkipInvalidModifier(every: every, invalidator: invalidator),
+            EverySkipInvalidAdapter(every: every, validator: invalidator),
             isNotNull,
           );
         });
@@ -32,7 +32,7 @@ void main() {
           expect(modifier.every, equals(every));
         });
         test('Creates with correct invalidator', () {
-          expect(modifier.invalidator, equals(invalidator));
+          expect(modifier.validator, equals(invalidator));
         });
       });
     });
@@ -336,30 +336,30 @@ void main() {
     });
 
     group('Equality', () {
-      final modifier1 = EverySkipInvalidModifier(
+      final modifier1 = EverySkipInvalidAdapter(
         every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         ),
       );
-      final modifier2 = EverySkipInvalidModifier(
+      final modifier2 = EverySkipInvalidAdapter(
         every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.second,
           day: Weekday.monday,
         ),
       );
-      final modifier3 = EverySkipInvalidModifier(
+      final modifier3 = EverySkipInvalidAdapter(
         every: Weekday.tuesday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         ),
       );
-      final modifier4 = EverySkipInvalidModifier(
+      final modifier4 = EverySkipInvalidAdapter(
         every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         ),

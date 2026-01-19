@@ -1,11 +1,11 @@
+import '../date_direction.dart';
 import '../every.dart';
-import 'date_direction.dart';
 
-/// {@template everyModifier}
+/// {@template everyWrapper}
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
 /// {@endtemplate}
 abstract class EveryWrapper<T extends Every> extends Every {
-  /// {@macro everyModifier}
+  /// {@macro everyWrapper}
   const EveryWrapper({required this.every});
 
   /// The base generator for this [EveryWrapper].

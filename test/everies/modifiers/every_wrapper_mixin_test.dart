@@ -2,14 +2,14 @@ import 'package:due_date/src/date_validators/date_validator.dart';
 import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
+import 'package:due_date/src/everies/date_direction.dart';
 import 'package:due_date/src/everies/every.dart';
 import 'package:due_date/src/everies/every_due_day_month.dart';
 import 'package:due_date/src/everies/every_due_workday_month.dart';
 import 'package:due_date/src/everies/every_weekday.dart';
-import 'package:due_date/src/everies/modifiers/date_direction.dart';
-import 'package:due_date/src/everies/modifiers/every_skip_invalid_modifier.dart';
-import 'package:due_date/src/everies/modifiers/every_wrapper.dart';
-import 'package:due_date/src/everies/modifiers/every_wrapper_mixin.dart';
+import 'package:due_date/src/everies/wrappers/every_wrapper.dart';
+import 'package:due_date/src/everies/wrappers/every_wrapper_mixin.dart';
 import 'package:test/test.dart';
 
 import '../../src/every_match.dart';
@@ -136,15 +136,15 @@ void main() {
 
     group('Edge Cases', () {
       test('Works with LimitedEvery base', () {
-        final limitedBase = EverySkipInvalidModifier(
+        final limitedBase = EverySkipInvalidAdapter(
           every: baseEvery,
-          invalidator: DateValidatorWeekdayCountInMonth(
+          validator: DateValidatorWeekdayCountInMonth(
             week: Week.first,
             day: Weekday.monday,
           ),
         );
         final current = _TestEveryModifier<
-            EverySkipInvalidModifier<EveryWeekday, DateValidator>>(
+            EverySkipInvalidAdapter<EveryWeekday, DateValidator>>(
           every: limitedBase,
         );
         expect(current.every, equals(limitedBase));

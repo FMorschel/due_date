@@ -71,13 +71,27 @@ print('The previous hour is $previousHour.');
 print('The previous second is $previousSecond.');
 ```
 
+### Every, Wrappers, and Modifiers
+
+The package provides a hierarchy of classes for working with repeating date patterns:
+
+- **`Every`**: The base class that provides `next()` and `previous()` methods to generate dates matching a pattern.
+- **`EveryDateValidator`**: Extends `Every` with date validation capabilities and adds `startDate()` and `endDate()` methods.
+
+When you need to customize or wrap these behaviors:
+
+- **`EveryWrapper`**: Wraps an `Every` and applies custom processing. Only provides `next()` and `previous()`.
+- **`EveryModifier`**: Wraps an `Every` **and** includes `DateValidator` capabilities, providing `next()`, `previous()`, `startDate()`, and `endDate()`.
+
+Use `EveryWrapper` when you only need to modify navigation behavior on a plain `Every`. Use `EveryModifier` when you need the full `EveryDateValidator` functionality with validation support.
+
 ## Getting started
 
 On your `pubspec.yaml` file, add this package to your dependencies:
 
 ```yaml
   dependencies:
-    due_date: ^2.3.0
+    due_date: ^3.0.0
 ```
 
 Import one of the, or both, package libraries on your code:

@@ -1,7 +1,7 @@
 import '../../helpers/limited_or_every_handler.dart';
+import '../date_direction.dart';
 import '../every.dart';
 import '../limited_every.dart';
-import 'date_direction.dart';
 import 'every_wrapper.dart';
 import 'limited_every_wrapper_mixin.dart';
 
@@ -12,7 +12,7 @@ import 'limited_every_wrapper_mixin.dart';
 ///
 /// If the [every] is a [LimitedEvery], the [LimitedEveryWrapperMixin] should
 /// be used instead.
-mixin EveryWrapperMixin<T extends Every> on EveryWrapper<T> {
+mixin EveryWrapperMixin<T extends Every> implements EveryWrapper<T> {
   @override
   DateTime next(DateTime date) {
     return processDate(

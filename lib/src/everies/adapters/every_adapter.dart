@@ -1,21 +1,26 @@
+import '../../date_validators/date_validator.dart';
 import '../../date_validators/date_validator_mixin.dart';
 import '../date_direction.dart';
+import '../every.dart';
 import '../every_date_validator.dart';
 import '../wrappers/every_wrapper.dart';
 
-/// {@template everyModifier}
+/// {@template everyAdapter}
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
 /// {@endtemplate}
-abstract class EveryModifier<T extends EveryDateValidator>
+abstract class EveryAdapter<T extends Every, V extends DateValidator>
     extends EveryDateValidator
     with DateValidatorMixin
     implements EveryWrapper<T> {
-  /// {@macro everyModifier}
-  const EveryModifier({required this.every});
+  /// {@macro everyAdapter}
+  const EveryAdapter({required this.every, required this.validator});
 
-  /// The base generator for this [EveryModifier].
+  /// The base generator for this [EveryAdapter].
   @override
   final T every;
+
+  /// The validator used by this [EveryAdapter].
+  final V validator;
 
   /// A method that processes [date] with custom logic.
   @override

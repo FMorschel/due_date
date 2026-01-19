@@ -5,6 +5,7 @@ import 'package:due_date/src/due_date.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/enums/weekday_occurrence.dart';
+import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
 import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
 import 'package:due_date/src/everies/every.dart';
 import 'package:due_date/src/everies/every_day_in_year.dart';
@@ -13,8 +14,7 @@ import 'package:due_date/src/everies/every_due_time_of_day.dart';
 import 'package:due_date/src/everies/every_due_workday_month.dart';
 import 'package:due_date/src/everies/every_weekday.dart';
 import 'package:due_date/src/everies/every_weekday_count_in_month.dart';
-import 'package:due_date/src/everies/modifiers/every_skip_count_wrapper.dart';
-import 'package:due_date/src/everies/modifiers/every_skip_invalid_modifier.dart';
+import 'package:due_date/src/everies/wrappers/every_skip_count_wrapper.dart';
 import 'package:test/test.dart';
 
 import 'src/date_time_match.dart';
@@ -58,9 +58,9 @@ void main() {
       });
       test('With limited every', () {
         // February 28, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidModifier(
+        final limitedEvery = EverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
-          invalidator: const DateValidatorWeekday(Weekday.sunday),
+          validator: const DateValidatorWeekday(Weekday.sunday),
         );
         expect(
           DueDateTime.fromDate(matcher, every: limitedEvery),
@@ -69,9 +69,9 @@ void main() {
       });
       test('With limited every and limit', () {
         // February 28, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidModifier(
+        final limitedEvery = EverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
-          invalidator: const DateValidatorWeekday(Weekday.sunday),
+          validator: const DateValidatorWeekday(Weekday.sunday),
         );
         final limit = DateTime.utc(year, 3, 15);
         expect(
@@ -80,9 +80,9 @@ void main() {
         );
       });
       test('With limited every and wrong limit', () {
-        final limitedEvery = EverySkipInvalidModifier(
+        final limitedEvery = EverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
-          invalidator: const DateValidatorWeekday(Weekday.sunday),
+          validator: const DateValidatorWeekday(Weekday.sunday),
         );
         final limit = DateTime.utc(year, 2);
         expect(
@@ -482,9 +482,9 @@ void main() {
     group('With LimitedEvery:', () {
       test('Add weeks when every is LimitedEvery', () {
         // January 3, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidModifier(
+        final limitedEvery = EverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
-          invalidator: const DateValidatorWeekday(Weekday.sunday),
+          validator: const DateValidatorWeekday(Weekday.sunday),
         );
         final dueDateLimited = DueDateTime.fromDate(
           DateTime(2022, 1, 3),
@@ -500,9 +500,9 @@ void main() {
 
       test('Add weeks with LimitedEvery and sameEvery false', () {
         // January 3, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidModifier(
+        final limitedEvery = EverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
-          invalidator: const DateValidatorWeekday(Weekday.sunday),
+          validator: const DateValidatorWeekday(Weekday.sunday),
         );
         final dueDateLimited = DueDateTime.fromDate(
           DateTime(2022, 1, 3),
@@ -663,9 +663,9 @@ void main() {
 
       group('With LimitedEvery:', () {
         test('Add months when every is LimitedEvery', () {
-          final limitedEvery = EverySkipInvalidModifier(
+          final limitedEvery = EverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
-            invalidator: const DateValidatorWeekday(Weekday.sunday),
+            validator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDateLimited = DueDateTime.fromDate(
             DateTime(2022, 1, 3), // Monday.
@@ -680,9 +680,9 @@ void main() {
         });
 
         test('Add months with LimitedEvery and sameEvery false', () {
-          final limitedEvery = EverySkipInvalidModifier(
+          final limitedEvery = EverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
-            invalidator: const DateValidatorWeekday(Weekday.sunday),
+            validator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDateLimited = DueDateTime.fromDate(
             DateTime(2022, 1, 3), // Monday.
@@ -980,9 +980,9 @@ void main() {
       group('next', () {
         test('EverySkipInvalidModifier Local', () {
           // February 28, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidModifier(
+          final limitedEvery = EverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
-            invalidator: const DateValidatorWeekday(Weekday.sunday),
+            validator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDate = DueDateTime.fromDate(
             DateTime(2022, 2, 28),
@@ -997,9 +997,9 @@ void main() {
 
         test('EverySkipInvalidModifier UTC', () {
           // February 28, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidModifier(
+          final limitedEvery = EverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
-            invalidator: const DateValidatorWeekday(Weekday.sunday),
+            validator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDate = DueDateTime.fromDate(
             DateTime.utc(2022, 2, 28),
@@ -1176,9 +1176,9 @@ void main() {
       group('LimitedEvery', () {
         test('EverySkipInvalidModifier Local', () {
           // March 7, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidModifier(
+          final limitedEvery = EverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
-            invalidator: const DateValidatorWeekday(Weekday.sunday),
+            validator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDate = DueDateTime.fromDate(
             DateTime(2022, 3, 7),
@@ -1193,9 +1193,9 @@ void main() {
 
         test('EverySkipInvalidModifier UTC', () {
           // March 7, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidModifier(
+          final limitedEvery = EverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
-            invalidator: const DateValidatorWeekday(Weekday.sunday),
+            validator: const DateValidatorWeekday(Weekday.sunday),
           );
           final dueDate = DueDateTime.fromDate(
             DateTime.utc(2022, 3, 7),

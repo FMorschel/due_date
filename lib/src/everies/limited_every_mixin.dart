@@ -1,6 +1,6 @@
+import 'date_direction.dart';
 import 'date_time_limit_reached_exception.dart';
 import 'limited_every.dart';
-import 'modifiers/date_direction.dart';
 
 /// Mixin that adds limit checking functionality to [LimitedEvery]
 /// implementations.

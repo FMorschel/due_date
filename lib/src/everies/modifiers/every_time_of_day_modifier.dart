@@ -2,16 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
 import '../../date_validators/date_validator_mixin.dart';
+import '../date_direction.dart';
 import '../every.dart';
 import '../every_date_validator.dart';
 import '../every_due_time_of_day.dart';
 import '../limited_every_mixin.dart';
-import 'date_direction.dart';
-import 'every_date_validator_modifier_mixin.dart';
-import 'every_time_of_day_wrapper.dart';
+import '../wrappers/every_time_of_day_wrapper.dart';
 import 'limited_every_modifier_mixin.dart';
 
-/// {@template everyTimeOfDayWrapper}
+/// {@template everyTimeOfDayModifier}
 /// Class that wraps an [Every] and modifies its behavior so that all
 /// processed [DateTime]s have the same time of day as specified by
 /// [everyTimeOfDay].
@@ -23,16 +22,15 @@ import 'limited_every_modifier_mixin.dart';
 /// `2024-01-05 15:30`, but this wrapper has an [everyTimeOfDay] of
 /// midnight, the final output will be `2024-01-05 00:00`.
 /// {@endtemplate}
-class EveryDateValidatorTimeOfDayWrapper<T extends EveryDateValidator>
+class EveryTimeOfDayModifier<T extends EveryDateValidator>
     extends EveryTimeOfDayWrapper<T>
     with
         DateValidatorMixin,
-        LimitedEveryModifierMixin<T, T>,
+        LimitedEveryModifierMixin<T>,
         LimitedEveryMixin,
-        EveryDateValidatorModifierMixin<T>,
         EquatableMixin {
-  /// {@macro everyTimeOfDayWrapper}
-  const EveryDateValidatorTimeOfDayWrapper({
+  /// {@macro everyTimeOfDayModifier}
+  const EveryTimeOfDayModifier({
     required super.every,
     super.everyTimeOfDay = EveryDueTimeOfDay.midnight,
   });
@@ -57,7 +55,7 @@ class EveryDateValidatorTimeOfDayWrapper<T extends EveryDateValidator>
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
-        ((other is EveryDateValidatorTimeOfDayWrapper<T>) &&
+        ((other is EveryTimeOfDayModifier<T>) &&
             (every == other.every) &&
             (everyTimeOfDay == other.everyTimeOfDay));
   }

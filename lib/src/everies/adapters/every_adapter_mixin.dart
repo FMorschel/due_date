@@ -1,9 +1,10 @@
+import '../../date_validators/date_validator.dart';
 import '../../helpers/limited_or_every_handler.dart';
 import '../date_direction.dart';
-import '../every_date_validator.dart';
+import '../every.dart';
 import '../limited_every.dart';
 import '../wrappers/limited_every_wrapper_mixin.dart';
-import 'every_modifier.dart';
+import 'every_adapter.dart';
 
 /// {@template everyModifierMixin}
 /// Mixin that, when used, passes the calls to the specific method on the
@@ -12,11 +13,12 @@ import 'every_modifier.dart';
 ///
 /// If the [every] is a [LimitedEvery], the [LimitedEveryWrapperMixin] should
 /// be used instead.
-mixin EveryModifierMixin<T extends EveryDateValidator> on EveryModifier<T> {
+mixin EveryAdapterMixin<T extends Every, V extends DateValidator>
+    on EveryAdapter<T, V> {
   @override
   DateTime startDate(DateTime date) {
     return processDate(
-      LimitedOrEveryHandler.startDate(every, date, limit: null),
+      LimitedOrEveryHandler.startDateAdapter(every, this, date, limit: null),
       DateDirection.start,
     );
   }
@@ -40,7 +42,7 @@ mixin EveryModifierMixin<T extends EveryDateValidator> on EveryModifier<T> {
   @override
   DateTime endDate(DateTime date) {
     return processDate(
-      LimitedOrEveryHandler.endDate(every, date, limit: null),
+      LimitedOrEveryHandler.endDateAdapter(every, this, date, limit: null),
       DateDirection.end,
     );
   }

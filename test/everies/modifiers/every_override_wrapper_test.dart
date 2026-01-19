@@ -1,7 +1,7 @@
 import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
-import 'package:due_date/src/everies/modifiers/every_override_wrapper.dart';
+import 'package:due_date/src/everies/adapters/every_override_adapter.dart';
 import 'package:test/test.dart';
 
 import '../../src/date_time_match.dart';
@@ -14,9 +14,9 @@ void main() {
       week: Week.first,
       day: Weekday.monday,
     );
-    final wrapper = EveryOverrideModifier(
+    final wrapper = EveryOverrideAdapter(
       every: every,
-      invalidator: invalidator,
+      validator: invalidator,
       overrider: Weekday.tuesday.every,
     );
 
@@ -241,41 +241,41 @@ void main() {
     });
 
     group('Equality', () {
-      final wrapper1 = EveryOverrideModifier(
+      final wrapper1 = EveryOverrideAdapter(
         every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper2 = EveryOverrideModifier(
+      final wrapper2 = EveryOverrideAdapter(
         every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.second,
           day: Weekday.monday,
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper3 = EveryOverrideModifier(
+      final wrapper3 = EveryOverrideAdapter(
         every: Weekday.tuesday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper4 = EveryOverrideModifier(
+      final wrapper4 = EveryOverrideAdapter(
         every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         ),
         overrider: Weekday.tuesday.every,
       );
-      final wrapper5 = EveryOverrideModifier(
+      final wrapper5 = EveryOverrideAdapter(
         every: Weekday.monday.every,
-        invalidator: DateValidatorWeekdayCountInMonth(
+        validator: DateValidatorWeekdayCountInMonth(
           week: Week.first,
           day: Weekday.monday,
         ),
