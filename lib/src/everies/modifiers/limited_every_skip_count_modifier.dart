@@ -3,20 +3,22 @@ import 'package:equatable/equatable.dart';
 import '../../helpers/limited_or_every_handler.dart';
 import '../date_direction.dart';
 import '../every.dart';
-import 'every_skip_count_wrapper.dart';
-import 'limited_every_wrapper.dart';
-import 'limited_every_wrapper_mixin.dart';
+import '../every_date_validator.dart';
+import '../wrappers/limited_every_skip_count_wrapper.dart';
+import 'every_skip_count_modifier.dart';
+import 'limited_every_modifier.dart';
+import 'limited_every_modifier_mixin.dart';
 
-/// {@template limitedEverySkipCountWrapper}
+/// {@template limitedEverySkipCountModifier}
 /// Class that wraps an [Every] generator and skips [count] times from the
 /// [Every] base process.
 /// {@endtemplate}
-class LimitedEverySkipCountWrapper<T extends Every>
-    extends LimitedEveryWrapper<T>
-    with EquatableMixin, LimitedEveryWrapperMixin<T>
-    implements EverySkipCountWrapper<T> {
-  /// {@macro limitedEverySkipCountWrapper}
-  const LimitedEverySkipCountWrapper({
+class LimitedEverySkipCountModifier<T extends EveryDateValidator>
+    extends LimitedEveryModifier<T>
+    with EquatableMixin, LimitedEveryModifierMixin<T>
+    implements LimitedEverySkipCountWrapper<T>, EverySkipCountModifier<T> {
+  /// {@macro limitedEverySkipCountModifier}
+  const LimitedEverySkipCountModifier({
     required super.every,
     required this.count,
   }) : assert(count >= 0, 'Count must be greater than or equal to 0');
@@ -25,9 +27,19 @@ class LimitedEverySkipCountWrapper<T extends Every>
   @override
   final int count;
 
+  @override
+  bool valid(DateTime date, {int? currentCount}) {
+    assert(
+      currentCount == null || currentCount >= 0,
+      'currentCount must be greater than or equal to 0',
+    );
+    if (currentCount != null && currentCount > 0) return false;
+    return every.valid(date);
+  }
+
   /// Generates the next of the [every] base process.
   /// It will skip [currentCount] times from the [date] using the
-  /// [LimitedEverySkipCountWrapper.next] process.
+  /// [LimitedEverySkipCountModifier.next] process.
   ///
   /// {@macro currentCount}
   @override
@@ -46,7 +58,7 @@ class LimitedEverySkipCountWrapper<T extends Every>
 
   /// Generates the previous of the [every] base process.
   /// It will skip [currentCount] times from the [date] using the
-  /// [LimitedEverySkipCountWrapper.previous] process.
+  /// [LimitedEverySkipCountModifier.previous] process.
   ///
   /// {@macro currentCount}
   @override
@@ -91,7 +103,7 @@ class LimitedEverySkipCountWrapper<T extends Every>
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
-        ((other is LimitedEverySkipCountWrapper<T>) &&
+        ((other is LimitedEverySkipCountModifier<T>) &&
             (other.every == every) &&
             (other.count == count));
   }

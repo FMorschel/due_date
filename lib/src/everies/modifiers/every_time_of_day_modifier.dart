@@ -6,9 +6,7 @@ import '../date_direction.dart';
 import '../every.dart';
 import '../every_date_validator.dart';
 import '../every_due_time_of_day.dart';
-import '../limited_every_mixin.dart';
 import '../wrappers/every_time_of_day_wrapper.dart';
-import 'limited_every_modifier_mixin.dart';
 
 /// {@template everyTimeOfDayModifier}
 /// Class that wraps an [Every] and modifies its behavior so that all
@@ -23,12 +21,7 @@ import 'limited_every_modifier_mixin.dart';
 /// midnight, the final output will be `2024-01-05 00:00`.
 /// {@endtemplate}
 class EveryTimeOfDayModifier<T extends EveryDateValidator>
-    extends EveryTimeOfDayWrapper<T>
-    with
-        DateValidatorMixin,
-        LimitedEveryModifierMixin<T>,
-        LimitedEveryMixin,
-        EquatableMixin {
+    extends EveryTimeOfDayWrapper<T> with DateValidatorMixin, EquatableMixin {
   /// {@macro everyTimeOfDayModifier}
   const EveryTimeOfDayModifier({
     required super.every,
@@ -39,16 +32,14 @@ class EveryTimeOfDayModifier<T extends EveryDateValidator>
   bool valid(DateTime date) => every.valid(date) && everyTimeOfDay.valid(date);
 
   @override
-  DateTime processDate(
-    DateTime date,
-    DateDirection direction, {
-    DateTime? limit,
-  }) {
-    throwIfLimitReached(date, direction, limit: limit);
-    if (invalid(date) && every.valid(date) && direction.couldStayEqual) {
+  DateTime processDate(DateTime date, DateDirection direction) {
+    if (every.valid(date) && direction.couldStayEqual) {
       return everyTimeOfDay.startDate(date.date);
     }
-    return super.processDate(date, direction);
+    if (direction.isForward) {
+      return processDate(every.next(date), DateDirection.start);
+    }
+    return processDate(every.previous(date), DateDirection.end);
   }
 
   @override

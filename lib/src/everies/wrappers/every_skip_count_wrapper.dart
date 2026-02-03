@@ -82,7 +82,7 @@ class EverySkipCountWrapper<T extends Every> extends EveryWrapper<T>
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
-        ((other is EverySkipCountWrapper) &&
+        ((other is EverySkipCountWrapper<T>) &&
             (other.every == every) &&
             (other.count == count));
   }

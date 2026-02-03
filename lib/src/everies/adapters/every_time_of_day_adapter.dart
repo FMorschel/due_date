@@ -1,14 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
+import '../../date_validators/date_validator.dart';
+import '../../date_validators/date_validator_mixin.dart';
 import '../date_direction.dart';
 import '../every.dart';
+import '../every_date_validator.dart';
 import '../every_due_time_of_day.dart';
-import 'every_time_of_day_wrapper.dart';
-import 'limited_every_wrapper.dart';
-import 'limited_every_wrapper_mixin.dart';
+import '../wrappers/every_time_of_day_wrapper.dart';
+import 'every_adapter.dart';
+import 'every_adapter_mixin.dart';
 
-/// {@template limitedEveryTimeOfDayWrapper}
+/// {@template everyTimeOfDayAdapter}
 /// Class that wraps an [Every] and modifies its behavior so that all
 /// processed [DateTime]s have the same time of day as specified by
 /// [everyTimeOfDay].
@@ -20,36 +23,46 @@ import 'limited_every_wrapper_mixin.dart';
 /// `2024-01-05 15:30`, but this wrapper has an [everyTimeOfDay] of
 /// midnight, the final output will be `2024-01-05 00:00`.
 /// {@endtemplate}
-class LimitedEveryTimeOfDayWrapper<T extends Every>
-    extends LimitedEveryWrapper<T>
-    with LimitedEveryWrapperMixin<T>, EquatableMixin
+class EveryTimeOfDayAdapter<T extends Every, V extends DateValidator>
+    extends EveryAdapter<T, V>
+    with DateValidatorMixin, EveryAdapterMixin<T, V>, EquatableMixin
     implements EveryTimeOfDayWrapper<T> {
-  /// {@macro limitedEveryTimeOfDayWrapper}
-  const LimitedEveryTimeOfDayWrapper({
+  /// {@macro everyTimeOfDayAdapter}
+  const EveryTimeOfDayAdapter({
     required super.every,
+    required super.validator,
     this.everyTimeOfDay = EveryDueTimeOfDay.midnight,
   });
 
-  /// The [EveryDueTimeOfDay] that specifies the time of day to set on all
-  /// processed [DateTime]s.
   @override
   final EveryDueTimeOfDay everyTimeOfDay;
 
   @override
-  DateTime processDate(
-    DateTime date,
-    DateDirection direction, {
-    DateTime? limit,
-  }) {
-    throwIfLimitReached(date, direction, limit: limit);
-    return everyTimeOfDay.startDate(date.date);
+  bool valid(DateTime date) {
+    if (!validator.valid(date)) return false;
+    final every = this.every;
+    if (every is EveryDateValidator) {
+      return every.valid(date);
+    }
+    return false;
+  }
+
+  @override
+  DateTime processDate(DateTime date, DateDirection direction) {
+    if (valid(date) && direction.couldStayEqual) {
+      return everyTimeOfDay.startDate(date.date);
+    }
+    if (direction.isForward) {
+      return processDate(every.next(date), DateDirection.start);
+    }
+    return processDate(every.previous(date), DateDirection.end);
   }
 
   @override
   // ignore: hash_and_equals, already implemented by EquatableMixin
   bool operator ==(Object other) {
     return (super == other) ||
-        ((other is LimitedEveryTimeOfDayWrapper<T>) &&
+        ((other is EveryTimeOfDayAdapter<T, V>) &&
             (every == other.every) &&
             (everyTimeOfDay == other.everyTimeOfDay));
   }

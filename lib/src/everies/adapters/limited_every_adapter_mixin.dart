@@ -2,6 +2,7 @@ import '../../date_validators/date_validator.dart';
 import '../../date_validators/date_validator_mixin.dart';
 import '../../helpers/limited_or_every_handler.dart';
 import '../date_direction.dart';
+import '../date_time_limit_reached_exception.dart';
 import '../every.dart';
 import '../limited_every.dart';
 import 'limited_every_adapter.dart';
@@ -47,6 +48,18 @@ mixin LimitedEveryAdapterMixin<T extends Every, V extends DateValidator>
       DateDirection.end,
       limit: limit,
     );
+  }
+
+  @override
+  void throwIfLimitReached(
+    DateTime date,
+    DateDirection direction, {
+    required DateTime? limit,
+  }) {
+    if ((limit != null) &&
+        (direction.isBackward ? date.isBefore(limit) : date.isAfter(limit))) {
+      throw DateTimeLimitReachedException(date: date, limit: limit);
+    }
   }
 
   @override
