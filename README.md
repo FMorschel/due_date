@@ -71,19 +71,20 @@ print('The previous hour is $previousHour.');
 print('The previous second is $previousSecond.');
 ```
 
-### Every, Wrappers, and Modifiers
+### Every, Wrappers, Modifiers, and Adapters
 
-The package provides a hierarchy of classes for working with repeating date patterns:
+The package provides a flexible hierarchy for working with repeating date patterns:
 
-- **`Every`**: The base class that provides `next()` and `previous()` methods to generate dates matching a pattern.
-- **`EveryDateValidator`**: Extends `Every` with date validation capabilities and adds `startDate()` and `endDate()` methods.
+- **`Every`**: The base class for generating dates matching a pattern, with `next()` and `previous()` methods.
+- **`EveryDateValidator`**: Extends `Every` by adding date validation and boundary methods like `startDate()` and `endDate()`.
 
-When you need to customize or wrap these behaviors:
+To extend or customize these behaviors, use:
 
-- **`EveryWrapper`**: Wraps an `Every` and applies custom processing. Only provides `next()` and `previous()`.
-- **`EveryModifier`**: Wraps an `Every` **and** includes `DateValidator` capabilities, providing `next()`, `previous()`, `startDate()`, and `endDate()`.
+- **Wrappers**: Decorate or alter the iteration behavior of an `Every` (or `LimitedEvery`) instance. Wrappers only provide `next()` and `previous()` — they do not add validation or boundary methods.
+- **Modifiers**: Decorate or alter an `EveryDateValidator` (or `LimitedEveryDateValidator`), providing both iteration and validation (`next()`, `previous()`, `startDate()`, `endDate()`).
+- **Adapters**: Bridge or adapt between an `Every` (and its variants) and a `DateValidator`, sometimes adding or transforming validation or iteration logic. Adapters can be used to convert or extend functionality between these types.
 
-Use `EveryWrapper` when you only need to modify navigation behavior on a plain `Every`. Use `EveryModifier` when you need the full `EveryDateValidator` functionality with validation support.
+Use a **Wrapper** when you only need to change how iteration works for an `Every`. Use a **Modifier** when you need to extend or alter both iteration and validation for an `EveryDateValidator`. Use an **Adapter** when you need to bridge or convert between these types, or to add missing capabilities.
 
 ## Getting started
 
