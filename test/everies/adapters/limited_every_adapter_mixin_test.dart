@@ -9,7 +9,8 @@ import 'package:due_date/src/everies/date_direction.dart';
 import 'package:due_date/src/everies/every.dart';
 import 'package:test/test.dart';
 
-/// Test implementation of [LimitedEveryAdapter] with [LimitedEveryAdapterMixin].
+/// Test implementation of [LimitedEveryAdapter] with
+/// [LimitedEveryAdapterMixin].
 class _TestLimitedEveryAdapter extends LimitedEveryAdapter<Every, DateValidator>
     with DateValidatorMixin, LimitedEveryAdapterMixin<Every, DateValidator> {
   /// Creates a test implementation of [LimitedEveryAdapter].

@@ -49,7 +49,7 @@ class EveryTimeOfDayAdapter<T extends Every, V extends DateValidator>
 
   @override
   DateTime processDate(DateTime date, DateDirection direction) {
-    if (valid(date) && direction.couldStayEqual) {
+    if (validator.valid(date)) {
       return everyTimeOfDay.startDate(date.date);
     }
     if (direction.isForward) {
