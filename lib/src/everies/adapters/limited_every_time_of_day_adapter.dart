@@ -56,7 +56,7 @@ class LimitedEveryTimeOfDayAdapter<T extends Every, V extends DateValidator>
     DateTime? limit,
   }) {
     throwIfLimitReached(date, direction, limit: limit);
-    if (valid(date) && direction.couldStayEqual) {
+    if (validator.valid(date)) {
       return everyTimeOfDay.startDate(date.date);
     }
     if (direction.isForward) {
