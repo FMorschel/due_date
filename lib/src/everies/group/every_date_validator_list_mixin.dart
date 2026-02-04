@@ -1,6 +1,6 @@
-import '../date_validators/date_validator_list_mixin.dart';
-import 'every.dart';
-import 'every_date_validator.dart';
+import '../../date_validators/date_validator_list_mixin.dart';
+import '../every.dart';
+import '../every_date_validator.dart';
 
 /// Mixin that represents a list of [EveryDateValidator].
 mixin EveryDateValidatorListMixin<E extends EveryDateValidator>

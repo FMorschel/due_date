@@ -1,6 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:due_date/src/due_date.dart';
-import 'package:due_date/src/everies/every_due_day_month.dart';
+import 'package:due_date/src/everies/built_in/every_due_day_month.dart';
 import 'package:due_date/src/extensions/clamp_in_month.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';

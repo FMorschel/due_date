@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
 import '../../date_validators/date_validator.dart';
+import '../built_in/every_due_time_of_day.dart';
 import '../date_direction.dart';
 import '../every.dart';
 import '../every_date_validator.dart';
-import '../every_due_time_of_day.dart';
 import '../wrappers/limited_every_time_of_day_wrapper.dart';
 import 'every_time_of_day_adapter.dart';
 import 'limited_every_adapter.dart';

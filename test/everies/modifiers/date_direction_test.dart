@@ -58,6 +58,36 @@ void main() {
           expect(DateDirection.previous.isEnd, isFalse);
         });
       });
+      group('isForward', () {
+        test('Returns true for forward directions', () {
+          expect(DateDirection.start.isForward, isTrue);
+          expect(DateDirection.next.isForward, isTrue);
+        });
+        test('Returns false for backward directions', () {
+          expect(DateDirection.previous.isForward, isFalse);
+          expect(DateDirection.end.isForward, isFalse);
+        });
+      });
+      group('isBackward', () {
+        test('Returns true for backward directions', () {
+          expect(DateDirection.previous.isBackward, isTrue);
+          expect(DateDirection.end.isBackward, isTrue);
+        });
+        test('Returns false for forward directions', () {
+          expect(DateDirection.start.isBackward, isFalse);
+          expect(DateDirection.next.isBackward, isFalse);
+        });
+      });
+      group('couldStayEqual', () {
+        test('Returns true for start and end directions', () {
+          expect(DateDirection.start.couldStayEqual, isTrue);
+          expect(DateDirection.end.couldStayEqual, isTrue);
+        });
+        test('Returns false for next and previous directions', () {
+          expect(DateDirection.next.couldStayEqual, isFalse);
+          expect(DateDirection.previous.couldStayEqual, isFalse);
+        });
+      });
     });
     group('Edge Cases', () {
       test('All boolean properties are mutually exclusive', () {

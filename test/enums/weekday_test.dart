@@ -1,6 +1,6 @@
 import 'package:due_date/src/date_validators/date_validator_weekday.dart';
 import 'package:due_date/src/enums/weekday.dart';
-import 'package:due_date/src/everies/every_weekday.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
 import 'package:test/test.dart';
 
 void main() {

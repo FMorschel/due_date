@@ -1,14 +1,14 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validator_due_workday_month.dart';
-import '../helpers/object_extension.dart';
-import '../helpers/workday_helper.dart';
-import 'every_date_validator_mixin.dart';
-import 'every_date_validator_union.dart';
+import '../../date_validators/date_validator_due_workday_month.dart';
+import '../../helpers/object_extension.dart';
+import '../../helpers/workday_helper.dart';
+import '../every_date_validator_mixin.dart';
+import '../every_month.dart';
+import '../group/every_date_validator_union.dart';
+import '../workday_direction.dart';
 import 'every_due_day_month.dart';
-import 'every_month.dart';
 import 'every_weekday.dart';
-import 'workday_direction.dart';
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [DateTime.day] being the [dueWorkday] workday of the

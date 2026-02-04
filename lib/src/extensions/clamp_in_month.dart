@@ -1,7 +1,7 @@
 import 'package:time/time.dart';
 
 import '../due_date.dart';
-import '../everies/every_due_day_month.dart';
+import '../everies/built_in/every_due_day_month.dart';
 
 /// Extension methods related to clamping months on [DateTime].
 extension ClampInMonth on DateTime {

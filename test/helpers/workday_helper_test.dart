@@ -1,4 +1,4 @@
-import 'package:due_date/src/everies/every_weekday.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
 import 'package:due_date/src/helpers/workday_helper.dart';
 import 'package:test/test.dart';
 

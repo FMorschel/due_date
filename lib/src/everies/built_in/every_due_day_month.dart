@@ -1,8 +1,8 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validator_due_day_month.dart';
-import 'every_date_validator_mixin.dart';
-import 'every_month.dart';
+import '../../date_validators/date_validator_due_day_month.dart';
+import '../every_date_validator_mixin.dart';
+import '../every_month.dart';
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [DateTime.day] as the [dueDay] clamped to fit in the

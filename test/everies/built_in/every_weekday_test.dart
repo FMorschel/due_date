@@ -1,12 +1,12 @@
 import 'package:due_date/src/enums/weekday.dart';
-import 'package:due_date/src/everies/every_date_validator_union.dart';
-import 'package:due_date/src/everies/every_weekday.dart';
-import 'package:due_date/src/everies/every_weekday_count_in_month.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
+import 'package:due_date/src/everies/built_in/every_weekday_count_in_month.dart';
+import 'package:due_date/src/everies/group/every_date_validator_union.dart';
 import 'package:test/test.dart';
 
-import '../src/date_time_match.dart';
-import '../src/date_validator_match.dart';
-import '../src/every_match.dart';
+import '../../src/date_time_match.dart';
+import '../../src/date_validator_match.dart';
+import '../../src/every_match.dart';
 
 void main() {
   group('EveryWeekday:', () {

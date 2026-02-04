@@ -41,11 +41,4 @@ mixin LimitedEveryWrapperMixin<T extends Every>
       throw DateTimeLimitReachedException(date: date, limit: limit);
     }
   }
-
-  @override
-  DateTime processDate(
-    DateTime date,
-    DateDirection direction, {
-    DateTime? limit,
-  });
 }

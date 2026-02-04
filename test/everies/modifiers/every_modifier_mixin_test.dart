@@ -1,7 +1,7 @@
 import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
 import 'package:due_date/src/everies/date_direction.dart';
 import 'package:due_date/src/everies/every_date_validator.dart';
-import 'package:due_date/src/everies/every_weekday.dart';
 import 'package:due_date/src/everies/modifiers/every_modifier.dart';
 import 'package:due_date/src/everies/modifiers/every_modifier_mixin.dart';
 import 'package:test/test.dart';

@@ -1,12 +1,12 @@
 import 'package:meta/meta.dart';
 
 import '../enums/weekday_occurrence.dart';
-import 'every_day_in_year.dart';
-import 'every_due_day_month.dart';
+import 'built_in/every_day_in_year.dart';
+import 'built_in/every_due_day_month.dart';
+import 'built_in/every_weekday.dart';
+import 'built_in/every_weekday_count_in_month.dart';
 import 'every_month.dart';
 import 'every_week.dart';
-import 'every_weekday.dart';
-import 'every_weekday_count_in_month.dart';
 import 'every_year.dart';
 
 /// Abstract class that, when extended, processes [DateTime] with custom logic.

@@ -1,8 +1,8 @@
 import 'package:due_date/src/enums/weekday.dart';
-import 'package:due_date/src/everies/every_date_validator_difference.dart';
-import 'package:due_date/src/everies/every_date_validator_intersection.dart';
-import 'package:due_date/src/everies/every_date_validator_union.dart';
-import 'package:due_date/src/everies/every_weekday.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
+import 'package:due_date/src/everies/group/every_date_validator_difference.dart';
+import 'package:due_date/src/everies/group/every_date_validator_intersection.dart';
+import 'package:due_date/src/everies/group/every_date_validator_union.dart';
 import 'package:due_date/src/extensions/every_date_validator_list_ext.dart';
 import 'package:test/test.dart';
 

@@ -1,7 +1,7 @@
 import 'package:time/time.dart';
 
 import '../date_validators/date_validator_weekday.dart';
-import '../everies/every_weekday.dart';
+import '../everies/built_in/every_weekday.dart';
 import '../extensions/add_days.dart';
 import '../period_generators/week_generator.dart';
 import '../periods/week_period.dart';

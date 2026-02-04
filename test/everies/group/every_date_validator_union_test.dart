@@ -1,14 +1,14 @@
 import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/everies/built_in/every_due_day_month.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
 import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
 import 'package:due_date/src/everies/every_date_validator.dart';
-import 'package:due_date/src/everies/every_date_validator_difference.dart';
-import 'package:due_date/src/everies/every_date_validator_union.dart';
-import 'package:due_date/src/everies/every_due_day_month.dart';
-import 'package:due_date/src/everies/every_weekday.dart';
+import 'package:due_date/src/everies/group/every_date_validator_difference.dart';
+import 'package:due_date/src/everies/group/every_date_validator_union.dart';
 import 'package:test/test.dart';
 
-import '../src/date_time_match.dart';
-import '../src/every_match.dart';
+import '../../src/date_time_match.dart';
+import '../../src/every_match.dart';
 
 void main() {
   group('EveryDateValidatorUnion:', () {

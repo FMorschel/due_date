@@ -2,8 +2,8 @@ import 'package:due_date/src/date_validators/date_validator_weekday_count_in_mon
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
 import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
-import 'package:due_date/src/everies/every_weekday.dart';
 import 'package:due_date/src/helpers/limited_or_every_handler.dart';
 import 'package:test/test.dart';
 

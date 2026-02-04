@@ -1,10 +1,10 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validator_weekday_count_in_month.dart';
-import '../enums/week.dart';
-import '../enums/weekday.dart';
-import 'every_date_validator_mixin.dart';
-import 'every_month.dart';
+import '../../date_validators/date_validator_weekday_count_in_month.dart';
+import '../../enums/week.dart';
+import '../../enums/weekday.dart';
+import '../every_date_validator_mixin.dart';
+import '../every_month.dart';
 
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [week] occurrence of the [day] ([DateTime.weekday]

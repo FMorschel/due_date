@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:due_date/src/date_validators/date_validator_list_mixin.dart';
 import 'package:due_date/src/date_validators/date_validator_mixin.dart';
 import 'package:due_date/src/everies/every_date_validator.dart';
-import 'package:due_date/src/everies/every_date_validator_list_mixin.dart';
+import 'package:due_date/src/everies/group/every_date_validator_list_mixin.dart';
 import 'package:due_date/src/helpers/workday_helper.dart';
 import 'package:test/test.dart';
 

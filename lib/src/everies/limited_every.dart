@@ -1,12 +1,12 @@
 import 'date_direction.dart';
 import 'date_time_limit_reached_exception.dart';
 import 'every.dart';
-import 'every_date_validator_difference.dart';
-import 'every_date_validator_intersection.dart';
-import 'every_date_validator_union.dart';
 import 'every_month.dart';
 import 'every_week.dart';
 import 'every_year.dart';
+import 'group/every_date_validator_difference.dart';
+import 'group/every_date_validator_intersection.dart';
+import 'group/every_date_validator_union.dart';
 
 /// Abstract class that forces the implementation of [Every] to have a
 /// limit parameter for the [next] and [previous] methods.

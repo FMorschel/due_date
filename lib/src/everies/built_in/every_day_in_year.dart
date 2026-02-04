@@ -1,9 +1,9 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validator_day_in_year.dart';
-import '../extensions/day_in_year.dart';
-import 'every_date_validator_mixin.dart';
-import 'every_year.dart';
+import '../../date_validators/date_validator_day_in_year.dart';
+import '../../extensions/day_in_year.dart';
+import '../every_date_validator_mixin.dart';
+import '../every_year.dart';
 
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of

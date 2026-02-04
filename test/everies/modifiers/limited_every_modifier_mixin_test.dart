@@ -3,13 +3,13 @@ import 'package:due_date/src/date_validators/date_validator_weekday_count_in_mon
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
+import 'package:due_date/src/everies/built_in/every_due_day_month.dart';
+import 'package:due_date/src/everies/built_in/every_due_workday_month.dart';
+import 'package:due_date/src/everies/built_in/every_weekday.dart';
 import 'package:due_date/src/everies/date_direction.dart';
+import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
 import 'package:due_date/src/everies/every.dart';
-import 'package:due_date/src/everies/every_due_day_month.dart';
-import 'package:due_date/src/everies/every_due_workday_month.dart';
-import 'package:due_date/src/everies/every_weekday.dart';
 import 'package:due_date/src/everies/limited_every.dart';
-import 'package:due_date/src/everies/limited_every_mixin.dart';
 import 'package:due_date/src/everies/wrappers/every_wrapper.dart';
 import 'package:due_date/src/everies/wrappers/limited_every_wrapper.dart';
 import 'package:due_date/src/everies/wrappers/limited_every_wrapper_mixin.dart';
@@ -19,7 +19,7 @@ import '../../src/every_match.dart';
 
 /// Test implementation of [EveryWrapper] with [LimitedEveryWrapperMixin].
 class _TestLimitedEveryModifier<T extends Every> extends LimitedEveryWrapper<T>
-    with LimitedEveryWrapperMixin<T>, LimitedEveryMixin {
+    with LimitedEveryWrapperMixin<T> {
   const _TestLimitedEveryModifier({
     required super.every,
     this.forward = true,
@@ -179,6 +179,151 @@ void main() {
             modifierWithPrevious,
             hasPrevious(expectedDate).withInput(date),
           );
+        });
+      });
+
+      group('throwIfLimitReached', () {
+        test('Does not throw when limit is null', () {
+          final date = DateTime(2023, DateTime.december, 4);
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.next,
+              limit: null,
+            ),
+            returnsNormally,
+          );
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.previous,
+              limit: null,
+            ),
+            returnsNormally,
+          );
+        });
+
+        test('Does not throw for forward direction when date is before limit',
+            () {
+          final date = DateTime(2023, DateTime.december, 4);
+          final limit = DateTime(2023, DateTime.december, 31);
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.next,
+              limit: limit,
+            ),
+            returnsNormally,
+          );
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.start,
+              limit: limit,
+            ),
+            returnsNormally,
+          );
+        });
+
+        test('Throws for forward direction when date is after limit', () {
+          final date = DateTime(2023, DateTime.december, 31);
+          final limit = DateTime(2023, DateTime.december, 4);
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.next,
+              limit: limit,
+            ),
+            throwsADateTimeLimitReachedException,
+          );
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.start,
+              limit: limit,
+            ),
+            throwsADateTimeLimitReachedException,
+          );
+        });
+
+        test('Does not throw for backward direction when date is after limit',
+            () {
+          final date = DateTime(2023, DateTime.december, 31);
+          final limit = DateTime(2023, DateTime.december, 4);
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.previous,
+              limit: limit,
+            ),
+            returnsNormally,
+          );
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.end,
+              limit: limit,
+            ),
+            returnsNormally,
+          );
+        });
+
+        test('Throws for backward direction when date is before limit', () {
+          final date = DateTime(2023, DateTime.december, 4);
+          final limit = DateTime(2023, DateTime.december, 31);
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.previous,
+              limit: limit,
+            ),
+            throwsADateTimeLimitReachedException,
+          );
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.end,
+              limit: limit,
+            ),
+            throwsADateTimeLimitReachedException,
+          );
+        });
+
+        test('Does not throw when date equals limit', () {
+          final date = DateTime(2023, DateTime.december, 4);
+          final limit = DateTime(2023, DateTime.december, 4);
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.next,
+              limit: limit,
+            ),
+            returnsNormally,
+          );
+          expect(
+            () => modifier.throwIfLimitReached(
+              date,
+              DateDirection.previous,
+              limit: limit,
+            ),
+            returnsNormally,
+          );
+        });
+
+        test('Thrown exception contains correct date and limit', () {
+          final date = DateTime(2023, DateTime.december, 31);
+          final limit = DateTime(2023, DateTime.december, 4);
+          try {
+            modifier.throwIfLimitReached(
+              date,
+              DateDirection.next,
+              limit: limit,
+            );
+            fail('Expected DateTimeLimitReachedException to be thrown');
+          } on DateTimeLimitReachedException catch (e) {
+            expect(e.date, equals(date));
+            expect(e.limit, equals(limit));
+          }
         });
       });
     });

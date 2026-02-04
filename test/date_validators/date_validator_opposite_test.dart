@@ -1,5 +1,5 @@
 import 'package:due_date/src/date_validators/date_validator_opposite.dart';
-import 'package:due_date/src/everies/every_due_day_month.dart';
+import 'package:due_date/src/everies/built_in/every_due_day_month.dart';
 import 'package:test/test.dart';
 
 class DateValidatorOppositeTest extends DateValidatorOpposite {

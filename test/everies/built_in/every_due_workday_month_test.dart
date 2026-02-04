@@ -1,13 +1,13 @@
-import 'package:due_date/src/everies/every_due_workday_month.dart';
+import 'package:due_date/src/everies/built_in/every_due_workday_month.dart';
 import 'package:due_date/src/everies/workday_direction.dart';
 import 'package:due_date/src/extensions/add_days.dart';
 import 'package:due_date/src/helpers/workday_helper.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
-import '../src/date_time_match.dart';
-import '../src/every_match.dart';
-import '../src/month_in_year.dart';
+import '../../src/date_time_match.dart';
+import '../../src/every_match.dart';
+import '../../src/month_in_year.dart';
 
 void main() {
   group('EveryDueWorkdayMonth:', () {

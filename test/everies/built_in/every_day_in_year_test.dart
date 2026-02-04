@@ -1,8 +1,8 @@
-import 'package:due_date/src/everies/every_day_in_year.dart';
+import 'package:due_date/src/everies/built_in/every_day_in_year.dart';
 import 'package:test/test.dart';
 
-import '../src/date_time_match.dart';
-import '../src/every_match.dart';
+import '../../src/date_time_match.dart';
+import '../../src/every_match.dart';
 
 void main() {
   group('EveryDayInYear:', () {

@@ -25,13 +25,13 @@ library;
 
 import 'src/due_date.dart';
 import 'src/enums/weekday_occurrence.dart';
+import 'src/everies/built_in/every_day_in_year.dart';
+import 'src/everies/built_in/every_due_day_month.dart';
+import 'src/everies/built_in/every_weekday.dart';
+import 'src/everies/built_in/every_weekday_count_in_month.dart';
 import 'src/everies/every.dart';
-import 'src/everies/every_day_in_year.dart';
-import 'src/everies/every_due_day_month.dart';
 import 'src/everies/every_month.dart';
 import 'src/everies/every_week.dart';
-import 'src/everies/every_weekday.dart';
-import 'src/everies/every_weekday_count_in_month.dart';
 import 'src/everies/every_year.dart';
 
 export 'src/date_validators/date_validator.dart';

@@ -3,7 +3,7 @@ import 'package:due_date/src/everies/limited_every_date_validator_mixin.dart';
 import 'package:due_date/src/everies/limited_every_mixin.dart';
 import 'package:test/test.dart';
 
-import '../src/every_match.dart';
+import '../../src/every_match.dart';
 
 class LimitedEveryDateValidatorTest extends LimitedEveryDateValidator
     with LimitedEveryDateValidatorMixin, LimitedEveryMixin {

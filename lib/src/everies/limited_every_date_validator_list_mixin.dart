@@ -1,7 +1,7 @@
 import '../date_validators/date_validator_list_mixin.dart';
 import 'every.dart';
 import 'every_date_validator.dart';
-import 'every_date_validator_list_mixin.dart';
+import 'group/every_date_validator_list_mixin.dart';
 import 'limited_every.dart';
 import 'limited_every_date_validator.dart';
 

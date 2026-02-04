@@ -1,10 +1,10 @@
 import 'every_date_validator.dart';
-import 'every_date_validator_difference.dart';
-import 'every_date_validator_intersection.dart';
-import 'every_date_validator_union.dart';
 import 'every_month.dart';
 import 'every_week.dart';
 import 'every_year.dart';
+import 'group/every_date_validator_difference.dart';
+import 'group/every_date_validator_intersection.dart';
+import 'group/every_date_validator_union.dart';
 import 'limited_every.dart';
 
 /// Abstract class that forces the implementation of [EveryDateValidator] to

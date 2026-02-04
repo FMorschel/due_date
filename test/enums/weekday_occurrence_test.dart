@@ -1,7 +1,7 @@
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/enums/weekday_occurrence.dart';
-import 'package:due_date/src/everies/every_weekday_count_in_month.dart';
+import 'package:due_date/src/everies/built_in/every_weekday_count_in_month.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';

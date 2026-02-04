@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
+import '../built_in/every_due_time_of_day.dart';
 import '../date_direction.dart';
 import '../every.dart';
-import '../every_due_time_of_day.dart';
 import 'every_wrapper.dart';
 import 'every_wrapper_mixin.dart';
 
