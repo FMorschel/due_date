@@ -77,7 +77,6 @@ void main() {
             expect(wrapper, hasPrevious(expected).withInput(validDate));
           });
         });
-
       });
 
       group('Skip count 1', () {
@@ -156,7 +155,8 @@ void main() {
           expect(result, equals(inputDate));
         });
 
-        test('Recursively skips in forward direction with currentCount > 0', () {
+        test('Recursively skips in forward direction with currentCount > 0',
+            () {
           // December 11, 2023 is Monday.
           final inputDate = DateTime(2023, 12, 11);
           // December 18, 2023 is Monday (one iteration from input).

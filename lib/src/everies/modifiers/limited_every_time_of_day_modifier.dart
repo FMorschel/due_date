@@ -47,7 +47,7 @@ class LimitedEveryTimeOfDayModifier<T extends EveryDateValidator>
     DateTime? limit,
   }) {
     throwIfLimitReached(date, direction, limit: limit);
-    if (every.valid(date) && direction.couldStayEqual) {
+    if (every.valid(date)) {
       return everyTimeOfDay.startDate(date.date);
     }
     if (direction.isForward) {
