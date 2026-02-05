@@ -40,7 +40,7 @@ class LimitedEverySkipCountWrapper<T extends Every>
       LimitedOrEveryHandler.next(every, date, limit: limit),
       DateDirection.next,
       limit: limit,
-      currentCount: currentCount ?? count,
+      currentCount: currentCount,
     );
   }
 
@@ -59,7 +59,7 @@ class LimitedEverySkipCountWrapper<T extends Every>
       LimitedOrEveryHandler.previous(every, date, limit: limit),
       DateDirection.previous,
       limit: limit,
-      currentCount: currentCount ?? count,
+      currentCount: currentCount,
     );
   }
 
