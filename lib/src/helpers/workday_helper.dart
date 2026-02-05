@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import '../date_validators/date_validator_union.dart';
+import '../date_validators/group/date_validator_union.dart';
 import '../everies/built_in/every_weekday.dart';
 import '../everies/group/every_date_validator_union.dart';
 

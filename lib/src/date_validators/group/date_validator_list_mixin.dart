@@ -1,4 +1,4 @@
-import 'date_validator.dart';
+import '../date_validator.dart';
 
 /// Mixin that represents a list of [DateValidator]s.
 mixin DateValidatorListMixin<E extends DateValidator> on List<E>

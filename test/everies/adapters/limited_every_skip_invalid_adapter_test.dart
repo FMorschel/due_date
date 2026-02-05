@@ -1,4 +1,4 @@
-import 'package:due_date/src/date_validators/date_validator_weekday_count_in_month.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_weekday_count_in_month.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/everies/adapters/limited_every_skip_invalid_adapter.dart';

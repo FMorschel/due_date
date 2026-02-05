@@ -1,4 +1,4 @@
-import '../../date_validators/date_validator_list_mixin.dart';
+import '../../date_validators/group/date_validator_list_mixin.dart';
 import '../every.dart';
 import '../every_date_validator.dart';
 

@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import '../enums/week.dart';
-import '../enums/weekday.dart';
-import 'date_validator.dart';
-import 'date_validator_mixin.dart';
+import '../../enums/week.dart';
+import '../../enums/weekday.dart';
+import '../date_validator.dart';
+import '../date_validator_mixin.dart';
 
 /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
 /// [day] of the week and is the [week] of the month.

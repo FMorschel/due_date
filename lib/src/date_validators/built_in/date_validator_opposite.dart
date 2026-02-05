@@ -1,5 +1,5 @@
-import 'date_validator.dart';
-import 'date_validator_mixin.dart';
+import '../date_validator.dart';
+import '../date_validator_mixin.dart';
 
 /// {@template dateValidatorOpposite}
 /// A class that represents the opposite of a [DateValidator].

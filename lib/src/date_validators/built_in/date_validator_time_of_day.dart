@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import 'date_validator_mixin.dart';
+import '../date_validator_mixin.dart';
 
 /// {@template dateValidatorDay}
 /// Class that validates a [DateTime] if its [DateTimeTimeExtension.timeOfDay]

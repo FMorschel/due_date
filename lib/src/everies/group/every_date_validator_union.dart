@@ -1,4 +1,4 @@
-import '../../date_validators/date_validator_union.dart';
+import '../../date_validators/group/date_validator_union.dart';
 import '../../helpers/date_reducer.dart';
 import '../../helpers/limited_or_every_handler.dart';
 import '../every.dart';

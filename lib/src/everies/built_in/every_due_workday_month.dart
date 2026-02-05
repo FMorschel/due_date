@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import '../../date_validators/date_validator_due_workday_month.dart';
+import '../../date_validators/built_in/date_validator_due_workday_month.dart';
 import '../../helpers/object_extension.dart';
 import '../../helpers/workday_helper.dart';
 import '../every_date_validator_mixin.dart';

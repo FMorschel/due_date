@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import '../../date_validators/date_validator_weekday.dart';
+import '../../date_validators/built_in/date_validator_weekday.dart';
 import '../../enums/week.dart';
 import '../../enums/weekday.dart';
 import '../../extensions/add_days.dart';

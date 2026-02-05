@@ -1,8 +1,8 @@
 import 'package:due_date/src/date_validators/date_validator.dart';
-import 'package:due_date/src/date_validators/date_validator_day_in_year.dart';
-import 'package:due_date/src/date_validators/date_validator_difference.dart';
-import 'package:due_date/src/date_validators/date_validator_due_day_month.dart';
-import 'package:due_date/src/date_validators/date_validator_weekday.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_day_in_year.dart';
+import 'package:due_date/src/date_validators/group/date_validator_difference.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_due_day_month.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_weekday.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:test/test.dart';
 

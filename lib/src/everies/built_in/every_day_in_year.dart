@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-import '../../date_validators/date_validator_day_in_year.dart';
+import '../../date_validators/built_in/date_validator_day_in_year.dart';
 import '../../extensions/day_in_year.dart';
 import '../every_date_validator_mixin.dart';
 import '../every_year.dart';

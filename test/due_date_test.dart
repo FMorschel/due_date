@@ -1,6 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:collection/collection.dart';
-import 'package:due_date/src/date_validators/date_validator_weekday.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_weekday.dart';
 import 'package:due_date/src/due_date.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';

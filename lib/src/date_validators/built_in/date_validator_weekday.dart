@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-import '../enums/weekday.dart';
-import '../everies/built_in/every_weekday.dart';
-import 'date_validator.dart';
-import 'date_validator_mixin.dart';
-import 'date_validator_union.dart';
+import '../../enums/weekday.dart';
+import '../../everies/built_in/every_weekday.dart';
+import '../date_validator.dart';
+import '../date_validator_mixin.dart';
+import '../group/date_validator_union.dart';
 
 /// A [DateValidator] that validates a [DateTime] if it is on the given
 /// [weekday].

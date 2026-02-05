@@ -1,4 +1,4 @@
-import 'package:due_date/src/date_validators/date_validator_due_workday_month.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_due_workday_month.dart';
 import 'package:due_date/src/everies/workday_direction.dart';
 import 'package:due_date/src/helpers/workday_helper.dart';
 import 'package:test/test.dart';

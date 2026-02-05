@@ -1,4 +1,4 @@
-import 'package:due_date/src/date_validators/date_validator_day_in_year.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_day_in_year.dart';
 import 'package:due_date/src/extensions/add_days.dart';
 import 'package:test/test.dart';
 
