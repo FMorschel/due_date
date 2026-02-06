@@ -54,8 +54,8 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">clampInMonth</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="clampInMonth-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">month</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">clampInMonth</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="clampInMonth-param-month"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">month</span></span></li>
 </ol>)
 
       
@@ -63,7 +63,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns a new <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> clamped to the given <code>month</code>.</p>
+  <p>Returns a new <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> clamped to the given <code>month</code>.</p>
 </section>
 
 
@@ -73,7 +73,7 @@
   <pre class="language-dart"><code class="language-dart">DateTime clampInMonth(DateTime month) {
   final monthStart = month.firstDayOfMonth;
   final monthEnd = monthStart.lastDayOfMonth;
-  return clamp(min: monthStart, max: monthEnd).add(exactTimeOfDay);
+  return clamp(min: monthStart, max: monthEnd).add(timeOfDay);
 }</code></pre>
 </section>
 
@@ -93,7 +93,7 @@
     <li class="self-crumb">clampInMonth method</li>
 </ol>
 
-    <h5>ClampInMonth extension on <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></h5>
+    <h5>ClampInMonth extension on <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -102,7 +102,7 @@
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

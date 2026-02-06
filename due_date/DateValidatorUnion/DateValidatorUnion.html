@@ -54,20 +54,20 @@
 
     <section class="multi-line-signature">
       const
-      <span class="name ">DateValidatorUnion&lt;<wbr><span class="type-parameter">E extends DateValidator</span>&gt;</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="-param-validators"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">validators</span></span></li>
+      <span class="name ">DateValidatorUnion&lt;<wbr><span class="type-parameter">E extends DateValidator</span>&gt;</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="-param-base"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">base</span></span></li>
 </ol>)
     </section>
     
 <section class="desc markdown">
-  <p>A <a href="../../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> if the date is valid for any
-of the <code>validators</code>.</p>
+  <p>A <a href="../../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> if the date is valid for any
+of the <a href="../../due_date/DateValidatorListMixin/validators.html">validators</a>.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">const DateValidatorUnion(super.validators);</code></pre>
+  <pre class="language-dart"><code class="language-dart">const DateValidatorUnion(super.base);</code></pre>
 </section>
 
 
@@ -95,7 +95,7 @@ of the <code>validators</code>.</p>
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

@@ -54,9 +54,9 @@
 
     <section class="multi-line-signature">
       
-      <span class="name ">DueDateTime&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;.fromDate</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="fromDate-param-reference"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">reference</span>, {</span></li>
+      <span class="name ">DueDateTime&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;.fromDate</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="fromDate-param-reference"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">reference</span>, {</span></li>
 <li><span class="parameter" id="fromDate-param-every"><span class="type-annotation">T?</span> <span class="parameter-name">every</span>, </span></li>
-<li><span class="parameter" id="fromDate-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
+<li><span class="parameter" id="fromDate-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
 </ol>})
     </section>
     
@@ -87,14 +87,15 @@ be:</p>
       every: EveryDueDayMonth(reference.day) as T,
       date: reference,
     );
-  } else {
-    return DueDateTime&lt;T&gt;._toConstructor(
-      date: every is LimitedEvery
-          ? every.startDate(reference, limit: limit)
-          : every.startDate(reference),
-      every: every,
-    );
   }
+  return DueDateTime&lt;T&gt;._toConstructor(
+    date: every is EveryDateValidator
+        ? (every is LimitedEveryDateValidator
+            ? every.startDate(reference, limit: limit)
+            : every.startDate(reference))
+        : reference,
+    every: every,
+  );
 }</code></pre>
 </section>
 
@@ -123,7 +124,7 @@ be:</p>
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

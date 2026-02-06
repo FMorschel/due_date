@@ -55,10 +55,10 @@
     <section class="multi-line-signature">
       
 <span class="returntype"><a href="../../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../due_date/Every-class.html">Every</a></span>&gt;</span></span>
-<span class="name ">fromMicrosecondsSinceEpoch</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="fromMicrosecondsSinceEpoch-param-microsecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecondsSinceEpoch</span>, {</span></li>
-<li><span class="parameter" id="fromMicrosecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span></li>
+<span class="name ">fromMicrosecondsSinceEpoch</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="fromMicrosecondsSinceEpoch-param-microsecondsSinceEpoch"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">microsecondsSinceEpoch</span>, {</span></li>
+<li><span class="parameter" id="fromMicrosecondsSinceEpoch-param-isUtc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUtc</span> = <span class="default-value">false</span>, </span></li>
 <li><span class="parameter" id="fromMicrosecondsSinceEpoch-param-every"><span class="type-annotation"><a href="../../due_date/Every-class.html">Every</a>?</span> <span class="parameter-name">every</span>, </span></li>
-<li><span class="parameter" id="fromMicrosecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
+<li><span class="parameter" id="fromMicrosecondsSinceEpoch-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
 </ol>})
 
       
@@ -69,9 +69,8 @@
   <p>Constructs a new <a href="../../due_date/DueDateTime-class.html">DueDateTime</a> instance
 with the given <code>microsecondsSinceEpoch</code>.</p>
 <p>If <code>isUtc</code> is false, then the date is in the local time zone.</p>
-<p>The constructed <a href="../../due_date/DueDateTime-class.html">DueDateTime</a> represents
-1970-01-01T00:00:00Z + <code>microsecondsSinceEpoch</code> us in the given
-time zone (local or UTC).</p>
+<p>The constructed <a href="../../due_date/DueDateTime-class.html">DueDateTime</a> represents 1970-01-01T00:00:00Z +
+<code>microsecondsSinceEpoch</code> us in the given time zone (local or UTC).</p>
 <pre class="language-dart"><code class="language-dart">final newYearsEve =
     DueDateTime.fromMicrosecondsSinceEpoch(1640901600000000, isUtc:true);
 print(newYearsEve); // 2021-12-31 19:30:00.000Z
@@ -133,7 +132,7 @@ property will be:</p>
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

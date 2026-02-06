@@ -62,13 +62,13 @@
       </section>
       
 <section class="desc markdown">
-  <p>A <a href="../../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> if it is a weekend.</p>
+  <p>A <a href="../../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> if it is a weekend.</p>
 </section>
 
       
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static const weekend = DateValidatorUnion([
+  <pre class="language-dart"><code class="language-dart">static const DateValidatorUnion&lt;EveryWeekday&gt; weekend = DateValidatorUnion([
   EveryWeekday(Weekday.saturday),
   EveryWeekday(Weekday.sunday),
 ]);</code></pre>
@@ -100,7 +100,7 @@
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

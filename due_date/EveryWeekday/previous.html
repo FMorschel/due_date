@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.8.1/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">previous</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">previous</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -69,7 +69,7 @@
     
 <section class="desc markdown">
   <p>Returns the previous date that fits the <a href="../../due_date/DateValidatorWeekday/weekday.html">weekday</a>.</p>
-<p>Always returns the last <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that fits the <a href="../../due_date/DateValidatorWeekday/weekday.html">weekday</a>, ignoring
+<p>Always returns the last <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> that fits the <a href="../../due_date/DateValidatorWeekday/weekday.html">weekday</a>, ignoring
 the given <code>date</code> as an option.</p>
 </section>
 
@@ -81,7 +81,7 @@ the given <code>date</code> as an option.</p>
 DateTime previous(DateTime date) {
   if (date.weekday &gt; weekday.dateTimeValue) return weekday.fromWeekOf(date);
   return weekday.fromWeekOf(
-    date.firstDayOfWeek.subtractDays(1).add(date.exactTimeOfDay),
+    date.firstDayOfWeek.subtractDays(1).add(date.timeOfDay),
   );
 }</code></pre>
 </section>
@@ -111,7 +111,7 @@ DateTime previous(DateTime date) {
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

@@ -74,11 +74,10 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Month get next {
-  if (dateTimeValue != december.dateTimeValue) {
-    return Month.fromDateTimeValue(dateTimeValue + 1);
-  } else {
+  if (dateTimeValue == december.dateTimeValue) {
     return january;
   }
+  return Month.fromDateTimeValue(dateTimeValue + 1);
 }</code></pre>
 </section>
 
@@ -109,7 +108,7 @@
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

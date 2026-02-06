@@ -27,7 +27,7 @@
     <li><a href="../../index.html">due_date</a></li>
     <li><a href="../../helpers/">helpers.dart</a></li>
     <li><a href="../../helpers/LimitedOrEveryHandler-class.html">LimitedOrEveryHandler</a></li>
-    <li class="self-crumb">startDate&lt;<wbr><span class="type-parameter">T extends Every</span>&gt; static method</li>
+    <li class="self-crumb">startDate&lt;<wbr><span class="type-parameter">T extends EveryDateValidator</span>&gt; static method</li>
   </ol>
   <div class="self-name">startDate</div>
   <form class="search navbar-right" role="search">
@@ -49,15 +49,15 @@
     data-above-sidebar="helpers&#47;LimitedOrEveryHandler-class-sidebar.html"
     data-below-sidebar="">
     <div>
-<h1><span class="kind-method">startDate&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span> static method 
+<h1><span class="kind-method">startDate&lt;<wbr><span class="type-parameter">T extends EveryDateValidator</span>&gt;</span> static method 
 </h1></div>
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">startDate</span>&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;(<wbr><ol class="parameter-list"> <li><span class="parameter" id="startDate-param-every"><span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span></li>
-<li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, {</span></li>
-<li><span class="parameter" id="startDate-param-limit"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">startDate</span>&lt;<wbr><span class="type-parameter">T extends EveryDateValidator</span>&gt;(<wbr><ol class="parameter-list"> <li><span class="parameter" id="startDate-param-every"><span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span></li>
+<li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, {</span></li>
+<li><span class="parameter" id="startDate-param-limit"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
 </ol>})
 
       
@@ -66,19 +66,20 @@
     
 <section class="desc markdown">
   <p>Returns the start date considering the given <code>every</code> base process.
-If <code>every</code> is a <a href="../../due_date/LimitedEvery-class.html">LimitedEvery</a>, the <code>limit</code> will be passed on.</p>
+If <code>every</code> is a <a href="../../due_date/LimitedEveryDateValidator-class.html">LimitedEveryDateValidator</a>, the <code>limit</code> will be passed
+on.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static DateTime startDate&lt;T extends Every&gt;(
+  <pre class="language-dart"><code class="language-dart">static DateTime startDate&lt;T extends EveryDateValidator&gt;(
   T every,
   DateTime date, {
   required DateTime? limit,
 }) {
-  if (every is! LimitedEvery) return every.startDate(date);
+  if (every is! LimitedEveryDateValidator) return every.startDate(date);
   return every.startDate(date, limit: limit);
 }</code></pre>
 </section>
@@ -96,7 +97,7 @@ If <code>every</code> is a <a href="../../due_date/LimitedEvery-class.html">Limi
     <li><a href="../../index.html">due_date</a></li>
     <li><a href="../../helpers/">helpers</a></li>
     <li><a href="../../helpers/LimitedOrEveryHandler-class.html">LimitedOrEveryHandler</a></li>
-    <li class="self-crumb">startDate&lt;<wbr><span class="type-parameter">T extends Every</span>&gt; static method</li>
+    <li class="self-crumb">startDate&lt;<wbr><span class="type-parameter">T extends EveryDateValidator</span>&gt; static method</li>
 </ol>
 
     <h5>LimitedOrEveryHandler class</h5>
@@ -108,7 +109,7 @@ If <code>every</code> is a <a href="../../due_date/LimitedEvery-class.html">Limi
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>
