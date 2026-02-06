@@ -102,28 +102,12 @@ package. Look for <a href="../period/SecondGenerator-class.html">SecondGenerator
   A base class that represents a bundle of days.
 </dd>
 
-          <dt id="Every">
-  <span class="name "><a href="../due_date/Every-class.html">Every</a></span> 
-
-</dt>
-<dd>
-  Abstract class that, when extended, processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> with custom logic.
-</dd>
-
-          <dt id="EveryDateValidator">
-  <span class="name "><a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span> 
-
-</dt>
-<dd>
-  A base class that represents an <a href="../due_date/Every-class.html">Every</a> with a <a href="../due_date/DateValidator-class.html">DateValidator</a>.
-</dd>
-
           <dt id="EveryDateValidatorDifference">
   <span class="name "><a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorDifference/next.html">next</a> always returns the next
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorDifference/next.html">next</a> always returns the next
 day where only one of the <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s conditions is met.
 </dd>
 
@@ -132,7 +116,7 @@ day where only one of the <a href="../due_date/EveryDateValidator-class.html">Ev
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorIntersection/next.html">next</a> always returns the next
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorIntersection/next.html">next</a> always returns the next
 day where all of the <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s conditions are met.
 </dd>
 
@@ -141,7 +125,7 @@ day where all of the <a href="../due_date/EveryDateValidator-class.html">EveryDa
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorUnion/next.html">next</a> always returns the next
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDateValidatorUnion/next.html">next</a> always returns the next
 day where any of the <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>s conditions are met.
 </dd>
 
@@ -150,7 +134,7 @@ day where any of the <a href="../due_date/EveryDateValidator-class.html">EveryDa
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDayInYear/addYears.html">addYears</a> always returns the
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDayInYear/addYears.html">addYears</a> always returns the
 next day where the difference in days between the date and the first day of
 the year is equal to the <a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a>.
 </dd>
@@ -160,8 +144,8 @@ the year is equal to the <a href="../due_date/DateValidatorDayInYear/dayInYear.h
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> always returns the
-next month's with the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/day.html">DateTime.day</a> as the <a href="../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> clamped to fit in the
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> always returns the
+next month's with the <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/day.html">DateTime.day</a> as the <a href="../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> clamped to fit in the
 length of the next month.
 </dd>
 
@@ -170,9 +154,9 @@ length of the next month.
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that <a href="../due_date/EveryDueTimeOfDay/next.html">next</a> always returns the next day
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that <a href="../due_date/EveryDueTimeOfDay/next.html">next</a> always returns the next day
 with the same hour, minute, second, millisecond and microsecond as the
-<a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that is being processed.
+<a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> that is being processed.
 </dd>
 
           <dt id="EveryDueWorkdayMonth">
@@ -180,35 +164,18 @@ with the same hour, minute, second, millisecond and microsecond as the
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDueWorkdayMonth/addMonths.html">addMonths</a> always returns the
-next month's with the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/day.html">DateTime.day</a> being the <a href="../due_date/DateValidatorDueWorkdayMonth/dueWorkday.html">dueWorkday</a> workday of the
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDueWorkdayMonth/addMonths.html">addMonths</a> always returns the
+next month's with the <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/day.html">DateTime.day</a> being the <a href="../due_date/DateValidatorDueWorkdayMonth/dueWorkday.html">dueWorkday</a> workday of the
 month clamped to fit in the length of the next month.
 </dd>
 
-          <dt id="EveryModifier">
-  <span class="name "><a href="../due_date/EveryModifier-class.html">EveryModifier</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  Abstract class that, when extended, processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> with custom logic.
-</dd>
-
-          <dt id="EveryModifierInvalidator">
-  <span class="name "><a href="../due_date/EveryModifierInvalidator-class.html">EveryModifierInvalidator</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  Class that wraps an <a href="../due_date/EveryModifier/every.html">every</a> generator and adds an <a href="../due_date/EveryModifierInvalidator/invalidator.html">invalidator</a> that will
-be used to invalidate the generated dates.
-</dd>
-
-          <dt id="EveryOverrideWrapper">
-  <span class="name "><a href="../due_date/EveryOverrideWrapper-class.html">EveryOverrideWrapper</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
+          <dt id="EveryOverrideAdapter">
+  <span class="name "><a href="../due_date/EveryOverrideAdapter-class.html">EveryOverrideAdapter</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>, <span class="type-parameter">V extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
   Class that wraps an <a href="../due_date/Every-class.html">Every</a> generator and adds a <a href="../due_date/DateValidator-class.html">DateValidator</a> that will
-be used to invalidate the generated dates and an <a href="../due_date/EveryOverrideWrapper/overrider.html">overrider</a> that will be
+be used to invalidate the generated dates and an <a href="../due_date/EveryOverrideAdapter/overrider.html">overrider</a> that will be
 used instead.
 </dd>
 
@@ -221,8 +188,8 @@ used instead.
 <a href="../due_date/Every-class.html">Every</a> base process.
 </dd>
 
-          <dt id="EverySkipInvalidModifier">
-  <span class="name "><a href="../due_date/EverySkipInvalidModifier-class.html">EverySkipInvalidModifier</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>, <span class="type-parameter">V extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> 
+          <dt id="EverySkipInvalidAdapter">
+  <span class="name "><a href="../due_date/EverySkipInvalidAdapter-class.html">EverySkipInvalidAdapter</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>, <span class="type-parameter">V extends <a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
@@ -235,8 +202,8 @@ be used to invalidate the generated dates.
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a> always returns the
-next week's with the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/weekday.html">DateTime.weekday</a> equals to the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a> always returns the
+next week's with the <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/weekday.html">DateTime.weekday</a> equals to the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
 </dd>
 
           <dt id="EveryWeekdayCountInMonth">
@@ -244,17 +211,9 @@ next week's with the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTi
 
 </dt>
 <dd>
-  Class that processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekdayCountInMonth/addMonths.html">addMonths</a> always returns the
-next month's with the <a href="../due_date/DateValidatorWeekdayCountInMonth/week.html">week</a> occurrence of the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a> (<a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/weekday.html">DateTime.weekday</a>
+  Class that processes <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekdayCountInMonth/addMonths.html">addMonths</a> always returns the
+next month's with the <a href="../due_date/DateValidatorWeekdayCountInMonth/week.html">week</a> occurrence of the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a> (<a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/weekday.html">DateTime.weekday</a>
 is the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a>'s <a href="../due_date/Weekday/dateTimeValue.html">Weekday.dateTimeValue</a>).
-</dd>
-
-          <dt id="ExactEvery">
-  <span class="name "><a href="../due_date/ExactEvery-class.html">ExactEvery</a></span> 
-
-</dt>
-<dd>
-  A class to save a truncated generator of <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>s.
 </dd>
 
           <dt id="FortnightGenerator">
@@ -287,15 +246,6 @@ is the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a>'s
 </dt>
 <dd>
   A class that implements a period type of an hour.
-</dd>
-
-          <dt id="LimitedEvery">
-  <span class="name "><a href="../due_date/LimitedEvery-class.html">LimitedEvery</a></span> 
-
-</dt>
-<dd>
-  Abstract class that forces the implementation of <a href="../due_date/Every-class.html">Every</a> to have a
-limit parameter for the <a href="../due_date/LimitedEvery/startDate.html">startDate</a>, <a href="../due_date/LimitedEvery/next.html">next</a> and <a href="../due_date/LimitedEvery/previous.html">previous</a> methods.
 </dd>
 
           <dt id="MinuteGenerator">
@@ -343,7 +293,7 @@ limit parameter for the <a href="../due_date/LimitedEvery/startDate.html">startD
 
 </dt>
 <dd>
-  A period of time between two <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>s.
+  A period of time between two <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a>s.
 </dd>
 
           <dt id="SecondGenerator">
@@ -378,6 +328,14 @@ limit parameter for the <a href="../due_date/LimitedEvery/startDate.html">startD
   A class that implements a period type of a semester.
 </dd>
 
+          <dt id="SemesterPeriodBundle">
+  <span class="name "><a href="../period/SemesterPeriodBundle-class.html">SemesterPeriodBundle</a></span> 
+
+</dt>
+<dd>
+  A base class that represents a bundle of semesters.
+</dd>
+
           <dt id="TrimesterGenerator">
   <span class="name "><a href="../period/TrimesterGenerator-class.html">TrimesterGenerator</a></span> 
 
@@ -392,6 +350,14 @@ limit parameter for the <a href="../due_date/LimitedEvery/startDate.html">startD
 </dt>
 <dd>
   A class that implements a period type of a trimester.
+</dd>
+
+          <dt id="TrimesterPeriodBundle">
+  <span class="name "><a href="../period/TrimesterPeriodBundle-class.html">TrimesterPeriodBundle</a></span> 
+
+</dt>
+<dd>
+  A base class that represents a bundle of trimesters.
 </dd>
 
           <dt id="WeekGenerator">
@@ -437,8 +403,8 @@ limit parameter for the <a href="../due_date/LimitedEvery/startDate.html">startD
 
 </dt>
 <dd>
-  An enum that represents the direction of the process inside <a href="../due_date/EveryModifier-class.html">EveryModifier</a>.
-Used on <a href="../due_date/EveryModifier/processDate.html">EveryModifier.processDate</a>.
+  An enum that represents the direction of the process inside <a href="../due_date/EveryWrapper-class.html">EveryWrapper</a>.
+Used on <a href="../due_date/EveryWrapper/processDate.html">EveryWrapper.processDate</a>.
 </dd>
 
           <dt id="Month">
@@ -446,7 +412,7 @@ Used on <a href="../due_date/EveryModifier/processDate.html">EveryModifier.proce
 
 </dt>
 <dd>
-  Month constants that are returned by <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/month.html">DateTime.month</a> method.
+  Month constants that are returned by <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/month.html">DateTime.month</a> method.
 </dd>
 
           <dt id="PeriodGenerator">
@@ -471,7 +437,7 @@ package.
 
 </dt>
 <dd>
-  Weekday constants that are returned by <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/weekday.html">DateTime.weekday</a> method.
+  Weekday constants that are returned by <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/weekday.html">DateTime.weekday</a> method.
 </dd>
 
           <dt id="WorkdayDirection">
@@ -489,56 +455,6 @@ constructor.
     <section class="summary offset-anchor" id="mixins">
       <h2>Mixins</h2>
       <dl>
-          <dt id="EveryDateValidatorListMixin">
-  <span class="name "><a href="../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">E extends <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  Mixin that represents a list of <a href="../due_date/EveryDateValidator-class.html">EveryDateValidator</a>.
-</dd>
-
-          <dt id="EveryModifierMixin">
-  <span class="name "><a href="../due_date/EveryModifierMixin-mixin.html">EveryModifierMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  Mixin that, when used, passes the calls the specific method on the
-underlying <a href="../due_date/EveryModifier/every.html">every</a>.
-</dd>
-
-          <dt id="EveryMonth">
-  <span class="name "><a href="../due_date/EveryMonth-mixin.html">EveryMonth</a></span> 
-
-</dt>
-<dd>
-  Processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> with custom logic.
-</dd>
-
-          <dt id="EveryWeek">
-  <span class="name "><a href="../due_date/EveryWeek-mixin.html">EveryWeek</a></span> 
-
-</dt>
-<dd>
-  Processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> with custom logic.
-</dd>
-
-          <dt id="EveryYear">
-  <span class="name "><a href="../due_date/EveryYear-mixin.html">EveryYear</a></span> 
-
-</dt>
-<dd>
-  Processes <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> with custom logic.
-</dd>
-
-          <dt id="LimitedEveryModifierMixin">
-  <span class="name "><a href="../due_date/LimitedEveryModifierMixin-mixin.html">LimitedEveryModifierMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../due_date/Every-class.html">Every</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  Mixin that, when used, passes the calls the specific method on the
-underlying <a href="../due_date/EveryModifier/every.html">every</a>.
-</dd>
-
           <dt id="PeriodGeneratorMixin">
   <span class="name "><a href="../period/PeriodGeneratorMixin-mixin.html">PeriodGeneratorMixin</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="../period/Period-class.html">Period</a></span>&gt;</span></span> 
 
@@ -551,21 +467,6 @@ underlying <a href="../due_date/EveryModifier/every.html">every</a>.
     </section>
 
 
-    <section class="summary offset-anchor" id="extensions">
-      <h2>Extensions</h2>
-      <dl>
-          <dt id="ExactTimeOfDay">
-  <span class="name "><a href="../due_date/ExactTimeOfDay.html">ExactTimeOfDay</a></span>
-  on <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>
-  
-
-</dt>
-<dd>
-  Extension on <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> to get the exact time of the day.
-</dd>
-
-      </dl>
-    </section>
 
 
 
@@ -613,7 +514,7 @@ underlying <a href="../due_date/EveryModifier/every.html">every</a>.
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

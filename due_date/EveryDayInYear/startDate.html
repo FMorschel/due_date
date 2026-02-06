@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.8.1/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -86,14 +86,7 @@ being the <a href="../../due_date/DateValidatorDayInYear/dayInYear.html">dayInYe
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-DateTime startDate(DateTime date) {
-  if (valid(date)) return date;
-  final thisYearDay = date.firstDayOfYear
-      .add(Duration(days: dayInYear - 1))
-      .clamp(max: date.lastDayOfYear);
-  if (date.dayInYear &lt;= dayInYear) return thisYearDay;
-  return next(date);
-}</code></pre>
+DateTime startDate(DateTime date) =&gt; super.startDate(date);</code></pre>
 </section>
 
 
@@ -121,7 +114,7 @@ DateTime startDate(DateTime date) {
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

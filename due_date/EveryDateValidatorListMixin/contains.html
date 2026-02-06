@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the contains method from the EveryDateValidatorListMixin mixin, for the Dart programming language.">
+  <title>contains method - EveryDateValidatorListMixin mixin - due_date library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">due_date</a></li>
+    <li><a href="../../due_date/">due_date.dart</a></li>
+    <li><a href="../../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin<span class="signature">&lt;<wbr><span class="type-parameter">E extends EveryDateValidator</span>&gt;</span></a></li>
+    <li class="self-crumb">contains method</li>
+  </ol>
+  <div class="self-name">contains</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="due_date&#47;EveryDateValidatorListMixin-mixin-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">contains</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span>
+<span class="name ">contains</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="contains-param-element"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">element</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">inherited</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Whether the collection contains an element equal to <code>element</code>.</p>
+<p>This operation will check each element in order for being equal to
+<code>element</code>, unless it has a more efficient way to find an element
+equal to <code>element</code>.
+Stops iterating on the first equal element.</p>
+<p>The equality used to determine whether <code>element</code> is equal to an element of
+the iterable defaults to the <a href="https://api.dart.dev/stable/3.10.9/dart-core/Object/operator_equals.html">Object.==</a> of the element.</p>
+<p>Some types of iterable may have a different equality used for its elements.
+For example, a <a href="https://api.dart.dev/stable/3.10.9/dart-core/Set-class.html">Set</a> may have a custom equality
+(see <a href="https://api.dart.dev/stable/3.10.9/dart-core/Set/Set.identity.html">Set.identity</a>) that its <code>contains</code> uses.
+Likewise the <code>Iterable</code> returned by a <a href="https://api.dart.dev/stable/3.10.9/dart-core/Map/keys.html">Map.keys</a> call
+should use the same equality that the <code>Map</code> uses for keys.</p>
+<p>Example:</p>
+<pre class="language-dart"><code class="language-dart">final gasPlanets = &lt;int, String&gt;{1: 'Jupiter', 2: 'Saturn'};
+final containsOne = gasPlanets.keys.contains(1); // true
+final containsFive = gasPlanets.keys.contains(5); // false
+final containsJupiter = gasPlanets.values.contains('Jupiter'); // true
+final containsMercury = gasPlanets.values.contains('Mercury'); // false
+</code></pre>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">bool contains(Object? element) {
+  for (E e in this) {
+    if (e == element) return true;
+  }
+  return false;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">due_date</a></li>
+    <li><a href="../../due_date/">due_date</a></li>
+    <li><a href="../../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin<span class="signature">&lt;<wbr><span class="type-parameter">E extends EveryDateValidator</span>&gt;</span></a></li>
+    <li class="self-crumb">contains method</li>
+</ol>
+
+    <h5>EveryDateValidatorListMixin mixin</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    due_date
+      3.0.0
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

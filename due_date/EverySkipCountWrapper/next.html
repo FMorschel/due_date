@@ -56,13 +56,12 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.8.1/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">next</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, {</span></li>
-<li><span class="parameter" id="next-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
-<li><span class="parameter" id="next-param-currentCount"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">currentCount</span>, </span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">next</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, {</span></li>
+<li><span class="parameter" id="next-param-currentCount"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">currentCount</span>, </span></li>
 </ol>})
 
       <div class="features"><span class="feature">override</span></div>
@@ -70,10 +69,9 @@
     </section>
     
 <section class="desc markdown">
-  <p>Generates the next of the <a href="../../due_date/EveryModifier/every.html">every</a> base process.
+  <p>Generates the next of the <a href="../../due_date/EveryWrapper/every.html">every</a> base process.
 It will skip <code>currentCount</code> times from the <code>date</code> using the
 <a href="../../due_date/EverySkipCountWrapper/next.html">EverySkipCountWrapper.next</a> process.</p>
-<p>If <code>currentCount</code> is <code>null</code>, it will be set to <a href="../../due_date/EverySkipCountWrapper/count.html">count</a>.</p>
 </section>
 
 
@@ -81,16 +79,15 @@ It will skip <code>currentCount</code> times from the <code>date</code> using th
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-DateTime next(DateTime date, {DateTime? limit, int? currentCount}) {
+DateTime next(DateTime date, {int? currentCount}) {
   assert(
     currentCount == null || currentCount &gt;= 0,
     &#39;currentCount must be greater than or equal to 0&#39;,
   );
   return processDate(
-    LimitedOrEveryHandler.next(every, date, limit: limit),
+    every.next(date),
     DateDirection.next,
-    limit: limit,
-    currentCount: currentCount ?? count,
+    currentCount: currentCount,
   );
 }</code></pre>
 </section>
@@ -120,7 +117,7 @@ DateTime next(DateTime date, {DateTime? limit, int? currentCount}) {
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

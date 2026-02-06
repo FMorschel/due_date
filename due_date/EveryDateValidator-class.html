@@ -65,7 +65,7 @@
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark clazz-relationships">
-      <li><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a></li>
+      <li><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object-class.html">Object</a></li>
         <li><a href="../due_date/Every-class.html">Every</a></li>
       <li>EveryDateValidator</li>
     </ul>
@@ -82,17 +82,12 @@
 
           <dt>Implementers</dt>
           <dd><ul class="comma-separated clazz-relationships">
-              <li><a href="../due_date/EveryDateValidatorDifference-class.html">EveryDateValidatorDifference</a></li>
-              <li><a href="../due_date/EveryDateValidatorIntersection-class.html">EveryDateValidatorIntersection</a></li>
-              <li><a href="../due_date/EveryDateValidatorUnion-class.html">EveryDateValidatorUnion</a></li>
-              <li><a href="../due_date/EveryDayInYear-class.html">EveryDayInYear</a></li>
-              <li><a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a></li>
-              <li><a href="../due_date/EveryDueTimeOfDay-class.html">EveryDueTimeOfDay</a></li>
-              <li><a href="../due_date/EveryDueWorkdayMonth-class.html">EveryDueWorkdayMonth</a></li>
-              <li><a href="../due_date/EverySkipInvalidModifier-class.html">EverySkipInvalidModifier</a></li>
-              <li><a href="../due_date/EveryWeekday-class.html">EveryWeekday</a></li>
-              <li><a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a></li>
-              <li><a href="../due_date/ExactEvery-class.html">ExactEvery</a></li>
+              <li><a href="../due_date/EveryAdapter-class.html">EveryAdapter</a></li>
+              <li><a href="../due_date/EveryAdapterInvalidator-class.html">EveryAdapterInvalidator</a></li>
+              <li><a href="../due_date/EveryDateValidatorListMixin-mixin.html">EveryDateValidatorListMixin</a></li>
+              <li><a href="../due_date/EveryDateValidatorMixin-mixin.html">EveryDateValidatorMixin</a></li>
+              <li><a href="../due_date/EveryModifier-class.html">EveryModifier</a></li>
+              <li><a href="../due_date/LimitedEveryDateValidator-class.html">LimitedEveryDateValidator</a></li>
           </ul></dd>
 
         
@@ -107,7 +102,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="EveryDateValidator.new" class="callable">
-          <span class="name"><a href="../due_date/EveryDateValidator/EveryDateValidator.html">EveryDateValidator.new</a></span><span class="signature">()</span>
+          <span class="name"><a href="../due_date/EveryDateValidator/EveryDateValidator.html">EveryDateValidator</a></span><span class="signature">()</span>
         </dt>
         <dd>
           A base class that represents an <a href="../due_date/Every-class.html">Every</a> with a <a href="../due_date/DateValidator-class.html">DateValidator</a>.
@@ -122,8 +117,8 @@
     <h2>Properties</h2>
     <dl class="properties">
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span>
   
 
 </dt>
@@ -134,8 +129,8 @@
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Type-class.html">Type</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/Type-class.html">Type</a></span>
   
 
 </dt>
@@ -150,13 +145,26 @@
 
     
   <section
-      class="summary offset-anchor inherited"
+      class="summary offset-anchor"
       id="instance-methods">
     <h2>Methods</h2>
     <dl class="callables">
+        <dt id="endDate" class="callable">
+  <span class="name"><a href="../due_date/EveryDateValidator/endDate.html">endDate</a></span><span class="signature">(<wbr><span class="parameter" id="endDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns the previous <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../due_date/Every-class.html">Every</a> pattern.
+  
+
+</dd>
+
         <dt id="filterValidDates" class="callable inherited">
-  <span class="name"><a href="../due_date/DateValidatorMixin/filterValidDates.html">filterValidDates</a></span><span class="signature">(<wbr><span class="parameter" id="filterValidDates-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+  <span class="name"><a href="../due_date/DateValidatorMixin/filterValidDates.html">filterValidDates</a></span><span class="signature">(<wbr><span class="parameter" id="filterValidDates-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
   </span>
   
 
@@ -168,8 +176,8 @@
 </dd>
 
         <dt id="invalid" class="callable inherited">
-  <span class="name"><a href="../due_date/DateValidatorMixin/invalid.html">invalid</a></span><span class="signature">(<wbr><span class="parameter" id="invalid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DateValidatorMixin/invalid.html">invalid</a></span><span class="signature">(<wbr><span class="parameter" id="invalid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -181,8 +189,8 @@
 </dd>
 
         <dt id="next" class="callable inherited">
-  <span class="name"><a href="../due_date/Every/next.html">next</a></span><span class="signature">(<wbr><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/Every/next.html">next</a></span><span class="signature">(<wbr><span class="parameter" id="next-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
@@ -195,7 +203,7 @@ base process.
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
@@ -208,8 +216,8 @@ base process.
 </dd>
 
         <dt id="previous" class="callable inherited">
-  <span class="name"><a href="../due_date/Every/previous.html">previous</a></span><span class="signature">(<wbr><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
+  <span class="name"><a href="../due_date/Every/previous.html">previous</a></span><span class="signature">(<wbr><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
@@ -221,22 +229,24 @@ base process.
 
 </dd>
 
-        <dt id="startDate" class="callable inherited">
-  <span class="name"><a href="../due_date/Every/startDate.html">startDate</a></span><span class="signature">(<wbr><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
+        <dt id="startDate" class="callable">
+  <span class="name"><a href="../due_date/EveryDateValidator/startDate.html">startDate</a></span><span class="signature">(<wbr><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
   </span>
   
 
 </dt>
-<dd class="inherited">
-  Returns the next <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../due_date/Every-class.html">Every</a> pattern.
-  <div class="features"><span class="feature">inherited</span></div>
+<dd>
+  Returns the start date considering the given <code>every</code> base process.
+If <code>every</code> is a <a href="../due_date/LimitedEveryDateValidator-class.html">LimitedEveryDateValidator</a>, the <code>limit</code> will be passed
+on.
+  
 
 </dd>
 
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -248,27 +258,14 @@ base process.
 </dd>
 
         <dt id="valid" class="callable inherited">
-  <span class="name"><a href="../due_date/DateValidator/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../due_date/DateValidator/valid.html">valid</a></span><span class="signature">(<wbr><span class="parameter" id="valid-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   Returns true if the <code>date</code> is valid for this <a href="../due_date/DateValidator-class.html">DateValidator</a>.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="validsIn" class="callable inherited">
-  <span class="name deprecated"><a class="deprecated" href="../due_date/DateValidatorMixin/validsIn.html">validsIn</a></span><span class="signature">(<wbr><span class="parameter" id="validsIn-param-dates"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span> <span class="parameter-name">dates</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Returns the valid dates for this <a href="../due_date/DateValidator-class.html">DateValidator</a> in <code>dates</code>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
@@ -282,14 +279,27 @@ base process.
     <h2>Operators</h2>
     <dl class="callables">
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
   The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="operator unary-" class="callable inherited">
+  <span class="name"><a href="../due_date/DateValidatorMixin/operator_unary_minus.html">operator unary-</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="../due_date/DateValidator-class.html">DateValidator</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
@@ -323,7 +333,7 @@ base process.
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

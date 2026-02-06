@@ -56,12 +56,12 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.8.1/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">previous</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, {</span></li>
-<li><span class="parameter" id="previous-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">previous</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, {</span></li>
+<li><span class="parameter" id="previous-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
 </ol>})
 
       <div class="features"><span class="feature">override</span></div>
@@ -71,8 +71,12 @@
 <section class="desc markdown">
   <p>Returns the previous instance of the given <code>date</code> considering this <a href="../../due_date/Every-class.html">Every</a>
 base process.</p>
-<p>If the <code>date</code> is a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, a new
-<a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> will be generated.</p>
+<p>If the <code>date</code> is a <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, a new
+<a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> will be generated.</p>
+<p>If the generated <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> is still not able to return the first call to
+this function it will be called recursively.
+If <code>limit</code> is not null and the generated <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> is past <code>limit</code>, a
+<a href="../../due_date/DateTimeLimitReachedException-class.html">DateTimeLimitReachedException</a> will be thrown.</p>
 </section>
 
 
@@ -82,18 +86,14 @@ base process.</p>
   <pre class="language-dart"><code class="language-dart">@override
 DateTime previous(DateTime date, {DateTime? limit}) {
   if (isEmpty) return date;
-  if ((limit != null) &amp;&amp; date.isBefore(limit)) {
-    throw DateTimeLimitReachedException(date: date, limit: limit);
-  }
+  throwIfLimitReached(date, DateDirection.previous, limit: limit);
   final previousDates = map(
     (every) =&gt; LimitedOrEveryHandler.previous(every, date, limit: limit),
   );
   final validDates = previousDates.where(valid);
   if (validDates.isNotEmpty) {
     final result = validDates.reduce(DateReducer.reducePast);
-    if ((limit != null) &amp;&amp; result.isBefore(limit)) {
-      throw DateTimeLimitReachedException(date: result, limit: limit);
-    }
+    throwIfLimitReached(result, DateDirection.previous, limit: limit);
     return result;
   }
   return previous(previousDates.reduce(DateReducer.reducePast), limit: limit);
@@ -125,7 +125,7 @@ DateTime previous(DateTime date, {DateTime? limit}) {
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

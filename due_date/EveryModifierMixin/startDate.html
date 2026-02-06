@@ -26,7 +26,7 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">due_date</a></li>
     <li><a href="../../due_date/">due_date.dart</a></li>
-    <li><a href="../../due_date/EveryModifierMixin-mixin.html">EveryModifierMixin<span class="signature">&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span></a></li>
+    <li><a href="../../due_date/EveryModifierMixin-mixin.html">EveryModifierMixin<span class="signature">&lt;<wbr><span class="type-parameter">T extends EveryDateValidator</span>&gt;</span></a></li>
     <li class="self-crumb">startDate method</li>
   </ol>
   <div class="self-name">startDate</div>
@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.8.1/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -68,11 +68,9 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns the next <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern.</p>
-<p>If the <code>date</code> is a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, it will
-be returned.</p>
-<p>If the <code>date</code> is not a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, <a href="../../due_date/EveryModifierMixin/next.html">next</a>
-will be called to generate a new one.</p>
+  <p>Returns the start date considering the given <a href="../../due_date/EveryModifier/every.html">every</a> base process.
+If <a href="../../due_date/EveryModifier/every.html">every</a> is a <a href="../../due_date/LimitedEveryDateValidator-class.html">LimitedEveryDateValidator</a>, the <code>limit</code> will be passed
+on.</p>
 </section>
 
 
@@ -100,7 +98,7 @@ DateTime startDate(DateTime date) {
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">due_date</a></li>
     <li><a href="../../due_date/">due_date</a></li>
-    <li><a href="../../due_date/EveryModifierMixin-mixin.html">EveryModifierMixin<span class="signature">&lt;<wbr><span class="type-parameter">T extends Every</span>&gt;</span></a></li>
+    <li><a href="../../due_date/EveryModifierMixin-mixin.html">EveryModifierMixin<span class="signature">&lt;<wbr><span class="type-parameter">T extends EveryDateValidator</span>&gt;</span></a></li>
     <li class="self-crumb">startDate method</li>
 </ol>
 
@@ -113,7 +111,7 @@ DateTime startDate(DateTime date) {
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

@@ -55,8 +55,8 @@
     <section class="multi-line-signature">
       
 <span class="returntype"><a href="../../due_date/DueDateTime-class.html">DueDateTime</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../due_date/Every-class.html">Every</a></span>&gt;</span></span>
-<span class="name ">addWeeks</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, {</span></li>
-<li><span class="parameter" id="addWeeks-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>, </span></li>
+<span class="name ">addWeeks</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="addWeeks-param-weeks"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">weeks</span>, {</span></li>
+<li><span class="parameter" id="addWeeks-param-sameEvery"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">sameEvery</span> = <span class="default-value">true</span>, </span></li>
 </ol>})
 
       
@@ -65,8 +65,8 @@
     
 <section class="desc markdown">
   <p>Returns a new <a href="../../due_date/DueDateTime-class.html">DueDateTime</a> instance with <code>weeks</code> weeks added to this.</p>
-<p>If <code>sameEvery</code> is true, keeps the current one.
-If is false, the <a href="../../due_date/DueDateTime/every.html">every</a> will change to the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/day.html">day</a> of the generated date.</p>
+<p>If <code>sameEvery</code> is true, keeps the current one. If is false, the <a href="../../due_date/DueDateTime/every.html">every</a>
+will change to the <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/day.html">day</a> of the generated date.</p>
 <pre class="language-dart"><code class="language-dart">EveryDueDayMonth(day);
 </code></pre>
 <p>Be careful when working with dates in local time.</p>
@@ -80,9 +80,8 @@ If is false, the <a href="../../due_date/DueDateTime/every.html">every</a> will 
   if (every is EveryWeek) {
     final date = (every as EveryWeek).addWeeks(this, weeks);
     return DueDateTime.fromDate(date, every: sameEvery ? every : null);
-  } else {
-    return add(_week * weeks, sameEvery: sameEvery);
   }
+  return add(_week * weeks, sameEvery: sameEvery);
 }</code></pre>
 </section>
 
@@ -111,7 +110,7 @@ If is false, the <a href="../../due_date/DueDateTime/every.html">every</a> will 
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

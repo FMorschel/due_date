@@ -100,10 +100,23 @@ final previousSecond = currentSecond.getPrevious(secondGenerator);
 print('The previous hour is $previousHour.');
 print('The previous second is $previousSecond.');
 </code></pre>
+<h3 id="every-wrappers-modifiers-and-adapters">Every, Wrappers, Modifiers, and Adapters</h3>
+<p>The package provides a flexible hierarchy for working with repeating date patterns:</p>
+<ul>
+<li><strong><code>Every</code></strong>: The base class for generating dates matching a pattern, with <code>next()</code> and <code>previous()</code> methods.</li>
+<li><strong><code>EveryDateValidator</code></strong>: Extends <code>Every</code> by adding date validation and boundary methods like <code>startDate()</code> and <code>endDate()</code>.</li>
+</ul>
+<p>To extend or customize these behaviors, use:</p>
+<ul>
+<li><strong>Wrappers</strong>: Decorate or alter the iteration behavior of an <code>Every</code> (or <code>LimitedEvery</code>) instance. Wrappers only provide <code>next()</code> and <code>previous()</code> — they do not add validation or boundary methods.</li>
+<li><strong>Modifiers</strong>: Decorate or alter an <code>EveryDateValidator</code> (or <code>LimitedEveryDateValidator</code>), providing both iteration and validation (<code>next()</code>, <code>previous()</code>, <code>startDate()</code>, <code>endDate()</code>).</li>
+<li><strong>Adapters</strong>: Bridge or adapt between an <code>Every</code> (and its variants) and a <code>DateValidator</code>, sometimes adding or transforming validation or iteration logic. Adapters can be used to convert or extend functionality between these types.</li>
+</ul>
+<p>Use a <strong>Wrapper</strong> when you only need to change how iteration works for an <code>Every</code>. Use a <strong>Modifier</strong> when you need to extend or alter both iteration and validation for an <code>EveryDateValidator</code>. Use an <strong>Adapter</strong> when you need to bridge or convert between these types, or to add missing capabilities.</p>
 <h2 id="getting-started">Getting started</h2>
 <p>On your <code>pubspec.yaml</code> file, add this package to your dependencies:</p>
 <pre class="language-yaml"><code class="language-yaml">  dependencies:
-    due_date: ^2.3.0
+    due_date: ^3.0.0
 </code></pre>
 <p>Import one of the, or both, package libraries on your code:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:due_date/due_date.dart';
@@ -202,7 +215,7 @@ It is also not a package to work with timezones. It is focused on the <code>Date
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.8.1/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">previous</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">previous</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="previous-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -70,8 +70,8 @@
 <section class="desc markdown">
   <p>Returns the previous instance of the given <code>date</code> considering this <a href="../../due_date/Every-class.html">Every</a>
 base process.</p>
-<p>If the <code>date</code> is a <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, a new
-<a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> will be generated.</p>
+<p>If the <code>date</code> is a <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, a new
+<a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> will be generated.</p>
 </section>
 
 
@@ -82,9 +82,8 @@ base process.</p>
 DateTime previous(DateTime date) {
   if (date.day &gt; dueDay) {
     return _monthsDay(date, monthDelta: 0);
-  } else {
-    return _monthsDay(date, monthDelta: -1);
   }
+  return _monthsDay(date, monthDelta: -1);
 }</code></pre>
 </section>
 
@@ -113,7 +112,7 @@ DateTime previous(DateTime date) {
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

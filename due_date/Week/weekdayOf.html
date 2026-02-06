@@ -54,11 +54,11 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">weekdayOf</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="weekdayOf-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span></li>
-<li><span class="parameter" id="weekdayOf-param-month"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span>, </span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">weekdayOf</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="weekdayOf-param-year"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">year</span>, </span></li>
+<li><span class="parameter" id="weekdayOf-param-month"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">month</span>, </span></li>
 <li><span class="parameter" id="weekdayOf-param-day"><span>required</span> <span class="type-annotation"><a href="../../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">day</span>, </span></li>
-<li><span class="parameter" id="weekdayOf-param-utc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="weekdayOf-param-utc"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">utc</span> = <span class="default-value">true</span>, </span></li>
 </ol>})
 
       
@@ -66,7 +66,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> for <code>day</code> of the week of the selected week for the
+  <p>Returns the <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> for <code>day</code> of the week of the selected week for the
 given <code>year</code> and <code>month</code>.</p>
 </section>
 
@@ -90,15 +90,13 @@ given <code>year</code> and <code>month</code>.</p>
   for (final week in [first, second, third, fourth]) {
     if (week == this) {
       return weekDay;
-    } else {
-      weekDay = weekDay.addDays(1).nextWeekday(day);
     }
+    weekDay = weekDay.addDays(1).nextWeekday(day);
   }
   if (weekDay.compareTo(firstDayOfMonth.lastDayOfMonth) &lt;= 0) {
     return weekDay;
-  } else {
-    return weekDay.subtractDays(1).previousWeekday(day);
   }
+  return weekDay.subtractDays(1).previousWeekday(day);
 }</code></pre>
 </section>
 
@@ -127,7 +125,7 @@ given <code>year</code> and <code>month</code>.</p>
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.8.1/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -70,11 +70,11 @@
 <section class="desc markdown">
   <p>Returns the next date that fits the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>.</p>
 <ul>
-<li>If the <code>date</code> - <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/day.html">DateTime.day</a> is less than the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, it's returned
-the same month with the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/day.html">DateTime.day</a> being <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, clamped to the
+<li>If the <code>date</code> - <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/day.html">DateTime.day</a> is less than the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, it's returned
+the same month with the <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/day.html">DateTime.day</a> being <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, clamped to the
 months length.</li>
-<li>If the <code>date</code> - <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/day.html">DateTime.day</a> is greater than the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, it's
-returned the next month with the <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime/day.html">DateTime.day</a> being <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, clamped to
+<li>If the <code>date</code> - <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/day.html">DateTime.day</a> is greater than the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, it's
+returned the next month with the <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime/day.html">DateTime.day</a> being <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a>, clamped to
 the months length.</li>
 </ul>
 </section>
@@ -84,10 +84,7 @@ the months length.</li>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-DateTime startDate(DateTime date) {
-  if (valid(date)) return date;
-  return next(date);
-}</code></pre>
+DateTime startDate(DateTime date) =&gt; super.startDate(date);</code></pre>
 </section>
 
 
@@ -115,7 +112,7 @@ DateTime startDate(DateTime date) {
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

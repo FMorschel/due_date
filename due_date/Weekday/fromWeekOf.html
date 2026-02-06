@@ -54,8 +54,8 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">fromWeekOf</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="fromWeekOf-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">fromWeekOf</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="fromWeekOf-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
 </ol>)
 
       
@@ -74,8 +74,8 @@
   final monday = date.firstDayOfWeek;
   final result = monday.add(Duration(days: index));
   return date.isUtc
-      ? result.toUtc().date.add(date.exactTimeOfDay)
-      : result.date.add(date.exactTimeOfDay);
+      ? result.toUtc().date.add(date.timeOfDay)
+      : result.date.add(date.timeOfDay);
 }</code></pre>
 </section>
 
@@ -104,7 +104,7 @@
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>

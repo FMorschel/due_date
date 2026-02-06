@@ -54,9 +54,9 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">addDays</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="addDays-param-days"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span>, {</span></li>
-<li><span class="parameter" id="addDays-param-ignoring"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.8.1/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../due_date/Weekday.html">Weekday</a></span>&gt;</span></span> <span class="parameter-name">ignoring</span> = <span class="default-value">const []</span>, </span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">addDays</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="addDays-param-days"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">days</span>, {</span></li>
+<li><span class="parameter" id="addDays-param-ignoring"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../due_date/Weekday.html">Weekday</a></span>&gt;</span></span> <span class="parameter-name">ignoring</span> = <span class="default-value">const []</span>, </span></li>
 </ol>})
 
       
@@ -64,7 +64,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns a new <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a> with the given <code>days</code> added to this <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a>.
+  <p>Returns a new <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a> with the given <code>days</code> added to this <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a>.
 Ignoring the <a href="../../due_date/Weekday.html">Weekday</a>s on <code>ignoring</code>.</p>
 </section>
 
@@ -83,16 +83,21 @@ Ignoring the <a href="../../due_date/Weekday.html">Weekday</a>s on <code>ignorin
   }
   final day = Weekday.fromDateTimeValue(weekday);
   if (!ignoreSet.contains(day) &amp;&amp; (days == 0)) return this;
-  final dayToAdd = (days.isNegative ? -1 : 1).days;
+  final dayToAdd = (days.isNegative ? -1 : 1);
   final set =
       days.isNegative ? ignoreSet.nextWeekdays : ignoreSet.previousWeekdays;
   if (!set.contains(day)) {
-    return add(dayToAdd).addDays(
-      days.isNegative ? days + 1 : days - 1,
+    return copyWith(day: this.day + dayToAdd).addDays(
+      days == 0
+          ? 0
+          : days.isNegative
+              ? days + 1
+              : days - 1,
       ignoring: ignoreSet,
     );
   }
-  return add(dayToAdd).addDays(days, ignoring: ignoreSet);
+  return copyWith(day: this.day + dayToAdd)
+      .addDays(days, ignoring: ignoreSet);
 }</code></pre>
 </section>
 
@@ -112,7 +117,7 @@ Ignoring the <a href="../../due_date/Weekday.html">Weekday</a>s on <code>ignorin
     <li class="self-crumb">addDays method</li>
 </ol>
 
-    <h5>AddDays extension on <a href="https://api.dart.dev/stable/3.8.1/dart-core/DateTime-class.html">DateTime</a></h5>
+    <h5>AddDays extension on <a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -121,7 +126,7 @@ Ignoring the <a href="../../due_date/Weekday.html">Weekday</a>s on <code>ignorin
 <footer>
   <span class="no-break">
     due_date
-      2.3.0
+      3.0.0
   </span>
   
 </footer>
