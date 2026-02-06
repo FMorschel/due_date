@@ -7,7 +7,6 @@ import 'package:test/test.dart';
 
 import '../../src/every_incompatible_validator_and_generator.dart';
 import '../../src/every_match.dart';
-import 'every_time_of_day_modifier_test.dart';
 
 void main() {
   group('LimitedEveryTimeOfDayModifier:', () {

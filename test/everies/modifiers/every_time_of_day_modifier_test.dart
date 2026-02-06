@@ -1,11 +1,6 @@
-import 'package:due_date/src/date_validators/built_in/date_validator_weekday_count_in_month.dart';
-import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
-import 'package:due_date/src/everies/adapters/every_adapter_invalidator.dart';
-import 'package:due_date/src/everies/adapters/every_adapter_invalidator_mixin.dart';
 import 'package:due_date/src/everies/built_in/every_due_time_of_day.dart';
 import 'package:due_date/src/everies/built_in/every_weekday.dart';
-import 'package:due_date/src/everies/date_direction.dart';
 import 'package:due_date/src/everies/modifiers/every_time_of_day_modifier.dart';
 import 'package:test/test.dart';
 
@@ -109,7 +104,6 @@ void main() {
         });
       });
       group('Default midnight', () {
-
         final modifier = EveryTimeOfDayModifier(every: every);
         group('startDate', () {
           test('Returns same date at midnight when input is valid', () {
