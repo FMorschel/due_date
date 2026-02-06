@@ -1,4 +1,16 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/day_generator.dart';
+import 'package:due_date/src/period_generators/fortnight_generator.dart';
+import 'package:due_date/src/period_generators/hour_generator.dart';
+import 'package:due_date/src/period_generators/minute_generator.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
+import 'package:due_date/src/period_generators/second_generator.dart';
+import 'package:due_date/src/period_generators/semester_generator.dart';
+import 'package:due_date/src/period_generators/trimester_generator.dart';
+import 'package:due_date/src/period_generators/week_generator.dart';
+import 'package:due_date/src/period_generators/year_generator.dart';
+import 'package:due_date/src/periods/month_period.dart';
+import 'package:due_date/src/periods/period.dart';
+import 'package:due_date/src/periods/trimester_period.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
@@ -14,7 +26,7 @@ void main() {
 
     group('of', () {
       test('Start of first trimester', () {
-        // January 1, 2022
+        // January 1, 2022.
         final period = trimesterGenerator.of(DateTime(2022));
         final expected = TrimesterPeriod(
           start: DateTime(2022),
@@ -24,7 +36,7 @@ void main() {
       });
 
       test('End of first trimester', () {
-        // March 31, 2022
+        // March 31, 2022.
         final period = trimesterGenerator.of(DateTime(2022, 3, 31));
         final expected = TrimesterPeriod(
           start: DateTime(2022),
@@ -34,7 +46,7 @@ void main() {
       });
 
       test('Middle of first trimester', () {
-        // February 15, 2022
+        // February 15, 2022.
         final period = trimesterGenerator.of(DateTime(2022, 2, 15));
         final expected = TrimesterPeriod(
           start: DateTime(2022),
@@ -44,7 +56,7 @@ void main() {
       });
 
       test('Start of second trimester', () {
-        // April 1, 2022
+        // April 1, 2022.
         final period = trimesterGenerator.of(DateTime(2022, 4));
         final expected = TrimesterPeriod(
           start: DateTime(2022, 4),
@@ -54,7 +66,7 @@ void main() {
       });
 
       test('End of second trimester', () {
-        // June 30, 2022
+        // June 30, 2022.
         final period = trimesterGenerator.of(DateTime(2022, 6, 30));
         final expected = TrimesterPeriod(
           start: DateTime(2022, 4),
@@ -64,7 +76,7 @@ void main() {
       });
 
       test('Middle of second trimester', () {
-        // May 15, 2022
+        // May 15, 2022.
         final period = trimesterGenerator.of(DateTime(2022, 5, 15));
         final expected = TrimesterPeriod(
           start: DateTime(2022, 4),
@@ -204,7 +216,7 @@ void main() {
 
     group('Edge cases', () {
       group('First trimester (January-March)', () {
-        // January 2022
+        // January 2022.
         final day = DateTime(2022);
         final period = TrimesterPeriod(
           start: day.date,
@@ -236,7 +248,7 @@ void main() {
       });
 
       group('Second trimester (April-June)', () {
-        // April 2022
+        // April 2022.
         final day = DateTime(2022, DateTime.april);
         final period = TrimesterPeriod(
           start: day.date,
@@ -268,7 +280,7 @@ void main() {
       });
 
       group('Third trimester (July-September)', () {
-        // July 2022
+        // July 2022.
         final day = DateTime(2022, DateTime.july);
         final period = TrimesterPeriod(
           start: day.date,
@@ -300,7 +312,7 @@ void main() {
       });
 
       group('Fourth trimester (October-December)', () {
-        // October 2022
+        // October 2022.
         final day = DateTime(2022, DateTime.october);
         final period = TrimesterPeriod(
           start: day.date,
@@ -341,7 +353,7 @@ void main() {
       });
 
       test('Year boundary crossing', () {
-        // December 31, 2021 fourth trimester crosses into 2022
+        // December 31, 2021 fourth trimester crosses into 2022.
         final period = trimesterGenerator.of(DateTime(2021, 12, 31));
         final next = trimesterGenerator.after(period);
         expect(next.start.year, equals(2022));
@@ -419,7 +431,7 @@ void main() {
       });
 
       test('Different generator types are not equal', () {
-        // TrimesterGenerator should not equal other generator types
+        // TrimesterGenerator should not equal other generator types.
         expect(generator1, isNot(equals(DayGenerator())));
         expect(generator1, isNot(equals(WeekGenerator())));
         expect(generator1, isNot(equals(MonthGenerator())));
@@ -431,7 +443,7 @@ void main() {
         expect(generator1, isNot(equals(YearGenerator())));
 
         // WeekGenerators with different parameters should not equal
-        // TrimesterGenerator
+        // TrimesterGenerator.
         expect(
           generator1,
           isNot(equals(WeekGenerator(weekStart: DateTime.tuesday))),

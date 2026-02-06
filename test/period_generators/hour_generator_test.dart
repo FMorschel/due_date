@@ -1,4 +1,16 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/day_generator.dart';
+import 'package:due_date/src/period_generators/fortnight_generator.dart';
+import 'package:due_date/src/period_generators/hour_generator.dart';
+import 'package:due_date/src/period_generators/minute_generator.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
+import 'package:due_date/src/period_generators/second_generator.dart';
+import 'package:due_date/src/period_generators/semester_generator.dart';
+import 'package:due_date/src/period_generators/trimester_generator.dart';
+import 'package:due_date/src/period_generators/week_generator.dart';
+import 'package:due_date/src/period_generators/year_generator.dart';
+import 'package:due_date/src/periods/hour_period.dart';
+import 'package:due_date/src/periods/minute_period.dart';
+import 'package:due_date/src/periods/period.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -152,7 +164,7 @@ void main() {
       });
 
       test('Leap year February 29', () {
-        // February 29, 2020 is a leap year
+        // February 29, 2020 is a leap year.
         final period = generator.of(DateTime(2020, 2, 29, 12));
         expect(period.start.day, equals(29));
         expect(period.start.month, equals(2));
@@ -171,7 +183,7 @@ void main() {
     test('does not fit generator', () {
       final period = Period(
         start: DateTime(2020),
-        end: DateTime(2020, 1, 1, 1), // Wrong end time
+        end: DateTime(2020, 1, 1, 1), // Wrong end time.
       );
       expect(generator.fitsGenerator(period), isFalse);
     });
@@ -189,7 +201,7 @@ void main() {
       });
 
       test('Different generator types are not equal', () {
-        // HourGenerator should not equal other generator types
+        // HourGenerator should not equal other generator types.
         expect(generator1, isNot(equals(DayGenerator())));
         expect(generator1, isNot(equals(WeekGenerator())));
         expect(generator1, isNot(equals(MonthGenerator())));
@@ -201,7 +213,7 @@ void main() {
         expect(generator1, isNot(equals(YearGenerator())));
 
         // WeekGenerators with different parameters should not equal
-        // HourGenerator
+        // HourGenerator.
         expect(
           generator1,
           isNot(equals(WeekGenerator(weekStart: DateTime.tuesday))),

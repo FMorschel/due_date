@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator_mixin.dart';
 import 'package:test/test.dart';
 
 import '../src/date_validator_match.dart';
@@ -15,6 +15,25 @@ class _TestDateValidator with DateValidatorMixin {
 
 void main() {
   group('DateValidatorMixin:', () {
+    group('-', () {
+      const mondayValidator = _TestDateValidator(DateTime.monday);
+      test('Negating a validator returns opposite validator', () {
+        final notMondayValidator = -mondayValidator;
+
+        // July 1, 2024 is Monday.
+        final monday = DateTime(2024, 7);
+        final tuesday = DateTime(2024, 7, 2);
+
+        expect(notMondayValidator.valid(monday), isFalse);
+        expect(notMondayValidator.valid(tuesday), isTrue);
+      });
+      test('Negating a negated validator, returns the original instance', () {
+        final notMondayValidator = -mondayValidator;
+        final originalValidator = -notMondayValidator;
+
+        expect(identical(originalValidator, mondayValidator), isTrue);
+      });
+    });
     group('invalid method:', () {
       test('Returns opposite of valid method', () {
         // July 1, 2024 is Monday (weekday = 1).
@@ -43,84 +62,21 @@ void main() {
       });
     });
 
-    group('validsIn method (deprecated):', () {
-      test('Returns valid dates from collection', () {
-        // July 1, 2024 is Monday.
-        final mondayValidator = _TestDateValidator(DateTime.monday);
-        final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 2), // Tuesday
-          DateTime(2024, 7, 8), // Monday
-          DateTime(2024, 7, 9), // Tuesday
-        ];
-
-        // ignore: deprecated_member_use_from_same_package
-        final validDates = mondayValidator.validsIn(dates).toList();
-
-        expect(validDates, hasLength(2));
-        expect(validDates[0], equals(DateTime(2024, 7)));
-        expect(validDates[1], equals(DateTime(2024, 7, 8)));
-      });
-
-      test('Returns empty iterable when no valid dates', () {
-        // July 2, 2024 is Tuesday.
-        final tuesdayValidator = _TestDateValidator(DateTime.tuesday);
-        final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 3), // Wednesday
-          DateTime(2024, 7, 8), // Monday
-        ];
-
-        // ignore: deprecated_member_use_from_same_package
-        final validDates = tuesdayValidator.validsIn(dates).toList();
-
-        expect(validDates, isEmpty);
-      });
-
-      test('Returns all dates when all are valid', () {
-        // July 1, 2024 is Monday.
-        final mondayValidator = _TestDateValidator(DateTime.monday);
-        final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 8), // Monday
-          DateTime(2024, 7, 15), // Monday
-        ];
-
-        // ignore: deprecated_member_use_from_same_package
-        final validDates = mondayValidator.validsIn(dates).toList();
-
-        expect(validDates, hasLength(3));
-        expect(validDates[0], equals(DateTime(2024, 7)));
-        expect(validDates[1], equals(DateTime(2024, 7, 8)));
-        expect(validDates[2], equals(DateTime(2024, 7, 15)));
-      });
-
-      test('Handles empty input collection', () {
-        final mondayValidator = _TestDateValidator(DateTime.monday);
-        final dates = <DateTime>[];
-
-        // ignore: deprecated_member_use_from_same_package
-        final validDates = mondayValidator.validsIn(dates).toList();
-
-        expect(validDates, isEmpty);
-      });
-    });
-
     group('filterValidDates method:', () {
       test('Returns valid dates from collection', () {
         // July 1, 2024 is Monday.
         final mondayValidator = _TestDateValidator(DateTime.monday);
         final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 2), // Tuesday
-          DateTime(2024, 7, 8), // Monday
-          DateTime(2024, 7, 9), // Tuesday
+          DateTime(2024, 7), // Monday.
+          DateTime(2024, 7, 2), // Tuesday.
+          DateTime(2024, 7, 8), // Monday.
+          DateTime(2024, 7, 9), // Tuesday.
         ];
 
         final validDates = mondayValidator.filterValidDates(dates).toList();
 
         expect(validDates, hasLength(2));
-        expect(validDates[0], equals(DateTime(2024, 7)));
+        expect(validDates.first, equals(DateTime(2024, 7)));
         expect(validDates[1], equals(DateTime(2024, 7, 8)));
       });
 
@@ -128,9 +84,9 @@ void main() {
         // July 2, 2024 is Tuesday.
         final tuesdayValidator = _TestDateValidator(DateTime.tuesday);
         final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 3), // Wednesday
-          DateTime(2024, 7, 8), // Monday
+          DateTime(2024, 7), // Monday.
+          DateTime(2024, 7, 3), // Wednesday.
+          DateTime(2024, 7, 8), // Monday.
         ];
 
         final validDates = tuesdayValidator.filterValidDates(dates).toList();
@@ -142,15 +98,15 @@ void main() {
         // July 1, 2024 is Monday.
         final mondayValidator = _TestDateValidator(DateTime.monday);
         final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 8), // Monday
-          DateTime(2024, 7, 15), // Monday
+          DateTime(2024, 7), // Monday.
+          DateTime(2024, 7, 8), // Monday.
+          DateTime(2024, 7, 15), // Monday.
         ];
 
         final validDates = mondayValidator.filterValidDates(dates).toList();
 
         expect(validDates, hasLength(3));
-        expect(validDates[0], equals(DateTime(2024, 7)));
+        expect(validDates.first, equals(DateTime(2024, 7)));
         expect(validDates[1], equals(DateTime(2024, 7, 8)));
         expect(validDates[2], equals(DateTime(2024, 7, 15)));
       });
@@ -168,57 +124,32 @@ void main() {
         // July 5, 2024 is Friday.
         final fridayValidator = _TestDateValidator(DateTime.friday);
         final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 5), // Friday
-          DateTime(2024, 7, 12), // Friday
-          DateTime(2024, 7, 15), // Monday
+          DateTime(2024, 7), // Monday.
+          DateTime(2024, 7, 5), // Friday.
+          DateTime(2024, 7, 12), // Friday.
+          DateTime(2024, 7, 15), // Monday.
         ];
 
         final validDates = fridayValidator.filterValidDates(dates).toList();
 
         expect(validDates, hasLength(2));
-        expect(validDates[0], equals(DateTime(2024, 7, 5)));
+        expect(validDates.first, equals(DateTime(2024, 7, 5)));
         expect(validDates[1], equals(DateTime(2024, 7, 12)));
       });
 
       test('Is lazy and yields results one by one', () {
         final mondayValidator = _TestDateValidator(DateTime.monday);
         final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 2), // Tuesday
-          DateTime(2024, 7, 8), // Monday
+          DateTime(2024, 7), // Monday.
+          DateTime(2024, 7, 2), // Tuesday.
+          DateTime(2024, 7, 8), // Monday.
         ];
 
         final validDatesIterable = mondayValidator.filterValidDates(dates);
 
-        // Test that it's a lazy iterable by taking only the first result
+        // Test that it's a lazy iterable by taking only the first result.
         final firstValid = validDatesIterable.first;
         expect(firstValid, equals(DateTime(2024, 7)));
-      });
-    });
-
-    group('validsIn and filterValidDates consistency:', () {
-      test('Both methods return same results', () {
-        // July 6, 2024 is Saturday.
-        final saturdayValidator = _TestDateValidator(DateTime.saturday);
-        final dates = [
-          DateTime(2024, 7), // Monday
-          DateTime(2024, 7, 6), // Saturday
-          DateTime(2024, 7, 7), // Sunday
-          DateTime(2024, 7, 13), // Saturday
-          DateTime(2024, 7, 20), // Saturday
-        ];
-
-        // ignore: deprecated_member_use_from_same_package
-        final validsInResult = saturdayValidator.validsIn(dates).toList();
-        final filterValidDatesResult =
-            saturdayValidator.filterValidDates(dates).toList();
-
-        expect(validsInResult, equals(filterValidDatesResult));
-        expect(validsInResult, hasLength(3));
-        expect(validsInResult[0], equals(DateTime(2024, 7, 6)));
-        expect(validsInResult[1], equals(DateTime(2024, 7, 13)));
-        expect(validsInResult[2], equals(DateTime(2024, 7, 20)));
       });
     });
 

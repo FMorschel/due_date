@@ -1,4 +1,9 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_weekday.dart';
+import 'package:due_date/src/date_validators/group/date_validator_difference.dart';
+import 'package:due_date/src/date_validators/group/date_validator_intersection.dart';
+import 'package:due_date/src/date_validators/group/date_validator_union.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/extensions/date_validator_list_ext.dart';
 import 'package:test/test.dart';
 
 void main() {

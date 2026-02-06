@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_year.dart';
 import 'package:test/test.dart';
 
 import '../src/every_match.dart';
@@ -7,9 +8,6 @@ import '../src/every_match.dart';
 class _TestEveryYear extends Every with EveryYear {
   /// Creates a test implementation of [EveryYear].
   const _TestEveryYear();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addYears(DateTime date, int years) {
@@ -25,6 +23,12 @@ class _TestEveryYear extends Every with EveryYear {
       date.microsecond,
     );
   }
+
+  @override
+  DateTime next(DateTime date) => addYears(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addYears(date, -1);
 }
 
 /// Test implementation of [EveryYear] with UTC support that can be made
@@ -32,9 +36,6 @@ class _TestEveryYear extends Every with EveryYear {
 class _TestEveryYearUtc extends Every with EveryYear {
   /// Creates a test implementation of [EveryYear] with UTC support.
   const _TestEveryYearUtc();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addYears(DateTime date, int years) {
@@ -50,19 +51,24 @@ class _TestEveryYearUtc extends Every with EveryYear {
         date.millisecond,
         date.microsecond,
       );
-    } else {
-      return DateTime(
-        newYear,
-        date.month,
-        date.day,
-        date.hour,
-        date.minute,
-        date.second,
-        date.millisecond,
-        date.microsecond,
-      );
     }
+    return DateTime(
+      newYear,
+      date.month,
+      date.day,
+      date.hour,
+      date.minute,
+      date.second,
+      date.millisecond,
+      date.microsecond,
+    );
   }
+
+  @override
+  DateTime next(DateTime date) => addYears(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addYears(date, -1);
 }
 
 void main() {

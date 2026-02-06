@@ -17,10 +17,10 @@ import 'date_validator.dart';
 @immutable
 abstract class ExactDateValidator extends DateValidator {
   /// {@macro exactDateValidator}
-  const ExactDateValidator({this.exact = false});
+  const ExactDateValidator({this.exact = true});
 
   /// {@template inexactDates}
-  /// Returns whether the [DateTime] passed to [valid] or [invalid] can be
+  /// Returns whether the [DateTime] given to [valid] or [invalid] can be
   /// inexact.
   ///
   /// If [exact] is true, this will return false.
@@ -28,7 +28,7 @@ abstract class ExactDateValidator extends DateValidator {
   bool get inexact => !exact;
 
   /// {@template exactDates}
-  /// Returns whether the [DateTime] passed to [valid] or [invalid] needs to fit
+  /// Returns whether the [DateTime] given to [valid] or [invalid] needs to fit
   /// exactly a specific date.
   /// {@endtemplate}
   final bool exact;

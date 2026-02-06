@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/extensions/day_in_year.dart';
 import 'package:test/test.dart';
 
 void main() {

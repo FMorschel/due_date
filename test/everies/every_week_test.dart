@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_week.dart';
 import 'package:test/test.dart';
 
 import '../src/every_match.dart';
@@ -9,12 +10,15 @@ class _TestEveryWeek extends Every with EveryWeek {
   const _TestEveryWeek();
 
   @override
-  DateTime startDate(DateTime date) => date;
-
-  @override
   DateTime addWeeks(DateTime date, int weeks) {
     return date.add(Duration(days: weeks * 7));
   }
+
+  @override
+  DateTime next(DateTime date) => addWeeks(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addWeeks(date, -1);
 }
 
 /// Test implementation of [EveryWeek] with UTC support that can be made
@@ -22,9 +26,6 @@ class _TestEveryWeek extends Every with EveryWeek {
 class _TestEveryWeekUtc extends Every with EveryWeek {
   /// Creates a test implementation of [EveryWeek] with UTC support.
   const _TestEveryWeekUtc();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addWeeks(DateTime date, int weeks) {
@@ -39,19 +40,24 @@ class _TestEveryWeekUtc extends Every with EveryWeek {
         date.millisecond,
         date.microsecond,
       );
-    } else {
-      return DateTime(
-        date.year,
-        date.month,
-        date.day + (weeks * 7),
-        date.hour,
-        date.minute,
-        date.second,
-        date.millisecond,
-        date.microsecond,
-      );
     }
+    return DateTime(
+      date.year,
+      date.month,
+      date.day + (weeks * 7),
+      date.hour,
+      date.minute,
+      date.second,
+      date.millisecond,
+      date.microsecond,
+    );
   }
+
+  @override
+  DateTime next(DateTime date) => addWeeks(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addWeeks(date, -1);
 }
 
 void main() {

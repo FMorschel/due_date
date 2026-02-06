@@ -1,4 +1,4 @@
-import 'package:due_date/src/helpers/helpers.dart';
+import 'package:due_date/src/helpers/bool_compare.dart';
 import 'package:test/test.dart';
 
 void main() {

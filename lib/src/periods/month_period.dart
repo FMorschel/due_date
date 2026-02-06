@@ -1,7 +1,6 @@
 import 'package:time/time.dart';
 
-import '../extensions/extensions.dart';
-import '../period_generators/period_generators.dart';
+import '../period_generators/day_generator.dart';
 import 'day_period.dart';
 import 'day_period_bundle.dart';
 
@@ -25,8 +24,8 @@ class MonthPeriod extends DayPeriodBundle {
     const microsecond = Duration(microseconds: 1);
     if (!start.isAtSameMonthAs(end) ||
         end.add(microsecond).isAtSameMonthAs(start) ||
-        (start.exactTimeOfDay != Duration.zero) ||
-        (end.exactTimeOfDay != end.endOfDay.exactTimeOfDay) ||
+        (start.timeOfDay != Duration.zero) ||
+        (end.timeOfDay != end.endOfDay.timeOfDay) ||
         (start.day != 1) ||
         (end.day != end.lastDayOfMonth.day)) {
       throw ArgumentError.value(

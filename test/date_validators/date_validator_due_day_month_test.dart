@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/built_in/date_validator_due_day_month.dart';
 import 'package:test/test.dart';
 
 import '../src/date_validator_match.dart';
@@ -13,11 +13,14 @@ void main() {
         test('Day 31', () {
           expect(const DateValidatorDueDayMonth(31), isNotNull);
         });
-        test('Exact false by default', () {
-          expect(const DateValidatorDueDayMonth(15).exact, isFalse);
+        test('Exact true by default', () {
+          expect(const DateValidatorDueDayMonth(15).exact, isTrue);
         });
-        test('Exact true when specified', () {
-          expect(const DateValidatorDueDayMonth(15, exact: true).exact, isTrue);
+        test('Exact false when specified', () {
+          expect(
+            const DateValidatorDueDayMonth(15, exact: false).exact,
+            isFalse,
+          );
         });
         test('DueDay property is set correctly', () {
           expect(const DateValidatorDueDayMonth(23).dueDay, equals(23));
@@ -119,7 +122,7 @@ void main() {
       group('Non-exact mode', () {
         for (var day = 1; day <= 31; day++) {
           group('Day $day non-exact', () {
-            final validator = DateValidatorDueDayMonth(day);
+            final validator = DateValidatorDueDayMonth(day, exact: false);
 
             // Test valid case for exact day.
             test('Valid on exact day', () {
@@ -175,18 +178,13 @@ void main() {
         expect(validator.dueDay, equals(15));
       });
 
-      test('exact property with false', () {
-        final validator = DateValidatorDueDayMonth(10);
-        expect(validator.exact, isFalse);
-      });
-
       test('exact property with true', () {
         final validator = DateValidatorDueDayMonth(10, exact: true);
         expect(validator.exact, isTrue);
       });
 
       test('inexact property when exact is false', () {
-        final validator = DateValidatorDueDayMonth(31);
+        final validator = DateValidatorDueDayMonth(31, exact: false);
         expect(validator.inexact, isTrue);
       });
 
@@ -209,7 +207,7 @@ void main() {
 
         test('Exact true comes after exact false', () {
           final validator1 = DateValidatorDueDayMonth(15, exact: true);
-          final validator2 = DateValidatorDueDayMonth(15);
+          final validator2 = DateValidatorDueDayMonth(15, exact: false);
           expect(validator1.compareTo(validator2), isPositive);
           expect(validator2.compareTo(validator1), isNegative);
         });
@@ -237,7 +235,7 @@ void main() {
         });
 
         test('Day 29 non-exact in non-leap year February falls back to 28', () {
-          final validator = DateValidatorDueDayMonth(29);
+          final validator = DateValidatorDueDayMonth(29, exact: false);
           final nonLeapYearDate = DateTime(2023, DateTime.february, 28);
           expect(validator, isValid(nonLeapYearDate));
         });
@@ -259,7 +257,7 @@ void main() {
 
         for (final month in monthsWith30Days) {
           test('Day 31 non-exact in $month falls back to day 30', () {
-            final validator = DateValidatorDueDayMonth(31);
+            final validator = DateValidatorDueDayMonth(31, exact: false);
             final date = DateTime(2024, month, 30);
             expect(validator, isValid(date));
           });
@@ -274,10 +272,10 @@ void main() {
     });
 
     group('Equality', () {
-      final validator1 = DateValidatorDueDayMonth(15);
+      final validator1 = DateValidatorDueDayMonth(15, exact: false);
       final validator2 = DateValidatorDueDayMonth(15, exact: true);
-      final validator3 = DateValidatorDueDayMonth(20);
-      final validator4 = DateValidatorDueDayMonth(15);
+      final validator3 = DateValidatorDueDayMonth(20, exact: false);
+      final validator4 = DateValidatorDueDayMonth(15, exact: false);
 
       test('Same instance', () {
         expect(validator1, equals(validator1));
@@ -293,7 +291,7 @@ void main() {
       });
       test('Hash code consistency', () {
         final validator5 = DateValidatorDueDayMonth(15);
-        expect(validator1.hashCode, equals(validator5.hashCode));
+        expect(validator2.hashCode, equals(validator5.hashCode));
       });
     });
   });

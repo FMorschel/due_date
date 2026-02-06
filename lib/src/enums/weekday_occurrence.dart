@@ -1,5 +1,6 @@
-import '../date_validators/date_validators.dart';
-import '../everies/everies.dart';
+import '../date_validators/built_in/date_validator_weekday_count_in_month.dart';
+import '../date_validators/date_validator_mixin.dart';
+import '../everies/built_in/every_weekday_count_in_month.dart';
 import 'week.dart';
 import 'weekday.dart';
 
@@ -329,6 +330,9 @@ enum WeekdayOccurrence
 
   @override
   DateTime previous(DateTime date) => _handler.previous(date);
+
+  @override
+  DateTime endDate(DateTime date) => _handler.endDate(date);
 
   @override
   DateTime addYears(DateTime date, int years) => _handler.addYears(date, years);

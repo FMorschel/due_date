@@ -1,4 +1,5 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/enums/month.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
 import 'package:test/test.dart';
 
 void main() {

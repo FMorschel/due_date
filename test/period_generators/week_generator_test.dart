@@ -1,4 +1,16 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/day_generator.dart';
+import 'package:due_date/src/period_generators/fortnight_generator.dart';
+import 'package:due_date/src/period_generators/hour_generator.dart';
+import 'package:due_date/src/period_generators/minute_generator.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
+import 'package:due_date/src/period_generators/second_generator.dart';
+import 'package:due_date/src/period_generators/semester_generator.dart';
+import 'package:due_date/src/period_generators/trimester_generator.dart';
+import 'package:due_date/src/period_generators/week_generator.dart';
+import 'package:due_date/src/period_generators/year_generator.dart';
+import 'package:due_date/src/periods/day_period.dart';
+import 'package:due_date/src/periods/period.dart';
+import 'package:due_date/src/periods/week_period.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
 
@@ -21,7 +33,7 @@ void main() {
     });
 
     group('of', () {
-      // January 2, 2023 is Monday
+      // January 2, 2023 is Monday.
       test('Start of week - Monday start', () {
         final week = generator.of(DateTime(2023, 1, 2));
         final expected = WeekPeriod(
@@ -31,7 +43,7 @@ void main() {
         expect(week, equals(expected));
       });
 
-      // January 8, 2023 is Sunday (end of week)
+      // January 8, 2023 is Sunday (end of week).
       test('End of week - Monday start', () {
         final week = generator.of(DateTime(2023, 1, 8, 23, 59, 59, 999, 999));
         final expected = WeekPeriod(
@@ -41,7 +53,7 @@ void main() {
         expect(week, equals(expected));
       });
 
-      // January 5, 2023 is Thursday (middle of week)
+      // January 5, 2023 is Thursday (middle of week).
       test('Middle of week - Monday start', () {
         final week = generator.of(DateTime(2023, 1, 5, 12, 30));
         final expected = WeekPeriod(
@@ -54,7 +66,7 @@ void main() {
       test('Custom week start - Tuesday', () {
         const tuesdayWeek = WeekGenerator(weekStart: DateTime.tuesday);
         // January 2, 2023 is Monday, so week starts on December 27, 2022
-        // (Tuesday)
+        // (Tuesday).
         final week = tuesdayWeek.of(DateTime(2023, 1, 2));
         final expected = WeekPeriod(
           start: DateTime(2022, 12, 27),
@@ -65,7 +77,8 @@ void main() {
 
       test('Custom week start - Sunday', () {
         const sundayWeek = WeekGenerator(weekStart: DateTime.sunday);
-        // January 2, 2023 is Monday, so week starts on January 1, 2023 (Sunday)
+        // January 2, 2023 is Monday, so week starts on January 1, 2023
+        // (Sunday).
         final week = sundayWeek.of(DateTime(2023, 1, 2));
         final expected = WeekPeriod(
           start: DateTime(2023),
@@ -161,28 +174,28 @@ void main() {
 
     group('Edge cases', () {
       test('Month boundary crossing', () {
-        // Week spans from January to February
+        // Week spans from January to February.
         final period = generator.of(DateTime(2020, 1, 31));
         final next = generator.after(period);
         expect(next.start.month, equals(2));
       });
 
       test('Year boundary crossing', () {
-        // Week spans from December to January
+        // Week spans from December to January.
         final period = generator.of(DateTime(2019, 12, 30));
         final next = generator.after(period);
         expect(next.start.year, equals(2020));
       });
 
       test('Leap year February 29', () {
-        // February 29, 2020 is a leap year Saturday
+        // February 29, 2020 is a leap year Saturday.
         final period = generator.of(DateTime(2020, 2, 29));
         expect(period.start.month, equals(2));
         expect(period.end.month, equals(3));
       });
 
       test('Week crossing month boundaries', () {
-        // January 30, 2023 is Monday, week goes to February 5
+        // January 30, 2023 is Monday, week goes to February 5.
         final week = generator.of(DateTime(2023, 1, 30));
         expect(week.start.month, equals(1));
         expect(week.start.day, equals(30));
@@ -194,7 +207,7 @@ void main() {
     group('Week start variations', () {
       test('Tuesday week start', () {
         const tuesdayWeek = WeekGenerator(weekStart: DateTime.tuesday);
-        // January 3, 2023 is Tuesday
+        // January 3, 2023 is Tuesday.
         final week = tuesdayWeek.of(DateTime(2023, 1, 3));
         expect(week.start.day, equals(3));
         expect(week.end.day, equals(9));
@@ -202,7 +215,7 @@ void main() {
 
       test('Wednesday week start', () {
         const wednesdayWeek = WeekGenerator(weekStart: DateTime.wednesday);
-        // January 4, 2023 is Wednesday
+        // January 4, 2023 is Wednesday.
         final week = wednesdayWeek.of(DateTime(2023, 1, 4));
         expect(week.start.day, equals(4));
         expect(week.end.day, equals(10));
@@ -210,7 +223,7 @@ void main() {
 
       test('Saturday week start', () {
         const saturdayWeek = WeekGenerator(weekStart: DateTime.saturday);
-        // January 7, 2023 is Saturday
+        // January 7, 2023 is Saturday.
         final week = saturdayWeek.of(DateTime(2023, 1, 7));
         expect(week.start.day, equals(7));
         expect(week.end.day, equals(13));
@@ -228,7 +241,7 @@ void main() {
     test('does not fit generator', () {
       final period = Period(
         start: DateTime(2020),
-        end: DateTime(2020, 1, 8), // Wrong end time (missing microseconds)
+        end: DateTime(2020, 1, 8), // Wrong end time (missing microseconds).
       );
       expect(generator.fitsGenerator(period), isFalse);
     });
@@ -251,7 +264,7 @@ void main() {
       });
 
       test('Different generator types are not equal', () {
-        // WeekGenerator should not equal other generator types
+        // WeekGenerator should not equal other generator types.
         expect(generator1, isNot(equals(DayGenerator())));
         expect(generator1, isNot(equals(HourGenerator())));
         expect(generator1, isNot(equals(MonthGenerator())));
@@ -636,10 +649,10 @@ void main() {
       });
     });
     group('before', () {
-      const generator = WeekGenerator();
+      const weekGenerator = WeekGenerator();
       test('Start of week', () {
-        final week = generator.of(DateTime(2020));
-        final previous = generator.before(week);
+        final week = weekGenerator.of(DateTime(2020));
+        final previous = weekGenerator.before(week);
         final expected = Period(
           start: DateTime(2019, 12, 23),
           end: DateTime(2019, 12, 29, 23, 59, 59, 999, 999),
@@ -647,8 +660,8 @@ void main() {
         expect(previous, equals(expected));
       });
       test('End of week', () {
-        final week = generator.of(DateTime(2020, 1, 5));
-        final previous = generator.before(week);
+        final week = weekGenerator.of(DateTime(2020, 1, 5));
+        final previous = weekGenerator.before(week);
         final expected = Period(
           start: DateTime(2019, 12, 23),
           end: DateTime(2019, 12, 29, 23, 59, 59, 999, 999),
@@ -657,10 +670,10 @@ void main() {
       });
     });
     group('after', () {
-      const generator = WeekGenerator();
+      const weekGenerator = WeekGenerator();
       test('Start of week', () {
-        final week = generator.of(DateTime(2020));
-        final next = generator.after(week);
+        final week = weekGenerator.of(DateTime(2020));
+        final next = weekGenerator.after(week);
         final expected = Period(
           start: DateTime(2020, 1, 6),
           end: DateTime(2020, 1, 12, 23, 59, 59, 999, 999),
@@ -668,8 +681,8 @@ void main() {
         expect(next, equals(expected));
       });
       test('End of week', () {
-        final week = generator.of(DateTime(2020, 1, 5));
-        final next = generator.after(week);
+        final week = weekGenerator.of(DateTime(2020, 1, 5));
+        final next = weekGenerator.after(week);
         final expected = Period(
           start: DateTime(2020, 1, 6),
           end: DateTime(2020, 1, 12, 23, 59, 59, 999, 999),
@@ -678,12 +691,12 @@ void main() {
       });
     });
     test('fits generator', () {
-      final generator = WeekGenerator();
+      const weekGenerator = WeekGenerator();
       final period = Period(
         start: DateTime(2019, 12, 23),
         end: DateTime(2019, 12, 29, 23, 59, 59, 999, 999),
       );
-      expect(generator.fitsGenerator(period), isTrue);
+      expect(weekGenerator.fitsGenerator(period), isTrue);
     });
   });
 }
