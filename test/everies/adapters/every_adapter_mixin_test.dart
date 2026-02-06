@@ -1,5 +1,5 @@
-import 'package:due_date/src/date_validators/date_validator.dart';
 import 'package:due_date/src/date_validators/built_in/date_validator_weekday.dart';
+import 'package:due_date/src/date_validators/date_validator.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/everies/adapters/every_adapter.dart';
 import 'package:due_date/src/everies/adapters/every_adapter_mixin.dart';

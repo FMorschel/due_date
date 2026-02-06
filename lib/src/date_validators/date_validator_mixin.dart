@@ -1,5 +1,5 @@
-import 'date_validator.dart';
 import 'built_in/date_validator_opposite.dart';
+import 'date_validator.dart';
 
 /// Mixin to easily implement the [DateValidator.invalid],
 /// [DateValidator.filterValidDates] and [DateValidator.filterValidDates]

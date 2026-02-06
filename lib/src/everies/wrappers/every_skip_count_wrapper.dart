@@ -34,7 +34,7 @@ class EverySkipCountWrapper<T extends Every> extends EveryWrapper<T>
     return processDate(
       every.next(date),
       DateDirection.next,
-      currentCount: currentCount ?? count,
+      currentCount: currentCount,
     );
   }
 
@@ -52,7 +52,7 @@ class EverySkipCountWrapper<T extends Every> extends EveryWrapper<T>
     return processDate(
       every.previous(date),
       DateDirection.previous,
-      currentCount: currentCount ?? count,
+      currentCount: currentCount,
     );
   }
 

@@ -5,7 +5,9 @@ import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
 import 'package:due_date/src/everies/modifiers/limited_every_time_of_day_modifier.dart';
 import 'package:test/test.dart';
 
+import '../../src/every_incompatible_validator_and_generator.dart';
 import '../../src/every_match.dart';
+import 'every_time_of_day_modifier_test.dart';
 
 void main() {
   group('LimitedEveryTimeOfDayModifier:', () {
@@ -46,6 +48,63 @@ void main() {
     });
 
     group('Methods', () {
+      group('Selective validator (first Monday)', () {
+        final modifierIncompatibleValidatorAndGenerator =
+            LimitedEveryTimeOfDayModifier(
+          every: EveryIncompatibleValidatorAndGeneratorTest(),
+          everyTimeOfDay: const EveryDueTimeOfDay(Duration(hours: 10)),
+        );
+
+        group('startDate', () {
+          test('Recursively finds next valid date when given second Monday',
+              () {
+            // July 8, 2024 is the second Monday of July.
+            final secondMonday = DateTime(2024, 7, 8);
+            // August 5, 2024 is the first Monday of August at 10:00.
+            final expected = DateTime(2024, 8, 5, 10);
+            expect(
+              modifierIncompatibleValidatorAndGenerator,
+              startsAt(expected).withInput(secondMonday),
+            );
+          });
+          test('Recursively finds next valid date when given third Monday', () {
+            // July 15, 2024 is the third Monday of July.
+            final thirdMonday = DateTime(2024, 7, 15);
+            // August 5, 2024 is the first Monday of August at 10:00.
+            final expected = DateTime(2024, 8, 5, 10);
+            expect(
+              modifierIncompatibleValidatorAndGenerator,
+              startsAt(expected).withInput(thirdMonday),
+            );
+          });
+        });
+
+        group('endDate', () {
+          test(
+              'Recursively finds previous valid date when given second '
+              'Monday', () {
+            // July 8, 2024 is the second Monday of July.
+            final secondMonday = DateTime(2024, 7, 8);
+            // July 1, 2024 is the first Monday of July at 10:00.
+            final expected = DateTime(2024, 7, 1, 10);
+            expect(
+              modifierIncompatibleValidatorAndGenerator,
+              endsAt(expected).withInput(secondMonday),
+            );
+          });
+          test('Recursively finds previous valid date when given third Monday',
+              () {
+            // July 22, 2024 is the fourth Monday of July.
+            final thirdMonday = DateTime(2024, 7, 22);
+            // July 1, 2024 is the first Monday of July at 10:00.
+            final expected = DateTime(2024, 7, 1, 10);
+            expect(
+              modifierIncompatibleValidatorAndGenerator,
+              endsAt(expected).withInput(thirdMonday),
+            );
+          });
+        });
+      });
       group('Default midnight', () {
         final modifier = LimitedEveryTimeOfDayModifier(every: every);
 

@@ -2,8 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 import '../date_validator.dart';
-import 'date_validator_list_mixin.dart';
 import '../date_validator_mixin.dart';
+import 'date_validator_list_mixin.dart';
 
 /// A [DateValidator] that validates a [DateTime] if the date is valid for all
 /// of the [validators].
