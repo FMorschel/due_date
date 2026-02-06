@@ -1,4 +1,16 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/day_generator.dart';
+import 'package:due_date/src/period_generators/fortnight_generator.dart';
+import 'package:due_date/src/period_generators/hour_generator.dart';
+import 'package:due_date/src/period_generators/minute_generator.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
+import 'package:due_date/src/period_generators/second_generator.dart';
+import 'package:due_date/src/period_generators/semester_generator.dart';
+import 'package:due_date/src/period_generators/trimester_generator.dart';
+import 'package:due_date/src/period_generators/week_generator.dart';
+import 'package:due_date/src/period_generators/year_generator.dart';
+import 'package:due_date/src/periods/minute_period.dart';
+import 'package:due_date/src/periods/period.dart';
+import 'package:due_date/src/periods/second_period.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -168,7 +180,7 @@ void main() {
     test('does not fit generator', () {
       final period = Period(
         start: DateTime(2020),
-        end: DateTime(2020, 1, 1, 0, 1), // Wrong end time
+        end: DateTime(2020, 1, 1, 0, 1), // Wrong end time.
       );
       expect(generator.fitsGenerator(period), isFalse);
     });
@@ -186,7 +198,7 @@ void main() {
       });
 
       test('Different generator types are not equal', () {
-        // MinuteGenerator should not equal other generator types
+        // MinuteGenerator should not equal other generator types.
         expect(generator1, isNot(equals(DayGenerator())));
         expect(generator1, isNot(equals(WeekGenerator())));
         expect(generator1, isNot(equals(MonthGenerator())));
@@ -198,7 +210,7 @@ void main() {
         expect(generator1, isNot(equals(YearGenerator())));
 
         // WeekGenerators with different parameters should not equal
-        // MinuteGenerator
+        // MinuteGenerator.
         expect(
           generator1,
           isNot(equals(WeekGenerator(weekStart: DateTime.tuesday))),

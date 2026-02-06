@@ -1,7 +1,6 @@
 import 'package:time/time.dart';
 
-import '../extensions/extensions.dart';
-import '../period_generators/period_generators.dart';
+import '../period_generators/day_generator.dart';
 import 'day_period.dart';
 import 'day_period_bundle.dart';
 
@@ -32,8 +31,8 @@ class FortnightPeriod extends DayPeriodBundle {
               milliseconds: 999,
               microseconds: 999,
             )) ||
-        (start.exactTimeOfDay != Duration.zero) ||
-        (end.exactTimeOfDay != end.endOfDay.exactTimeOfDay) ||
+        (start.timeOfDay != Duration.zero) ||
+        (end.timeOfDay != end.endOfDay.timeOfDay) ||
         !start.isAtSameMonthAs(end) ||
         ((start.firstDayOfMonth != start) &&
             (start != start.copyWith(day: 16))) ||

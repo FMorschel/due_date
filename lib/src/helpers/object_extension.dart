@@ -20,12 +20,13 @@ class _When<T> {
   _When(this.self, this.predicate);
 
   final T self;
-  final bool Function(T) predicate;
+  final bool Function(T self) predicate;
 
   /// Non-nullable processing: Must pass `orElse` argument, returns non-null.
   T orElse(T Function(T self) orElse) => predicate(self) ? self : orElse(self);
 
   /// Nullable processing: Can omit `ifElse` argument, may return null.
+  // ignore: essential_lints/optional_positional_parameters valid use
   T? ifElse([T? Function(T self)? ifElse]) =>
       predicate(self) ? self : ifElse?.call(self);
 

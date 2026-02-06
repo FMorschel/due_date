@@ -1,7 +1,8 @@
 import 'package:time/time.dart';
 
-import '../extensions/extensions.dart';
-import '../periods/periods.dart';
+import '../extensions/add_days.dart';
+import '../extensions/week_calc.dart';
+import '../periods/week_period.dart';
 import 'weekday.dart';
 
 /// Week occurrences inside a month.
@@ -33,11 +34,14 @@ enum Week implements Comparable<Week> {
 
     if (weekStart.compareTo(firstWeekEnd) <= 0) {
       return first;
-    } else if (weekStart.compareTo(firstWeekEnd.addDays(7)) <= 0) {
+    }
+    if (weekStart.compareTo(firstWeekEnd.addDays(7)) <= 0) {
       return second;
-    } else if (weekStart.compareTo(firstWeekEnd.addDays(14)) <= 0) {
+    }
+    if (weekStart.compareTo(firstWeekEnd.addDays(14)) <= 0) {
       return third;
-    } else if (weekStart.compareTo(firstWeekEnd.addDays(21)) <= 0) {
+    }
+    if (weekStart.compareTo(firstWeekEnd.addDays(21)) <= 0) {
       return fourth;
     }
     return last;
@@ -67,9 +71,8 @@ enum Week implements Comparable<Week> {
         if (fourthWeek.end.date.isBefore(firstDayOfMonth.lastDayOfMonth)) {
           return firstDayOfWeek.weekGenerator
               .of(firstDayOfMonth.lastDayOfMonth);
-        } else {
-          return fourthWeek;
         }
+        return fourthWeek;
     }
   }
 
@@ -91,15 +94,13 @@ enum Week implements Comparable<Week> {
     for (final week in [first, second, third, fourth]) {
       if (week == this) {
         return weekDay;
-      } else {
-        weekDay = weekDay.addDays(1).nextWeekday(day);
       }
+      weekDay = weekDay.addDays(1).nextWeekday(day);
     }
     if (weekDay.compareTo(firstDayOfMonth.lastDayOfMonth) <= 0) {
       return weekDay;
-    } else {
-      return weekDay.subtractDays(1).previousWeekday(day);
     }
+    return weekDay.subtractDays(1).previousWeekday(day);
   }
 
   @override
@@ -131,19 +132,17 @@ enum Week implements Comparable<Week> {
 
   /// Returns the [Week] previous to this.
   Week get previous {
-    if (index != first.index) {
-      return Week.values[index - 1];
-    } else {
+    if (index == first.index) {
       return last;
     }
+    return Week.values[index - 1];
   }
 
   /// Returns the [Week] next to this.
   Week get next {
-    if (index != last.index) {
-      return Week.values[index + 1];
-    } else {
+    if (index == last.index) {
       return first;
     }
+    return Week.values[index + 1];
   }
 }

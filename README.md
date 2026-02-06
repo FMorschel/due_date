@@ -71,13 +71,28 @@ print('The previous hour is $previousHour.');
 print('The previous second is $previousSecond.');
 ```
 
+### Every, Wrappers, Modifiers, and Adapters
+
+The package provides a flexible hierarchy for working with repeating date patterns:
+
+- **`Every`**: The base class for generating dates matching a pattern, with `next()` and `previous()` methods.
+- **`EveryDateValidator`**: Extends `Every` by adding date validation and boundary methods like `startDate()` and `endDate()`.
+
+To extend or customize these behaviors, use:
+
+- **Wrappers**: Decorate or alter the iteration behavior of an `Every` (or `LimitedEvery`) instance. Wrappers only provide `next()` and `previous()` — they do not add validation or boundary methods.
+- **Modifiers**: Decorate or alter an `EveryDateValidator` (or `LimitedEveryDateValidator`), providing both iteration and validation (`next()`, `previous()`, `startDate()`, `endDate()`).
+- **Adapters**: Bridge or adapt between an `Every` (and its variants) and a `DateValidator`, sometimes adding or transforming validation or iteration logic. Adapters can be used to convert or extend functionality between these types.
+
+Use a **Wrapper** when you only need to change how iteration works for an `Every`. Use a **Modifier** when you need to extend or alter both iteration and validation for an `EveryDateValidator`. Use an **Adapter** when you need to bridge or convert between these types, or to add missing capabilities.
+
 ## Getting started
 
 On your `pubspec.yaml` file, add this package to your dependencies:
 
 ```yaml
   dependencies:
-    due_date: ^2.3.0
+    due_date: ^3.0.0
 ```
 
 Import one of the, or both, package libraries on your code:

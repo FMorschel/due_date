@@ -1,5 +1,15 @@
-import '../period_generators/period_generators.dart';
-import '../periods/periods.dart';
+import '../period_generators/day_generator.dart';
+import '../period_generators/fortnight_generator.dart';
+import '../period_generators/hour_generator.dart';
+import '../period_generators/minute_generator.dart';
+import '../period_generators/month_generator.dart';
+import '../period_generators/period_generator_mixin.dart';
+import '../period_generators/second_generator.dart';
+import '../period_generators/semester_generator.dart';
+import '../period_generators/trimester_generator.dart';
+import '../period_generators/week_generator.dart';
+import '../period_generators/year_generator.dart';
+import '../periods/period.dart';
 
 /// An enumeration of the different period generators implemented in this
 /// package.

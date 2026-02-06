@@ -1,13 +1,10 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every.dart';
 import 'package:test/test.dart';
 
 /// Test implementation of [Every] that can be made constant.
 class _TestEvery extends Every {
   /// Creates a test implementation of [Every].
   const _TestEvery();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime next(DateTime date) => date;

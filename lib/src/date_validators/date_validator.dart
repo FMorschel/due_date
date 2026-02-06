@@ -29,9 +29,8 @@ abstract class DateValidator {
   /// for invalid dates, it can be implemented here.
   bool invalid(DateTime date);
 
-  /// Returns the valid dates for this [DateValidator] in [dates].
-  @Deprecated("Use 'DateValidator.filterValidDates' instead.")
-  Iterable<DateTime> validsIn(Iterable<DateTime> dates);
+  /// A [DateValidator] with the opposite logic.
+  DateValidator operator -();
 
   /// Returns the valid dates for this [DateValidator] in [dates].
   Iterable<DateTime> filterValidDates(Iterable<DateTime> dates);

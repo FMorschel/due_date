@@ -1,6 +1,5 @@
 import 'package:time/time.dart';
 
-import '../extensions/extensions.dart';
 import '../period_generators/semester_generator.dart';
 import 'semester_period.dart';
 import 'semester_period_bundle.dart';
@@ -25,8 +24,8 @@ class YearPeriod extends SemesterPeriodBundle {
     const microsecond = Duration(microseconds: 1);
     if (!start.isAtSameYearAs(end) ||
         end.add(microsecond).isAtSameYearAs(start) ||
-        (start.exactTimeOfDay != Duration.zero) ||
-        (end.exactTimeOfDay != end.endOfDay.exactTimeOfDay) ||
+        (start.timeOfDay != Duration.zero) ||
+        (end.timeOfDay != end.endOfDay.timeOfDay) ||
         start.isAtSameMonthAs(end) ||
         (start.firstDayOfMonth != start) ||
         (end.lastDayOfMonth.endOfDay != end) ||

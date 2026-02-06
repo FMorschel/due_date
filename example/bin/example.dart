@@ -1,4 +1,4 @@
-// ignore_for_file: noop_primitive_operations, avoid_print
+// ignore_for_file: prefer_foreach, avoid_print, this is a simple example
 
 import 'package:due_date/due_date.dart';
 import 'package:due_date/period.dart';
@@ -8,11 +8,11 @@ void main(List<String> arguments) {
 
   final date = DateTime(2022, DateTime.january, 31);
   var dueDate = date.dueDateTime;
-  print(dueDate.toString()); // 2022-01-31.
+  print(dueDate); // 2022-01-31.
   dueDate = dueDate.next();
-  print(dueDate.toString()); // 2022-02-28.
+  print(dueDate); // 2022-02-28.
   dueDate = dueDate.next();
-  print(dueDate.toString()); // 2022-03-31.
+  print(dueDate); // 2022-03-31.
 
   var dueDate2 = DueDateTime.fromDate(
     date,
@@ -21,11 +21,11 @@ void main(List<String> arguments) {
       week: Week.last,
     ), // WeekdayOccurrence.lastFriday.
   );
-  print(dueDate2.toString()); // 2022-02-25.
+  print(dueDate2); // 2022-02-25.
   dueDate2 = dueDate2.next();
-  print(dueDate2.toString()); // 2022-03-25.
+  print(dueDate2); // 2022-03-25.
   dueDate2 = dueDate2.next();
-  print(dueDate2.toString()); // 2022-04-29.
+  print(dueDate2); // 2022-04-29.
 
   /// Date Validation.
   const validator = DateValidatorWeekday(Weekday.monday);

@@ -16,20 +16,4 @@ import 'every_week.dart';
 mixin EveryYear implements Every {
   /// This mixin's implementation of [Every.next] and [Every.previous].
   DateTime addYears(DateTime date, int years);
-
-  /// Returns the next year of the given [date] considering this [EveryYear]
-  /// implementation.
-  ///
-  /// Returns the next instance of the given [date] considering this [Every]
-  /// base process.
-  @override
-  DateTime next(DateTime date) => addYears(date, 1);
-
-  /// Returns the previous year of the given [date] considering this [EveryYear]
-  /// implementation.
-  ///
-  /// Returns the previous instance of the given [date] considering this [Every]
-  /// base process.
-  @override
-  DateTime previous(DateTime date) => addYears(date, -1);
 }

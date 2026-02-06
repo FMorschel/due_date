@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import '../extensions/extensions.dart';
-import '../periods/periods.dart';
+import '../extensions/add_days.dart';
+import '../periods/week_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a week.

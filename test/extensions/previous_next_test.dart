@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/extensions/previous_next.dart';
 import 'package:test/test.dart';
 
 void main() {

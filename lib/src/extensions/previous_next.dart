@@ -1,4 +1,4 @@
-import '../enums/enums.dart';
+import '../enums/weekday.dart';
 
 /// Extension methods related to adding or subtracting one from an [Iterable] of
 /// [Weekday].

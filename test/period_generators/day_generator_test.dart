@@ -1,4 +1,13 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/day_generator.dart';
+import 'package:due_date/src/period_generators/fortnight_generator.dart';
+import 'package:due_date/src/period_generators/hour_generator.dart';
+import 'package:due_date/src/period_generators/minute_generator.dart';
+import 'package:due_date/src/period_generators/month_generator.dart';
+import 'package:due_date/src/period_generators/second_generator.dart';
+import 'package:due_date/src/period_generators/week_generator.dart';
+import 'package:due_date/src/periods/day_period.dart';
+import 'package:due_date/src/periods/hour_period.dart';
+import 'package:due_date/src/periods/period.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -128,7 +137,7 @@ void main() {
 
     group('Edge cases', () {
       test('Leap year February 29', () {
-        // February 29, 2020 is a leap year
+        // February 29, 2020 is a leap year.
         final period = generator.of(DateTime(2020, 2, 29));
         expect(period.start.day, equals(29));
         expect(period.end.day, equals(29));
@@ -154,7 +163,7 @@ void main() {
     test('does not fit generator', () {
       final period = Period(
         start: DateTime(2020),
-        end: DateTime(2020, 1, 2), // Wrong end date
+        end: DateTime(2020, 1, 2), // Wrong end date.
       );
       expect(generator.fitsGenerator(period), isFalse);
     });
@@ -172,7 +181,7 @@ void main() {
       });
 
       test('Different generator types are not equal', () {
-        // DayGenerator should not equal other generator types
+        // DayGenerator should not equal other generator types.
         expect(generator1, isNot(equals(WeekGenerator())));
         expect(generator1, isNot(equals(MonthGenerator())));
         expect(generator1, isNot(equals(HourGenerator())));
@@ -181,7 +190,7 @@ void main() {
         expect(generator1, isNot(equals(FortnightGenerator())));
 
         // WeekGenerators with different parameters should not equal
-        // DayGenerator
+        // DayGenerator.
         expect(
           generator1,
           isNot(equals(WeekGenerator(weekStart: DateTime.tuesday))),

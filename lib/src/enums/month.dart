@@ -1,6 +1,5 @@
 import '../period_generators/month_generator.dart';
-import '../period_generators/period_generators.dart';
-import '../periods/periods.dart';
+import '../periods/month_period.dart';
 
 /// Month constants that are returned by [DateTime.month] method.
 enum Month implements Comparable<Month> {
@@ -49,30 +48,22 @@ enum Month implements Comparable<Month> {
   /// Returns the [Month] constant that corresponds to the given [month] on
   /// [dateTimeValue].
   factory Month.fromDateTimeValue(int month) {
-    if (month == DateTime.january) {
-      return january;
-    } else if (month == DateTime.february) {
-      return february;
-    } else if (month == DateTime.march) {
-      return march;
-    } else if (month == DateTime.april) {
-      return april;
-    } else if (month == DateTime.may) {
-      return may;
-    } else if (month == DateTime.june) {
-      return june;
-    } else if (month == DateTime.july) {
-      return july;
-    } else if (month == DateTime.august) {
-      return august;
-    } else if (month == DateTime.september) {
-      return september;
-    } else if (month == DateTime.october) {
-      return october;
-    } else if (month == DateTime.november) {
-      return november;
-    } else if (month == DateTime.december) {
-      return december;
+    const dateTimeValues = {
+      DateTime.january: january,
+      DateTime.february: february,
+      DateTime.march: march,
+      DateTime.april: april,
+      DateTime.may: may,
+      DateTime.june: june,
+      DateTime.july: july,
+      DateTime.august: august,
+      DateTime.september: september,
+      DateTime.october: october,
+      DateTime.november: november,
+      DateTime.december: december,
+    };
+    if (dateTimeValues.containsKey(month)) {
+      return dateTimeValues[month]!;
     }
     throw RangeError.range(month, DateTime.monday, DateTime.december);
   }
@@ -121,19 +112,17 @@ enum Month implements Comparable<Month> {
 
   /// Returns the [Month] previous to this.
   Month get previous {
-    if (dateTimeValue != january.dateTimeValue) {
-      return Month.fromDateTimeValue(dateTimeValue - 1);
-    } else {
+    if (dateTimeValue == january.dateTimeValue) {
       return december;
     }
+    return Month.fromDateTimeValue(dateTimeValue - 1);
   }
 
   /// Returns the [Month] next to this.
   Month get next {
-    if (dateTimeValue != december.dateTimeValue) {
-      return Month.fromDateTimeValue(dateTimeValue + 1);
-    } else {
+    if (dateTimeValue == december.dateTimeValue) {
       return january;
     }
+    return Month.fromDateTimeValue(dateTimeValue + 1);
   }
 }

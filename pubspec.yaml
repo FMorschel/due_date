@@ -1,6 +1,6 @@
 name: due_date
 description: A package for working with repeating DateTime patterns (like the same day every month).
-version: 2.3.0
+version: 3.0.0
 homepage: https://fmorschel.github.io/due_date/
 repository: https://github.com/FMorschel/due_date
 
@@ -26,13 +26,13 @@ dependencies:
   collection: ^1.0.0
   equatable: ^2.0.3
   meta: ^1.0.0
-  time: ^2.1.5
+  time: ^2.1.6
 
 dev_dependencies:
-  dart_apitool: ^0.21.1
-  dartdoc: ^8.0.4 # Fixes `pub downgrade` bug with `watcher`
-  frontend_server_client: ^4.0.0 # Test bug github.com/dart-lang/test/issues/2516
+  analyzer: ^10.0.0
+  frontend_server_client: ^4.0.0 # Test bug https://github.com/dart-lang/test/issues/2516
   intl: any
-  lints: ^2.1.1
+  lints: ^6.0.0
+  path: ^1.9.1
   test: any
-  very_good_analysis: ^5.1.0
+  very_good_analysis: ^10.0.0

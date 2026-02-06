@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import '../enums/enums.dart';
-import '../periods/periods.dart';
+import '../enums/period_generator.dart';
+import '../periods/period.dart';
 import 'day_generator.dart';
 import 'fortnight_generator.dart';
 import 'hour_generator.dart';

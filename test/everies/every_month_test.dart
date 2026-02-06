@@ -1,4 +1,5 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every.dart';
+import 'package:due_date/src/everies/every_month.dart';
 import 'package:test/test.dart';
 
 import '../src/every_match.dart';
@@ -7,9 +8,6 @@ import '../src/every_match.dart';
 class _TestEveryMonth extends Every with EveryMonth {
   /// Creates a test implementation of [EveryMonth].
   const _TestEveryMonth();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addMonths(DateTime date, int months) {
@@ -24,6 +22,15 @@ class _TestEveryMonth extends Every with EveryMonth {
       date.microsecond,
     );
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
+
+  @override
+  DateTime next(DateTime date) => addMonths(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addMonths(date, -1);
 }
 
 /// Test implementation of [EveryMonth] with UTC support that can be made
@@ -31,9 +38,6 @@ class _TestEveryMonth extends Every with EveryMonth {
 class _TestEveryMonthUtc extends Every with EveryMonth {
   /// Creates a test implementation of [EveryMonth] with UTC support.
   const _TestEveryMonthUtc();
-
-  @override
-  DateTime startDate(DateTime date) => date;
 
   @override
   DateTime addMonths(DateTime date, int months) {
@@ -48,19 +52,27 @@ class _TestEveryMonthUtc extends Every with EveryMonth {
         date.millisecond,
         date.microsecond,
       );
-    } else {
-      return DateTime(
-        date.year,
-        date.month + months,
-        date.day,
-        date.hour,
-        date.minute,
-        date.second,
-        date.millisecond,
-        date.microsecond,
-      );
     }
+    return DateTime(
+      date.year,
+      date.month + months,
+      date.day,
+      date.hour,
+      date.minute,
+      date.second,
+      date.millisecond,
+      date.microsecond,
+    );
   }
+
+  @override
+  DateTime addYears(DateTime date, int years) => addMonths(date, years * 12);
+
+  @override
+  DateTime next(DateTime date) => addMonths(date, 1);
+
+  @override
+  DateTime previous(DateTime date) => addMonths(date, -1);
 }
 
 void main() {

@@ -1,4 +1,14 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/enums/period_generator.dart';
+import 'package:due_date/src/periods/day_period.dart';
+import 'package:due_date/src/periods/fortnight_period.dart';
+import 'package:due_date/src/periods/hour_period.dart';
+import 'package:due_date/src/periods/minute_period.dart';
+import 'package:due_date/src/periods/month_period.dart';
+import 'package:due_date/src/periods/second_period.dart';
+import 'package:due_date/src/periods/semester_period.dart';
+import 'package:due_date/src/periods/trimester_period.dart';
+import 'package:due_date/src/periods/week_period.dart';
+import 'package:due_date/src/periods/year_period.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';
@@ -72,7 +82,7 @@ void main() {
         test('Week generator creates WeekPeriod', () {
           final period = PeriodGenerator.week.of(testDate);
           expect(period, isA<WeekPeriod>());
-          // July 15, 2024 is Monday, so week should start on Monday
+          // July 15, 2024 is Monday, so week should start on Monday.
           expect(period.start.year, equals(2024));
           expect(period.start.month, equals(7));
           expect(period.start.day, equals(15));
@@ -94,7 +104,7 @@ void main() {
           final period = PeriodGenerator.trimester.of(testDate);
           expect(period, isA<TrimesterPeriod>());
           expect(period.start.year, equals(2024));
-          // July is in Q3, which starts in July
+          // July is in Q3, which starts in July.
           expect(period.start.month, equals(7));
           expect(period.start.day, equals(1));
         });
@@ -102,7 +112,7 @@ void main() {
           final period = PeriodGenerator.semester.of(testDate);
           expect(period, isA<SemesterPeriod>());
           expect(period.start.year, equals(2024));
-          // July is in second semester, which starts in July
+          // July is in second semester, which starts in July.
           expect(period.start.month, equals(7));
           expect(period.start.day, equals(1));
         });
@@ -122,14 +132,14 @@ void main() {
           expect(dayPeriod.start.day, equals(25));
         });
         test('Works with edge dates', () {
-          // Test leap year
+          // Test leap year.
           final leapYearDate = DateTime(2020, 2, 29);
           final monthPeriod = PeriodGenerator.month.of(leapYearDate);
           expect(monthPeriod.start.year, equals(2020));
           expect(monthPeriod.start.month, equals(2));
           expect(monthPeriod.start.day, equals(1));
 
-          // Test year boundary
+          // Test year boundary.
           final yearEndDate = DateTime(2023, 12, 31, 23, 59, 59);
           final yearPeriod = PeriodGenerator.year.of(yearEndDate);
           expect(yearPeriod.start.year, equals(2023));

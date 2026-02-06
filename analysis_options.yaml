@@ -1,4 +1,6 @@
-include: package:very_good_analysis/analysis_options.yaml
+include:
+  - package:very_good_analysis/analysis_options.yaml
+  - package:lints/recommended.yaml
 
 analyzer:
   language:
@@ -9,6 +11,28 @@ analyzer:
     - "**/generated_plugin_registrant.dart"
   errors:
     missing_required_param: error
+
+plugins:
+  essential_lints:
+    version: ^0.1.7
+    diagnostics:
+      - boolean_assignment
+      - closure_incorrect_type
+      - completer_error_no_stack
+      - duplicate_value
+      - equal_statement
+      - first_getter
+      - is_future
+      - last_getter
+      - mutable_tearoff
+      - new_instance_cascade
+      - numeric_constant_style
+      - optional_positional_parameters
+      - prefer_explicitly_named_parameter
+      - same_package_direct_import
+      - standard_comment_style
+      - useless_else
+      - variable_shadowing
 
 linter:
   rules:

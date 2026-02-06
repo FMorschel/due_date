@@ -1,5 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:due_date/period.dart';
+import 'package:due_date/src/period_generators/minute_generator.dart';
+import 'package:due_date/src/periods/hour_period.dart';
+import 'package:due_date/src/periods/minute_period.dart';
+import 'package:due_date/src/periods/period.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';

@@ -1,20 +1,21 @@
+import 'date_direction.dart';
 import 'date_time_limit_reached_exception.dart';
 import 'every.dart';
-import 'every_date_validator_difference.dart';
-import 'every_date_validator_intersection.dart';
-import 'every_date_validator_union.dart';
 import 'every_month.dart';
 import 'every_week.dart';
 import 'every_year.dart';
+import 'group/every_date_validator_difference.dart';
+import 'group/every_date_validator_intersection.dart';
+import 'group/every_date_validator_union.dart';
 
 /// Abstract class that forces the implementation of [Every] to have a
-/// limit parameter for the [startDate], [next] and [previous] methods.
+/// limit parameter for the [next] and [previous] methods.
 abstract class LimitedEvery extends Every {
   /// Abstract class that, when extended, processes [DateTime] with custom
   /// logic.
   ///
   /// Abstract class that forces the implementation of [Every] to have a
-  /// limit parameter for the [startDate], [next] and [previous] methods.
+  /// limit parameter for the [next] and [previous] methods.
   ///
   /// See [EveryDateValidatorDifference], [EveryDateValidatorIntersection] and
   /// [EveryDateValidatorUnion] for complete base implementations.
@@ -22,7 +23,7 @@ abstract class LimitedEvery extends Every {
   /// See [EveryWeek], [EveryMonth], [EveryYear] for your base implementations.
   const LimitedEvery();
 
-  /// {@macro startDate}
+  /// {@macro next}
   ///
   /// {@template limit}
   /// If the generated [DateTime] is still not able to return the first call to
@@ -31,12 +32,6 @@ abstract class LimitedEvery extends Every {
   /// [DateTimeLimitReachedException] will be thrown.
   /// {@endtemplate}
   @override
-  DateTime startDate(DateTime date, {DateTime? limit});
-
-  /// {@macro next}
-  ///
-  /// {@macro limit}
-  @override
   DateTime next(DateTime date, {DateTime? limit});
 
   /// {@macro previous}
@@ -44,4 +39,12 @@ abstract class LimitedEvery extends Every {
   /// {@macro limit}
   @override
   DateTime previous(DateTime date, {DateTime? limit});
+
+  /// Throws a [DateTimeLimitReachedException] if the [date] has reached the
+  /// [limit] in the given [direction].
+  void throwIfLimitReached(
+    DateTime date,
+    DateDirection direction, {
+    required DateTime? limit,
+  });
 }

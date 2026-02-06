@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/date_validators/date_validator.dart';
 import 'package:test/test.dart';
 
 Matcher isValid(DateTime date) => _ValidDateValidator(date);
@@ -19,7 +19,7 @@ abstract class _DateValidatorMatch extends Matcher {
 }
 
 class _ValidDateValidator extends _DateValidatorMatch {
-  const _ValidDateValidator(super.date);
+  const _ValidDateValidator(super._expected);
 
   @override
   Description describe(Description description) =>
@@ -44,7 +44,7 @@ class _ValidDateValidator extends _DateValidatorMatch {
 }
 
 class _InvalidDateValidator extends _DateValidatorMatch {
-  const _InvalidDateValidator(super.date);
+  const _InvalidDateValidator(super._expected);
 
   @override
   Description describe(Description description) =>

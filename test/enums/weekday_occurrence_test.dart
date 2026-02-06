@@ -1,4 +1,7 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/enums/week.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/enums/weekday_occurrence.dart';
+import 'package:due_date/src/everies/built_in/every_weekday_count_in_month.dart';
 import 'package:test/test.dart';
 
 import '../src/date_time_match.dart';
@@ -605,6 +608,48 @@ void main() {
         });
       });
 
+      group('endDate', () {
+        test('Delegates endDate to handler correctly', () {
+          const occurrence = WeekdayOccurrence.firstMonday;
+          // July 4, 2022 is Monday (first Monday of July).
+          final july4th = DateTime(2022, DateTime.july, 4);
+
+          // Create equivalent EveryWeekdayCountInMonth for comparison.
+          const every = EveryWeekdayCountInMonth(
+            day: Weekday.monday,
+            week: Week.first,
+          );
+
+          final resultFromOccurrence = occurrence.endDate(july4th);
+          final expectedFromHandler = every.endDate(july4th);
+
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
+          expect(resultFromOccurrence, isSameDateTime(july4th));
+        });
+
+        test('Delegates endDate to handler correctly with invalid date', () {
+          const occurrence = WeekdayOccurrence.firstMonday;
+          // August 2nd, 2022 is Tuesday (not first Monday).
+          final august2nd = DateTime(2022, DateTime.august, 2);
+
+          // Create equivalent EveryWeekdayCountInMonth for comparison.
+          const every = EveryWeekdayCountInMonth(
+            day: Weekday.monday,
+            week: Week.first,
+          );
+
+          final resultFromOccurrence = occurrence.endDate(august2nd);
+          final expectedFromHandler = every.endDate(august2nd);
+
+          expect(resultFromOccurrence, isSameDateTime(expectedFromHandler));
+          // Should return the previous first Monday (August 1, 2022).
+          expect(
+            resultFromOccurrence,
+            isSameDateTime(DateTime(2022, DateTime.august)),
+          );
+        });
+      });
+
       group('addYears', () {
         test('Delegates addYears to handler correctly', () {
           const occurrence = WeekdayOccurrence.lastFriday;
@@ -971,7 +1016,7 @@ void main() {
 
         group('Cross-week comparisons', () {
           test('Correctly compares across different weeks with same days', () {
-            // All Mondays in order
+            // All Mondays in order.
             expect(
               WeekdayOccurrence.firstMonday < WeekdayOccurrence.secondMonday,
               isTrue,
@@ -991,12 +1036,13 @@ void main() {
           });
 
           test('Correctly compares different days in different weeks', () {
-            // Sunday of first week should be less than Monday of second week
+            // Sunday of first week should be less than Monday of second week.
             expect(
               WeekdayOccurrence.firstSunday < WeekdayOccurrence.secondMonday,
               isTrue,
             );
-            // Saturday of second week should be less than Sunday of second week
+            // Saturday of second week should be less than Sunday of second
+            // week.
             expect(
               WeekdayOccurrence.secondSaturday < WeekdayOccurrence.secondSunday,
               isTrue,
@@ -1004,7 +1050,7 @@ void main() {
           });
 
           test('Works correctly with extreme comparisons', () {
-            // First value should be less than last value
+            // First value should be less than last value.
             expect(
               WeekdayOccurrence.firstMonday < WeekdayOccurrence.lastSunday,
               isTrue,
@@ -1014,7 +1060,7 @@ void main() {
               isTrue,
             );
 
-            // Adjacent values should work correctly
+            // Adjacent values should work correctly.
             expect(
               WeekdayOccurrence.firstMonday < WeekdayOccurrence.firstTuesday,
               isTrue,
@@ -1028,19 +1074,19 @@ void main() {
 
         group('Edge cases', () {
           test('All operators work with all enum values', () {
-            // Test that we can compare any two values without errors
+            // Test that we can compare any two values without errors.
             for (var i = 0; i < WeekdayOccurrence.values.length; i++) {
               for (var j = 0; j < WeekdayOccurrence.values.length; j++) {
                 final a = WeekdayOccurrence.values[i];
                 final b = WeekdayOccurrence.values[j];
 
-                // These operations should not throw
+                // These operations should not throw.
                 expect(() => a > b, returnsNormally);
                 expect(() => a >= b, returnsNormally);
                 expect(() => a < b, returnsNormally);
                 expect(() => a <= b, returnsNormally);
 
-                // Check consistency with index comparison
+                // Check consistency with index comparison.
                 expect(a > b, equals(i > j));
                 expect(a >= b, equals(i >= j));
                 expect(a < b, equals(i < j));

@@ -1,4 +1,6 @@
-import 'package:due_date/period.dart';
+import 'package:due_date/src/enums/week.dart';
+import 'package:due_date/src/enums/weekday.dart';
+import 'package:due_date/src/periods/week_period.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -75,7 +77,7 @@ void main() {
           }
         });
         test('Works with different years and months', () {
-          // Test February 2024 (leap year)
+          // Test February 2024 (leap year).
           expect(Week.from(DateTime(2024, 2)), equals(Week.first));
           expect(Week.from(DateTime(2024, 2, 15)), equals(Week.third));
           expect(Week.from(DateTime(2024, 2, 29)), equals(Week.last));
@@ -93,12 +95,12 @@ void main() {
             equals(Week.last),
           );
 
-          // Test February 2023 (non-leap year)
+          // Test February 2023 (non-leap year).
           expect(Week.from(DateTime(2023, 2)), equals(Week.first));
           expect(Week.from(DateTime(2023, 2, 15)), equals(Week.third));
           expect(Week.from(DateTime(2023, 2, 28)), equals(Week.last));
 
-          // Test December (31 days)
+          // Test December (31 days).
           expect(Week.from(DateTime(2024, 12)), equals(Week.first));
           expect(Week.from(DateTime(2024, 12, 31)), equals(Week.last));
         });
@@ -110,7 +112,7 @@ void main() {
       });
       group('of method', () {
         test('First week creates correct WeekPeriod', () {
-          // January 2024 starts on Monday
+          // January 2024 starts on Monday.
           final weekPeriod = Week.first.of(2024, 1);
           expect(weekPeriod.start.year, equals(2024));
           expect(weekPeriod.start.month, equals(1));
@@ -137,7 +139,7 @@ void main() {
         test('Last week creates correct WeekPeriod when different from fourth',
             () {
           // January 2024 has 31 days, so last week should be different from
-          // fourth
+          // fourth.
           final fourthWeek = Week.fourth.of(2024, 1);
           final lastWeek = Week.last.of(2024, 1);
 
@@ -146,7 +148,7 @@ void main() {
           expect(fourthWeek.start, isNot(equals(lastWeek.start)));
         });
         test('Last week returns fourth week when they are the same', () {
-          // February 2023 (28 days) - last week should be same as fourth
+          // February 2023 (28 days) - last week should be same as fourth.
           final fourthWeek = Week.fourth.of(2021, 2);
           final lastWeek = Week.last.of(2021, 2);
 
@@ -154,7 +156,7 @@ void main() {
           expect(lastWeek.end, equals(fourthWeek.end));
         });
         test('Works with different firstDayOfWeek', () {
-          // Test with Sunday as first day of week
+          // Test with Sunday as first day of week.
           final weekPeriod = Week.first.of(
             2024,
             1,
@@ -162,7 +164,7 @@ void main() {
           );
           expect(weekPeriod, isA<WeekPeriod>());
 
-          // Test with Saturday as first day of week
+          // Test with Saturday as first day of week.
           final weekPeriodSat = Week.second.of(
             2024,
             1,
@@ -187,17 +189,17 @@ void main() {
           expect(weekPeriod.start.isUtc, isTrue);
         });
         test('Works with different months and years', () {
-          // Test leap year February
+          // Test leap year February.
           final feb2024 = Week.last.of(2024, 2);
           expect(feb2024.start.year, equals(2024));
           expect(feb2024.start.month, equals(2));
 
-          // Test December
+          // Test December.
           final dec2024 = Week.last.of(2024, 12);
           expect(dec2024.start.year, equals(2024));
           expect(dec2024.start.month, equals(12));
 
-          // Test different year
+          // Test different year.
           final jan2023 = Week.first.of(2023, 1);
           expect(jan2023.start.year, equals(2022));
           expect(jan2023.start.month, equals(12));
@@ -216,7 +218,7 @@ void main() {
                 equals(8),
                 equals(9),
               ),
-            ); // Week might span months
+            ); // Week might span months.
           }
         });
       });

@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/everies/every_date_validator.dart';
 import 'package:test/test.dart';
 
 /// Test implementation of [EveryDateValidator] that can be made constant.
@@ -14,6 +14,9 @@ class _TestEveryDateValidator extends EveryDateValidator {
 
   @override
   DateTime previous(DateTime date) => date;
+
+  @override
+  DateTime endDate(DateTime date) => date;
 
   @override
   bool valid(DateTime date) => true;

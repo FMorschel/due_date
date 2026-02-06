@@ -1,4 +1,4 @@
-import 'package:due_date/due_date.dart';
+import 'package:due_date/src/extensions/workday_in_month.dart';
 import 'package:test/test.dart';
 
 void main() {

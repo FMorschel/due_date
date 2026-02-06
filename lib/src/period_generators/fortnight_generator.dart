@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:time/time.dart';
 
-import '../periods/periods.dart';
+import '../periods/fortnight_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a fortnight.

@@ -54,8 +54,17 @@ jobs:
           echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Create GitHub Release
+      - name: Check for existing release with same name
         if: steps.check_tag_commit_branch.outputs.valid_tag == 'true'
+        id: check_existing_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release list --repo "$GITHUB_REPOSITORY" --limit 100 --json name | jq -e ".[] | select(.name == \"Release ${{ github.ref_name }}\")" > /dev/null && echo "exists=true" >> $GITHUB_OUTPUT || echo "exists=false" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Create GitHub Release
+        if: steps.check_tag_commit_branch.outputs.valid_tag == 'true' && steps.check_existing_release.outputs.exists == 'false'
         uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
