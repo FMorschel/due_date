@@ -2,53 +2,77 @@
 
 ## 3.0.0
 
-Released on 2026.01.12.
+Released on 2026.02.06.
 
 ### Breaking Changes
 
-- **`ExactEvery` interface removed**: This interface has been removed as part of the refactoring.
-- **`ExactTimeOfDay` interface removed**: This interface has been removed as part of the refactoring.
-- **`EveryOverrideWrapper` interface removed**: This interface has been removed as part of the refactoring.
-- **`EveryModifierInvalidator` interface removed**: This interface has been removed. Use the new `EveryWrapperInvalidator` interface instead.
+- **Removed interfaces**:
+  - `ExactEvery`, `ExactTimeOfDay`, `EveryOverrideWrapper`, `EveryModifierInvalidator`, and `EverySkipInvalidModifier` have been removed. Use the new Adapter equivalents (`EveryOverrideAdapter`, `EveryAdapterInvalidator`, `EverySkipInvalidAdapter`) instead.
+  - `EveryDateValidatorListMixin` has changed the signature.
+
+- **`validsIn` removed**: The `validsIn` method has been removed from all [DateValidator] and [EveryDateValidator] implementations.
+
+- **`startDate` narrowed**: The `startDate` method has been removed from [Every], [EveryMonth], [EveryYear], [EveryWeek], [LimitedEvery], and [EverySkipCountWrapper]. It now lives exclusively on [EveryDateValidator] and its subtypes.
+
+- **`Weekday.occrurencesIn` removed**: Renamed to `occurrencesIn` (typo fix).
+
+- **`ExactEvery` super type removed** from [EveryDayInYear], [EveryDueDayMonth], and [EveryDueWorkdayMonth].
+
+- **`EverySkipCountWrapper` reparented**: No longer extends [LimitedEvery] or mixes in [LimitedEveryModifierMixin]. Now extends [EveryWrapper] with [EveryWrapperMixin].
+
+- **Constructor parameter renames**: `validators` → `base` on [DateValidatorDifference], [DateValidatorIntersection], and [DateValidatorUnion]. `everyDateValidators` → `base` on [EveryDateValidatorUnion], [EveryDateValidatorDifference], and [EveryDateValidatorIntersection].
+
+- **Entry point changes**: Many classes previously exported from `period.dart` are no longer available through that entry point (e.g. [Every], [EveryMonth], [EveryYear], [EveryWeek], [LimitedEvery], [WeekdayOccurrence], extensions, and modifier mixins). [PeriodGenerator] is no longer exported from `due_date.dart`.
 
 ### New Features & Improvements
 
-- **New DateValidator interfaces**:
-  - **`DateValidatorOpposite`**: A new interface for opposite date validators.
-  - **`EveryDateValidatorMixin`**: A new mixin for every date validators.
-  - **`LimitedEveryDateValidatorListMixin`**: A new mixin for limited every date validator lists.
-  - **`LimitedEveryDateValidator`**: A new interface for limited every date validators.
-  - **`LimitedEveryMixin`**: A new mixin for limited every instances.
+- **`DateValidator.operator -`**: Added unary negation operator (`-`) to all [DateValidator] classes. Returns a [DateValidatorOpposite] that inverts validation.
 
-- **New Every Modifier interfaces**:
-  - **`EveryOverrideModifier`**: A new interface for every override modifiers.
-  - **`LimitedEveryModifierInvalidator`**: A new interface for limited every modifier invalidators.
-  - **`EveryModifierInvalidator`**: A new interface for every modifier invalidators.
-  - **`EveryModifierInvalidatorMixin`**: A new mixin for every modifier invalidators.
+- **`DateValidatorOpposite`**: A new [DateValidator] that negates the result of another validator.
+
+- **`endDate`**: Added `endDate` method to [EveryDateValidator] and all its implementations for reverse boundary resolution.
+
+- **`Period.of`**: Added a new factory constructor on [Period].
+
+- **New Adapter layer**: Introduced a full set of adapter classes for wrapping [Every] / [LimitedEvery] instances with custom behavior:
+  - [EveryAdapter], [EveryAdapterMixin], [LimitedEveryAdapter], [LimitedEveryAdapterMixin].
+  - [EveryAdapterInvalidator], [EveryAdapterInvalidatorMixin], [LimitedEveryAdapterInvalidator].
+  - [EveryOverrideAdapter], [LimitedEveryOverrideAdapter].
+  - [EverySkipInvalidAdapter], [LimitedEverySkipInvalidAdapter].
+  - [EverySkipCountAdapter], [LimitedEverySkipCountAdapter].
+  - [EveryTimeOfDayAdapter], [LimitedEveryTimeOfDayAdapter].
+
+- **New Modifier interfaces**:
+  - [EverySkipCountModifier], [LimitedEverySkipCountModifier].
+  - [EveryTimeOfDayModifier], [LimitedEveryTimeOfDayModifier].
+  - [LimitedEveryModifier].
 
 - **New Wrapper interfaces**:
-  - **`EveryWrapper`**: A new interface for every wrappers.
-  - **`LimitedEveryModifier`**: A new interface for limited every modifiers.
-  - **`LimitedEveryWrapper`**: A new interface for limited every wrappers.
-  - **`LimitedEveryWrapperMixin`**: A new mixin for limited every wrappers.
-  - **`EveryDateValidatorModifier`**: A new interface for every date validator modifiers.
-  - **`EveryDateValidatorModifierMixin`**: A new mixin for every date validator modifiers.
-  - **`EveryDateValidatorWrapper`**: A new interface for every date validator wrappers.
-  - **`EveryDateValidatorTimeOfDayModifier`**: A class that accepts a given `EveryDateValidator` and replaces the resulting `DateTime`s with a specific time of day.
-  - **`EveryTimeOfDayWrapper`**: A class that accepts a given `EveryDateValidator` and replaces the resulting `DateTime`s with a specific time of day.
-  - **`EveryWrapperMixin`**: A new mixin for every wrappers.
-  - **`EveryDateValidatorWrapperMixin`**: A new mixin for every date validator wrappers.
-  - **`LimitedEveryDateValidatorMixin`**: A new mixin for limited every date validators.
-  - **`LimitedEveryDateValidatorWrapper`**: A new interface for limited every date validator wrappers.
+  - [EveryWrapper], [EveryWrapperMixin], [LimitedEveryWrapper], [LimitedEveryWrapperMixin].
+  - [EveryTimeOfDayWrapper], [LimitedEveryTimeOfDayWrapper].
+  - [LimitedEverySkipCountWrapper].
 
-- **New Period Bundle interfaces**:
-  - **`TrimesterPeriodBundle`**: A base class that represents a bundle of trimesters.
-  - **`SemesterPeriodBundle`**: A base class that represents a bundle of semesters.
+- **New DateValidator / EveryDateValidator mixins and interfaces**:
+  - [EveryDateValidatorMixin], [LimitedEveryDateValidatorMixin], [EveryDateValidatorListMixin].
+  - [LimitedEveryDateValidatorListMixin], [LimitedEveryDateValidator], [LimitedEveryMixin].
+
+- **`EveryModifier` & `EveryModifierMixin`**: Now implement [EveryDateValidator] (previously only [Every]). Added `valid`, `invalid`, and `filterValidDates` methods.
+
+- **`LimitedEveryModifierMixin`**: Now implements [LimitedEveryDateValidator] and [LimitedEveryModifier]. Added `throwIfLimitReached`, `valid`, `invalid`, and `filterValidDates` methods.
+
+- **`throwIfLimitReached`**: Added to [LimitedEvery], [EveryDateValidatorUnion], [EveryDateValidatorDifference], and [EveryDateValidatorIntersection].
+
+- **`EveryDueTimeOfDay`**: Added `midnight` and `lastMicrosecond` fields.
+
+- **`DateDirection`**: Added `end`, `isEnd`, `isForward`, `isBackward`, and `couldStayEqual` fields.
+
+- **`LimitedOrEveryHandler`**: Added `startDateAdapter`, `endDate`, and `endDateAdapter` methods.
+
+- **Period Bundles**: Added [TrimesterPeriodBundle] and [SemesterPeriodBundle].
 
 ### Dependencies
 
 - Updated `time` from `^2.1.5` to `^2.1.6`.
-- Added new dependency: `essential_lints_annotations`.
 
 ## 2.3.0
 
