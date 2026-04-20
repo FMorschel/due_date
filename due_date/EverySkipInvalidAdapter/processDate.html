@@ -56,14 +56,13 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.11.5/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">processDate</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="processDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span></li>
-<li><span class="parameter" id="processDate-param-direction"><span class="type-annotation"><a href="../../due_date/DateDirection.html">DateDirection</a></span> <span class="parameter-name">direction</span>, {</span></li>
-<li><span class="parameter" id="processDate-param-limit"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">limit</span>, </span></li>
-</ol>})
+<span class="returntype"><a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">processDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="processDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, </span></li>
+<li><span class="parameter" id="processDate-param-direction"><span class="type-annotation"><a href="../../due_date/DateDirection.html">DateDirection</a></span> <span class="parameter-name">direction</span></span></li>
+</ol>)
 
       <div class="features"><span class="feature">override</span></div>
 
@@ -80,13 +79,11 @@
   <pre class="language-dart"><code class="language-dart">@override
 DateTime processDate(
   DateTime date,
-  DateDirection direction, {
-  DateTime? limit,
-}) {
-  throwIfLimitReached(date, direction, limit: limit);
+  DateDirection direction,
+) {
   if (valid(date)) return date;
-  if (direction.isForward) return next(date, limit: limit);
-  return previous(date, limit: limit);
+  if (direction.isForward) return next(date);
+  return previous(date);
 }</code></pre>
 </section>
 
@@ -115,7 +112,7 @@ DateTime processDate(
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>

@@ -54,8 +54,8 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
-<span class="name ">where</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="where-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+<span class="name ">where</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="where-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span></span></li>
 </ol>)</span></li>
 </ol>)
 
@@ -64,15 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>Creates a new lazy <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a> with all elements that satisfy the
+  <p>Creates a new lazy <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a> with all elements that satisfy the
 predicate <code>test</code>.</p>
 <p>The matching elements have the same order in the returned iterable
-as they have in <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable/iterator.html">iterator</a>.</p>
+as they have in <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable/iterator.html">iterator</a>.</p>
 <p>This method returns a view of the mapped elements.
-As long as the returned <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a> is not iterated over,
+As long as the returned <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a> is not iterated over,
 the supplied function <code>test</code> will not be invoked.
 Iterating will not cache results, and thus iterating multiple times over
-the returned <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a> may invoke the supplied
+the returned <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a> may invoke the supplied
 function <code>test</code> multiple times on the same element.</p>
 <p>Example:</p>
 <pre class="language-dart"><code class="language-dart">final numbers = &lt;int&gt;[1, 2, 3, 5, 6, 7];
@@ -114,7 +114,7 @@ result = numbers.where((x) =&gt; x.isEven); // (2, 6)
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>

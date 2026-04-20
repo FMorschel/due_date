@@ -54,7 +54,7 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">R</span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.11.5/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">R</span>&gt;</span></span>
 <span class="name ">cast</span>&lt;<wbr><span class="type-parameter">R</span>&gt;(<wbr>)
 
       <div class="features"><span class="feature">inherited</span></div>
@@ -66,11 +66,11 @@
 <p>If this list contains only instances of <code>R</code>, all read operations
 will work correctly. If any operation tries to read an element
 that is not an instance of <code>R</code>, the access will throw instead.</p>
-<p>Elements added to the list (e.g., by using <a href="https://api.dart.dev/stable/3.10.9/dart-core/List/add.html">add</a> or <a href="https://api.dart.dev/stable/3.10.9/dart-core/List/addAll.html">addAll</a>)
+<p>Elements added to the list (e.g., by using <a href="https://api.dart.dev/stable/3.11.5/dart-core/List/add.html">add</a> or <a href="https://api.dart.dev/stable/3.11.5/dart-core/List/addAll.html">addAll</a>)
 must be instances of <code>R</code> to be valid arguments to the adding function,
 and they must also be instances of <code>E</code> to be accepted by
 this list as well.</p>
-<p>Methods which accept <code>Object?</code> as argument, like <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable/contains.html">contains</a> and <a href="https://api.dart.dev/stable/3.10.9/dart-core/List/remove.html">remove</a>,
+<p>Methods which accept <code>Object?</code> as argument, like <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable/contains.html">contains</a> and <a href="https://api.dart.dev/stable/3.11.5/dart-core/List/remove.html">remove</a>,
 will pass the argument directly to the this list's method
 without any checks.
 That means that you can do <code>listOfStrings.cast&lt;int&gt;().remove("a")</code>
@@ -110,7 +110,7 @@ successfully, even if it looks like it shouldn't have any effect.</p>
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>

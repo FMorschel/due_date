@@ -55,7 +55,7 @@
     <section class="multi-line-signature">
       
 <span class="returntype">E</span>
-<span class="name ">singleWhere</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="singleWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span></span></li>
+<span class="name ">singleWhere</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="singleWhere-param-test"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">test</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-element"><span class="type-annotation">E</span> <span class="parameter-name">element</span></span></li>
 </ol>), {</span></li>
 <li><span class="parameter" id="singleWhere-param-orElse"><span class="type-annotation">E</span> <span class="parameter-name">orElse</span>()?, </span></li>
 </ol>})
@@ -68,20 +68,20 @@
   <p>The single element that satisfies <code>test</code>.</p>
 <p>Checks elements to see if <code>test(element)</code> returns true.
 If exactly one element satisfies <code>test</code>, that element is returned.
-If more than one matching element is found, throws <a href="https://api.dart.dev/stable/3.10.9/dart-core/StateError-class.html">StateError</a>.
+If more than one matching element is found, throws <a href="https://api.dart.dev/stable/3.11.5/dart-core/StateError-class.html">StateError</a>.
 If no matching element is found, returns the result of <code>orElse</code>.
-If <code>orElse</code> is omitted, it defaults to throwing a <a href="https://api.dart.dev/stable/3.10.9/dart-core/StateError-class.html">StateError</a>.</p>
+If <code>orElse</code> is omitted, it defaults to throwing a <a href="https://api.dart.dev/stable/3.11.5/dart-core/StateError-class.html">StateError</a>.</p>
 <p>Example:</p>
 <pre class="language-dart"><code class="language-dart">final numbers = &lt;int&gt;[2, 2, 10];
 var result = numbers.singleWhere((element) =&gt; element &gt; 5); // 10
 </code></pre>
 <p>When no matching element is found, the result of calling <code>orElse</code> is
 returned instead.</p>
-<pre class="language-dart"><code class="language-dart">result = numbers.singleWhere((element) =&gt; element == 1,
+<pre data-metadata="continued" class="language-dart"><code class="language-dart">result = numbers.singleWhere((element) =&gt; element == 1,
     orElse: () =&gt; -1); // -1
 </code></pre>
 <p>There must not be more than one matching element.</p>
-<pre class="language-dart"><code class="language-dart">result = numbers.singleWhere((element) =&gt; element == 2); // Throws Error.
+<pre data-metadata="continued" class="language-dart"><code class="language-dart">result = numbers.singleWhere((element) =&gt; element == 2); // Throws Error.
 </code></pre>
 </section>
 
@@ -131,7 +131,7 @@ returned instead.</p>
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>

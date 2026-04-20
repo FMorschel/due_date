@@ -55,9 +55,9 @@
     <section class="multi-line-signature">
       
 <span class="returntype">void</span>
-<span class="name ">replaceRange</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="replaceRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span></li>
-<li><span class="parameter" id="replaceRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, </span></li>
-<li><span class="parameter" id="replaceRange-param-replacements"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">replacements</span></span></li>
+<span class="name ">replaceRange</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="replaceRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span></li>
+<li><span class="parameter" id="replaceRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span>, </span></li>
+<li><span class="parameter" id="replaceRange-param-replacements"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span> <span class="parameter-name">replacements</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">inherited</span></div>
@@ -74,7 +74,7 @@ numbers.replaceRange(1, 4, replacements);
 print(numbers); // [1, 6, 7, 5]
 </code></pre>
 <p>The provided range, given by <code>start</code> and <code>end</code>, must be valid.
-A range from <code>start</code> to <code>end</code> is valid if 0 ≤ <code>start</code> ≤ <code>end</code> ≤ <a href="https://api.dart.dev/stable/3.10.9/dart-core/List/length.html">length</a>.
+A range from <code>start</code> to <code>end</code> is valid if 0 ≤ <code>start</code> ≤ <code>end</code> ≤ <a href="https://api.dart.dev/stable/3.11.5/dart-core/List/length.html">length</a>.
 An empty range (with <code>end == start</code>) is valid.</p>
 <p>The operation <code>list.replaceRange(start, end, replacements)</code>
 is roughly equivalent to:</p>
@@ -88,7 +88,7 @@ print(numbers); // [1, 6, 7, 5]
 <p>The list must be growable.
 This method does not work on fixed-length lists, even when <code>replacements</code>
 has the same number of elements as the replaced range. In that case use
-<a href="https://api.dart.dev/stable/3.10.9/dart-core/List/setRange.html">setRange</a> instead.</p>
+<a href="https://api.dart.dev/stable/3.11.5/dart-core/List/setRange.html">setRange</a> instead.</p>
 </section>
 
 
@@ -123,7 +123,7 @@ has the same number of elements as the replaced range. In that case use
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>
