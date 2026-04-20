@@ -9,6 +9,7 @@ import '../limited_every_mixin.dart';
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where any of the [EveryDateValidator]s conditions are met.
+// ignore: essential_lints/subtype_naming
 class EveryDateValidatorUnion<E extends EveryDateValidator>
     extends DateValidatorUnion<E>
     with LimitedEveryDateValidatorListMixin<E>, LimitedEveryMixin {

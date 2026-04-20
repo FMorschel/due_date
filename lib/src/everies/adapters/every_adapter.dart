@@ -1,3 +1,5 @@
+import 'package:essential_lints_annotations/essential_lints_annotations.dart';
+
 import '../../date_validators/date_validator.dart';
 import '../../date_validators/date_validator_mixin.dart';
 import '../date_direction.dart';
@@ -8,6 +10,8 @@ import '../wrappers/every_wrapper.dart';
 /// {@template everyAdapter}
 /// Abstract class that, when extended, processes [DateTime] with custom logic.
 /// {@endtemplate}
+@SubtypeNaming(containing: 'Adapter', packageOption: PackageOption.private)
+@SubtypeUnnaming(containing: 'Wrapper', packageOption: PackageOption.private)
 abstract class EveryAdapter<T extends Every, V extends DateValidator>
     extends EveryDateValidator
     with DateValidatorMixin

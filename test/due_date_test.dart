@@ -5,7 +5,7 @@ import 'package:due_date/src/due_date.dart';
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/enums/weekday_occurrence.dart';
-import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
+import 'package:due_date/src/everies/adapters/limited_every_skip_invalid_adapter.dart';
 import 'package:due_date/src/everies/built_in/every_day_in_year.dart';
 import 'package:due_date/src/everies/built_in/every_due_day_month.dart';
 import 'package:due_date/src/everies/built_in/every_due_time_of_day.dart';
@@ -58,7 +58,7 @@ void main() {
       });
       test('With limited every', () {
         // February 28, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidAdapter(
+        final limitedEvery = LimitedEverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
           validator: const DateValidatorWeekday(Weekday.sunday),
         );
@@ -69,7 +69,7 @@ void main() {
       });
       test('With limited every and limit', () {
         // February 28, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidAdapter(
+        final limitedEvery = LimitedEverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
           validator: const DateValidatorWeekday(Weekday.sunday),
         );
@@ -80,7 +80,7 @@ void main() {
         );
       });
       test('With limited every and wrong limit', () {
-        final limitedEvery = EverySkipInvalidAdapter(
+        final limitedEvery = LimitedEverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
           validator: const DateValidatorWeekday(Weekday.sunday),
         );
@@ -482,7 +482,7 @@ void main() {
     group('With LimitedEvery:', () {
       test('Add weeks when every is LimitedEvery', () {
         // January 3, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidAdapter(
+        final limitedEvery = LimitedEverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
           validator: const DateValidatorWeekday(Weekday.sunday),
         );
@@ -500,7 +500,7 @@ void main() {
 
       test('Add weeks with LimitedEvery and sameEvery false', () {
         // January 3, 2022 is Monday.
-        final limitedEvery = EverySkipInvalidAdapter(
+        final limitedEvery = LimitedEverySkipInvalidAdapter(
           every: const EveryWeekday(Weekday.monday),
           validator: const DateValidatorWeekday(Weekday.sunday),
         );
@@ -663,7 +663,7 @@ void main() {
 
       group('With LimitedEvery:', () {
         test('Add months when every is LimitedEvery', () {
-          final limitedEvery = EverySkipInvalidAdapter(
+          final limitedEvery = LimitedEverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
             validator: const DateValidatorWeekday(Weekday.sunday),
           );
@@ -680,7 +680,7 @@ void main() {
         });
 
         test('Add months with LimitedEvery and sameEvery false', () {
-          final limitedEvery = EverySkipInvalidAdapter(
+          final limitedEvery = LimitedEverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
             validator: const DateValidatorWeekday(Weekday.sunday),
           );
@@ -978,9 +978,9 @@ void main() {
 
     group('LimitedEvery', () {
       group('next', () {
-        test('EverySkipInvalidModifier Local', () {
+        test('LimitedEverySkipInvalidAdapter Local', () {
           // February 28, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidAdapter(
+          final limitedEvery = LimitedEverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
             validator: const DateValidatorWeekday(Weekday.sunday),
           );
@@ -995,9 +995,9 @@ void main() {
           );
         });
 
-        test('EverySkipInvalidModifier UTC', () {
+        test('LimitedEverySkipInvalidAdapter UTC', () {
           // February 28, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidAdapter(
+          final limitedEvery = LimitedEverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
             validator: const DateValidatorWeekday(Weekday.sunday),
           );
@@ -1174,9 +1174,9 @@ void main() {
       });
 
       group('LimitedEvery', () {
-        test('EverySkipInvalidModifier Local', () {
+        test('LimitedEverySkipInvalidAdapter Local', () {
           // March 7, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidAdapter(
+          final limitedEvery = LimitedEverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
             validator: const DateValidatorWeekday(Weekday.sunday),
           );
@@ -1191,9 +1191,9 @@ void main() {
           );
         });
 
-        test('EverySkipInvalidModifier UTC', () {
+        test('LimitedEverySkipInvalidAdapter UTC', () {
           // March 7, 2022 is Monday.
-          final limitedEvery = EverySkipInvalidAdapter(
+          final limitedEvery = LimitedEverySkipInvalidAdapter(
             every: const EveryWeekday(Weekday.monday),
             validator: const DateValidatorWeekday(Weekday.sunday),
           );

@@ -8,6 +8,7 @@ import '../limited_every_mixin.dart';
 
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where only one of the [EveryDateValidator]s conditions is met.
+// ignore: essential_lints/subtype_naming
 class EveryDateValidatorDifference<E extends EveryDateValidator>
     extends DateValidatorDifference<E>
     with LimitedEveryDateValidatorListMixin<E>, LimitedEveryMixin {

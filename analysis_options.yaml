@@ -2,6 +2,9 @@ include:
   - package:very_good_analysis/analysis_options.yaml
   - package:lints/recommended.yaml
 
+formatter:
+  trailing_commas: automate
+
 analyzer:
   language:
     strict-casts: true
@@ -14,7 +17,7 @@ analyzer:
 
 plugins:
   essential_lints:
-    version: ^0.1.7
+    version: ^0.1.14
     diagnostics:
       - boolean_assignment
       - closure_incorrect_type

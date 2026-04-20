@@ -1,3 +1,5 @@
+import 'package:essential_lints_annotations/essential_lints_annotations.dart';
+
 import 'date_direction.dart';
 import 'date_time_limit_reached_exception.dart';
 import 'every.dart';
@@ -10,6 +12,7 @@ import 'group/every_date_validator_union.dart';
 
 /// Abstract class that forces the implementation of [Every] to have a
 /// limit parameter for the [next] and [previous] methods.
+@SubtypeNaming(prefix: 'Limited', packageOption: PackageOption.private)
 abstract class LimitedEvery extends Every {
   /// Abstract class that, when extended, processes [DateTime] with custom
   /// logic.

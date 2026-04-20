@@ -2,7 +2,6 @@ import 'package:due_date/src/date_validators/built_in/date_validator_weekday_cou
 import 'package:due_date/src/enums/week.dart';
 import 'package:due_date/src/enums/weekday.dart';
 import 'package:due_date/src/everies/adapters/every_skip_invalid_adapter.dart';
-import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
 import 'package:test/test.dart';
 
 import '../../src/date_time_match.dart';
@@ -183,28 +182,6 @@ void main() {
         expect(modifier, hasPrevious(expectedDate).withInput(inputDate));
       });
 
-      test('Edge case: limit reached in next', () {
-        // December 3, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 3);
-        // December 1, 2023 is before input date.
-        final limitDate = DateTime(2023, 12);
-        expect(
-          () => modifier.next(inputDate, limit: limitDate),
-          throwsA(isA<DateTimeLimitReachedException>()),
-        );
-      });
-
-      test('Edge case: limit reached in previous', () {
-        // December 10, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 10);
-        // November 28, 2023 is after expected previous date.
-        final limitDate = DateTime(2023, 11, 28);
-        expect(
-          () => modifier.previous(inputDate, limit: limitDate),
-          throwsA(isA<DateTimeLimitReachedException>()),
-        );
-      });
-
       test('Limit is exactly the expected date', () {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);
@@ -284,17 +261,6 @@ void main() {
     });
 
     group('Edge Cases', () {
-      test('Limit validation in startDate', () {
-        // December 3, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 3);
-        // December 1, 2023 is before input date.
-        final limitDate = DateTime(2023, 12);
-        expect(
-          () => modifier.startDate(inputDate, limit: limitDate),
-          throwsA(isA<DateTimeLimitReachedException>()),
-        );
-      });
-
       test('Limit validation in next', () {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);

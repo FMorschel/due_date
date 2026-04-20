@@ -4,10 +4,9 @@ import '../../date_validators/date_validator.dart';
 import '../../date_validators/date_validator_mixin.dart';
 import '../date_direction.dart';
 import '../every.dart';
-import '../limited_every_mixin.dart';
 import 'every_adapter.dart';
 import 'every_adapter_invalidator_mixin.dart';
-import 'limited_every_adapter_mixin.dart';
+import 'every_adapter_mixin.dart';
 
 /// {@template everySkipInvalidModifier}
 /// Class that wraps an [Every] generator and adds a [DateValidator] that will
@@ -20,8 +19,7 @@ class EverySkipInvalidAdapter<T extends Every, V extends DateValidator>
     extends EveryAdapter<T, V>
     with
         EquatableMixin,
-        LimitedEveryAdapterMixin<T, V>,
-        LimitedEveryMixin,
+        EveryAdapterMixin<T, V>,
         DateValidatorMixin,
         EveryAdapterInvalidatorMixin<T, V> {
   /// {@macro everySkipInvalidModifier}
@@ -33,13 +31,11 @@ class EverySkipInvalidAdapter<T extends Every, V extends DateValidator>
   @override
   DateTime processDate(
     DateTime date,
-    DateDirection direction, {
-    DateTime? limit,
-  }) {
-    throwIfLimitReached(date, direction, limit: limit);
+    DateDirection direction,
+  ) {
     if (valid(date)) return date;
-    if (direction.isForward) return next(date, limit: limit);
-    return previous(date, limit: limit);
+    if (direction.isForward) return next(date);
+    return previous(date);
   }
 
   @override

@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 3.1.0
+
+Released on 2026.04.19.
+
+### Fixes
+
+**Breaking Changes:**
+
+- **`EveryOverrideAdapter`** and **`EverySkipInvalidAdapter`**: Were accidentally made `LimitedEvery` adapters instead of `Every` adapters in the 3.0.0 release. This has been fixed, and they now properly extend `EveryAdapter` instead of `LimitedEveryAdapter`.
+
+This breaking change was not published as a new major version beacause since the name of the classes didn't indicate that they were `LimitedEvery` adapters, it is very unlikely that anyone was using them as such, and the fix is simply to change the super type to the correct one. If you were using these adapters as `LimitedEvery` adapters, you should switch to the **`LimitedEveryOverrideAdapter`** and **`LimitedEverySkipInvalidAdapter`** instead.
+
 ## 3.0.0
 
 Released on 2026.02.06.

@@ -8,7 +8,7 @@ import '../../src/date_time_match.dart';
 import '../../src/every_match.dart';
 
 void main() {
-  group('EveryOverrideWrapper:', () {
+  group('EveryOverrideAdapter:', () {
     final every = Weekday.monday.every;
     const invalidator = DateValidatorWeekdayCountInMonth(
       week: Week.first,
@@ -119,28 +119,6 @@ void main() {
         expect(wrapper, hasPrevious(expectedDate).withInput(inputDate));
       });
 
-      test('Edge case: limit reached in next', () {
-        // December 3, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 3);
-        // December 1, 2023 is before input date.
-        final limitDate = DateTime(2023, 12);
-        expect(
-          wrapper,
-          limitedNext.withInput(inputDate, limit: limitDate),
-        );
-      });
-
-      test('Edge case: limit reached in previous', () {
-        // December 10, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 10);
-        // November 29, 2023 is after expected previous date.
-        final limitDate = DateTime(2023, 11, 29);
-        expect(
-          wrapper,
-          limitedPrevious.withInput(inputDate, limit: limitDate),
-        );
-      });
-
       test('Limit is exactly the expected date', () {
         // December 3, 2023 is Sunday.
         final inputDate = DateTime(2023, 12, 3);
@@ -211,32 +189,6 @@ void main() {
         final inputDate = DateTime.utc(2023, 12, 3);
         final expected = DateTime.utc(2023, 12, 5);
         expect(wrapper, hasNext(expected).withInput(inputDate));
-      });
-    });
-
-    group('Edge Cases', () {
-      test('Limit validation in next', () {
-        // December 3, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 3);
-        // December 12, 2023 is after expected date.
-        final limitDate = DateTime(2023, 12, 4);
-        // Expected date would be DateTime(2023, 12, 5);
-        expect(
-          wrapper,
-          limitedNext.withInput(inputDate, limit: limitDate),
-        );
-      });
-
-      test('Limit validation in previous', () {
-        // December 10, 2023 is Sunday.
-        final inputDate = DateTime(2023, 12, 10);
-        // November 26, 2023 is before expected date.
-        final limitDate = DateTime(2023, 11, 29);
-        // Expected date would be DateTime(2023, 11, 28);
-        expect(
-          wrapper,
-          limitedPrevious.withInput(inputDate, limit: limitDate),
-        );
       });
     });
 
