@@ -54,7 +54,7 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
 <span class="name ">map</span>&lt;<wbr><span class="type-parameter">T</span>&gt;(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="map-param-toElement"><span class="type-annotation">T</span> <span class="parameter-name">toElement</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-e"><span class="type-annotation">E</span> <span class="parameter-name">e</span></span></li>
 </ol>)</span></li>
 </ol>)
@@ -65,19 +65,19 @@
     
 <section class="desc markdown">
   <p>The current elements of this iterable modified by <code>toElement</code>.</p>
-<p>Returns a new lazy <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a> with elements that are created by
+<p>Returns a new lazy <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a> with elements that are created by
 calling <code>toElement</code> on each element of this <code>Iterable</code> in
 iteration order.</p>
 <p>The returned iterable is lazy, so it won't iterate the elements of
 this iterable until it is itself iterated, and then it will apply
 <code>toElement</code> to create one element at a time.
 The converted elements are not cached.
-Iterating multiple times over the returned <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a>
+Iterating multiple times over the returned <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a>
 will invoke the supplied <code>toElement</code> function once per element
 for on each iteration.</p>
 <p>Methods on the returned iterable are allowed to omit calling <code>toElement</code>
 on any element where the result isn't needed.
-For example, <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable/elementAt.html">elementAt</a> may call <code>toElement</code> only once.</p>
+For example, <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable/elementAt.html">elementAt</a> may call <code>toElement</code> only once.</p>
 <p>Equivalent to:</p>
 <pre class="language-dart"><code>Iterable&lt;T&gt; map&lt;T&gt;(T toElement(E e)) sync* {
   for (var value in this) {
@@ -86,7 +86,7 @@ For example, <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable/elem
 }
 </code></pre>
 <p>Example:</p>
-<pre class="language-dart"><code class="language-dart">var products = jsonDecode('''
+<pre data-metadata="import:convert" class="language-dart"><code class="language-dart">var products = jsonDecode('''
 [
   {"name": "Screwdriver", "price": 42.00},
   {"name": "Wingnut", "price": 0.50}
@@ -129,7 +129,7 @@ var totalPrice = values.fold(0.0, (a, b) =&gt; a + b); // 42.5.
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>

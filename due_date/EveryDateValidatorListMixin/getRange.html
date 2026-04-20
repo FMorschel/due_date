@@ -54,9 +54,9 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
-<span class="name ">getRange</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span></li>
-<li><span class="parameter" id="getRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter">E</span>&gt;</span></span>
+<span class="name ">getRange</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getRange-param-start"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">start</span>, </span></li>
+<li><span class="parameter" id="getRange-param-end"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">end</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">inherited</span></div>
@@ -64,17 +64,17 @@
     </section>
     
 <section class="desc markdown">
-  <p>Creates an <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a> that iterates over a range of elements.</p>
+  <p>Creates an <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a> that iterates over a range of elements.</p>
 <p>The returned iterable iterates over the elements of this list
 with positions greater than or equal to <code>start</code> and less than <code>end</code>.</p>
 <p>The provided range, <code>start</code> and <code>end</code>, must be valid at the time
 of the call.
-A range from <code>start</code> to <code>end</code> is valid if 0 ≤ <code>start</code> ≤ <code>end</code> ≤ <a href="https://api.dart.dev/stable/3.10.9/dart-core/List/length.html">length</a>.
+A range from <code>start</code> to <code>end</code> is valid if 0 ≤ <code>start</code> ≤ <code>end</code> ≤ <a href="https://api.dart.dev/stable/3.11.5/dart-core/List/length.html">length</a>.
 An empty range (with <code>end == start</code>) is valid.</p>
-<p>The returned <a href="https://api.dart.dev/stable/3.10.9/dart-core/Iterable-class.html">Iterable</a> behaves like <code>skip(start).take(end - start)</code>.
+<p>The returned <a href="https://api.dart.dev/stable/3.11.5/dart-core/Iterable-class.html">Iterable</a> behaves like <code>skip(start).take(end - start)</code>.
 That is, it does <em>not</em> break if this list changes size, it just
 ends early if it reaches the end of the list early
-(if <code>end</code>, or even <code>start</code>, becomes greater than <a href="https://api.dart.dev/stable/3.10.9/dart-core/List/length.html">length</a>).</p>
+(if <code>end</code>, or even <code>start</code>, becomes greater than <a href="https://api.dart.dev/stable/3.11.5/dart-core/List/length.html">length</a>).</p>
 <pre class="language-dart"><code class="language-dart">final colors = &lt;String&gt;['red', 'green', 'blue', 'orange', 'pink'];
 final firstRange = colors.getRange(0, 3);
 print(firstRange.join(', ')); // red, green, blue
@@ -116,7 +116,7 @@ print(secondRange.join(', ')); // blue, orange, pink
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>

@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.10.9/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.11.5/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span>
-<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.10.9/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a></span>
+<span class="name ">startDate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="startDate-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -68,9 +68,11 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns the start date considering the given <code>every</code> base process.
-If <code>every</code> is a <a href="../../due_date/LimitedEveryDateValidator-class.html">LimitedEveryDateValidator</a>, the <code>limit</code> will be passed
-on.</p>
+  <p>Returns the next <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern.</p>
+<p>If the <code>date</code> is a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, it will
+be returned.</p>
+<p>If the <code>date</code> is not a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> that matches the <a href="../../due_date/Every-class.html">Every</a> pattern, <a href="../../due_date/WeekdayOccurrence/next.html">next</a>
+will be called to generate a new one.</p>
 </section>
 
 
@@ -106,7 +108,7 @@ DateTime startDate(DateTime date) =&gt; _handler.startDate(date);</code></pre>
 <footer>
   <span class="no-break">
     due_date
-      3.0.0
+      3.1.0
   </span>
   
 </footer>
