@@ -5,12 +5,14 @@ import '../../extensions/day_in_year.dart';
 import '../every_date_validator_mixin.dart';
 import '../every_year.dart';
 
+/// {@template every_day_in_year}
 /// Class that processes [DateTime] so that the [addYears] always returns the
 /// next day where the difference in days between the date and the first day of
 /// the year is equal to the [dayInYear].
+/// {@endtemplate}
 class EveryDayInYear extends DateValidatorDayInYear
     with EveryYear, EveryDateValidatorMixin {
-  /// Returns a [EveryDayInYear] with the given [dayInYear].
+  /// {@macro every_day_in_year}
   const EveryDayInYear(super.dayInYear)
       : assert(
           dayInYear >= 1 && dayInYear <= 366,

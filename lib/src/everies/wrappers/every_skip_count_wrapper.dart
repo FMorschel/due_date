@@ -5,13 +5,13 @@ import '../every.dart';
 import 'every_wrapper.dart';
 import 'every_wrapper_mixin.dart';
 
-/// {@template everySkipCountWrapper}
+/// {@template every_skip_count_wrapper}
 /// Class that wraps an [Every] generator and skips [count] times from the
 /// [Every] base process.
 /// {@endtemplate}
 class EverySkipCountWrapper<T extends Every> extends EveryWrapper<T>
     with EquatableMixin, EveryWrapperMixin<T> {
-  /// {@macro everySkipCountWrapper}
+  /// {@macro every_skip_count_wrapper}
   const EverySkipCountWrapper({
     required super.every,
     required this.count,

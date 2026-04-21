@@ -10,7 +10,7 @@ import 'every_skip_count_adapter.dart';
 import 'limited_every_adapter.dart';
 import 'limited_every_adapter_mixin.dart';
 
-/// {@template limitedEverySkipCountAdapter}
+/// {@template limited_every_skip_count_adapter}
 /// Class that wraps an [Every] generator and skips [count] times from the
 /// [Every] base process.
 /// {@endtemplate}
@@ -18,7 +18,7 @@ class LimitedEverySkipCountAdapter<T extends Every, V extends DateValidator>
     extends LimitedEveryAdapter<T, V>
     with EquatableMixin, LimitedEveryAdapterMixin<T, V>
     implements LimitedEverySkipCountWrapper<T>, EverySkipCountAdapter<T, V> {
-  /// {@macro limitedEverySkipCountAdapter}
+  /// {@macro limited_every_skip_count_adapter}
   const LimitedEverySkipCountAdapter({
     required super.every,
     required super.validator,

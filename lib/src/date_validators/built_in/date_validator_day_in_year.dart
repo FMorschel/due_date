@@ -8,13 +8,18 @@ import '../date_validator.dart';
 import '../date_validator_mixin.dart';
 import '../exact_date_validator.dart';
 
+/// {@template dateValidatorDayInYear}
 /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
 /// [dayInYear] of the year.
+///
+/// If [exact] is false, and the [dayInYear] is greater than the days in year,
+/// the [DateTime] will be valid if the [DateTime.day] is the last day of the
+/// year.
+/// {@endtemplate}
 class DateValidatorDayInYear extends ExactDateValidator
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorDayInYear> {
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
-  /// [dayInYear] of the year.
+  /// {@macro dateValidatorDayInYear}
   const DateValidatorDayInYear(
     this.dayInYear, {
     super.exact,
@@ -23,8 +28,9 @@ class DateValidatorDayInYear extends ExactDateValidator
           'Day In Year must be between 1 and 366',
         );
 
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
-  /// [dayInYear] of the year.
+  /// Returns a [DateValidator] that validates a [DateTime] if the
+  /// [DateTime.day] is the [dayInYear] of the year, clamped to the year's
+  /// length.
   factory DateValidatorDayInYear.from(
     DateTime date, {
     bool exact = false,

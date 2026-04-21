@@ -11,18 +11,21 @@ import '../every_week.dart';
 import '../group/every_date_validator_union.dart';
 import 'every_weekday_count_in_month.dart';
 
-/// Class that processes [DateTime] so that the [addWeeks] always returns the
-/// next week's with the [DateTime.weekday] equals to the [weekday].
+/// {@template every_weekday}
+/// Returns a [EveryWeekday] with the given [weekday].
+///
+/// When you call [next] or [previous] on this [EveryWeekday], it will return
+/// the [weekday] of the next or previous week.
+/// {@endtemplate}
 class EveryWeekday extends DateValidatorWeekday
     with EveryWeek, EveryDateValidatorMixin
     implements EveryMonth {
-  /// Returns a [EveryWeekday] with the given [weekday].
-  /// When you call [next] or [previous] on this [EveryWeekday], it will return
-  /// the [weekday] of the next or previous week.
+  /// {@macro every_weekday}
   const EveryWeekday(super.weekday);
 
   /// Returns a [EveryWeekday] with the [weekday] being the weekday of
   /// the given [date].
+  ///
   /// When you call [next] or [previous] on this [EveryWeekday], it will return
   /// the [weekday] of the next or previous week.
   factory EveryWeekday.from(DateTime date) {

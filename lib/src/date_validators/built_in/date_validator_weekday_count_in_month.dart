@@ -6,20 +6,22 @@ import '../../enums/weekday.dart';
 import '../date_validator.dart';
 import '../date_validator_mixin.dart';
 
+/// {@template dateValidatorWeekdayCountInMonth}
 /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
 /// [day] of the week and is the [week] of the month.
+/// {@endtemplate}
 class DateValidatorWeekdayCountInMonth
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorWeekdayCountInMonth> {
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
-  /// [day] of the week and is the [week] of the month.
+  /// {@macro dateValidatorWeekdayCountInMonth}
   const DateValidatorWeekdayCountInMonth({
     required this.week,
     required this.day,
   });
 
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
-  /// [day] of the week and is the [week] of the month.
+  /// Returns a [DateValidator] that validates a [DateTime] if the
+  /// [DateTime.day] is the same weekday as [date] and is the same week of the
+  /// month as [date].
   factory DateValidatorWeekdayCountInMonth.from(DateTime date) =>
       DateValidatorWeekdayCountInMonth(
         week: Week.from(

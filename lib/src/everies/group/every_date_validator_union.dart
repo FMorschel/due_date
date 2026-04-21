@@ -1,3 +1,5 @@
+import 'package:essential_lints_annotations/essential_lints_annotations.dart';
+
 import '../../date_validators/group/date_validator_union.dart';
 import '../../helpers/date_reducer.dart';
 import '../../helpers/limited_or_every_handler.dart';
@@ -7,14 +9,15 @@ import '../limited_every.dart';
 import '../limited_every_date_validator_list_mixin.dart';
 import '../limited_every_mixin.dart';
 
+/// {@template every_date_validator_union}
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where any of the [EveryDateValidator]s conditions are met.
-// ignore: essential_lints/subtype_naming
+/// {@endtemplate}
+@SubtypeUnnaming(prefix: 'Limited', packageOption: PackageOption.private)
 class EveryDateValidatorUnion<E extends EveryDateValidator>
     extends DateValidatorUnion<E>
     with LimitedEveryDateValidatorListMixin<E>, LimitedEveryMixin {
-  /// Class that processes [DateTime] so that the [next] always returns the next
-  /// day where any of the [EveryDateValidator]s conditions are met.
+  /// {@macro every_date_validator_union}
   const EveryDateValidatorUnion(super.base);
 
   /// Returns the next instance of the given [date] considering this [Every]

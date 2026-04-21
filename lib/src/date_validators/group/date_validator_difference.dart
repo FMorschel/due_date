@@ -5,12 +5,13 @@ import '../date_validator.dart';
 import '../date_validator_mixin.dart';
 import 'date_validator_list_mixin.dart';
 
+/// {@template dateValidatorDifference}
 /// A [DateValidator] that validates a [DateTime] if the date is valid for only
 /// one of the [validators].
+/// {@endtemplate}
 class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
-  /// A [DateValidator] that validates a [DateTime] if the date is valid for
-  /// only one of the [validators].
+  /// {@macro dateValidatorDifference}
   const DateValidatorDifference(super.base);
 
   @override

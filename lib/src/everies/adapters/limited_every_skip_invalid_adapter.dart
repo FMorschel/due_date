@@ -10,7 +10,7 @@ import 'every_adapter_invalidator_mixin.dart';
 import 'every_skip_invalid_adapter.dart';
 import 'limited_every_adapter_mixin.dart';
 
-/// {@template everySkipInvalidModifier}
+/// {@template limited_every_skip_invalid_adapter}
 /// Class that wraps an [Every] generator and adds a [DateValidator] that will
 /// be used to invalidate the generated dates.
 ///
@@ -26,7 +26,7 @@ class LimitedEverySkipInvalidAdapter<T extends Every, V extends DateValidator>
         DateValidatorMixin,
         EveryAdapterInvalidatorMixin<T, V>
     implements EverySkipInvalidAdapter<T, V> {
-  /// {@macro everySkipInvalidModifier}
+  /// {@macro limited_every_skip_invalid_adapter}
   const LimitedEverySkipInvalidAdapter({
     required super.every,
     required super.validator,

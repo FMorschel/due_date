@@ -6,20 +6,20 @@ import '../date_validator.dart';
 import '../date_validator_mixin.dart';
 import '../group/date_validator_union.dart';
 
+/// {@template dateValidatorWeekday}
 /// A [DateValidator] that validates a [DateTime] if it is on the given
 /// [weekday].
+/// {@endtemplate}
 class DateValidatorWeekday
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorWeekday> {
-  /// A [DateValidator] that validates a [DateTime] if it is on the given
-  /// [weekday].
+  /// {@macro dateValidatorWeekday}
   const DateValidatorWeekday(this.weekday);
 
-  /// A [DateValidator] that validates a [DateTime] if it is on the given
-  /// [weekday].
-  factory DateValidatorWeekday.from(DateTime date) {
-    return DateValidatorWeekday(Weekday.from(date));
-  }
+  /// Returns a [DateValidator] that validates a [DateTime] if it is on the same
+  /// weekday as the given [date].
+  factory DateValidatorWeekday.from(DateTime date) =>
+      DateValidatorWeekday(Weekday.from(date));
 
   /// A [DateValidator] that validates a [DateTime] if it is a workday.
   static const DateValidatorUnion<EveryWeekday> workdays = DateValidatorUnion([

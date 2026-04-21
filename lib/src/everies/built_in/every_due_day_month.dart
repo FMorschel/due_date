@@ -4,6 +4,7 @@ import '../../date_validators/built_in/date_validator_due_day_month.dart';
 import '../every_date_validator_mixin.dart';
 import '../every_month.dart';
 
+/// {@template every_due_day_month}
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [DateTime.day] as the [dueDay] clamped to fit in the
 /// length of the next month.
@@ -15,11 +16,10 @@ import '../every_month.dart';
 /// return the next month with the [DateTime.day] as 31.
 /// - If the [dueDay] is 15, the [addMonths] will return the next month with the
 /// [DateTime.day] as 15.
+/// {@endtemplate}
 class EveryDueDayMonth extends DateValidatorDueDayMonth
     with EveryMonth, EveryDateValidatorMixin {
-  /// Returns a [EveryDueDayMonth] with the given [dueDay].
-  /// When you call [next] or [previous] on this [EveryDueDayMonth], it will
-  /// return the [dueDay] of the next or previous month.
+  /// {@macro every_due_day_month}
   const EveryDueDayMonth(super.dueDay)
       : assert(
           (dueDay >= 1) && (dueDay <= 31),

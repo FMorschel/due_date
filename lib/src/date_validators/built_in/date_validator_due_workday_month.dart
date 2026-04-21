@@ -9,19 +9,18 @@ import '../date_validator.dart';
 import '../date_validator_mixin.dart';
 import '../exact_date_validator.dart';
 
+/// {@template dateValidatorDueWorkdayMonth}
 /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
 /// same value as [dueWorkday].
+///
 /// If [exact] is false, and the [dueWorkday] is greater than the days in month,
 /// the [DateTime] will be valid if the [DateTime.day] is the last day of the
 /// month.
+/// {@endtemplate}
 class DateValidatorDueWorkdayMonth extends ExactDateValidator
     with EquatableMixin, DateValidatorMixin
     implements Comparable<DateValidatorDueWorkdayMonth> {
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
-  /// same value as [dueWorkday].
-  /// If [exact] is false, and the [dueWorkday] is greater than the days in
-  /// month, the [DateTime] will be valid if the [DateTime.day] is the last day
-  /// of the month.
+  /// {@macro dateValidatorDueWorkdayMonth}
   const DateValidatorDueWorkdayMonth(
     this.dueWorkday, {
     super.exact,
@@ -30,11 +29,8 @@ class DateValidatorDueWorkdayMonth extends ExactDateValidator
           'Due workday must be between 1 and 23',
         );
 
-  /// A [DateValidator] that validates a [DateTime] if the [DateTime.day] is the
-  /// same value as [dueWorkday].
-  /// If [exact] is false, and the [dueWorkday] is greater than the days in
-  /// month, the [DateTime] will be valid if the [DateTime.day] is the last day
-  /// of the month.
+  /// Returns a [DateValidator] that validates a [DateTime] if the
+  /// [DateTime.day] is the same value as [date]'s workday of the month.
   factory DateValidatorDueWorkdayMonth.from(
     DateTime date, {
     WorkdayDirection direction = WorkdayDirection.forward,

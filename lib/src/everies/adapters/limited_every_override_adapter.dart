@@ -11,7 +11,7 @@ import 'every_override_adapter.dart';
 import 'limited_every_adapter_invalidator.dart';
 import 'limited_every_adapter_mixin.dart';
 
-/// {@template everyOverrideWrapper}
+/// {@template limited_every_override_adapter}
 /// Class that wraps an [Every] generator and adds a [DateValidator] that will
 /// be used to invalidate the generated dates and an [overrider] that will be
 /// used instead.
@@ -28,7 +28,7 @@ class LimitedEveryOverrideAdapter<T extends Every, V extends DateValidator>
         DateValidatorMixin,
         EveryAdapterInvalidatorMixin<T, V>
     implements EveryOverrideAdapter<T, V> {
-  /// {@macro everyOverrideWrapper}
+  /// {@macro limited_every_override_adapter}
   const LimitedEveryOverrideAdapter({
     required super.every,
     required super.validator,
