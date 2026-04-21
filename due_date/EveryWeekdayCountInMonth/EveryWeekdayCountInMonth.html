@@ -60,7 +60,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns a <a href="../../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a> with the given <code>day</code> and <code>week</code>.</p>
+  <p>Class that processes <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../../due_date/EveryWeekdayCountInMonth/addMonths.html">addMonths</a> always returns the
+next month's with the <a href="../../due_date/DateValidatorWeekdayCountInMonth/week.html">week</a> occurrence of the <a href="../../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a> (<a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/weekday.html">DateTime.weekday</a>
+is the <a href="../../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a>'s <a href="../../due_date/Weekday/dateTimeValue.html">Weekday.dateTimeValue</a>).</p>
+<p>E.g.:</p>
+<pre class="language-dart"><code class="language-dart">const firstMonday = EveryDayOfWeek(day: Weekday.monday, week: Week.first);
+firstMonday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 3).
+const lastFriday = EveryDayOfWeek(day: Weekday.friday, week: Week.last);
+lastFriday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 28).
+</code></pre>
 </section>
 
 
@@ -98,7 +106,7 @@
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>

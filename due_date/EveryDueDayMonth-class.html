@@ -109,9 +109,9 @@ return the next month with the <a href="https://api.dart.dev/stable/3.11.5/dart-
           <span class="name"><a href="../due_date/EveryDueDayMonth/EveryDueDayMonth.html">EveryDueDayMonth</a></span><span class="signature">(<span class="parameter" id="-param-dueDay"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">dueDay</span></span>)</span>
         </dt>
         <dd>
-          Returns a <a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a> with the given <code>dueDay</code>.
-When you call <a href="../due_date/EveryDueDayMonth/next.html">next</a> or <a href="../due_date/EveryDueDayMonth/previous.html">previous</a> on this <a href="../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a>, it will
-return the <code>dueDay</code> of the next or previous month.
+          Class that processes <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> always returns the
+next month's with the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> as the <a href="../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> clamped to fit in the
+length of the next month.
             <div class="constructor-modifier features">const</div>
         </dd>
         <dt id="EveryDueDayMonth.from" class="callable">
@@ -450,7 +450,7 @@ base process.
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>

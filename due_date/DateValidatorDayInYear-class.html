@@ -56,6 +56,9 @@
 <section class="desc markdown">
   <p>A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the
 <a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a> of the year.</p>
+<p>If <a href="../due_date/ExactDateValidator/exact.html">exact</a> is false, and the <a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a> is greater than the days in year,
+the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> will be valid if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the last day of the
+year.</p>
 </section>
 
 
@@ -109,15 +112,16 @@
         </dt>
         <dd>
           A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the
-<code>dayInYear</code> of the year.
+<a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a> of the year.
             <div class="constructor-modifier features">const</div>
         </dd>
         <dt id="DateValidatorDayInYear.from" class="callable">
           <span class="name"><a href="../due_date/DateValidatorDayInYear/DateValidatorDayInYear.from.html">DateValidatorDayInYear.from</a></span><span class="signature">(<span class="parameter" id="from-param-date"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">date</span>, {</span><span class="parameter" id="from-param-exact"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span> = <span class="default-value">false</span></span>})</span>
         </dt>
         <dd>
-          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the
-<a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a> of the year.
+          Returns a <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the
+<a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the <a href="../due_date/DateValidatorDayInYear/dayInYear.html">dayInYear</a> of the year, clamped to the year's
+length.
             <div class="constructor-modifier features">factory</div>
         </dd>
     </dl>
@@ -366,7 +370,7 @@ this instance's <a href="../due_date/DateValidatorDayInYear/props.html">props</a
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>
