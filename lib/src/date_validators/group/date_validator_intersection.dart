@@ -5,13 +5,14 @@ import '../date_validator.dart';
 import '../date_validator_mixin.dart';
 import 'date_validator_list_mixin.dart';
 
+/// {@template dateValidatorIntersection}
 /// A [DateValidator] that validates a [DateTime] if the date is valid for all
 /// of the [validators].
+/// {@endtemplate}
 class DateValidatorIntersection<E extends DateValidator>
     extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
-  /// A [DateValidator] that validates a [DateTime] if the date is valid for all
-  /// of the [validators].
+  /// {@macro dateValidatorIntersection}
   const DateValidatorIntersection(super.base);
 
   @override

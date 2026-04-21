@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.2.0
+
+Released on 2026.04.20.
+
+### New Features & Improvements
+
+- **Factory Constructors**: Added new factory constructors to `DateValidator`, `Every`, `EveryAdapter`, `EveryModifier`, and `EveryWrapper` to simplify the instantiation of their built-in implementations.
+
 ## 3.1.0
 
 Released on 2026.04.19.

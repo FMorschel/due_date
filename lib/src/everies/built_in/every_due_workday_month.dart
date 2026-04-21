@@ -10,17 +10,19 @@ import '../workday_direction.dart';
 import 'every_due_day_month.dart';
 import 'every_weekday.dart';
 
+/// {@template every_due_workday_month}
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [DateTime.day] being the [dueWorkday] workday of the
 /// month clamped to fit in the length of the next month.
+///
+/// A month can have at most 23 workdays.
+///
+/// When you call [next] or [previous], it will return the [dueWorkday]
+/// workday of the next or previous month.
+/// {@endtemplate}
 class EveryDueWorkdayMonth extends DateValidatorDueWorkdayMonth
     with EveryMonth, EveryDateValidatorMixin {
-  /// Returns a [EveryDueWorkdayMonth] with the given [dueWorkday].
-  ///
-  /// A month can have at most 23 workdays.
-  ///
-  /// When you call [next] or [previous], it will return the [dueWorkday]
-  /// workday of the next or previous month.
+  /// {@macro every_due_workday_month}
   const EveryDueWorkdayMonth(super.dueWorkday)
       : assert(
           (dueWorkday >= 1) && (dueWorkday <= 23),

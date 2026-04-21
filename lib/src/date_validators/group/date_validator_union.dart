@@ -5,12 +5,13 @@ import '../date_validator.dart';
 import '../date_validator_mixin.dart';
 import 'date_validator_list_mixin.dart';
 
+/// {@template dateValidatorUnion}
 /// A [DateValidator] that validates a [DateTime] if the date is valid for any
 /// of the [validators].
+/// {@endtemplate}
 class DateValidatorUnion<E extends DateValidator> extends DelegatingList<E>
     with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
-  /// A [DateValidator] that validates a [DateTime] if the date is valid for any
-  /// of the [validators].
+  /// {@macro dateValidatorUnion}
   const DateValidatorUnion(super.base);
 
   @override

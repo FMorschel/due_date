@@ -4,14 +4,14 @@ import '../../date_validators/built_in/date_validator_time_of_day.dart';
 import '../../extensions/add_days.dart';
 import '../every_date_validator_mixin.dart';
 
-/// {@template everyDay}
+/// {@template every_time_of_day}
 /// Class that processes [DateTime] so that [next] always returns the next day
 /// with the same hour, minute, second, millisecond and microsecond as the
 /// [DateTime] that is being processed.
 /// {@endtemplate}
 class EveryDueTimeOfDay extends DateValidatorTimeOfDay
     with EveryDateValidatorMixin {
-  /// {@macro everyDay}
+  /// {@macro every_time_of_day}
   const EveryDueTimeOfDay(super.timeOfDay);
 
   /// Constructor that takes the time of day from [date].

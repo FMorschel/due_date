@@ -7,7 +7,7 @@ import '../every.dart';
 import 'every_wrapper.dart';
 import 'every_wrapper_mixin.dart';
 
-/// {@template everyTimeOfDayWrapper}
+/// {@template every_time_of_day_wrapper}
 /// Class that wraps an [Every] and modifies its behavior so that all
 /// processed [DateTime]s have the same time of day as specified by
 /// [everyTimeOfDay].
@@ -21,7 +21,7 @@ import 'every_wrapper_mixin.dart';
 /// {@endtemplate}
 class EveryTimeOfDayWrapper<T extends Every> extends EveryWrapper<T>
     with EveryWrapperMixin<T>, EquatableMixin {
-  /// {@macro everyTimeOfDayWrapper}
+  /// {@macro every_time_of_day_wrapper}
   const EveryTimeOfDayWrapper({
     required super.every,
     this.everyTimeOfDay = EveryDueTimeOfDay.midnight,

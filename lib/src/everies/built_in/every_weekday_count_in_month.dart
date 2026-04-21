@@ -6,6 +6,7 @@ import '../../enums/weekday.dart';
 import '../every_date_validator_mixin.dart';
 import '../every_month.dart';
 
+/// {@template every_weekday_count_in_month}
 /// Class that processes [DateTime] so that the [addMonths] always returns the
 /// next month's with the [week] occurrence of the [day] ([DateTime.weekday]
 /// is the [day]'s [Weekday.dateTimeValue]).
@@ -18,9 +19,10 @@ import '../every_month.dart';
 /// const lastFriday = EveryDayOfWeek(day: Weekday.friday, week: Week.last);
 /// lastFriday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 28).
 /// ```
+/// {@endtemplate}
 class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
     with EveryMonth, EveryDateValidatorMixin {
-  /// Returns a [EveryWeekdayCountInMonth] with the given [day] and [week].
+  /// {@macro every_weekday_count_in_month}
   const EveryWeekdayCountInMonth({
     required super.week,
     required super.day,

@@ -10,7 +10,7 @@ import 'every_time_of_day_modifier.dart';
 import 'limited_every_modifier.dart';
 import 'limited_every_modifier_mixin.dart';
 
-/// {@template limitedEveryTimeOfDayModifier}
+/// {@template limited_every_time_of_day_modifier}
 /// Class that wraps an [Every] and modifies its behavior so that all
 /// processed [DateTime]s have the same time of day as specified by
 /// [everyTimeOfDay].
@@ -26,7 +26,7 @@ class LimitedEveryTimeOfDayModifier<T extends EveryDateValidator>
     extends LimitedEveryModifier<T>
     with LimitedEveryModifierMixin<T>, EquatableMixin
     implements LimitedEveryTimeOfDayWrapper<T>, EveryTimeOfDayModifier<T> {
-  /// {@macro limitedEveryTimeOfDayModifier}
+  /// {@macro limited_every_time_of_day_modifier}
   const LimitedEveryTimeOfDayModifier({
     required super.every,
     this.everyTimeOfDay = EveryDueTimeOfDay.midnight,

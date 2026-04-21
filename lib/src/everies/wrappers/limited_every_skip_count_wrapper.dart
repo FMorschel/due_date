@@ -7,7 +7,7 @@ import 'every_skip_count_wrapper.dart';
 import 'limited_every_wrapper.dart';
 import 'limited_every_wrapper_mixin.dart';
 
-/// {@template limitedEverySkipCountWrapper}
+/// {@template limited_every_skip_count_wrapper}
 /// Class that wraps an [Every] generator and skips [count] times from the
 /// [Every] base process.
 /// {@endtemplate}
@@ -15,7 +15,7 @@ class LimitedEverySkipCountWrapper<T extends Every>
     extends LimitedEveryWrapper<T>
     with EquatableMixin, LimitedEveryWrapperMixin<T>
     implements EverySkipCountWrapper<T> {
-  /// {@macro limitedEverySkipCountWrapper}
+  /// {@macro limited_every_skip_count_wrapper}
   const LimitedEverySkipCountWrapper({
     required super.every,
     required this.count,

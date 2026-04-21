@@ -1,3 +1,5 @@
+import 'package:essential_lints_annotations/essential_lints_annotations.dart';
+
 import '../../date_validators/group/date_validator_difference.dart';
 import '../../helpers/date_reducer.dart';
 import '../../helpers/limited_or_every_handler.dart';
@@ -6,14 +8,15 @@ import '../every_date_validator.dart';
 import '../limited_every_date_validator_list_mixin.dart';
 import '../limited_every_mixin.dart';
 
+/// {@template every_date_validator_difference}
 /// Class that processes [DateTime] so that the [next] always returns the next
 /// day where only one of the [EveryDateValidator]s conditions is met.
-// ignore: essential_lints/subtype_naming
+/// {@endtemplate}
+@SubtypeUnnaming(prefix: 'Limited', packageOption: PackageOption.private)
 class EveryDateValidatorDifference<E extends EveryDateValidator>
     extends DateValidatorDifference<E>
     with LimitedEveryDateValidatorListMixin<E>, LimitedEveryMixin {
-  /// Class that processes [DateTime] so that the [next] always returns the next
-  /// day where only one of the [EveryDateValidator]s conditions is met.
+  /// {@macro every_date_validator_difference}
   const EveryDateValidatorDifference(super.base);
 
   @override
