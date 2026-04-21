@@ -59,9 +59,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns a <a href="../../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a> with the given <code>dueDay</code>.
-When you call <a href="../../due_date/EveryDueDayMonth/next.html">next</a> or <a href="../../due_date/EveryDueDayMonth/previous.html">previous</a> on this <a href="../../due_date/EveryDueDayMonth-class.html">EveryDueDayMonth</a>, it will
-return the <code>dueDay</code> of the next or previous month.</p>
+  <p>Class that processes <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> always returns the
+next month's with the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> as the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> clamped to fit in the
+length of the next month.</p>
+<p>E.g.</p>
+<ul>
+<li>If the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> is 31 and the next month end at 28, the <a href="../../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> will
+return the next month with the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> as 28.</li>
+<li>If the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> is 31 and the next month end at 31, the <a href="../../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> will
+return the next month with the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> as 31.</li>
+<li>If the <a href="../../due_date/DateValidatorDueDayMonth/dueDay.html">dueDay</a> is 15, the <a href="../../due_date/EveryDueDayMonth/addMonths.html">addMonths</a> will return the next month with the
+<a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> as 15.</li>
+</ul>
 </section>
 
 
@@ -101,7 +110,7 @@ return the <code>dueDay</code> of the next or previous month.</p>
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>

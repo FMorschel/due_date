@@ -98,6 +98,96 @@
           A class to save a specific validation for a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a>.
             <div class="constructor-modifier features">const</div>
         </dd>
+        <dt id="DateValidator.dayInYear" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.dayInYear.html">DateValidator.dayInYear</a></span><span class="signature">(<span class="parameter" id="dayInYear-param-dayInYear"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">dayInYear</span>, {</span><span class="parameter" id="dayInYear-param-exact"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span></span>})</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the
+<code>dayInYear</code> of the year.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.difference" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.difference.html">DateValidator.difference</a></span><span class="signature">(<span class="parameter" id="difference-param-validators"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> <span class="parameter-name">validators</span></span>)</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the date is valid for only
+one of the <code>validators</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.dueDayMonth" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.dueDayMonth.html">DateValidator.dueDayMonth</a></span><span class="signature">(<span class="parameter" id="dueDayMonth-param-dueDay"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">dueDay</span>, {</span><span class="parameter" id="dueDayMonth-param-exact"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span></span>})</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the
+same value as <code>dueDay</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.dueWorkdayMonth" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.dueWorkdayMonth.html">DateValidator.dueWorkdayMonth</a></span><span class="signature">(<span class="parameter" id="dueWorkdayMonth-param-workday"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">workday</span>, {</span><span class="parameter" id="dueWorkdayMonth-param-exact"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span></span>})</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the
+same value as <code>dueWorkday</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.intersection" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.intersection.html">DateValidator.intersection</a></span><span class="signature">(<span class="parameter" id="intersection-param-validators"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> <span class="parameter-name">validators</span></span>)</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the date is valid for all
+of the <code>validators</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.opposite" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.opposite.html">DateValidator.opposite</a></span><span class="signature">(<span class="parameter" id="opposite-param-validator"><span class="type-annotation"><a href="../due_date/DateValidator-class.html">DateValidator</a></span> <span class="parameter-name">validator</span></span>)</span>
+        </dt>
+        <dd>
+          Class that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if its <a href="https://pub.dev/documentation/time/2.1.6/time/DateTimeTimeExtension/timeOfDay.html">DateTimeTimeExtension.timeOfDay</a>
+matches the given <a href="../due_date/DateValidator/DateValidator.timeOfDay.html">timeOfDay</a>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.timeOfDay" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.timeOfDay.html">DateValidator.timeOfDay</a></span><span class="signature">(<span class="parameter" id="timeOfDay-param-timeOfDay"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/Duration-class.html">Duration</a></span> <span class="parameter-name">timeOfDay</span></span>)</span>
+        </dt>
+        <dd>
+          Class that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if its <a href="https://pub.dev/documentation/time/2.1.6/time/DateTimeTimeExtension/timeOfDay.html">DateTimeTimeExtension.timeOfDay</a>
+matches the given <code>timeOfDay</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.union" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.union.html">DateValidator.union</a></span><span class="signature">(<span class="parameter" id="union-param-validators"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../due_date/DateValidator-class.html">DateValidator</a></span>&gt;</span></span> <span class="parameter-name">validators</span></span>)</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the date is valid for any
+of the <code>validators</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.weekday" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.weekday.html">DateValidator.weekday</a></span><span class="signature">(<span class="parameter" id="weekday-param-weekday"><span class="type-annotation"><a href="../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">weekday</span></span>)</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if it is on the given
+<code>weekday</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="DateValidator.weekdayCountInMonth" class="callable">
+          <span class="name"><a href="../due_date/DateValidator/DateValidator.weekdayCountInMonth.html">DateValidator.weekdayCountInMonth</a></span><span class="signature">({<span class="parameter" id="weekdayCountInMonth-param-week"><span>required</span> <span class="type-annotation"><a href="../due_date/Week.html">Week</a></span> <span class="parameter-name">week</span>, </span><span class="parameter" id="weekdayCountInMonth-param-day"><span>required</span> <span class="type-annotation"><a href="../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">day</span></span>})</span>
+        </dt>
+        <dd>
+          A <a href="../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/day.html">DateTime.day</a> is the
+<code>day</code> of the week and is the <code>week</code> of the month.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
     </dl>
   </section>
     
@@ -267,7 +357,7 @@
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>

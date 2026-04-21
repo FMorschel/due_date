@@ -104,7 +104,9 @@ lastFriday.addMonths(DateTime(2020, 1, 1), 1); // DateTime(2020, 2, 28).
           <span class="name"><a href="../due_date/EveryWeekdayCountInMonth/EveryWeekdayCountInMonth.html">EveryWeekdayCountInMonth</a></span><span class="signature">({<span class="parameter" id="-param-week"><span>required</span> <span class="type-annotation"><a href="../due_date/Week.html">Week</a></span> <span class="parameter-name">week</span>, </span><span class="parameter" id="-param-day"><span>required</span> <span class="type-annotation"><a href="../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">day</span></span>})</span>
         </dt>
         <dd>
-          Returns a <a href="../due_date/EveryWeekdayCountInMonth-class.html">EveryWeekdayCountInMonth</a> with the given <code>day</code> and <code>week</code>.
+          Class that processes <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekdayCountInMonth/addMonths.html">addMonths</a> always returns the
+next month's with the <a href="../due_date/DateValidatorWeekdayCountInMonth/week.html">week</a> occurrence of the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a> (<a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/weekday.html">DateTime.weekday</a>
+is the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html">day</a>'s <a href="../due_date/Weekday/dateTimeValue.html">Weekday.dateTimeValue</a>).
             <div class="constructor-modifier features">const</div>
         </dd>
         <dt id="EveryWeekdayCountInMonth.from" class="callable">
@@ -426,7 +428,7 @@ occurrence of the <a href="../due_date/DateValidatorWeekdayCountInMonth/day.html
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>

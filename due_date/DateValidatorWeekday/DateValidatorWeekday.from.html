@@ -59,17 +59,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>A <a href="../../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if it is on the given
-<a href="../../due_date/DateValidatorWeekday/weekday.html">weekday</a>.</p>
+  <p>Returns a <a href="../../due_date/DateValidator-class.html">DateValidator</a> that validates a <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> if it is on the same
+weekday as the given <code>date</code>.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">factory DateValidatorWeekday.from(DateTime date) {
-  return DateValidatorWeekday(Weekday.from(date));
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">factory DateValidatorWeekday.from(DateTime date) =&gt;
+    DateValidatorWeekday(Weekday.from(date));</code></pre>
 </section>
 
 
@@ -97,7 +96,7 @@
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>

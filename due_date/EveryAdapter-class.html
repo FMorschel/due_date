@@ -123,6 +123,82 @@
           Abstract class that, when extended, processes <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> with custom logic.
             <div class="constructor-modifier features">const</div>
         </dd>
+        <dt id="EveryAdapter.limitedOverride" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.limitedOverride.html">EveryAdapter.limitedOverride</a></span><span class="signature">({<span class="parameter" id="limitedOverride-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="limitedOverride-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span>, </span><span class="parameter" id="limitedOverride-param-overrider"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">overrider</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> generator and adds a <a href="../due_date/DateValidator-class.html">DateValidator</a> that will
+be used to invalidate the generated dates and an <code>overrider</code> that will be
+used instead.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="EveryAdapter.limitedSkipCount" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.limitedSkipCount.html">EveryAdapter.limitedSkipCount</a></span><span class="signature">({<span class="parameter" id="limitedSkipCount-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="limitedSkipCount-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span>, </span><span class="parameter" id="limitedSkipCount-param-count"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">count</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> generator and skips <code>count</code> times from the
+<a href="../due_date/Every-class.html">Every</a> base process.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="EveryAdapter.limitedSkipInvalid" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.limitedSkipInvalid.html">EveryAdapter.limitedSkipInvalid</a></span><span class="signature">({<span class="parameter" id="limitedSkipInvalid-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="limitedSkipInvalid-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> generator and adds a <a href="../due_date/DateValidator-class.html">DateValidator</a> that will
+be used to invalidate the generated dates.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="EveryAdapter.limitedTimeOfDay" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.limitedTimeOfDay.html">EveryAdapter.limitedTimeOfDay</a></span><span class="signature">({<span class="parameter" id="limitedTimeOfDay-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="limitedTimeOfDay-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span>, </span><span class="parameter" id="limitedTimeOfDay-param-everyTimeOfDay"><span>required</span> <span class="type-annotation"><a href="../due_date/EveryDueTimeOfDay-class.html">EveryDueTimeOfDay</a></span> <span class="parameter-name">everyTimeOfDay</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> and modifies its behavior so that all
+processed <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a>s have the same time of day as specified by
+<code>everyTimeOfDay</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="EveryAdapter.override" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.override.html">EveryAdapter.override</a></span><span class="signature">({<span class="parameter" id="override-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="override-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span>, </span><span class="parameter" id="override-param-overrider"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">overrider</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> generator and adds a <a href="../due_date/DateValidator-class.html">DateValidator</a> that will
+be used to invalidate the generated dates and an <code>overrider</code> that will be
+used instead.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="EveryAdapter.skipCount" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.skipCount.html">EveryAdapter.skipCount</a></span><span class="signature">({<span class="parameter" id="skipCount-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="skipCount-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span>, </span><span class="parameter" id="skipCount-param-count"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/3.11.5/dart-core/int-class.html">int</a></span> <span class="parameter-name">count</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> generator and skips <code>count</code> times from the
+<a href="../due_date/Every-class.html">Every</a> base process.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="EveryAdapter.skipInvalid" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.skipInvalid.html">EveryAdapter.skipInvalid</a></span><span class="signature">({<span class="parameter" id="skipInvalid-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="skipInvalid-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> generator and adds a <a href="../due_date/DateValidator-class.html">DateValidator</a> that will
+be used to invalidate the generated dates.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="EveryAdapter.timeOfDay" class="callable">
+          <span class="name"><a href="../due_date/EveryAdapter/EveryAdapter.timeOfDay.html">EveryAdapter.timeOfDay</a></span><span class="signature">({<span class="parameter" id="timeOfDay-param-every"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">every</span>, </span><span class="parameter" id="timeOfDay-param-validator"><span>required</span> <span class="type-annotation">V</span> <span class="parameter-name">validator</span>, </span><span class="parameter" id="timeOfDay-param-everyTimeOfDay"><span>required</span> <span class="type-annotation"><a href="../due_date/EveryDueTimeOfDay-class.html">EveryDueTimeOfDay</a></span> <span class="parameter-name">everyTimeOfDay</span></span>})</span>
+        </dt>
+        <dd>
+          Class that wraps an <a href="../due_date/Every-class.html">Every</a> and modifies its behavior so that all
+processed <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a>s have the same time of day as specified by
+<code>everyTimeOfDay</code>.
+            <div class="constructor-modifier features">const</div>
+            <div class="constructor-modifier features">factory</div>
+        </dd>
     </dl>
   </section>
     
@@ -383,7 +459,7 @@ base process.
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>

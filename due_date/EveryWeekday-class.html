@@ -54,8 +54,9 @@
 
     
 <section class="desc markdown">
-  <p>Class that processes <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime-class.html">DateTime</a> so that the <a href="../due_date/EveryWeekday/addWeeks.html">addWeeks</a> always returns the
-next week's with the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateTime/weekday.html">DateTime.weekday</a> equals to the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.</p>
+  <p>Returns a <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a> with the given <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.</p>
+<p>When you call <a href="../due_date/EveryWeekday/next.html">next</a> or <a href="../due_date/EveryWeekday/previous.html">previous</a> on this <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, it will return
+the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a> of the next or previous week.</p>
 </section>
 
 
@@ -103,9 +104,7 @@ next week's with the <a href="https://api.dart.dev/stable/3.11.5/dart-core/DateT
           <span class="name"><a href="../due_date/EveryWeekday/EveryWeekday.html">EveryWeekday</a></span><span class="signature">(<span class="parameter" id="-param-weekday"><span class="type-annotation"><a href="../due_date/Weekday.html">Weekday</a></span> <span class="parameter-name">weekday</span></span>)</span>
         </dt>
         <dd>
-          Returns a <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a> with the given <code>weekday</code>.
-When you call <a href="../due_date/EveryWeekday/next.html">next</a> or <a href="../due_date/EveryWeekday/previous.html">previous</a> on this <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, it will return
-the <code>weekday</code> of the next or previous week.
+          Returns a <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a> with the given <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a>.
             <div class="constructor-modifier features">const</div>
         </dd>
         <dt id="EveryWeekday.from" class="callable">
@@ -114,8 +113,6 @@ the <code>weekday</code> of the next or previous week.
         <dd>
           Returns a <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a> with the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a> being the weekday of
 the given <code>date</code>.
-When you call <a href="../due_date/EveryWeekday/next.html">next</a> or <a href="../due_date/EveryWeekday/previous.html">previous</a> on this <a href="../due_date/EveryWeekday-class.html">EveryWeekday</a>, it will return
-the <a href="../due_date/DateValidatorWeekday/weekday.html">weekday</a> of the next or previous week.
             <div class="constructor-modifier features">factory</div>
         </dd>
     </dl>
@@ -463,7 +460,7 @@ is <code>years</code> years from this week and the <a href="https://api.dart.dev
 <footer>
   <span class="no-break">
     due_date
-      3.1.0
+      3.2.0
   </span>
   
 </footer>
