@@ -117,6 +117,9 @@ dueDate = dueDate.next; // 2022-03-31
 
 See the API docs [here](https://fmorschel.github.io/due_date/).
 
+The package's layers and where new code belongs are documented in
+[ARCHITECTURE.md](ARCHITECTURE.md).
+
 Find more information at <https://github.com/FMorschel/due_date>.
 
 Contribute to the package by creating a PR at <https://github.com/FMorschel/due_date/pulls>.

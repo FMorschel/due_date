@@ -1,9 +1,8 @@
 # Architecture
 
-This document defines the layers of `due_date`, the direction dependencies are
-allowed to flow, and where new code belongs. It is the project's source of
-truth for layer boundaries: where it disagrees with the generic
-`layered-architecture` skill, this document wins.
+This document defines the layers of `due_date` and where new code belongs. It
+is the project's source of truth for layer boundaries: where it disagrees with
+the generic `layered-architecture` skill, this document wins.
 
 `due_date` is a pure-Dart library. It has no UI, no I/O and no persistence, so
 the usual View → Controller → Service → Repository → Data Source stack does not
@@ -16,116 +15,113 @@ layer calls into. There are no ViewModels, and none should be added.
 - Storing, serializing or formatting anything.
 - Localization.
 
-Runtime dependencies are limited to `clock`, `collection`, `equatable`, `meta`
-and `time`. Anything beyond that needs a deliberate decision recorded here.
+## Dependencies
+
+Runtime dependencies are limited to `clock`, `collection`, `equatable`,
+`essential_lints_annotations`, `meta` and `time`. Anything beyond that needs a
+deliberate decision recorded here.
+
+`essential_lints_annotations` carries no runtime behavior — it supplies the
+annotations (`@SubtypeNaming`) that the `essential_lints` analyzer plugin
+configured in `analysis_options.yaml` reads. It is a `dependency` rather than a
+`dev_dependency` because those annotations appear in public API files under
+`lib/src/everies/`.
 
 ## Layers
 
-Dependencies flow **downward only**: a layer may import from the layers below
-it, never from the layers above it.
-
-```mermaid
-flowchart TD
-    API["<b>Public API</b><br/>lib/due_date.dart, period.dart, helpers.dart<br/>Barrels only"]
-    F["<b>Facade</b><br/>src/due_date.dart<br/>DueDateTime"]
-    E["<b>Scheduling</b><br/>src/everies/<br/>Every, Limited*, built_in, group,<br/>adapters, modifiers, wrappers"]
-    V["<b>Validation</b><br/>src/date_validators/"]
-    P["<b>Periods</b><br/>src/periods/, src/period_generators/"]
-    B["<b>Foundation</b><br/>src/enums/, src/extensions/, src/helpers/"]
-
-    API --> F
-    API --> E
-    API --> V
-    API --> P
-    F --> E
-    E --> V
-    E --> B
-    V --> B
-    P --> B
-```
+Layers describe **what code is responsible for and where it lives**, not who
+may import whom. The types here are abstract so they can be composed, and any
+layer may import any other: an enum may hand out its `Every`, a validator may
+be built from `Every*` constants, and a module pair may reference each other.
+Do not restructure code only to change the direction of an import.
 
 | Layer | Path | Does | Must not |
-|---|---|---|---|
-| Public API | `lib/*.dart` | Export the public surface; carry library-level docs | Declare logic |
-| Facade | `src/due_date.dart` | `DueDateTime`: compose an `Every` with a date and expose `next`/`previous`/etc. | Be imported by any lower layer |
-| Scheduling | `src/everies/` | Produce the next/previous date for a rule; limits, adapters, modifiers, wrappers, groups | Know about `DueDateTime` |
+| --- | --- | --- | --- |
+| Public API | `lib/*.dart` | Export the public surface; carry library-level docs | Declare anything of its own |
+| Facade | `src/due_date.dart` | `DueDateTime`: compose an `Every` with a date and expose `next`/`previous`/etc. | Hold scheduling rules of its own; it delegates to `Every` |
+| Scheduling | `src/everies/` | Produce the next/previous date for a rule; limits, adapters, modifiers, wrappers, groups | |
 | Validation | `src/date_validators/` | Answer "is this date valid?" and combine validators (union, intersection, difference, opposite) | Generate dates |
-| Periods | `src/periods/`, `src/period_generators/` | `Period` math and generators | Import Scheduling or Validation |
-| Foundation | `src/enums/`, `src/extensions/`, `src/helpers/` | `Weekday`, `Month`, `Week`, `DateTime` extensions, small utilities | Import the Facade |
+| Periods | `src/periods/`, `src/period_generators/` | `Period` math and generators | |
+| Foundation | `src/enums/`, `src/extensions/`, `src/helpers/` | `Weekday`, `Month`, `Week`, `DateTime` extensions, small utilities | |
 
-`periods/` and `period_generators/` form one module. They reference each other
-by design (`Period` exposes its generator, each generator builds its period).
-The Periods module is independent of Scheduling and Validation, and that
-independence is a rule.
+`periods/` and `period_generators/` form one module (`Period` exposes its
+generator, each generator builds its period). It has no barrel of its own;
+`lib/period.dart` lists its files individually, which is the target for every
+module (see [Barrels](#barrels)).
 
-## Dependency rules
+## Barrels
 
-1. **No upward imports.** A lower layer never imports a higher one.
-2. **The Facade is a root.** Nothing under `src/` other than the barrels
-   imports `src/due_date.dart`.
-3. **Periods stays a sibling.** `periods/` and `period_generators/` never import
-   `everies/` or `date_validators/`.
-4. **Barrels declare, `src/` implements.** Files in `lib/` contain only
-   `import`, `export` and library docs.
-5. **Cycles are not allowed**, except the ones listed under
-   [Known exceptions](#known-exceptions-scheduled-for-removal).
-
-## Known exceptions (scheduled for removal)
-
-These edges break the rules above today. They are existing debt that the
-project is working to remove, not accepted design. The list is a **baseline
-that may only shrink**:
-
-- Do not add a new edge of the same kind as an excuse.
-- When an exception is fixed, delete its row and update the dependency graph.
-- A new violation that is not on this list is a finding, not an exception.
-
-| ID | Edge (from → to) | Files | Why it exists today | Removal direction (proposed) |
-|---|---|---|---|---|
-| E1 | Validation → Scheduling | `date_validators/built_in/date_validator_weekday.dart`, `date_validators/built_in/date_validator_due_workday_month.dart` | Built-in validators construct `EveryWeekday` / `EveryDateValidatorUnion` for their `workdays`/`weekend` constants and `_workdays` | Express those constants without `Every*`, or move them to the layer that owns `Every*` |
-| E2 | Foundation → Scheduling / Validation | `helpers/workday_helper.dart`, `helpers/limited_or_every_handler.dart` | Both helpers are written in terms of `EveryWeekday`, `Every`, `LimitedEvery` and `DateValidator` | Re-home them in Scheduling, since that is what they are |
-| E3 | Foundation → Scheduling | `enums/weekday.dart`, `enums/weekday_occurrence.dart` | `Weekday.every` returns an `EveryWeekday`; `WeekdayOccurrence` wraps `EveryWeekdayCountInMonth` | Move the convenience factories to extensions in Scheduling |
-| E4 | Foundation → Validation | `enums/weekday.dart`, `enums/weekday_occurrence.dart` | `Weekday` and `WeekdayOccurrence` use `DateValidatorWeekday` / `DateValidatorMixin` | Same as E3 |
-| E5 | Foundation → Periods | `enums/week.dart`, `enums/month.dart`, `enums/weekday.dart`, `enums/period_generator.dart` | Enums expose `WeekPeriod` / `MonthPeriod` / generators as conveniences; `PeriodGenerator` is a registry of every generator | `PeriodGenerator` is arguably a Periods-layer type that lives in `enums/`; the rest are convenience factories like E3 |
-| E6 | Foundation → Facade | `extensions/clamp_in_month.dart` imports `src/due_date.dart` | The `dueDateTime` getter on `DateTime` builds a `DueDateTime` | Move the getter next to `DueDateTime`, or into a Facade-level extension |
-| E7 | Scheduling ⇄ Foundation (cycle) | `everies/*` ↔ `helpers/*` (19 edges in, 6 out) | Consequence of E2 | Resolves with E2 |
-| E8 | Scheduling ⇄ Validation (cycle) | `everies/*` ↔ `date_validators/*` (39 edges in, 4 out) | `EveryDateValidator` mixes in `DateValidatorMixin`; consequence of E1 | Resolves with E1 |
-| E9 | Foundation → Periods → Foundation (cycle) | `enums/*` ↔ `periods/*` | Consequence of E5 | Resolves with E5 |
-
-The edge counts were taken at file level from `import`/`export` lines in
-`lib/src` and are indicative, not analyzer-verified.
-
-Most of the exceptions come from a few causes: **convenience factories placed
-on enums** (E3, E4, E5, E9), **helpers that are really Scheduling code**
-(E2, E7), and **built-in validators built from `Every*` constants** (E1, E8).
-The only exception unrelated to those is E6, a single upward edge.
+The `.dart` files directly in `lib/` contain only `import`, `export` and
+library docs, and they are the only barrels: they export each `src/` file
+directly, and nothing under `src/` is a barrel. Code under `src/` never
+imports a barrel — neither a `lib/*.dart` file nor one of the `src/` barrels
+below — and always imports the file that declares what it needs. `src/` still
+has export-only barrels today, scheduled for removal (no new ones may be
+added):
+`everies/everies.dart`, `date_validators/date_validators.dart`,
+`extensions/extensions.dart`, and the nested `built_in.dart` and `group.dart`
+(one each under `everies/` and `date_validators/`), `adapters.dart`,
+`modifiers.dart` and `wrappers.dart`, ten in all. Only the `lib/` barrels use
+them, so removing them means those barrels list the files individually; no
+`src/` import changes. `lib/` also holds non-Dart tooling data —
+`lib/fix_data/`, currently `fix_date_validator.yaml` — which this rule does not
+cover.
 
 ## Extension model
 
 Scheduling is the main extension point.
 
-- `Every` is the base class. Mix in `EveryWeek`, `EveryMonth` or `EveryYear` to
-  say how `next`/`previous` step. Mix-in order matters: the last one wins.
+- `Every` is the base class, with `next` and `previous`. Mix in `EveryWeek`,
+  `EveryMonth` or `EveryYear` to say how those step. Mix-in order matters: the
+  last one wins.
 - `EveryDateValidator` is an `Every` that is also a `DateValidator`.
-- Adapters, modifiers and wrappers decorate or compose an existing `Every`
-  (`everies/adapters/`, `everies/modifiers/`, `everies/wrappers/`).
-- `Limited*` types are a parallel hierarchy that adds a `limit` argument. A new
-  capability usually needs both variants and a test for each.
+- `Limited*` types are a parallel hierarchy whose `next`/`previous` take an
+  extra `{DateTime? limit}` named parameter and throw
+  `DateTimeLimitReachedException` once a generated date passes it;
+  `LimitedEvery` also adds `throwIfLimitReached`. A new capability usually needs
+  both variants and a test for each.
 - `group/` holds union, intersection and difference of validators or everies.
+
+Wrappers, modifiers and adapters (`everies/wrappers/`, `everies/modifiers/`,
+`everies/adapters/`) all decorate an existing `Every`, but they are **not
+siblings**:
+
+```mermaid
+flowchart TD
+    Every["Every"] --> EveryWrapper["EveryWrapper&lt;T extends Every&gt;"]
+    Every --> EDV["EveryDateValidator"]
+    EDV --> EveryAdapter["EveryAdapter&lt;T extends Every, V extends DateValidator&gt;"]
+    EDV --> EveryModifier["EveryModifier&lt;T extends EveryDateValidator&gt;"]
+    EveryWrapper -. implements .-> EveryAdapter
+    EveryWrapper -. implements .-> EveryModifier
+```
+
+`EveryWrapper` is the base interface that the other two implement. The
+normative rule for choosing between them is the "Every, Wrappers, Modifiers,
+and Adapters" section of [README.md](README.md): a **wrapper** changes
+iteration only, a **modifier** changes iteration and validation on an
+`EveryDateValidator`, and an **adapter** bridges an `Every` to a
+`DateValidator`. Prefer the adapter direction for anything that reaches into
+validation — 3.0.0 removed `EveryOverrideWrapper`, `EveryModifierInvalidator`
+and `EverySkipInvalidModifier` in favor of adapter equivalents.
 
 Prefer adding to an existing extension point over adding a new base type.
 
 ## Purity and public API
 
-- Domain types are immutable: `@immutable`, `final` fields, `const`
-  constructors wherever possible.
-- The current time comes from `package:clock`, never from `DateTime.now()`
-  directly, so tests can control it.
+- Domain types are immutable: `final` fields and `const` constructors
+  throughout. `@immutable` is applied at the root of each hierarchy — `Every`,
+  `DateValidator`, `ExactDateValidator`, `Period`, `PeriodGeneratorMixin` and
+  `DueDateTime` — and inherited from there rather than repeated on subtypes.
+- No code under `lib/` calls `DateTime.now()`. `DueDateTime` is the only type
+  that reads a clock at all, and it does so through `package:clock` so tests
+  can control it; everything else takes the dates it works on as parameters.
 - Every public declaration under `src/` is exported from `lib/`
   (`test/_structural/export_api_test.dart` enforces this).
 - `lib/helpers.dart` is exported for exploration only and stays `@Deprecated`.
   Do not move something there to make it public.
-- Every public member has a `///` doc comment (`public_member_api_docs`).
+- Every public member has a `///` doc comment (`public_member_api_docs`, set in
+  `analysis_options.yaml`).
 
 ## Where does new code go?
 
@@ -147,11 +143,6 @@ pass-through methods just to "go through" every layer.
 
 ## Enforcement
 
-Today the boundaries are held by review and by the `architecture-guardian`
-agent reading this document. Nothing in CI checks import direction yet.
-
-The proposed next step, deliberately not part of this document's first
-version, is a `test/_structural/layering_test.dart` next to the existing
-`export_api_test.dart`. It would fail on any import edge that is neither allowed
-by the dependency rules nor listed in the exceptions table above, which makes
-the baseline mechanical instead of honor-based.
+The boundaries are held by review and by the `architecture-guardian` agent
+reading this document. `test/_structural/export_api_test.dart` checks that
+every public declaration under `src/` is exported from `lib/`.

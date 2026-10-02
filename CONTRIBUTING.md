@@ -20,6 +20,8 @@ File issues at <https://github.com/FMorschel/due_date/issues>.
 
 Code contributions are welcome! Please follow these guidelines:
 
+- Read [ARCHITECTURE.md](ARCHITECTURE.md) before moving or adding files. It
+  defines the package's layers and where new code belongs.
 - Fork the repo and create a new branch for your change.
 <!---Ask to run dart format and dart fix--->
 - Run `dart analyze` to check for any static analysis issues.
