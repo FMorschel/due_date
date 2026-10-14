@@ -19,23 +19,23 @@ plugins:
   essential_lints:
     version: ^0.1.14
     diagnostics:
-      - boolean_assignment
-      - closure_incorrect_type
-      - completer_error_no_stack
-      - duplicate_value
-      - equal_statement
-      - first_getter
-      - is_future
-      - last_getter
-      - mutable_tearoff
-      - new_instance_cascade
-      - numeric_constant_style
-      - optional_positional_parameters
-      - prefer_explicitly_named_parameter
-      - same_package_direct_import
-      - standard_comment_style
-      - useless_else
-      - variable_shadowing
+      boolean_assignment: true
+      closure_incorrect_type: true
+      completer_error_no_stack: true
+      duplicate_value: true
+      equal_statement: true
+      first_getter: true
+      is_future: true
+      last_getter: true
+      mutable_tearoff: true
+      new_instance_cascade: true
+      numeric_constant_style: true
+      optional_positional_parameters: true
+      prefer_explicitly_named_parameter: true
+      same_package_direct_import: true
+      standard_comment_style: true
+      useless_else: true
+      variable_shadowing: true
 
 linter:
   rules:
