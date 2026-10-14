@@ -58,6 +58,7 @@ export 'src/extensions/add_days.dart';
 export 'src/extensions/clamp_in_month.dart';
 export 'src/extensions/date_validator_list_ext.dart';
 export 'src/extensions/day_in_year.dart';
+export 'src/extensions/due_date_time_every.dart';
 export 'src/extensions/every_date_validator_list_ext.dart';
 export 'src/extensions/previous_next.dart';
 export 'src/extensions/week_calc.dart';

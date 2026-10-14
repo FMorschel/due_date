@@ -7,9 +7,6 @@ import 'package:time/time.dart';
 import 'everies/built_in/every_due_day_month.dart';
 import 'everies/every.dart';
 import 'everies/every_date_validator.dart';
-import 'everies/every_month.dart';
-import 'everies/every_week.dart';
-import 'everies/every_year.dart';
 import 'everies/limited_every.dart';
 import 'everies/limited_every_date_validator.dart';
 
@@ -236,8 +233,6 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
         ? DueDateTime<T>._utcFromDate(every: every, date: date)
         : DueDateTime<T>._fromDate(every: every, date: date);
   }
-
-  static const _week = Duration(days: DateTime.daysPerWeek);
 
   /// The handler for processing the next dates.
   final T every;
@@ -571,136 +566,6 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
     final date = super.subtract(duration);
     return DueDateTime.fromDate(date, every: sameEvery ? every : null);
   }
-
-  /// Returns a new [DueDateTime] instance with [weeks] weeks added to this.
-  ///
-  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
-  /// will change to the [day] of the generated date.
-  ///
-  /// ```dart
-  /// EveryDueDayMonth(day);
-  /// ```
-  ///
-  /// Be careful when working with dates in local time.
-  DueDateTime addWeeks(int weeks, {bool sameEvery = true}) {
-    if (every is EveryWeek) {
-      final date = (every as EveryWeek).addWeeks(this, weeks);
-      return DueDateTime.fromDate(date, every: sameEvery ? every : null);
-    }
-    return add(_week * weeks, sameEvery: sameEvery);
-  }
-
-  /// Returns a new [DueDateTime] instance with [weeks] weeks subtracted from
-  /// this.
-  ///
-  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
-  /// will change to the [day] of the generated date.
-  ///
-  /// ```dart
-  /// EveryDueDayMonth(day);
-  /// ```
-  ///
-  /// Be careful when working with dates in local time.
-  DueDateTime subtractWeeks(int weeks, {bool sameEvery = true}) => addWeeks(
-        -weeks,
-        sameEvery: sameEvery,
-      );
-
-  /// Returns a new [DueDateTime] instance with [months] months added to this.
-  ///
-  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
-  /// will change to the [day] of the generated date.
-  ///
-  /// ```dart
-  /// EveryDueDayMonth(day);
-  /// ```
-  ///
-  /// Be careful when working with dates in local time.
-  DueDateTime addMonths(
-    int months, {
-    bool sameEvery = true,
-  }) {
-    if (every is EveryMonth) {
-      return DueDateTime.fromDate(
-        (every as EveryMonth).addMonths(this, months),
-        every: sameEvery ? every : null,
-      );
-    }
-    return DueDateTime.fromDate(
-      EveryDueDayMonth(day).addMonths(this, months),
-      every: sameEvery ? every : null,
-    );
-  }
-
-  /// Returns a new [DueDateTime] instance with [months] months subtracted from
-  /// this.
-  ///
-  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
-  /// will change to the [day] of the generated date.
-  ///
-  /// ```dart
-  /// EveryDueDayMonth(day);
-  /// ```
-  ///
-  /// Be careful when working with dates in local time.
-  DueDateTime subtractMonths(
-    int months, {
-    bool sameEvery = true,
-  }) =>
-      addMonths(-months, sameEvery: sameEvery);
-
-  /// Returns a new [DueDateTime] instance with [years] years added to this.
-  ///
-  /// If the current [every] is! [EveryYear], the [every] used to create the
-  /// new [DueDateTime] will be:
-  ///
-  /// ```dart
-  /// EveryDueDayMonth(day);
-  /// ```
-  ///
-  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
-  /// will change to the [day] of the generated date. And if the generated date
-  /// is a leap year, and the [month] is February, the [day] will be set to 29
-  /// only if the current date is 29, else it will stay with the same day only
-  /// changing the year.
-  ///
-  /// ```dart
-  /// EveryDueDayMonth(day);
-  /// ```
-  ///
-  /// Be careful when working with dates in local time.
-  DueDateTime addYears(
-    int years, {
-    bool sameEvery = true,
-  }) {
-    if (every is EveryYear) {
-      return DueDateTime.fromDate(
-        (every as EveryYear).addYears(this, years),
-        every: sameEvery ? every : null,
-      );
-    }
-    return DueDateTime.fromDate(
-      EveryDueDayMonth(day).addYears(this, years),
-      every: sameEvery ? every : null,
-    );
-  }
-
-  /// Returns a new [DueDateTime] instance with [years] years subtracted from
-  /// this.
-  ///
-  /// If [sameEvery] is true, keeps the current one. If is false, the [every]
-  /// will change to the [day] of the generated date.
-  ///
-  /// ```dart
-  /// EveryDueDayMonth(day);
-  /// ```
-  ///
-  /// Be careful when working with dates in local time.
-  DueDateTime subtractYears(
-    int years, {
-    bool sameEvery = true,
-  }) =>
-      addYears(-years, sameEvery: sameEvery);
 
   @override
   String toString() {

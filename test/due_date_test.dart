@@ -8,13 +8,13 @@ import 'package:due_date/src/enums/weekday_occurrence.dart';
 import 'package:due_date/src/everies/adapters/limited_every_skip_invalid_adapter.dart';
 import 'package:due_date/src/everies/built_in/every_day_in_year.dart';
 import 'package:due_date/src/everies/built_in/every_due_day_month.dart';
-import 'package:due_date/src/everies/built_in/every_due_time_of_day.dart';
 import 'package:due_date/src/everies/built_in/every_due_workday_month.dart';
 import 'package:due_date/src/everies/built_in/every_weekday.dart';
 import 'package:due_date/src/everies/built_in/every_weekday_count_in_month.dart';
 import 'package:due_date/src/everies/date_time_limit_reached_exception.dart';
 import 'package:due_date/src/everies/every.dart';
 import 'package:due_date/src/everies/wrappers/every_skip_count_wrapper.dart';
+import 'package:due_date/src/extensions/due_date_time_every.dart';
 import 'package:test/test.dart';
 
 import 'src/date_time_match.dart';
@@ -408,26 +408,6 @@ void main() {
     });
   });
   group('AddWeeks:', () {
-    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
-    test('1 week', () {
-      expect(
-        dueDate.addWeeks(1),
-        isSameDateTime(DateTime(2022, 2, 28)),
-      );
-    });
-    test('2 weeks', () {
-      expect(
-        dueDate.addWeeks(2),
-        isSameDateTime(DateTime(2022, 2, 28)),
-      );
-    });
-    test("2 weeks, don't keep every", () {
-      expect(
-        dueDate.addWeeks(2, sameEvery: false),
-        isSameDateTime(DateTime(2022, 2, 13)),
-      );
-    });
-
     group('With EveryWeek:', () {
       // January 3, 2022 is Monday.
       final dueDateWeek = DueDateTime(
@@ -478,63 +458,24 @@ void main() {
         expect(result.microsecond, equals(456));
       });
     });
-
-    group('With LimitedEvery:', () {
-      test('Add weeks when every is LimitedEvery', () {
-        // January 3, 2022 is Monday.
-        final limitedEvery = LimitedEverySkipInvalidAdapter(
-          every: const EveryWeekday(Weekday.monday),
-          validator: const DateValidatorWeekday(Weekday.sunday),
-        );
-        final dueDateLimited = DueDateTime.fromDate(
-          DateTime(2022, 1, 3),
-          every: limitedEvery,
-        );
-
-        // January 10, 2022 is Monday.
-        expect(
-          dueDateLimited.addWeeks(1),
-          isSameDateTime(DateTime(2022, 1, 10)),
-        );
-      });
-
-      test('Add weeks with LimitedEvery and sameEvery false', () {
-        // January 3, 2022 is Monday.
-        final limitedEvery = LimitedEverySkipInvalidAdapter(
-          every: const EveryWeekday(Weekday.monday),
-          validator: const DateValidatorWeekday(Weekday.sunday),
-        );
-        final dueDateLimited = DueDateTime.fromDate(
-          DateTime(2022, 1, 3),
-          every: limitedEvery,
-        );
-
-        // When sameEvery is false, it should use EveryDueDayMonth instead.
-        final result = dueDateLimited.addWeeks(1, sameEvery: false);
-        expect(result.day, equals(10));
-        expect(result.year, equals(2022));
-        expect(result.month, equals(1));
-      });
-    });
   });
   group('SubtractWeeks:', () {
-    final dueDate = DueDateTime(every: const EveryDueDayMonth(30), year: 2022);
+    // January 17, 2022 is Monday.
+    final dueDate = DueDateTime(
+      every: const EveryWeekday(Weekday.monday),
+      year: 2022,
+      day: 17,
+    );
     test('1 week', () {
       expect(
         dueDate.subtractWeeks(1),
-        isSameDateTime(dueDate),
+        isSameDateTime(DateTime(2022, 1, 10)),
       );
     });
     test('2 weeks', () {
       expect(
         dueDate.subtractWeeks(2),
-        isSameDateTime(dueDate),
-      );
-    });
-    test("2 weeks, don't keep every", () {
-      expect(
-        dueDate.subtractWeeks(2, sameEvery: false),
-        isSameDateTime(DateTime(2022, 1, 16)),
+        isSameDateTime(DateTime(2022, 1, 3)),
       );
     });
   });
@@ -623,80 +564,6 @@ void main() {
           expect(result.microsecond, equals(456));
         });
       });
-
-      group('EveryDayInYear:', () {
-        final dueDateDayInYear = DueDateTime(
-          every: const EveryDayInYear(100), // 100th day of the year.
-          year: 2022,
-        );
-
-        test('Add 1 month', () {
-          // Starting from April 10, 2022 (100th day), should return next
-          // occurrence.
-          expect(
-            dueDateDayInYear.addMonths(1),
-            isSameDateTime(DateTime(2023, 4, 10)), // Next year's 100th day.
-          );
-        });
-
-        test('Add 6 months', () {
-          // Should return next year's 100th day.
-          expect(
-            dueDateDayInYear.addMonths(6),
-            isSameDateTime(DateTime(2023, 4, 10)),
-          );
-        });
-
-        test("Add 6 months, don't keep every", () {
-          final actual = dueDateDayInYear.addMonths(6, sameEvery: false);
-          // When sameEvery is false, it uses EveryDueDayMonth(day) logic
-          // Starting from 2022-04-10, adding 6 months with day=10 gives
-          // 2022-10-10.
-          expect(actual, isSameDateTime(DateTime(2022, 10, 10)));
-          expect(actual.day, equals(10));
-          expect(
-            (actual.every as EveryDueDayMonth).dueDay,
-            equals(10),
-          );
-        });
-      });
-
-      group('With LimitedEvery:', () {
-        test('Add months when every is LimitedEvery', () {
-          final limitedEvery = LimitedEverySkipInvalidAdapter(
-            every: const EveryWeekday(Weekday.monday),
-            validator: const DateValidatorWeekday(Weekday.sunday),
-          );
-          final dueDateLimited = DueDateTime.fromDate(
-            DateTime(2022, 1, 3), // Monday.
-            every: limitedEvery,
-          );
-
-          // Should return February 7, 2022 (first Monday in February).
-          expect(
-            dueDateLimited.addMonths(1),
-            isSameDateTime(DateTime(2022, 2, 7)),
-          );
-        });
-
-        test('Add months with LimitedEvery and sameEvery false', () {
-          final limitedEvery = LimitedEverySkipInvalidAdapter(
-            every: const EveryWeekday(Weekday.monday),
-            validator: const DateValidatorWeekday(Weekday.sunday),
-          );
-          final dueDateLimited = DueDateTime.fromDate(
-            DateTime(2022, 1, 3), // Monday.
-            every: limitedEvery,
-          );
-
-          final result = dueDateLimited.addMonths(1, sameEvery: false);
-          // When sameEvery is false, it uses EveryDueDayMonth(day) logic
-          // Starting from 2022-01-03, adding 1 month with day=3 gives
-          // 2022-02-03.
-          expect(result, isSameDateTime(DateTime(2022, 2, 3)));
-          expect((result.every as EveryDueDayMonth).dueDay, equals(3));
-        });
-      });
     });
   });
   group('SubtractMonths', () {
@@ -768,68 +635,6 @@ void main() {
     });
 
     group('With non-year Every types:', () {
-      group('EveryDueTimeOfDay:', () {
-        final dueDateTimeOfDay = DueDateTime(
-          every: EveryDueTimeOfDay(const Duration(hours: 14, minutes: 30)),
-          year: 2022,
-          month: 6,
-          day: 15,
-          hour: 14,
-          minute: 30,
-        );
-
-        test('Add 1 year', () {
-          // Should return same time next year.
-          expect(
-            dueDateTimeOfDay.addYears(1),
-            isSameDateTime(DateTime(2023, 6, 15, 14, 30)),
-          );
-        });
-
-        test('Add 2 years', () {
-          // Should return same time in 2 years.
-          expect(
-            dueDateTimeOfDay.addYears(2),
-            isSameDateTime(DateTime(2024, 6, 15, 14, 30)),
-          );
-        });
-
-        test("Add 1 year, don't keep every", () {
-          final actual = dueDateTimeOfDay.addYears(1, sameEvery: false);
-          // When sameEvery is false, it uses EveryDueDayMonth(day) logic.
-          expect(actual, isSameDateTime(DateTime(2023, 6, 15, 14, 30)));
-          expect(actual.day, equals(15));
-          expect(
-            (actual.every as EveryDueDayMonth).dueDay,
-            equals(15),
-          );
-        });
-
-        test('Preserves time components with every', () {
-          final dueDateWithTime = DueDateTime(
-            every: EveryDueTimeOfDay(const Duration(hours: 9, minutes: 45)),
-            year: 2022,
-            month: 3,
-            day: 20,
-            hour: 8,
-            minute: 45,
-            second: 30,
-            millisecond: 250,
-            microsecond: 500,
-          );
-
-          final result = dueDateWithTime.addYears(1);
-          expect(result.year, equals(2023));
-          expect(result.month, equals(3));
-          expect(result.day, equals(20));
-          expect(result.hour, equals(9));
-          expect(result.minute, equals(45));
-          expect(result.second, equals(0));
-          expect(result.millisecond, equals(0));
-          expect(result.microsecond, equals(0));
-        });
-      });
-
       group('EveryDueDayMonth:', () {
         final dueDateDayMonth = DueDateTime(
           every: const EveryDueDayMonth(15),
