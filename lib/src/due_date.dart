@@ -8,7 +8,7 @@ import 'everies/built_in/every_due_day_month.dart';
 import 'everies/every.dart';
 import 'everies/every_date_validator.dart';
 import 'everies/limited_every.dart';
-import 'everies/limited_every_date_validator.dart';
+import 'helpers/limited_or_every_handler.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
 @immutable
@@ -170,22 +170,25 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
       );
 
   /// Constructs a [DueDateTime] instance with current date and time in the
-  /// local time zone. The [DueDateTime.every] property will be:
+  /// local time zone.
+  ///
+  /// If [every] is not provided, the [DueDateTime.every] property will be:
   ///
   /// ```dart
-  /// EveryDueDayMonth(day);
+  /// EveryDueDayMonth(now.day);
   /// ```
   ///
   /// The [limit] will be passed to the [Every] instance if it is a
   /// [LimitedEvery].
   factory DueDateTime.now({
+    T? every,
     /// The limit for the operations.
     DateTime? limit,
   }) {
     final now = clock.now();
     return DueDateTime.fromDate(
       now,
-      every: EveryDueDayMonth(now.day) as T,
+      every: every ?? EveryDueDayMonth(now.day) as T,
       limit: limit,
     );
   }
@@ -216,9 +219,7 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
     }
     return DueDateTime<T>._toConstructor(
       date: every is EveryDateValidator
-          ? (every is LimitedEveryDateValidator
-              ? every.startDate(reference, limit: limit)
-              : every.startDate(reference))
+          ? LimitedOrEveryHandler.startDate(every, reference, limit: limit)
           : reference,
       every: every,
     );
@@ -596,9 +597,7 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
     DateTime? limit,
   }) =>
       DueDateTime.fromDate(
-        every is LimitedEvery
-            ? (every as LimitedEvery).next(this, limit: limit)
-            : every.next(this),
+        LimitedOrEveryHandler.next(every, date, limit: limit),
         every: every,
       );
 
@@ -613,9 +612,7 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
     DateTime? limit,
   }) =>
       DueDateTime.fromDate(
-        every is LimitedEvery
-            ? (every as LimitedEvery).previous(this, limit: limit)
-            : every.previous(this),
+        LimitedOrEveryHandler.previous(every, date, limit: limit),
         every: every,
       );
 
