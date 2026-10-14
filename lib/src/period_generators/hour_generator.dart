@@ -5,7 +5,7 @@ import '../periods/hour_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of an hour.
-class HourGenerator with PeriodGeneratorMixin<HourPeriod>, EquatableMixin {
+class HourGenerator with PeriodGeneratorMixin<HourPeriod>, Equatable {
   /// A class that implements a generator of a period type of an hour.
   const HourGenerator();
 
@@ -28,7 +28,7 @@ class HourGenerator with PeriodGeneratorMixin<HourPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) || (other is HourGenerator) && props == other.props;
   }

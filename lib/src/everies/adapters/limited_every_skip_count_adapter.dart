@@ -16,7 +16,7 @@ import 'limited_every_adapter_mixin.dart';
 /// {@endtemplate}
 class LimitedEverySkipCountAdapter<T extends Every, V extends DateValidator>
     extends LimitedEveryAdapter<T, V>
-    with EquatableMixin, LimitedEveryAdapterMixin<T, V>
+    with Equatable, LimitedEveryAdapterMixin<T, V>
     implements LimitedEverySkipCountWrapper<T>, EverySkipCountAdapter<T, V> {
   /// {@macro limited_every_skip_count_adapter}
   const LimitedEverySkipCountAdapter({
@@ -107,7 +107,7 @@ class LimitedEverySkipCountAdapter<T extends Every, V extends DateValidator>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is LimitedEverySkipCountAdapter) &&

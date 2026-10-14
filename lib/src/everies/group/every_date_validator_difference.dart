@@ -51,7 +51,7 @@ class EveryDateValidatorDifference<E extends EveryDateValidator>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is EveryDateValidatorDifference) &&

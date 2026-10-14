@@ -5,8 +5,7 @@ import '../periods/trimester_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a trimester.
-class TrimesterGenerator
-    with PeriodGeneratorMixin<TrimesterPeriod>, EquatableMixin {
+class TrimesterGenerator with PeriodGeneratorMixin<TrimesterPeriod>, Equatable {
   /// A class that implements a generator of a period type of a trimester.
   const TrimesterGenerator();
 
@@ -40,7 +39,7 @@ class TrimesterGenerator
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         (other is TrimesterGenerator) && props == other.props;

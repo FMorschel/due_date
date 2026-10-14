@@ -10,7 +10,7 @@ import '../date_validator_mixin.dart';
 /// The [timeOfDay] must be between 0 and 24 hours (exclusive).
 /// {@endtemplate}
 class DateValidatorTimeOfDay
-    with EquatableMixin, DateValidatorMixin
+    with Equatable, DateValidatorMixin
     implements Comparable<DateValidatorTimeOfDay> {
   /// {@macro dateValidatorDay}
   const DateValidatorTimeOfDay(this.timeOfDay);
@@ -31,7 +31,7 @@ class DateValidatorTimeOfDay
   List<Object?> get props => [timeOfDay];
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is DateValidatorTimeOfDay) && (timeOfDay == other.timeOfDay));

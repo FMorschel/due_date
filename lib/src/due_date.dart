@@ -15,7 +15,7 @@ import 'everies/limited_every_date_validator.dart';
 
 /// Wrapper for [Every] and [DateTime] to represent a due date.
 @immutable
-class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
+class DueDateTime<T extends Every> extends DateTime with Equatable {
   /// Constructs a [DueDateTime] instance.
   ///
   /// For example, to create a `DueDateTime` object representing the 7th of
@@ -709,7 +709,7 @@ class DueDateTime<T extends Every> extends DateTime with EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return super == other ||
         ((other is DueDateTime) &&

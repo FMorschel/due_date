@@ -122,7 +122,7 @@ class EveryWeekdayCountInMonth extends DateValidatorWeekdayCountInMonth
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is EveryWeekdayCountInMonth) &&

@@ -7,7 +7,7 @@ import '../period_generators/period_generator_mixin.dart';
 
 /// A period of time between two [DateTime]s.
 @immutable
-class Period with EquatableMixin implements Comparable<Period> {
+class Period with Equatable implements Comparable<Period> {
   /// Creates a period of time between two [DateTime]s.
   Period({
     required this.start,
@@ -641,7 +641,7 @@ class Period with EquatableMixin implements Comparable<Period> {
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is Period) && (other.start == start) && (other.end == end));

@@ -6,7 +6,7 @@ import '../periods/week_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a week.
-class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
+class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, Equatable {
   /// A class that implements a generator of a period type of a week.
   const WeekGenerator({this.weekStart = DateTime.monday});
 
@@ -24,7 +24,7 @@ class WeekGenerator with PeriodGeneratorMixin<WeekPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is WeekGenerator) && (other.weekStart == weekStart));

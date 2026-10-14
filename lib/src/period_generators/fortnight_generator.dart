@@ -5,8 +5,7 @@ import '../periods/fortnight_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a fortnight.
-class FortnightGenerator
-    with PeriodGeneratorMixin<FortnightPeriod>, EquatableMixin {
+class FortnightGenerator with PeriodGeneratorMixin<FortnightPeriod>, Equatable {
   /// A class that implements a generator of a period type of a fortnight.
   const FortnightGenerator();
 
@@ -26,7 +25,7 @@ class FortnightGenerator
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         (other is FortnightGenerator) && props == other.props;

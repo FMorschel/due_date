@@ -10,7 +10,7 @@ import 'date_validator_list_mixin.dart';
 /// one of the [validators].
 /// {@endtemplate}
 class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
-    with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
+    with Equatable, DateValidatorMixin, DateValidatorListMixin {
   /// {@macro dateValidatorDifference}
   const DateValidatorDifference(super.base);
 
@@ -37,7 +37,7 @@ class DateValidatorDifference<E extends DateValidator> extends DelegatingList<E>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is DateValidatorDifference) &&

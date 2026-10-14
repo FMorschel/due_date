@@ -11,7 +11,7 @@ import 'date_validator_list_mixin.dart';
 /// {@endtemplate}
 class DateValidatorIntersection<E extends DateValidator>
     extends DelegatingList<E>
-    with EquatableMixin, DateValidatorMixin, DateValidatorListMixin {
+    with Equatable, DateValidatorMixin, DateValidatorListMixin {
   /// {@macro dateValidatorIntersection}
   const DateValidatorIntersection(super.base);
 
@@ -21,7 +21,7 @@ class DateValidatorIntersection<E extends DateValidator>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is DateValidatorIntersection) &&

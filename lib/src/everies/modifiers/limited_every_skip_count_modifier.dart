@@ -15,7 +15,7 @@ import 'limited_every_modifier_mixin.dart';
 /// {@endtemplate}
 class LimitedEverySkipCountModifier<T extends EveryDateValidator>
     extends LimitedEveryModifier<T>
-    with EquatableMixin, LimitedEveryModifierMixin<T>
+    with Equatable, LimitedEveryModifierMixin<T>
     implements LimitedEverySkipCountWrapper<T>, EverySkipCountModifier<T> {
   /// {@macro limited_every_skip_count_modifier}
   const LimitedEverySkipCountModifier({
@@ -100,7 +100,7 @@ class LimitedEverySkipCountModifier<T extends EveryDateValidator>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is LimitedEverySkipCountModifier<T>) &&

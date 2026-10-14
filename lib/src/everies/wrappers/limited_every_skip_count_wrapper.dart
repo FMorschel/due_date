@@ -13,7 +13,7 @@ import 'limited_every_wrapper_mixin.dart';
 /// {@endtemplate}
 class LimitedEverySkipCountWrapper<T extends Every>
     extends LimitedEveryWrapper<T>
-    with EquatableMixin, LimitedEveryWrapperMixin<T>
+    with Equatable, LimitedEveryWrapperMixin<T>
     implements EverySkipCountWrapper<T> {
   /// {@macro limited_every_skip_count_wrapper}
   const LimitedEverySkipCountWrapper({
@@ -88,7 +88,7 @@ class LimitedEverySkipCountWrapper<T extends Every>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is LimitedEverySkipCountWrapper<T>) &&

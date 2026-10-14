@@ -20,7 +20,7 @@ import 'every_wrapper_mixin.dart';
 /// midnight, the final output will be `2024-01-05 00:00`.
 /// {@endtemplate}
 class EveryTimeOfDayWrapper<T extends Every> extends EveryWrapper<T>
-    with EveryWrapperMixin<T>, EquatableMixin {
+    with EveryWrapperMixin<T>, Equatable {
   /// {@macro every_time_of_day_wrapper}
   const EveryTimeOfDayWrapper({
     required super.every,
@@ -37,7 +37,7 @@ class EveryTimeOfDayWrapper<T extends Every> extends EveryWrapper<T>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is EveryTimeOfDayWrapper<T>) &&

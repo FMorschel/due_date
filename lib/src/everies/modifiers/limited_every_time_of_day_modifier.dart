@@ -24,7 +24,7 @@ import 'limited_every_modifier_mixin.dart';
 /// {@endtemplate}
 class LimitedEveryTimeOfDayModifier<T extends EveryDateValidator>
     extends LimitedEveryModifier<T>
-    with LimitedEveryModifierMixin<T>, EquatableMixin
+    with LimitedEveryModifierMixin<T>, Equatable
     implements LimitedEveryTimeOfDayWrapper<T>, EveryTimeOfDayModifier<T> {
   /// {@macro limited_every_time_of_day_modifier}
   const LimitedEveryTimeOfDayModifier({
@@ -57,7 +57,7 @@ class LimitedEveryTimeOfDayModifier<T extends EveryDateValidator>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is LimitedEveryTimeOfDayModifier<T>) &&

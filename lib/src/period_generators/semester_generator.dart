@@ -5,8 +5,7 @@ import '../periods/semester_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a semester.
-class SemesterGenerator
-    with PeriodGeneratorMixin<SemesterPeriod>, EquatableMixin {
+class SemesterGenerator with PeriodGeneratorMixin<SemesterPeriod>, Equatable {
   /// A class that implements a generator of a period type of a semester.
   const SemesterGenerator();
 
@@ -26,7 +25,7 @@ class SemesterGenerator
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         (other is SemesterGenerator) && props == other.props;

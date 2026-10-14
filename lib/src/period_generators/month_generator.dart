@@ -5,7 +5,7 @@ import '../periods/month_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a month.
-class MonthGenerator with PeriodGeneratorMixin<MonthPeriod>, EquatableMixin {
+class MonthGenerator with PeriodGeneratorMixin<MonthPeriod>, Equatable {
   /// A class that implements a generator of a period type of a month.
   const MonthGenerator();
 
@@ -18,7 +18,7 @@ class MonthGenerator with PeriodGeneratorMixin<MonthPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         (other is MonthGenerator) && props == other.props;

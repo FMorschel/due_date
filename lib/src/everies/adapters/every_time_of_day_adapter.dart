@@ -25,7 +25,7 @@ import 'every_adapter_mixin.dart';
 /// {@endtemplate}
 class EveryTimeOfDayAdapter<T extends Every, V extends DateValidator>
     extends EveryAdapter<T, V>
-    with DateValidatorMixin, EveryAdapterMixin<T, V>, EquatableMixin
+    with DateValidatorMixin, EveryAdapterMixin<T, V>, Equatable
     implements EveryTimeOfDayWrapper<T> {
   /// {@macro every_time_of_day_adapter}
   const EveryTimeOfDayAdapter({
@@ -59,7 +59,7 @@ class EveryTimeOfDayAdapter<T extends Every, V extends DateValidator>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is EveryTimeOfDayAdapter<T, V>) &&

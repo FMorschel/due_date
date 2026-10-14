@@ -22,7 +22,7 @@ import 'limited_every_wrapper_mixin.dart';
 /// {@endtemplate}
 class LimitedEveryTimeOfDayWrapper<T extends Every>
     extends LimitedEveryWrapper<T>
-    with LimitedEveryWrapperMixin<T>, EquatableMixin
+    with LimitedEveryWrapperMixin<T>, Equatable
     implements EveryTimeOfDayWrapper<T> {
   /// {@macro limited_every_time_of_day_wrapper}
   const LimitedEveryTimeOfDayWrapper({
@@ -46,7 +46,7 @@ class LimitedEveryTimeOfDayWrapper<T extends Every>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is LimitedEveryTimeOfDayWrapper<T>) &&

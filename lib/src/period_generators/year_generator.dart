@@ -5,7 +5,7 @@ import '../periods/year_period.dart';
 import 'period_generator_mixin.dart';
 
 /// A class that implements a generator of a period type of a year.
-class YearGenerator with PeriodGeneratorMixin<YearPeriod>, EquatableMixin {
+class YearGenerator with PeriodGeneratorMixin<YearPeriod>, Equatable {
   /// A class that implements a generator of a period type of a year.
   const YearGenerator();
 
@@ -18,7 +18,7 @@ class YearGenerator with PeriodGeneratorMixin<YearPeriod>, EquatableMixin {
   }
 
   @override
-  // ignore: hash_and_equals, overridden in EquatableMixin
+  // ignore: hash_and_equals, overridden in Equatable
   bool operator ==(Object other) {
     return (super == other) || (other is YearGenerator) && props == other.props;
   }

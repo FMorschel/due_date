@@ -10,7 +10,7 @@ import 'every_wrapper_mixin.dart';
 /// [Every] base process.
 /// {@endtemplate}
 class EverySkipCountWrapper<T extends Every> extends EveryWrapper<T>
-    with EquatableMixin, EveryWrapperMixin<T> {
+    with Equatable, EveryWrapperMixin<T> {
   /// {@macro every_skip_count_wrapper}
   const EverySkipCountWrapper({
     required super.every,
@@ -79,7 +79,7 @@ class EverySkipCountWrapper<T extends Every> extends EveryWrapper<T>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is EverySkipCountWrapper<T>) &&

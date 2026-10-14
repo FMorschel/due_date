@@ -11,7 +11,7 @@ import '../group/date_validator_union.dart';
 /// [weekday].
 /// {@endtemplate}
 class DateValidatorWeekday
-    with EquatableMixin, DateValidatorMixin
+    with Equatable, DateValidatorMixin
     implements Comparable<DateValidatorWeekday> {
   /// {@macro dateValidatorWeekday}
   const DateValidatorWeekday(this.weekday);
@@ -40,7 +40,7 @@ class DateValidatorWeekday
   final Weekday weekday;
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is DateValidatorWeekday) && (weekday == other.weekday));

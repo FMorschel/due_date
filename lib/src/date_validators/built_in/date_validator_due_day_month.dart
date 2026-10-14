@@ -16,7 +16,7 @@ import '../exact_date_validator.dart';
 /// month.
 /// {@endtemplate}
 class DateValidatorDueDayMonth extends ExactDateValidator
-    with EquatableMixin, DateValidatorMixin
+    with Equatable, DateValidatorMixin
     implements Comparable<DateValidatorDueDayMonth> {
   /// {@macro dateValidatorDueDayMonth}
   const DateValidatorDueDayMonth(
@@ -40,7 +40,7 @@ class DateValidatorDueDayMonth extends ExactDateValidator
   final int dueDay;
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is DateValidatorDueDayMonth) &&

@@ -20,7 +20,7 @@ import 'every_adapter_mixin.dart';
 class EveryOverrideAdapter<T extends Every, V extends DateValidator>
     extends EveryAdapterInvalidator<T, V>
     with
-        EquatableMixin,
+        Equatable,
         EveryAdapterMixin<T, V>,
         DateValidatorMixin,
         EveryAdapterInvalidatorMixin<T, V> {
@@ -56,7 +56,7 @@ class EveryOverrideAdapter<T extends Every, V extends DateValidator>
   }
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is EveryOverrideAdapter) &&

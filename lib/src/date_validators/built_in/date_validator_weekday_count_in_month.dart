@@ -11,7 +11,7 @@ import '../date_validator_mixin.dart';
 /// [day] of the week and is the [week] of the month.
 /// {@endtemplate}
 class DateValidatorWeekdayCountInMonth
-    with EquatableMixin, DateValidatorMixin
+    with Equatable, DateValidatorMixin
     implements Comparable<DateValidatorWeekdayCountInMonth> {
   /// {@macro dateValidatorWeekdayCountInMonth}
   const DateValidatorWeekdayCountInMonth({
@@ -41,7 +41,7 @@ class DateValidatorWeekdayCountInMonth
   List<Object> get props => [day, week];
 
   @override
-  // ignore: hash_and_equals, already implemented by EquatableMixin
+  // ignore: hash_and_equals, already implemented by Equatable
   bool operator ==(Object other) {
     return (super == other) ||
         ((other is DateValidatorWeekdayCountInMonth) &&

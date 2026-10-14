@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class MonthInYear with EquatableMixin {
+class MonthInYear with Equatable {
   const MonthInYear(
     this.year,
     this.month,
