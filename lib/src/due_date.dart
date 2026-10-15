@@ -182,6 +182,7 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
   /// [LimitedEvery].
   factory DueDateTime.now({
     T? every,
+
     /// The limit for the operations.
     DateTime? limit,
   }) {
@@ -219,7 +220,11 @@ class DueDateTime<T extends Every> extends DateTime with Equatable {
     }
     return DueDateTime<T>._toConstructor(
       date: every is EveryDateValidator
-          ? LimitedOrEveryHandler.startDate(every, reference, limit: limit)
+          ? LimitedOrEveryHandler.startDate<EveryDateValidator>(
+              every as EveryDateValidator,
+              reference,
+              limit: limit,
+            )
           : reference,
       every: every,
     );
