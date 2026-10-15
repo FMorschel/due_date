@@ -1,0 +1,12 @@
+version: 1
+transforms:
+  - title: "Use 'Period.generateDates' instead."
+    date: 2026-10-15
+    bulkApply: true
+    element:
+      uris: ['package:due_date/due_date.dart', 'package:due_date/period.dart']
+      method: 'getDateTimeValues'
+      inClass: 'Period'
+    changes:
+      - kind: 'rename'
+        newName: 'generateDates'

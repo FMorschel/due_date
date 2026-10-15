@@ -591,16 +591,19 @@ class Period with Equatable implements Comparable<Period> {
   /// backwards.
   Period operator <<(Duration duration) => shift(-duration);
 
-  /// Returns a list of [DateTime] values that are contained in this [Period].
-  /// The [next] function is used to calculate the [DateTime] values for the
-  /// returned list.
-  /// The [next] function is called with the last [DateTime] value, or [start].
-  /// The [next] function must return a [DateTime] value that is contained in
-  /// this [Period].
-  /// The [next] function must return a [DateTime] value that is not after the
-  /// [end] value of this [Period].
-  /// When the [next] function returns `null`, the iteration stops.
-  List<DateTime> getDateTimeValues(DateTime? Function(DateTime last) next) {
+  /// {@template generateDates}
+  /// Returns the [DateTime] values produced by repeatedly calling [next]
+  /// within this [Period].
+  ///
+  /// [next] is first called with [start] and then with each value it returned
+  /// previously. Iteration stops when [next] returns `null` or when the last
+  /// value is no longer before [end]. [start] itself is not included in the
+  /// result unless [next] returns it.
+  ///
+  /// Throws an [ArgumentError] if [next] returns a value outside this [Period]
+  /// (see [contains]).
+  /// {@endtemplate}
+  List<DateTime> generateDates(DateTime? Function(DateTime last) next) {
     final dates = <DateTime>[];
     var last = start;
     while (endsAfter(last)) {
@@ -619,6 +622,11 @@ class Period with Equatable implements Comparable<Period> {
     }
     return dates;
   }
+
+  /// {@macro generateDates}
+  @Deprecated("Use 'generateDates' instead. It behaves identically.")
+  List<DateTime> getDateTimeValues(DateTime? Function(DateTime last) next) =>
+      generateDates(next);
 
   /// Returns a new [Period] with the given [start] and [end] values.
   /// If [start] or [end] are not provided, the corresponding value of this
